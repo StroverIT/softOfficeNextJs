@@ -9,7 +9,6 @@ import BtnOutlined from "../../buttons/Outlined";
 import DeliveryInputs from "./DeliveryInputs";
 
 function Aside({ subtotal, total }) {
-  console.log(subtotal, total);
   const deliveryInfo = {
     subtotal: roundNum(subtotal),
     total: roundNum(total),
