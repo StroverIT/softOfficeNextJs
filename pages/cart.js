@@ -22,7 +22,7 @@ export default function Cart() {
 
           <div className={`xl:grid grid-cols-[70%30%] xl:space-x-4`}>
             <Table />
-            <Aside />
+            <Aside total={250} subtotal={200} />
           </div>
         </div>
       </main>
