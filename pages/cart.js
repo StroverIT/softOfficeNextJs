@@ -2,8 +2,8 @@
 import Head from "next/head";
 // Icons
 // Components
-import Table from "../components/cart/Table";
-import Aside from "../components/cart/Aside";
+import Table from "../components/cart/Table/Table";
+import Aside from "../components/cart/Aside/Aside";
 
 // import styles from '../styles/Home.module.css'
 export default function Cart() {
