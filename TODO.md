@@ -149,3 +149,22 @@ When is grid-cols-[40%_60%] submenu cannot obtain the full width of the carousel
 PRODUCT PAGE ----
 
 aside which have all filters. MD is menu, but below MD make is BUTTON which on click to show fixed menu(Overflow hidden on body ) CREATE ANiMATION ON THE MENU below MD
+
+Product schema
+
+Section - Хартия
+-Articles
+
+      КатНомер: 1103104
+      Формат: А4
+      Опаковка: Пастел 50л.
+      Грамаж: 80 g/m2
+      Цена: 1.99
+      Цветове: [Розово]
+
+    КатНомер: 1103104
+    Формат: А4
+    Опаковка: Наситен
+    Грамаж: 80 g/m2
+    Цена: 2,99
+    Цветове: [[Златен, снимка], Розов, Оранжев, Син, Червен]
