@@ -1,6 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
-const articlesScheme = new Schema({
+const itemScheme = new Schema({
   katNomer: {
     type: String,
     required: true,
@@ -10,6 +10,21 @@ const articlesScheme = new Schema({
   },
   types: [{ type: String }],
   colors: [[{ type: String }]],
+  imageUrl: {
+    type: String,
+  },
+});
+const articlesScheme = new Schema({
+  articleName: {
+    type: String,
+  },
+  description: {
+    type: [{ type: String }],
+  },
+  imageUrl: {
+    type: String,
+  },
+  items: [{ itemScheme }],
 });
 
 const productScheme = new Schema({
