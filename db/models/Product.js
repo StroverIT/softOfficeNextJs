@@ -14,10 +14,13 @@ const articlesScheme = new Schema({
 
 const productScheme = new Schema({
   section: {
-    type: Schema.Types.ObjectId,
-    imageUrl: String,
-    articles: [articlesScheme],
+    type: String,
   },
+  imageUrl: {
+    type: String,
+  },
+
+  articles: [{ articlesScheme }],
 });
 
 const Product = models.Product || model("Product", productScheme);
