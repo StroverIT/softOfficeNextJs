@@ -153,19 +153,22 @@ aside which have all filters. MD is menu, but below MD make is BUTTON which on c
 Product schema
 
 Section - Хартия
+imageUrl - LINK or img path
 -Articles
 
-    name:
-    nameMongo
-      КатНомер: 1103104
-      Типове: [Формат: А4, Опаковка: Пастел 50л.,  Грамаж: 80 g/m2 ]
-      Цена: 1.99
-      Цветове: [Розово]
+    name: BLC
+    КатНомер: 1103104
+    Типове: [Формат: А4, Опаковка: Пастел 50л.,  Грамаж: 80 g/m2 ]
+    Цена: 1.99
+    Цветове: [Розово]
+    imageUrl: "sections/peturSnimka"
 
+    name: "Петър"
     КатНомер: 1103104
     Типове: [Формат: А4,Опаковка: Наситен, Грамаж: 80 g/m2 ]
-    Цена: 2,99
+    Цена: 2.99
     Цветове: [[Златен, снимка], Розов, Оранжев, Син, Червен]
+    imageUrl: "sections/peturSnimka"
 
 -[ ] How to search by:
 [ ] КатНомер
