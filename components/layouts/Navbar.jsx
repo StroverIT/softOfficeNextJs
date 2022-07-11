@@ -64,7 +64,7 @@ const Navbar = () => {
           <div className="flex items-center justify-center logo">
             <Hamburger headRef={headerRef} />
             <Link href="/">
-              <div className="items-center justify-between hidden lg:flex font-bold text-primary-lighter text-3xl">
+              <div className="items-center justify-between hidden lg:flex font-bold text-primary-lighter text-3xl lg:ml-1">
                 <span className="">Soft</span>
                 <span>Office.bg</span>
               </div>

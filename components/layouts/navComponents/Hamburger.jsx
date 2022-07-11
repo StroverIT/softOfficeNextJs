@@ -35,7 +35,7 @@ const Hamburger = ({ headRef }) => {
   return (
     <>
       <div
-        className={`px-2 cursor-pointer mt-1 lg:mt-0 ${styles.hamburger} ${
+        className={`px-2 cursor-pointer mt-1 lg:mt-1 ${styles.hamburger} ${
           router.route == "/" ? "lg:hidden" : ""
         }`}
         onClick={() => menuState(!isOpen)}
