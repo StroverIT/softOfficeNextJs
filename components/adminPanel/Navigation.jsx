@@ -13,8 +13,7 @@ export default function Navigation() {
 
     setIsCategory(hash);
   }, [router]);
-  const changeCategory = (category, e) => {
-    console.log(e);
+  const changeCategory = (category) => {
     // Trigger fragment change to fetch the new data
     router.push(`/adminPanel/#${category}`, undefined, { shallow: true });
   };
@@ -32,7 +31,7 @@ export default function Navigation() {
               ${item.route == isCategory && "text-green"}
               `}
               key={item.text}
-              onClick={(e) => changeCategory(item.route, e)}
+              onClick={() => changeCategory(item.route)}
             >
               {item.text}
             </li>
