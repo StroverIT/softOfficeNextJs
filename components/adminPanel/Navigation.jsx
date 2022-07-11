@@ -1,38 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+import navDictionary from "./navDictionary";
 export default function Navigation({ changeCategoryFn }) {
   const router = useRouter();
 
-  const changeCategory = (category) => {
+  const changeCategory = (category, e) => {
+    console.log(e);
     // Trigger fragment change to fetch the new data
     router.push(`/adminPanel/#${category}`, undefined, { shallow: true });
   };
-
   return (
-    <ul className="flex gap-2">
-      <li className="cursor-pointer">
-        <Link href="/">Начало</Link>
-      </li>
-      <li
-        className="cursor-pointer"
-        onClick={() => changeCategory("deliveries")}
-      >
-        Доставки
-      </li>
-      <li className="cursor-pointer" onClick={() => changeCategory("products")}>
-        Продукти
-      </li>
-      <li
-        className="cursor-pointer"
-        onClick={() => changeCategory("promotions")}
-      >
-        Промоции
-      </li>
-      <li className="cursor-pointer" onClick={() => changeCategory("users")}>
-        Потребители
-      </li>
-    </ul>
+    <aside className="container">
+      <ul className="flex gap-2 mt-5">
+        <li className="cursor-pointer">
+          <Link href="/">Начало</Link>
+        </li>
+
+        {navDictionary.map((item) => {
+          return (
+            <li
+              className="cursor-pointer"
+              key={item.text}
+              onClick={(e) => changeCategory(item.route, e)}
+            >
+              {item.text}
+            </li>
+          );
+        })}
+      </ul>
+    </aside>
   );
 }
