@@ -1,81 +1,52 @@
 const dictionary = [
   {
-    title: "Интрументи и железария",
+    title: "Офис материали",
     mainRoute: "toolsAndHardware",
+    // Menu
     articles: [
-      ["Акумулаторн124и комплекти", "batteryKits"],
-      ["Само тествам1", "testing"],
-      ["Акумулато124рни комплекти1", "batteryKits"],
-      ["Само тествам22", "testing"],
-      ["Акумулато142рни комплекти3", "batteryKits"],
-      ["Само тест421в31ам4", "testing"],
-      ["Акумулато2142рни комплекти5", "batteryKits"],
-      ["Само тес421тв3ам6", "testing"],
-      ["Акумул411244аторни комплекти", "batteryKits"],
-      ["Само те12с421твам213", "testing"],
-      ["Акумулат122414орни комплекти1", "batteryKits"],
-      ["Само теств124м21231", "testing"],
-      ["Акумулаторн214и комплекти3", "batteryKits"],
-      ["Само тества12421312м4", "testing"],
-      ["Акумулатор12431ни комплекти5", "batteryKits"],
-      ["Само тес1421231твам6", "testing"],
+      [
+        "Хартии и хартиени изделия",
+        "batteryKits",
+        // SubMenu
+        [
+          ["Testvam", "batteryKits"],
+          ["InnerTest2", "batteryKits"],
+        ],
+      ],
+      ["Организация и архивиране", "testing"],
     ],
     icon: "",
   },
   {
-    title: "Градина",
+    title: "Техника и консумативи",
     mainRoute: "garden",
     articles: [["Градински мебели", "gardenFurniture"]],
     icon: "",
   },
   {
-    title: "Кухня",
+    title: "Средства за презентация",
     mainRoute: "kitchen",
     articles: [["Кухненски мебели", "kitchenFurniture"]],
     icon: "",
   },
   {
-    title: "Баня",
+    title: "Храни и напитки",
     mainRoute: "bathroom",
     articles: [["Мебели и огледала за баня", "bathroomFurnitureAndMirrors"]],
     icon: "",
   },
   {
-    title: "Отопление, Охлаждане и Вик",
+    title: "Хигиенни средства",
     mainRoute: "heatingCoolingAndVick",
     articles: [["Климатици", "airConditioners"]],
     icon: "",
   },
   {
-    title: "Подови и стенни покрития",
+    title: "Обзавеждане за офис",
     mainRoute: "floorAndWallCoverings",
     articles: [["Плочки и лайсни", "tilesAndMOldings"]],
     icon: "",
   },
-  {
-    title: "Осветление",
-    mainRoute: "lighting",
-    articles: [["Вътрешно осветление", "interiorLighting"]],
-    icon: "",
-  },
-
-  {
-    title: "Електроматериали",
-    mainRoute: "electricalMaterials",
-    articles: [["Ключове и контакти", "switchesAndSockets"]],
-    icon: "",
-  },
-  {
-    title: "Строителни материали",
-    mainRoute: "buildingMaterials",
-    articles: [["Сухи строителни смеси", "dryConstructionMixtures"]],
-    icon: "",
-  },
-  {
-    title: "Бои и лакове",
-    mainRoute: "paintsAndVarnishes",
-    articles: [["Интериорни бои", "interiorPaints"]],
-    icon: "",
-  },
 ];
+
 export default dictionary;
