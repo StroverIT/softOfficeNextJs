@@ -1,8 +1,38 @@
+import React, { useState, useEffect } from "react";
+
 import { getSession } from "next-auth/react";
-import React from "react";
+import { useRouter } from "next/router";
+
+import Navigation from "../../components/adminPanel/Navigation";
+import Deliveries from "../../components/adminPanel/Deliveries";
+import Products from "../../components/adminPanel/Products";
+import Promotions from "../../components/adminPanel/Promotions";
+import Users from "../../components/adminPanel/Users";
 
 export default function Index({ userData }) {
-  return <div>index</div>;
+  const router = useRouter();
+
+  const [categoryData, setCategoryData] = useState(null);
+
+  useEffect(() => {
+    const categoryComp = {
+      "#dostavki": [<Deliveries userData={userData} key="Deliveries" />],
+      "#prodykti": [<Products key="MyOrders" />],
+      "#promocii": [<Promotions key="MyFavourites" />],
+      "#potrebiteli": [<Users key="Users" />],
+    };
+    const someData =
+      categoryComp[window.location.hash] ?? categoryComp["#deliveries"]; // Retrieve data based on URL fragment
+    setCategoryData(someData[0]);
+  }, [router, userData]);
+  return (
+    <>
+      <main className="mb-auto">
+        <Navigation />
+        <div className="container">{categoryData}</div>
+      </main>
+    </>
+  );
 }
 export async function getServerSideProps(context) {
   // Session

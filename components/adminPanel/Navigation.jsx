@@ -3,7 +3,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import navDictionary from "./navDictionary";
-export default function Navigation({ changeCategoryFn }) {
+export default function Navigation() {
   const router = useRouter();
 
   const changeCategory = (category, e) => {
