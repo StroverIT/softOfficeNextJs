@@ -53,8 +53,8 @@ export default function Index({ userData }) {
   return (
     <>
       <Head>
-        <title>IvdaGeo my account</title>
-        <meta name="description" content="Онлайн магазин IvdaGeo" />
+        <title>SoftOffice my account</title>
+        <meta name="description" content="Онлайн магазин SoftOffice" />
       </Head>
       <main className="mb-auto">
         <div className="">

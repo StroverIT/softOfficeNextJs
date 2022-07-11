@@ -72,8 +72,8 @@ export default function Index({ data }) {
   return (
     <>
       <Head>
-        <title>IvdaGeo my account</title>
-        <meta name="description" content="Онлайн магазин IvdaGeo" />
+        <title>SoftOffice my account</title>
+        <meta name="description" content="Онлайн магазин SoftOffice" />
       </Head>
       <main className="text-center">
         <div className="container flex flex-col items-center justify-center w-full py-10 text-center bg-white rounded shadow-xl lg:max-w-xl">

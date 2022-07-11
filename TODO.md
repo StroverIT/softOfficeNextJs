@@ -5,7 +5,7 @@ On navbar are ready just need to add Colors [ x ]
 [ x ] Navbar menu is same in every page except in home, where in home in MD or LG is hidden
 [ x ] Nav items except home PC == lg{
 [ x ] Hamburger
-[ x ] IvdaGeoLogo
+[ x ] SoftOfficeLogo
 [ x ] Search (showing the search)
 [ x ] Login (First icon, second Вход)(Color: primary)
 [ x ] Cart (First cart icon, second Количка)(Color: orange)

@@ -1,1 +1,1 @@
-E-commerce website for ivdaGeo using NextJs
+E-commerce website for SoftOffice using NextJs

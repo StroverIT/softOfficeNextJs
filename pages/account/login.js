@@ -37,8 +37,8 @@ const Login = ({ session }) => {
   return (
     <>
       <Head>
-        <title>IvdaGeo login page</title>
-        <meta name="description" content="Онлайн магазин IvdaGeo" />
+        <title>SoftOffice login page</title>
+        <meta name="description" content="Онлайн магазин SoftOffice" />
       </Head>
 
       <main>
@@ -121,7 +121,7 @@ const Login = ({ session }) => {
             </div>
           </div>
 
-          {/* Image is the something of ivdaGeo */}
+          {/* Image is the something of SoftOffice */}
         </div>
       </main>
     </>

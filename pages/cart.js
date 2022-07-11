@@ -50,8 +50,8 @@ export default function Cart() {
   return (
     <>
       <Head>
-        <title>IvdaGeo</title>
-        <meta name="description" content="Онлайн магазин IvdaGeo" />
+        <title>SoftOffice</title>
+        <meta name="description" content="Онлайн магазин SoftOffice" />
       </Head>
 
       <main className="mb-auto ">

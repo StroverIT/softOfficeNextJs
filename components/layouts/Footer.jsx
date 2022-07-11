@@ -155,7 +155,7 @@ const Footer = () => {
         </div>
         <div className="flex items-center justify-center py-6 bg-gray-700">
           <div className="text-sm text-center">
-            © 2022 <a href="/contact">IvdaGeo™</a>. Всички права запазени.
+            © 2022 <a href="/contact">SoftOffice™</a>. Всички права запазени.
           </div>
         </div>
       </div>

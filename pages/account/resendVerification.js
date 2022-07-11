@@ -38,8 +38,8 @@ export default function ResetPassword() {
   return (
     <>
       <Head>
-        <title>IvdaGeo resend verification</title>
-        <meta name="description" content="Онлайн магазин IvdaGeo" />
+        <title>SoftOffice resend verification</title>
+        <meta name="description" content="Онлайн магазин SoftOffice" />
       </Head>
       <main>
         <div className="container flex justify-center my-10">

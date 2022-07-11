@@ -91,8 +91,8 @@ const Register = () => {
   return (
     <>
       <Head>
-        <title>IvdaGeo register page</title>
-        <meta name="description" content="Онлайн магазин IvdaGeo" />
+        <title>SoftOffice register page</title>
+        <meta name="description" content="Онлайн магазин SoftOffice" />
       </Head>
 
       <main>
