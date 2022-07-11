@@ -9,5 +9,6 @@ const secret = process.env.NEXTAUTH_SECRET;
 export default async function handler(req, res) {
   const token = await getToken({ req, secret });
   const data = req.body;
-  console.log(data, token);
+  console.log(data);
+  res.json({ message: "Success" });
 }

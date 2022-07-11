@@ -28,7 +28,7 @@ const articlesScheme = new Schema({
 });
 
 const productScheme = new Schema({
-  section: {
+  sectionName: {
     type: String,
   },
   imageUrl: {

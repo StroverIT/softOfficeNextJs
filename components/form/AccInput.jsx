@@ -3,7 +3,16 @@ import React from "react";
 import Icons from "../Icons/Icons";
 
 // Get data from the user and fullfil in inputplaceholder
-const AccInput = ({ type, placeholder, id, isReq, iconType, defValue }) => {
+const AccInput = ({
+  type,
+  placeholder,
+  id,
+  isReq,
+  iconType,
+  defValue,
+  value,
+  onChange,
+}) => {
   return (
     <div className="w-full">
       <div className="mb-4">
@@ -20,7 +29,9 @@ const AccInput = ({ type, placeholder, id, isReq, iconType, defValue }) => {
             name={id}
             type={type}
             placeholder={placeholder}
+            value={value}
             defaultValue={defValue}
+            onChange={onChange}
           />
         </div>
       </div>
