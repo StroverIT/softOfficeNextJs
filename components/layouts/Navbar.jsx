@@ -64,7 +64,7 @@ const Navbar = () => {
           <div className="flex items-center justify-center logo">
             <Hamburger headRef={headerRef} />
             <Link href="/">
-              <div className="items-center justify-between hidden lg:flex font-bold text-primary-lighter text-3xl lg:ml-1">
+              <div className="items-center justify-between hidden lg:flex font-bold text-primary-lighter text-3xl lg:ml-1 cursor-pointer">
                 <span className="">Soft</span>
                 <span>Office.bg</span>
               </div>
@@ -87,14 +87,9 @@ const Navbar = () => {
           </div>
           <div className="lg:hidden">
             <Link href="/">
-              <div className="flex items-center justify-between lg:block">
-                <Image
-                  src="/images/logo.png"
-                  width={210}
-                  height={45}
-                  className="cursor-pointer"
-                  alt="This is test image"
-                />
+              <div className="flex items-center justify-between lg:block font-bold text-primary-lighter text-3xl lg:ml-1 cursor-pointer">
+                <span className="">Soft</span>
+                <span>Office.bg</span>
               </div>
             </Link>
           </div>
