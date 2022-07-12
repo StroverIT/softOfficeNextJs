@@ -58,6 +58,7 @@ function Article({ articleLen }) {
       ...prevState,
       articles: [...articles],
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [articlesState]);
   return (
     <div className="px-2 py-5 border rounded-sm border-gray my-9">
