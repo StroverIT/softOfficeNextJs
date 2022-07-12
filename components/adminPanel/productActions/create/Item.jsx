@@ -46,6 +46,7 @@ function Item({ itemLen, articleLen }) {
       ...prevState,
       articles: [...articles],
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemState]);
   return (
     <div className="px-2 py-5 border rounded-sm border-gray my-9">
@@ -87,6 +88,7 @@ function Item({ itemLen, articleLen }) {
           name="types"
           id="types"
           className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
+          onChange={changeHandler}
         ></textarea>
       </div>
       {isColors && (
@@ -100,7 +102,15 @@ function Item({ itemLen, articleLen }) {
           ></textarea>
         </div>
       )}
-      {isImage && <Input type="file" placeholder="Снимка" id="imageUrl" />}
+
+      {isImage && (
+        <Input
+          type="file"
+          placeholder="Снимка"
+          id="imageUrl"
+          onChange={changeHandler}
+        />
+      )}
     </div>
   );
 }
