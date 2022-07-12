@@ -33,7 +33,7 @@ export default function Create() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const res = await create(articleState);
+    const res = await create(sectionState);
     const data = await res.json();
     console.log(res, data);
   };
