@@ -14,7 +14,6 @@ export default function Products({ products }) {
       "#create": [<Create key="Create" />],
     };
     const hash = window.location.hash.split("#");
-    console.log(hash);
     const someData = categoryComp[`#${hash[2]}`] ?? categoryComp["#getAll"]; // Retrieve data based on URL fragment
     setAction(someData[0]);
   }, [router, products]);
