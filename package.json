@@ -2,7 +2,7 @@
   "cacheDirectories": [
     ".next/cache"
   ],
-  "name": "SoftOffice-site-nextjs",
+  "name": "softofffice-site-nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {
