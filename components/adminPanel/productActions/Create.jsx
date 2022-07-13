@@ -19,7 +19,6 @@ export default function Create() {
 
   const addArticle = (e) => {
     const keyProduct = uuidv4();
-    const initVal = {};
     setArticles((lastItems) => [
       ...lastItems,
       <Article key={keyProduct} articleLen={sectionState.secLen} />,
@@ -27,19 +26,33 @@ export default function Create() {
     setSectionState((prevState) => ({
       ...prevState,
       secLen: sectionState.secLen + 1,
-      articles: [...prevState.articles, initVal],
+      articles: [...prevState.articles, {}],
     }));
   };
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const res = await create(sectionState);
+    const formData = new FormData();
+
+    for (let key in sectionState) {
+      let value = sectionState[key];
+      if (key.includes("image")) {
+        key = "media";
+      } else if (typeof value === "object" && !key.includes("image")) {
+        value = JSON.stringify(value);
+      }
+      formData.append(key, value);
+    }
+    const media = formData.get("media");
+    const res = await create(formData);
     const data = await res.json();
-    console.log(res, data);
   };
   const changeHandler = (e) => {
     const name = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
+    if (name.includes("image")) {
+      value = e.target.files[0];
+    }
     setSectionState((prevState) => ({
       ...prevState,
       [name]: value,
