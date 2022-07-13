@@ -9,9 +9,9 @@ export default function Navigation() {
   const [isCategory, setIsCategory] = useState(null);
 
   useEffect(() => {
-    const hash = window.location.hash.slice(1);
+    const hash = window.location.hash?.split("#");
 
-    setIsCategory(hash);
+    setIsCategory(hash[1]);
   }, [router]);
   const changeCategory = (category) => {
     // Trigger fragment change to fetch the new data
