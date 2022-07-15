@@ -1,55 +1,68 @@
 import { useContext, useState, useEffect } from "react";
+import { HiX } from "react-icons/hi";
 import Input from "../../../form/AccInput";
 import { ProductContext } from "../productContext";
 
-function IsComponent({ state, setState, onText, offText }) {
-  return (
-    <button
-      onClick={() => setState(!state)}
-      className={`px-5 py-1 transition-transform border rounded-full text-semibold ${
-        !state ? "border-green text-green" : "border-secondary text-secondary"
-      } hover:-translate-y-1`}
-      type="button"
-    >
-      {!state ? onText : offText}
-    </button>
-  );
-}
-function Item({ itemLen, articleLen }) {
+import IsComponent from "./IsComponent";
+
+function Item({ itemLen, articleLen, itemData }) {
   const { sectionState, setSectionState } = useContext(ProductContext);
 
   const [itemState, setItemState] = useState({});
+
   const [isColors, setIsColors] = useState(false);
   const [isImage, setIsImage] = useState(false);
 
-  const changeHandler = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-    setItemState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-  useEffect(() => {
-    const articles = sectionState.articles.map((article, index) => {
+  const removeItem = (e) => {
+    const itemRem = sectionState.articles.map((article, index) => {
       if (index == articleLen) {
-        article.items = article.items.map((item, itemInd) => {
-          if (itemInd == itemLen - 1) {
-            return { ...item, ...itemState };
-          }
-          return item;
+        article.items = article.items.filter((item, itemInd) => {
+          return itemInd != itemLen;
         });
       }
       return article;
     });
     setSectionState((prevState) => ({
       ...prevState,
-      articles: [...articles],
+      articles: itemRem,
     }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [itemState]);
+  };
+  const changeHandler = (e) => {
+    const name = e.target.name;
+    let value = e.target.value;
+
+    if (name.includes("image")) {
+      value = e.target.files[0];
+    }
+
+    setSectionState((prevState) => ({
+      ...prevState,
+      articles: sectionState.articles.map((article, index) => {
+        if (articleLen == index) {
+          article.items = article.items.map((item, itemIndex) => {
+            if (itemIndex == itemLen) {
+              item[name] = value;
+            }
+            return item;
+          });
+        }
+        return article;
+      }),
+    }));
+  };
+
   return (
     <div className="px-2 py-5 border rounded-sm border-gray my-9">
+      <div className="flex justify-end">
+        {itemLen}
+        <button
+          type="button"
+          className="text-secondary text-lg"
+          onClick={removeItem}
+        >
+          <HiX />
+        </button>
+      </div>
       <div className="flex flex-col items-center justify-center gap-3 mb-2 sm:flex-row">
         <div className="flex">
           {/* Button is here */}
@@ -74,12 +87,14 @@ function Item({ itemLen, articleLen }) {
         type="text"
         placeholder="КатНомер"
         id="katNomer"
+        value={itemData?.katNomer}
         onChange={changeHandler}
       />
       <Input
         type="text"
         placeholder="Цена"
         id="price"
+        value={itemData?.price}
         onChange={changeHandler}
       />
       <div>
@@ -87,6 +102,7 @@ function Item({ itemLen, articleLen }) {
         <textarea
           name="types"
           id="types"
+          value={itemData?.types}
           className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
           onChange={changeHandler}
         ></textarea>
