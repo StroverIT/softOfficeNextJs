@@ -178,3 +178,6 @@ imageUrl - LINK or img path
 [ ]How to upload and get the image
 [ ] How to get the filters
 [ ] How to filter
+
+- [] Edit
+  [ ] On edit on colors to have options to add image [color, img]
