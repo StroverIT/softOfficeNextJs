@@ -1,5 +1,19 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { parseForm, FormidableError } from "../../../lib/parse-form";
+import {
+  parseForm,
+  FormidableError,
+} from "../../../lib/createProduct/parse-form";
+// Inner functions
+import imageGetSanitizer from "../../../lib/createProduct/imageGetSanitizer";
+import articlesFormater from "../../../lib/createProduct/articlesFormater";
+// Mongoose
+import { connectMongo } from "../../../db/connectDb";
+import Product from "../../../db/models/Product";
+import User from "../../../db/models/User";
+
+// Token
+import { getToken } from "next-auth/jwt";
+const secret = process.env.NEXTAUTH_SECRET;
 
 const handler = async (
   req: NextApiRequest,
@@ -20,16 +34,41 @@ const handler = async (
   }
   // Just after the "Method Not Allowed" code
   try {
-    const { fields, files } = await parseForm(req);
-    const file = files.media;
-    const articles = JSON.parse(fields.articles);
+    let { fields, files } = await parseForm(req);
+    await connectMongo();
 
-    let url = Array.isArray(file) ? file.map((f) => f.filepath) : file.filepath;
+    const token = await getToken({ req, secret });
+    const user = await User.findOne({ email: token.email });
+
+    if (!user || !token) {
+      return res.json({ error: "Невалиден токен!" });
+    }
+    if (user.role != "admin") {
+      console.log(user);
+
+      return res.json({ error: "Нямате такива права!" });
+    }
+    const sectionImg = files.media || null;
+    let articleImg = [];
+    let itemImg = [];
+
+    if (sectionImg) {
+      fields.imageUrl = sectionImg.newFilename;
+    }
+    if (files.article) {
+      articleImg = imageGetSanitizer(files.article);
+    }
+    if (files.item) {
+      itemImg = imageGetSanitizer(files.item);
+    }
+
+    // Articles set image
+    let formatedFields = articlesFormater(fields, articleImg, itemImg);
+
+    await Product.create(formatedFields);
 
     res.status(200).json({
-      data: {
-        url,
-      },
+      message: "Успешно създадена секция",
       error: null,
     });
   } catch (e) {
@@ -37,7 +76,10 @@ const handler = async (
       res.status(e.httpCode || 400).json({ data: null, error: e.message });
     } else {
       console.error(e);
-      res.status(500).json({ data: null, error: "Internal Server Error!" });
+      res.status(500).json({
+        data: null,
+        error: "Сървърни проблеми, обадете се на телефон: 0876237725",
+      });
     }
   }
 };
