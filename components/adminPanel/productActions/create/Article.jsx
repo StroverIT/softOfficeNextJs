@@ -7,108 +7,109 @@ import { v4 as uuidv4 } from "uuid";
 import Item from "./Item";
 import { HiX } from "react-icons/hi";
 
-function Article({ articleLen }) {
-  const { sectionState, setSectionState, articlesComp, setArticlesComp } =
-    useContext(ProductContext);
+import IsComponent from "./IsComponent";
 
-  const [articlesState, setArticleState] = useState({});
-  const [items, setItems] = useState([]);
+function Article({ articleLen, articleData }) {
+  const { sectionState, setSectionState } = useContext(ProductContext);
+  const [isImage, setIsImage] = useState(false);
 
-  const removeArticle = (e) => {
-    const filtered = articlesComp.filter((article) => {
-      return article.props.articleLen != articleLen;
-    });
-    let filteredObj;
-    if (articlesComp.length > 1) {
-      filteredObj = sectionState.articles.filter(function (x, index) {
-        if (index != articleLen) {
-          return x;
-        }
-      });
-    } else filteredObj = [];
+  const articleCons = sectionState.articles[articleLen];
+  const itemsCons = articleCons?.items;
 
-    setSectionState((prevState) => ({
-      ...prevState,
-      secLen: sectionState.secLen - 1,
-      articles: filteredObj,
-    }));
-    setArticlesComp(filtered);
-  };
   const addItem = (e) => {
-    const itemId = uuidv4();
-    let itemLen;
-
-    const articles = sectionState.articles.map((article, index) => {
-      if (index == articleLen) {
-        if (!article.items) {
-          article.items = [];
-          article.itemsLen = 0;
-        }
-        article.items.push({});
-        article.itemsLen = article.itemsLen + 1;
-        itemLen = article.itemsLen;
+    const addItemArticle = sectionState.articles.map((article, index) => {
+      if (articleLen == index) {
+        article.items.push({ katNomer: "", price: "", types: "" });
       }
       return article;
     });
-
     setSectionState((prevState) => ({
       ...prevState,
-      articles: [...articles],
+      articles: addItemArticle,
     }));
-
-    setItems((lastItems) => [
-      ...lastItems,
-      <Item key={itemId} articleLen={articleLen} itemLen={itemLen} />,
-    ]);
+  };
+  const removeArticle = (e) => {
+    setSectionState((prevState) => ({
+      ...prevState,
+      articles: sectionState.articles.filter((item, index) => {
+        return index != articleLen;
+      }),
+    }));
   };
   const changeHandler = (e) => {
     const name = e.target.name;
-    const value = e.target.value;
-    setArticleState((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
-  };
-  useEffect(() => {
-    const articles = sectionState.articles.map((item, index) => {
-      if (index == articleLen) {
-        return { ...item, ...articlesState };
-      }
-      return item;
-    });
+    let value = e.target.value;
+    if (name.includes("image")) {
+      value = e.target.files[0];
+    }
     setSectionState((prevState) => ({
       ...prevState,
-      articles: [...articles],
+      articles: sectionState.articles.map((article, index) => {
+        if (articleLen == index) {
+          return { ...article, [name]: value };
+        }
+        return article;
+      }),
     }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [articlesState]);
+    console.log(articleLen);
+  };
+
   return (
     <div className="px-2 py-5 border rounded-sm border-gray my-9">
-      {sectionState.secLen - 1 == articleLen && (
-        <div className="flex justify-end">
-          <button
-            type="button"
-            className="text-secondary text-lg"
-            onClick={removeArticle}
-          >
-            <HiX />
-          </button>
-        </div>
-      )}
-
+      <div className="flex justify-end">
+        {articleLen}
+        <button
+          type="button"
+          className="text-secondary text-lg"
+          onClick={removeArticle}
+        >
+          <HiX />
+        </button>
+      </div>
+      <div className="flex  justify-center">
+        <IsComponent
+          state={isImage}
+          setState={setIsImage}
+          onText="Добави Снимка"
+          offText="Премахни снимка"
+          sectionState={sectionState}
+          setSectionState={setSectionState}
+        />
+      </div>
       <Input
         type="text"
         placeholder="Име на артикула"
         id="articleName"
+        value={articleData?.articleName}
         onChange={changeHandler}
       />
       <Input
         type="text"
         placeholder="Описание"
         id="description"
+        value={articleData?.description}
         onChange={changeHandler}
       />
-      {items}
+      {isImage && (
+        <Input
+          type="file"
+          placeholder="Снимка"
+          id="imageUrl"
+          value={articleData?.imageUrl}
+          onChange={changeHandler}
+        />
+      )}
+      {itemsCons &&
+        itemsCons.map((item, index) => {
+          return (
+            <Item
+              key={index}
+              itemData={item}
+              itemLen={index}
+              articleLen={articleLen}
+            />
+          );
+        })}
       <button
         type="button"
         onClick={() => addItem()}
