@@ -1,32 +1,31 @@
 import React, { useEffect, useState, userId } from "react";
 
-import { v4 as uuidv4 } from "uuid";
 // Components
 import Input from "../../form/AccInput";
 import OutlinedBtn from "../../buttons/Outlined";
 import Article from "./create/Article";
 
+// Fetching
 import { create } from "../fetchActions";
 import { ProductContext } from "./productContext";
-
+// NextJs
+import { useRouter } from "next/router";
+// Icons
+import { BsArrowReturnLeft } from "react-icons/bs";
 export default function Create() {
-  const [articles, setArticles] = useState([]);
+  const router = useRouter();
 
   const [sectionState, setSectionState] = useState({
-    secLen: 0,
     articles: [],
   });
 
   const addArticle = (e) => {
-    const keyProduct = uuidv4();
-    setArticles((lastItems) => [
-      ...lastItems,
-      <Article key={keyProduct} articleLen={sectionState.secLen} />,
-    ]);
     setSectionState((prevState) => ({
       ...prevState,
-      secLen: sectionState.secLen + 1,
-      articles: [...prevState.articles, {}],
+      articles: [
+        ...prevState.articles,
+        { items: [], articleName: "", description: "" },
+      ],
     }));
   };
 
@@ -34,25 +33,51 @@ export default function Create() {
     e.preventDefault();
     const formData = new FormData();
 
-    for (let key in sectionState) {
-      let value = sectionState[key];
-      if (key.includes("image")) {
-        key = "media";
-      } else if (typeof value === "object" && !key.includes("image")) {
-        value = JSON.stringify(value);
+    Object.entries(sectionState).forEach((section) => {
+      let [key, value] = section;
+
+      // If is article
+      if (Array.isArray(value)) {
+        // Map through the article
+        let article = value.map((article) => {
+          // If image append to formData as file
+          if (article.imageUrl) {
+            formData.append("article", article.imageUrl);
+            article.imageUrl = article.imageUrl?.name;
+          }
+          article.items = article.items.map((item) => {
+            if (item.imageUrl) {
+              formData.append("item", item.imageUrl);
+              item.imageUrl = item.imageUrl?.name;
+            }
+            return item;
+          });
+          return article;
+        });
+        value = JSON.stringify(article);
       }
+      if (key.includes("image")) {
+        formData.append("media", value);
+        value = value?.name;
+        return;
+      }
+
       formData.append(key, value);
-    }
-    const media = formData.get("media");
+    });
+
     const res = await create(formData);
     const data = await res.json();
+    console.log(data);
+    //-------
   };
+
   const changeHandler = (e) => {
     const name = e.target.name;
     let value = e.target.value;
     if (name.includes("image")) {
       value = e.target.files[0];
     }
+
     setSectionState((prevState) => ({
       ...prevState,
       [name]: value,
@@ -60,14 +85,22 @@ export default function Create() {
   };
 
   return (
-    <div>
+    <div className="mt-5">
       <div>
-        <button>
-          Nqkude {sectionState.secLen} {sectionState.articles?.length}
+        <button
+          className="text-2xl text-primary-lighter my-5"
+          onClick={() => router.push("/adminPanel#prodykti")}
+        >
+          <BsArrowReturnLeft />
         </button>
       </div>
       <div>
-        <ProductContext.Provider value={{ sectionState, setSectionState }}>
+        <ProductContext.Provider
+          value={{
+            sectionState,
+            setSectionState,
+          }}
+        >
           <form onSubmit={submitHandler}>
             <Input
               type="text"
@@ -82,7 +115,16 @@ export default function Create() {
               id="imageUrl"
               onChange={changeHandler}
             />
-            {articles}
+            {sectionState.articles &&
+              sectionState.articles.map((article, index) => {
+                return (
+                  <Article
+                    key={index}
+                    articleData={article}
+                    articleLen={index}
+                  />
+                );
+              })}
             <div className="">
               <button
                 type="button"
