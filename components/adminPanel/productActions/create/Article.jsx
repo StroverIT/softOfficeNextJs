@@ -39,9 +39,11 @@ function Article({ articleLen, articleData }) {
   const changeHandler = (e) => {
     const name = e.target.name;
     let value = e.target.value;
+
     if (name.includes("image")) {
       value = e.target.files[0];
     }
+
     setSectionState((prevState) => ({
       ...prevState,
       articles: sectionState.articles.map((article, index) => {
@@ -95,7 +97,6 @@ function Article({ articleLen, articleData }) {
           type="file"
           placeholder="Снимка"
           id="imageUrl"
-          value={articleData?.imageUrl}
           onChange={changeHandler}
         />
       )}
