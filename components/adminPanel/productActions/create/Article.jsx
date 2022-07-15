@@ -53,7 +53,6 @@ function Article({ articleLen, articleData }) {
         return article;
       }),
     }));
-    console.log(articleLen);
   };
 
   return (
@@ -116,7 +115,7 @@ function Article({ articleLen, articleData }) {
       <button
         type="button"
         onClick={() => addItem()}
-        className="flex justify-center px-10 py-2 mx-auto text-sm font-medium text-white rounded-md bg-primary-lighter"
+        className="flex justify-end px-10 py-2 ml-auto text-sm font-medium text-white rounded-md bg-primary-lighter"
       >
         Добави тип
       </button>
