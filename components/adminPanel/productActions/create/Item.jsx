@@ -54,6 +54,7 @@ function Item({ itemLen, articleLen, itemData }) {
   return (
     <div className="px-2 py-5 border rounded-sm border-gray my-9">
       <div className="flex justify-end">
+        {articleLen}
         {itemLen}
         <button
           type="button"
