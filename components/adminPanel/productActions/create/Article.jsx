@@ -58,15 +58,17 @@ function Article({ articleLen, articleData }) {
 
   return (
     <div className="px-2 py-5 border rounded-sm border-gray my-9">
-      <div className="flex justify-end">
-        {articleLen}
-        <button
-          type="button"
-          className="text-secondary text-lg"
-          onClick={removeArticle}
-        >
-          <HiX />
-        </button>
+      <div className="flex justify-between">
+        <div>{articleLen}</div>
+        <div>
+          <button
+            type="button"
+            className="text-secondary text-lg"
+            onClick={removeArticle}
+          >
+            <HiX />
+          </button>
+        </div>
       </div>
       <div className="flex  justify-center">
         <IsComponent
