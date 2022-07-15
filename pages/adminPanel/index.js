@@ -22,7 +22,6 @@ export default function Index({ userData }) {
       "#potrebiteli": [<Users key="Users" />],
     };
     const hash = window.location.hash?.split("#");
-    console.log(categoryComp[`#${hash[1]}`]);
     const someData = categoryComp[`#${hash[1]}`] ?? categoryComp["#prodykti"]; // Retrieve data based on URL fragment
     setCategoryData(someData[0]);
   }, [router, userData]);
