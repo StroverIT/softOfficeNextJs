@@ -105,7 +105,9 @@ export default function Home() {
                 <h1 className="hidden pl-3 text-lg font-medium xl:block">
                   Категории продукти
                 </h1>
-                <NavLinks isHome={true} />
+                <div className="mt-2">
+                  <NavLinks isHome={true} />
+                </div>
               </section>
               <section className="relative flex items-center justify-center">
                 <SwiperPag images={swiperPag} navSize="3xl" />
