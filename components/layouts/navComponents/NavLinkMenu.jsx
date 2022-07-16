@@ -1,5 +1,4 @@
 import React, { useRef, useEffect, useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/router";
 import classNames from "classnames";
 // Icons
@@ -14,6 +13,9 @@ import tailwindConfig from "../../../tailwind.config.js";
 
 const fullConfig = resolveConfig(tailwindConfig);
 const lg = fullConfig.theme.screens.lg.min.split("px")[0];
+
+import NavLinkSubMenu from "./NavLinkSubMenu";
+import LinkComp from "./LinkComp";
 
 const NavLinkMenu = ({ title, articles, isHome }) => {
   const router = useRouter();
@@ -52,10 +54,14 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
   });
 
   return (
-    <li className={`item w-full font-thin group ${!isHome ? "lg:w-64" : ""}`}>
+    <li
+      className={`item w-full font-thin group ${!isHome ? "lg:w-64 mt-2" : ""}`}
+    >
       {/* Menu */}
       <div
-        className={`bg-white cursor-pointer text-dark lg:hover:text-dark lg:hover:bg-color px-3 py-[0.40rem] lg:py-[0.4rem] flex w-full peer group-hover:lg:bg-color group-hover:lg:text-primary font-normal font-sans text-[0.95rem] leading-5`}
+        className={`bg-white cursor-pointer text-dark lg:hover:text-dark lg:hover:bg-color ${
+          !isHome ? "px-5 py-[0.40rem]" : "pl-4"
+        } lg:py-2 flex w-full peer group-hover:lg:bg-color group-hover:lg:text-primary font-normal font-sans text-lg leading-5`}
         onClick={showMenu}
         ref={menu}
       >
@@ -70,7 +76,7 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
         } lg:hover:scale-100 text-dark peer-hover:lg:scale-100 lg:max-w-[780px]  xl:max-w-[1050px]  ${isXAnim} `}
         ref={subMenu}
       >
-        <div className={`flex items-center ml-2`}>
+        <div className={` flex items-center ml-2`}>
           <div
             type="button"
             className={`${style.icon} flex py-2 px-2 lg:hidden`}
@@ -80,16 +86,20 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
           </div>
           <div className="pl-4 font-semibold">{title}</div>
         </div>
-        <ul
-          className={`px-5  grid list-disc mt-2 gap-2 ${style.itemsContainer}`}
-        >
-          {articles.map((article) => {
-            return (
-              <Link href={`/products/${article[1]}`} key={article[0]}>
-                <li className="mt-1 ml-5 text-sm font-[400]">
-                  <a href="#">{article[0]}</a>
-                </li>
-              </Link>
+        {/* submenu list */}
+        <ul className={`px-5  mt-2  grid grid-cols-2 lg:grid-cols-3 gap-x-2`}>
+          {articles.map((article, index) => {
+            const isObject = typeof article === "object";
+            if (isObject) article = JSON.stringify(article);
+            return isObject ? (
+              <NavLinkSubMenu subMenuData={article} key={index} />
+            ) : (
+              <LinkComp
+                route={article}
+                mainRoute={title}
+                isHome={isHome}
+                key={article}
+              />
             );
           })}
         </ul>
