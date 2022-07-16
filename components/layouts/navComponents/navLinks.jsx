@@ -4,7 +4,7 @@ import React from "react";
 // Components
 import NavLinkMenu from "./NavLinkMenu";
 
-import dictionary from "./dictionary";
+import dictionary from "./navDictioinary/mainDictionary";
 
 const NavLinks = ({ isHome }) => {
   return (
