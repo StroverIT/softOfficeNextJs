@@ -18,9 +18,9 @@ export default function Navigation() {
     router.push(`/adminPanel/#${category}`, undefined, { shallow: true });
   };
   return (
-    <aside className="container bg-primary shadow-lg  sm:rounded-bl-full sm:rounded-br-full text-center">
-      <ul className="sm:flex gap-2  items-center justify-center grid-col-1 xs:grid-cols-2 grid text-white">
-        <li className="cursor-pointer hover:bg-primary-0 hover:text-green p-2 font-medium">
+    <aside className="container text-center shadow-lg bg-primary sm:rounded-bl-full sm:rounded-br-full">
+      <ul className="grid items-center justify-center gap-2 text-white sm:flex grid-col-1 xs:grid-cols-2">
+        <li className="p-2 font-medium cursor-pointer hover:bg-primary-0 hover:text-green">
           <Link href="/">Начало</Link>
         </li>
 
