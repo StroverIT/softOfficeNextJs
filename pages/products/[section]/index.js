@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 // Icons
 import { HiX } from "react-icons/hi";
@@ -12,7 +12,6 @@ import styles from "../../../styles/products/listProducts.module.css";
 import { useRouter } from "next/router";
 
 // Components
-import Checkbox from "./../../../components/base/Checkbox";
 import AsideHeader from "./../../../components/products/aside/AsideHeader";
 import Product from "./../../../components/products/listProducts/Product";
 import Sorting from "./../../../components/products/filters/Sorting";
@@ -21,15 +20,68 @@ import RangeSlider from "./../../../components/products/aside/RangeSlider";
 import { sortByDictionary, pageDictionary } from "./allProductDicFilters";
 // Services
 import { getAllProducts } from "../../../services/productService";
+// translation
+import { translationToDb } from "../../../utils/translationToRoute";
+import ItemTypes from "../../../components/products/aside/ItemTypes";
 
-export default function Section({ products }) {
+export default function Section({ products, sectionName }) {
   const router = useRouter();
-  const { section } = router.query;
   const sortingMenu = useRef(null);
   const [isHidden, setHidden] = useState(true);
 
   const [filterMenu, setFilterMenu] = useState(false);
 
+  //Product state
+  const [articles, setArticles] = useState([]);
+
+  //filters
+  const [totalPrices, setTotalPrices] = useState({
+    prices: [],
+    min: 0,
+    max: 0,
+  });
+  const [types, setTypes] = useState({});
+  const [colors, setColors] = useState([]);
+  // total filters
+  const [filters, setFilters] = useState({
+    types: [],
+    colors: [],
+    price: [],
+  });
+
+  useEffect(() => {
+    setArticles(products?.articles);
+  }, [products]);
+
+  useEffect(() => {
+    let prices = articles?.map((article) => {
+      let price = 0;
+      article.items.forEach((item) => {
+        if (item.price > price) price = item.price;
+      });
+      return price;
+    });
+    let typesObj = {};
+    articles.forEach((article) => {
+      article.items.forEach((item) => {
+        item.types[0].split("\n").forEach((type) => {
+          const typeOnly = type.split(":");
+          if (!typesObj.hasOwnProperty(typeOnly[0])) {
+            typesObj[typeOnly[0]] = new Set();
+          }
+          typesObj[typeOnly[0]].add(typeOnly[1].trim());
+        });
+      });
+    });
+    setTypes(typesObj);
+
+    setTotalPrices({
+      prices,
+      min: Math.floor(prices?.reduce((a, b) => Math.min(a, b), 1000000)),
+      max: Math.ceil(prices?.reduce((a, b) => Math.max(a, b), 0)),
+    });
+  }, [articles]);
+  useEffect(() => {}, [filters]);
   return (
     <main className="mb-auto">
       {products && products?.articles && (
@@ -56,14 +108,16 @@ export default function Section({ products }) {
                 </div>
                 <AsideHeader text="Цена" />
                 <div>
-                  <RangeSlider
-                    initialMin={10}
-                    initialMax={500}
-                    min={0}
-                    max={500}
-                    step={100}
-                    priceGap={10}
-                  />
+                  {totalPrices && (
+                    <RangeSlider
+                      initialMin={totalPrices.min}
+                      initialMax={totalPrices.max}
+                      min={totalPrices.min}
+                      max={totalPrices.max}
+                      step={1}
+                      priceGap={2}
+                    />
+                  )}
                   {/* Pricing line to choose */}
                   <div className="flex items-center mt-2 cursor-pointer">
                     <span className="text-primary">
@@ -74,21 +128,19 @@ export default function Section({ products }) {
                     </span>
                   </div>
                 </div>
-                <div>
-                  <AsideHeader text="Марка" />
-
-                  <Checkbox
-                    text="BLACK&DECKER"
-                    id="blackAndDecker"
-                    quantity={2}
-                  />
-                </div>
-                <div>
-                  <AsideHeader text="Напрежение" />
-
-                  <Checkbox text="10.80 V" id="10.80V" quantity={100} />
-                </div>
               </div>
+              {types &&
+                Object.entries(types).map((type) => {
+                  console.log(type);
+                  return (
+                    <ItemTypes
+                      key={type[0]}
+                      type={type[0]}
+                      allTypes={Array.from(type[1])}
+                      setFilters={setFilters}
+                    />
+                  );
+                })}
             </aside>
           )}
           <section className="mt-10">
@@ -142,21 +194,30 @@ export default function Section({ products }) {
               </div>
             )}
 
-            {products.articles &&
-              products.articles.map((product) => {
-                return <Product section={product} key={product.articleName} />;
+            {articles &&
+              articles.map((article) => {
+                return article.items?.map((item) => {
+                  return (
+                    <Product
+                      article={article}
+                      item={item}
+                      key={item._id}
+                      commonName={products.commonName}
+                      sectionName={sectionName}
+                    />
+                  );
+                });
               })}
 
             {/* <Product section={section} /> */}
           </section>
         </div>
       )}
-      {!products ||
-        (!products?.articles && (
-          <div className="flex justify-center items-center text-xl text-secondary  h-[40vh]">
-            Няма намерени резултати
-          </div>
-        ))}
+      {(!products?.articles || !products) && (
+        <div className="flex justify-center items-center text-xl text-secondary  h-[40vh]">
+          Няма намерени резултати
+        </div>
+      )}
     </main>
   );
 }
@@ -165,9 +226,11 @@ export default function Section({ products }) {
 export async function getServerSideProps(context) {
   const { section } = context.params;
 
-  const products = await getAllProducts(section);
-  console.log(products);
+  const products = await getAllProducts(translationToDb(section));
   return {
-    props: { products },
+    props: {
+      products: JSON.parse(JSON.stringify(products)),
+      sectionName: section,
+    },
   };
 }
