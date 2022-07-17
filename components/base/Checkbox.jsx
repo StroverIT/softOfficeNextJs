@@ -8,6 +8,7 @@ export default function Checkbox({ text, quantity, id }) {
         type="checkbox"
         id={id}
         value="option1"
+        data-type={id}
       />
       <label
         className="inline-block font-normal text-gray-800 select-none form-check-label "
