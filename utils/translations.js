@@ -39,3 +39,50 @@ export function cyrylicToLatin(word) {
   }
   return result;
 }
+
+export function latinToCyrylic(word) {
+  const obj = {};
+  let result = "";
+
+  obj["a"] = "а";
+  obj["b"] = "б";
+  obj["v"] = "в";
+  obj["g"] = "г";
+  obj["d"] = "д";
+  obj["e"] = "е";
+  obj["j"] = "ж";
+  obj["z"] = "з";
+  obj["i"] = "и";
+  obj["ui"] = "й";
+  obj["k"] = "к";
+  obj["l"] = "л";
+  obj["m"] = "м";
+  obj["n"] = "н";
+  obj["o"] = "о";
+  obj["p"] = "п";
+  obj["r"] = "р";
+  obj["s"] = "с";
+  obj["t"] = "т";
+  obj["y"] = "у";
+  obj["f"] = "ф";
+  obj["h"] = "х";
+  obj["c"] = "ц";
+  obj["ch"] = "ч";
+  obj["sh"] = "ш";
+  obj["sht"] = "щ";
+  obj["u"] = "ъ";
+  obj["erMaluk"] = "ь";
+  obj["yu"] = "ю";
+  obj["ia"] = "я";
+
+  for (let i = 0; i < word.length; i++) {
+    let c = word.toLowerCase().charAt(i);
+    let commonWord = c + word.toLowerCase().charAt(i + 1);
+    if (obj[commonWord]) {
+      c = commonWord;
+      i += 1;
+    }
+    result += obj[c] || c;
+  }
+  return result;
+}
