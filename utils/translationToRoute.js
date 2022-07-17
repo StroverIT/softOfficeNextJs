@@ -1,9 +1,11 @@
 import { cyrylicToLatin } from "./translations";
+import { latinToCyrylic } from "./translations";
+
 /*
  Todo:
  Remove the commas or semi colons
 */
-const translationToRoute = (data) => {
+export const translationToRoute = (data) => {
   return data
     .toString()
     .split(" ")
@@ -14,4 +16,12 @@ const translationToRoute = (data) => {
     })
     .join("-");
 };
-export default translationToRoute;
+export const translationToDb = (data) => {
+  return data
+    .toString()
+    .split("-")
+    .map((word) => {
+      return latinToCyrylic(word);
+    })
+    .join(" ");
+};
