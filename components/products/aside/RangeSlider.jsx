@@ -4,7 +4,6 @@ const RangeSlider = ({ initialMin, initialMax, min, max, step, priceGap }) => {
   const progressRef = useRef(null);
   const [minValue, setMinValue] = useState(initialMin);
   const [maxValue, setMaxValue] = useState(initialMax);
-
   const handleMin = (e) => {
     if (maxValue - minValue >= priceGap && maxValue <= max) {
       if (parseInt(e.target.value) > parseInt(maxValue)) {
@@ -35,7 +34,10 @@ const RangeSlider = ({ initialMin, initialMax, min, max, step, priceGap }) => {
     progressRef.current.style.left = (minValue / max) * step + "%";
     progressRef.current.style.right = step - (maxValue / max) * step + "%";
   }, [minValue, maxValue, max, step]);
-
+  useEffect(() => {
+    setMinValue(initialMin);
+    setMaxValue(initialMax);
+  }, [initialMin, initialMax]);
   return (
     <div className="flex flex-col rounded-lg ">
       <div className="flex items-center justify-between mb-7 ">
