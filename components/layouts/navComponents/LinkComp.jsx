@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import translationToRoute from "../../../utils/translationToRoute";
+import { translationToRoute } from "../../../utils/translationToRoute";
 
 function LinkComp({ route, mainRoute }) {
   return (
