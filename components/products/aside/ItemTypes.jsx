@@ -1,7 +1,9 @@
+import { useEffect, useState } from "react";
 import Checkbox from "../../base/Checkbox";
 import AsideHeader from "./AsideHeader";
 
-function ItemTypes({ type, allTypes, setFilters }) {
+function ItemTypes({ type, allTypes, setFilters, filters }) {
+  const [checked, setChecked] = useState(false);
   const changeHandler = (e) => {
     const isChecked = e.target.checked;
     const data = e.target.dataset.type;
@@ -20,7 +22,12 @@ function ItemTypes({ type, allTypes, setFilters }) {
       }));
     }
   };
-
+  useEffect(() => {
+    if (filters.types.length <= 0) {
+      console.log("CCliekd");
+      setChecked(false);
+    }
+  }, [filters]);
   return (
     <div>
       <AsideHeader text={type} />
@@ -31,6 +38,8 @@ function ItemTypes({ type, allTypes, setFilters }) {
               <Checkbox
                 text={itemType}
                 id={`${type}: ${itemType}`}
+                checked={checked}
+                setChecked={setChecked}
                 quantity={2}
                 onChange={changeHandler}
               />
