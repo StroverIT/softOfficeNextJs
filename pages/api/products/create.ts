@@ -44,8 +44,6 @@ const handler = async (
       return res.json({ error: "Невалиден токен!" });
     }
     if (user.role != "admin") {
-      console.log(user);
-
       return res.json({ error: "Нямате такива права!" });
     }
     const sectionImg = files.media || null;
@@ -66,6 +64,7 @@ const handler = async (
     let formatedFields = articlesFormater(fields, articleImg, itemImg);
 
     await Product.create(formatedFields);
+    // const product = new Product(formatedFields).save();
 
     res.status(200).json({
       message: "Успешно създадена секция",
