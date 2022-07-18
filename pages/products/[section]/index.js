@@ -24,6 +24,16 @@ import { getAllProducts } from "../../../services/productService";
 import { translationToDb } from "../../../utils/translationToRoute";
 import ItemTypes from "../../../components/products/aside/ItemTypes";
 
+const totalPricesInitVal = {
+  prices: [],
+  min: 0,
+  max: 0,
+};
+const filtersInitVal = {
+  types: [],
+  colors: [],
+  price: [],
+};
 export default function Section({ products, sectionName }) {
   const router = useRouter();
   const sortingMenu = useRef(null);
@@ -35,19 +45,11 @@ export default function Section({ products, sectionName }) {
   const [articles, setArticles] = useState([]);
 
   //filters
-  const [totalPrices, setTotalPrices] = useState({
-    prices: [],
-    min: 0,
-    max: 0,
-  });
+  const [totalPrices, setTotalPrices] = useState(totalPricesInitVal);
   const [types, setTypes] = useState({});
   const [colors, setColors] = useState([]);
   // total filters
-  const [filters, setFilters] = useState({
-    types: [],
-    colors: [],
-    price: [],
-  });
+  const [filters, setFilters] = useState(filtersInitVal);
 
   useEffect(() => {
     setArticles(products?.articles);
@@ -56,14 +58,14 @@ export default function Section({ products, sectionName }) {
   useEffect(() => {
     let prices = articles?.map((article) => {
       let price = 0;
-      article.items.forEach((item) => {
+      article.items?.forEach((item) => {
         if (item.price > price) price = item.price;
       });
       return price;
     });
     let typesObj = {};
     articles.forEach((article) => {
-      article.items.forEach((item) => {
+      article.items?.forEach((item) => {
         item.types[0].split("\n").forEach((type) => {
           const typeOnly = type.split(":");
           if (!typesObj.hasOwnProperty(typeOnly[0])) {
@@ -81,14 +83,51 @@ export default function Section({ products, sectionName }) {
       max: Math.ceil(prices?.reduce((a, b) => Math.max(a, b), 0)),
     });
   }, [articles]);
-  useEffect(() => {}, [filters]);
+
+  useEffect(() => {
+    if (filters.types.length > 0) {
+      let filteredArticles = [];
+      articles.forEach((article) => {
+        let artItems = [];
+        article.items.forEach((item) => {
+          let filter = filters;
+          if (filter.length < 0) filter = [];
+
+          const isFound = filters.types.every((filter) =>
+            item.types[0].includes(filter)
+          );
+          if (isFound) {
+            artItems.push(item);
+          }
+        });
+        if (artItems.length > 0) {
+          article.items = artItems;
+          filteredArticles.push(article);
+        }
+      });
+      setArticles(filteredArticles);
+    } else {
+      setArticles(products?.articles);
+    }
+  }, [filters]);
+
+  useEffect(() => {
+    if (filterMenu) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+  }, [filterMenu]);
+  const clearAllFiilters = () => {
+    setFilters(filtersInitVal);
+  };
   return (
     <main className="mb-auto">
-      {products && products?.articles && (
+      {articles && (
         <div className="lg:grid grid-cols-[20%80%] lg:space-x-10 container">
           {products && (
             <aside
-              className={` w-full h-full lg:block bg-[#f5f5f5] ${
+              className={` w-full h-full lg:block bg-[#f5f5f5] max-lg:overflow-auto pb-10 ${
                 styles.asideContainer
               } lg:relative pt-4 px-5 ${
                 filterMenu
@@ -98,7 +137,8 @@ export default function Section({ products, sectionName }) {
             >
               <div className="">
                 <div className="flex items-center justify-between">
-                  <h3 className="mb-3 text-2xl text-semibold">Филтри</h3>
+                  <h3 className="mb-3 text-2xl text-bold">Филтри</h3>
+
                   <div
                     className={`text-lg cursor-pointer text-primary lg:hidden`}
                     onClick={() => setFilterMenu(false)}
@@ -106,6 +146,13 @@ export default function Section({ products, sectionName }) {
                     <HiX />
                   </div>
                 </div>
+                {/* Button to clear all the filters */}
+                <button
+                  className="flex items-center mt-2 cursor-pointer text-primary border border-primary py-1 px-6 rounded-full font-bold"
+                  onClick={clearAllFiilters}
+                >
+                  Изчисти
+                </button>
                 <AsideHeader text="Цена" />
                 <div>
                   {totalPrices && (
@@ -129,15 +176,16 @@ export default function Section({ products, sectionName }) {
                   </div>
                 </div>
               </div>
+
               {types &&
                 Object.entries(types).map((type) => {
-                  console.log(type);
                   return (
                     <ItemTypes
                       key={type[0]}
                       type={type[0]}
                       allTypes={Array.from(type[1])}
                       setFilters={setFilters}
+                      filters={filters}
                     />
                   );
                 })}
@@ -213,7 +261,7 @@ export default function Section({ products, sectionName }) {
           </section>
         </div>
       )}
-      {(!products?.articles || !products) && (
+      {!articles && (
         <div className="flex justify-center items-center text-xl text-secondary  h-[40vh]">
           Няма намерени резултати
         </div>
@@ -227,6 +275,7 @@ export async function getServerSideProps(context) {
   const { section } = context.params;
 
   const products = await getAllProducts(translationToDb(section));
+  console.log(products);
   return {
     props: {
       products: JSON.parse(JSON.stringify(products)),
