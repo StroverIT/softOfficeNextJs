@@ -43,7 +43,9 @@ function Article({ articleLen, articleData }) {
     if (name.includes("image")) {
       value = e.target.files[0];
     }
-
+    if (name == "commonName") {
+      value = !e.target.checked;
+    }
     setSectionState((prevState) => ({
       ...prevState,
       articles: sectionState.articles.map((article, index) => {
@@ -62,14 +64,14 @@ function Article({ articleLen, articleData }) {
         <div>
           <button
             type="button"
-            className="text-secondary text-lg"
+            className="text-lg text-secondary"
             onClick={removeArticle}
           >
             <HiX />
           </button>
         </div>
       </div>
-      <div className="flex  justify-center">
+      <div className="flex justify-center">
         <IsComponent
           state={isImage}
           setState={setIsImage}
@@ -78,6 +80,16 @@ function Article({ articleLen, articleData }) {
           sectionState={sectionState}
           setSectionState={setSectionState}
         />
+      </div>
+
+      <div>
+        <input
+          type="checkbox"
+          id="commonName"
+          name="commonName"
+          onChange={changeHandler}
+        />
+        <label htmlFor="commonName">Премахни общото име</label>
       </div>
       <Input
         type="text"
