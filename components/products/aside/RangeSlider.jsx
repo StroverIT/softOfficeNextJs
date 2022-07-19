@@ -1,7 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 
-const RangeSlider = ({ initialMin, initialMax, min, max, step, priceGap }) => {
+const RangeSlider = ({
+  initialMin,
+  initialMax,
+  min,
+  max,
+  step,
+  priceGap,
+  setFilters,
+}) => {
   const progressRef = useRef(null);
+
   const [minValue, setMinValue] = useState(initialMin);
   const [maxValue, setMaxValue] = useState(initialMax);
   const handleMin = (e) => {
@@ -31,9 +40,14 @@ const RangeSlider = ({ initialMin, initialMax, min, max, step, priceGap }) => {
   };
 
   useEffect(() => {
-    progressRef.current.style.left = (minValue / max) * step + "%";
-    progressRef.current.style.right = step - (maxValue / max) * step + "%";
-  }, [minValue, maxValue, max, step]);
+    progressRef.current.style.left = minValue / max + "%";
+    progressRef.current.style.right = step - maxValue / max + "%";
+    console.log("promqna");
+    setFilters((prevState) => ({
+      ...prevState,
+      prices: { min: minValue, max: maxValue },
+    }));
+  }, [minValue, maxValue]);
   useEffect(() => {
     setMinValue(initialMin);
     setMaxValue(initialMax);
