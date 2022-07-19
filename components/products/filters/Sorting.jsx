@@ -7,7 +7,14 @@ function Option({ value, text }) {
 function Quantity({ qty }) {
   return <span className="pl-1 text-sm text-primary-lighter">{qty}</span>;
 }
-export default function Sorting({ title, name, data, qty }) {
+export default function Sorting({ title, name, data, qty, setFilters }) {
+  const changeHandler = (e) => {
+    let val = e.target.value;
+    setFilters((prevState) => ({
+      ...prevState,
+      filterByNameOrPrice: val,
+    }));
+  };
   return (
     <div className="flex text-[#888] items-center justify-center flex-col lg:flex-row max-lg:container">
       <div className="flex justify-end  w-full mt-5 lg:justify-center lg:mt-2 items-center">
@@ -18,6 +25,7 @@ export default function Sorting({ title, name, data, qty }) {
       </div>
       <div className="w-full mt-1">
         <select
+          onChange={changeHandler}
           name={name}
           id={name}
           className="border border-gray p-1 lg:ml-2 w-full lg:w-auto text-dark"
