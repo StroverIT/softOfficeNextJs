@@ -175,7 +175,7 @@ const Register = () => {
                         правилата и условията
                       </span>
                     </Link>
-                    на ИвдаГео
+                    на SoftOffice
                   </label>
                 </div>
               </div>
@@ -197,7 +197,7 @@ const Register = () => {
                         условията за поверителност на лични данни
                       </span>
                     </Link>
-                    на ИвдаГео
+                    на SoftOffice
                   </label>
                 </div>
               </div> */}
