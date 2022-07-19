@@ -7,14 +7,14 @@ export const sortByDictionary = [
     val: "nameDesc",
     text: "Име (низходящ ред)",
   },
-  {
-    val: "priceAsc",
-    text: "Цена (възходящ ред)",
-  },
-  {
-    val: "priceDesc",
-    text: "Цена (низходящ ред)",
-  },
+  // {
+  //   val: "priceAsc",
+  //   text: "Цена (възходящ ред)",
+  // },
+  // {
+  //   val: "priceDesc",
+  //   text: "Цена (низходящ ред)",
+  // },
 ];
 export const pageDictionary = [
   {
