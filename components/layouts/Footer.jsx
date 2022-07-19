@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container">
         <div className="grid justify-between gap-4 py-8 sm:grid-cols-2 md:flex">
           <div>
-            <h2 className="mb-6 text-sm font-semibold uppercase">ИвдаГео</h2>
+            <h2 className="mb-6 text-sm font-semibold uppercase">SoftOffice</h2>
             <ul className="text-gray-300">
               <li className="mb-4">
                 <Link href="/aboutUs">
