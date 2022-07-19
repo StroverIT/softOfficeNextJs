@@ -11,28 +11,31 @@ import BuyBtn from "../../base/BuyBtn";
 export default function Product({ article, item, commonName, sectionName }) {
   const price = item.price.toFixed(2).split(".");
   const itemTypes = item.types.toString().split("\n");
+  let imageUrl;
+  console.log(article);
   return (
     <section className="flex items-center mb-5 border border-gray">
       <div className="md:grid grid-cols-[80%20%] w-full h-full">
         <div className="items-center h-full py-3 sm:flex">
-          <Link href={`/products/${sectionName}/prodykta`}>
-            <div className="relative flex w-full h-48 cursor-pointer sm:w-52 sm:h-32">
-              <Image
-                src="/images/testCarousel.jpg"
-                layout="fill"
-                alt="This is test image"
-              />
-            </div>
-          </Link>
-
+          {imageUrl && (
+            <Link href={`/products/${sectionName}/${item._id}`}>
+              <div className="relative flex w-full h-48 cursor-pointer sm:w-52 sm:h-32">
+                <Image
+                  src={`/images/${imageUrl}`}
+                  layout="fill"
+                  alt={`${article.articleName}`}
+                />
+              </div>
+            </Link>
+          )}
           <div className="pl-4">
-            <Link href={`/products/${sectionName}/prodykta`}>
+            <Link href={`/products/${sectionName}/${item._id}`}>
               <h2 className="text-lg cursor-pointer">
                 {commonName} {article.articleName}
               </h2>
             </Link>
             <ul className="pt-2 text-sm text-gray-darker">
-              {itemTypes.map((type) => {
+              {itemTypes.slice(0, 5).map((type) => {
                 return <li key={type}>{type}</li>;
               })}
             </ul>
