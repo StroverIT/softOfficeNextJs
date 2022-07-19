@@ -32,10 +32,10 @@ const totalPricesInitVal = {
 const filtersInitVal = {
   types: [],
   colors: [],
-  price: [],
+  prices: {},
+  filterByNameOrPrice: "",
 };
 export default function Section({ products, sectionName }) {
-  const router = useRouter();
   const sortingMenu = useRef(null);
   const [isHidden, setHidden] = useState(true);
 
@@ -43,7 +43,6 @@ export default function Section({ products, sectionName }) {
 
   //Product state
   const [articles, setArticles] = useState([]);
-
   //filters
   const [totalPrices, setTotalPrices] = useState(totalPricesInitVal);
   const [types, setTypes] = useState({});
@@ -106,6 +105,47 @@ export default function Section({ products, sectionName }) {
         }
       });
       setArticles(filteredArticles);
+    } else if (filters.prices?.max > 0) {
+      let filteredArticles = [];
+      articles.forEach((article) => {
+        let artItems = [];
+        article.items.forEach((item) => {
+          const isFound =
+            item.price <= filters.prices.max &&
+            item.price >= filters.prices.min;
+
+          if (isFound) {
+            artItems.push(item);
+          }
+        });
+        if (artItems.length > 0) {
+          article.items = artItems;
+          filteredArticles.push(article);
+        }
+      });
+      setArticles(filteredArticles);
+    } else if (filters.filterByNameOrPrice.length > 0) {
+      let filter = filters.filterByNameOrPrice;
+
+      switch (filter) {
+        case "nameAsc":
+          filter = articles.sort((a, b) =>
+            b.articleName.localeCompare(a.articleName)
+          );
+
+          break;
+        case "nameDesc":
+          filter = articles.sort((a, b) =>
+            a.articleName.localeCompare(b.articleName)
+          );
+          break;
+        case "priceAsc":
+
+        case "priceDesc":
+          break;
+      }
+
+      setArticles(filter);
     } else {
       setArticles(products?.articles);
     }
@@ -153,9 +193,9 @@ export default function Section({ products, sectionName }) {
                 >
                   Изчисти
                 </button>
-                <AsideHeader text="Цена" />
+                {/* <AsideHeader text="Цена" /> */}
                 <div>
-                  {totalPrices && (
+                  {/* {totalPrices && (
                     <RangeSlider
                       initialMin={totalPrices.min}
                       initialMax={totalPrices.max}
@@ -163,17 +203,18 @@ export default function Section({ products, sectionName }) {
                       max={totalPrices.max}
                       step={1}
                       priceGap={2}
+                      setFilters={setFilters}
                     />
-                  )}
+                  )} */}
                   {/* Pricing line to choose */}
-                  <div className="flex items-center mt-2 cursor-pointer">
+                  {/* <div className="flex items-center mt-2 cursor-pointer">
                     <span className="text-primary">
                       <HiX />
                     </span>
                     <span className="pl-1 text-sm text-gray-darker">
                       Изчисти
                     </span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
 
@@ -227,17 +268,18 @@ export default function Section({ products, sectionName }) {
                     <Sorting
                       title="Сортирай"
                       name="sortBy"
+                      setFilters={setFilters}
                       data={sortByDictionary}
                     />
                   </div>
-                  <div className="lg:ml-4">
+                  {/* <div className="lg:ml-4">
                     <Sorting
                       title="Намерени"
-                      qty={42}
+                      qty={totalItemsState.length}
                       name="pages"
                       data={pageDictionary}
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             )}
@@ -275,7 +317,6 @@ export async function getServerSideProps(context) {
   const { section } = context.params;
 
   const products = await getAllProducts(translationToDb(section));
-  console.log(products);
   return {
     props: {
       products: JSON.parse(JSON.stringify(products)),
