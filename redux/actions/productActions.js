@@ -1,18 +1,18 @@
 import { ActionTypes } from "../constants/action-types";
 
-export const addToCart = (itemId) => {
+export const addToCart = (item) => {
   return {
     type: ActionTypes.ADD_TO_CART,
     payload: {
-      id: itemId,
+      item,
     },
   };
 };
 export const removeFromCart = (itemId) => {
   return {
-    type: ActionTypes.REMOVE_FROM_CART,
+    type: ActionTypes.REMOVE_SELECTED_PRODUCTS,
     payload: {
-      id: itemId,
+      _id: itemId,
     },
   };
 };
@@ -20,7 +20,7 @@ export const adjustQty = (itemId, value) => {
   return {
     type: ActionTypes.ADJUST_QTY,
     payload: {
-      id: itemId,
+      _id: itemId,
       qty: value,
     },
   };
