@@ -24,7 +24,7 @@ const articlesScheme = new Schema({
   imageUrl: {
     type: String,
   },
-  items: [{ itemScheme }],
+  items: [itemScheme],
 });
 
 const productScheme = new Schema({
@@ -34,8 +34,10 @@ const productScheme = new Schema({
   imageUrl: {
     type: String,
   },
-
-  articles: [{ articlesScheme }],
+  commonName: {
+    type: String,
+  },
+  articles: [articlesScheme],
 });
 
 const Product = models.Product || model("Product", productScheme);
