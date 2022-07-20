@@ -1,14 +1,14 @@
 import "../styles/globals.css";
 
 // import { wrapper, store } from "../redux/store";
-import { Provider } from "react-redux";
 
 import Layout from "../components/layouts/Layout";
 
 import Head from "next/head";
 
-import store, { persistor } from "../redux/store";
+import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "../redux/store";
 
 import { SessionProvider } from "next-auth/react";
 
@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
       </Head>
       <SessionProvider session={pageProps.session}>
         <Provider store={store}>
-          <PersistGate Loading={null} persistor={persistor}>
+          <PersistGate loading={null} persistor={persistor}>
             <Layout>
               <Component {...pageProps} />
             </Layout>

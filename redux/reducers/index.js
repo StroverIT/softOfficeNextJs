@@ -1,8 +1,19 @@
 import { combineReducers } from "@reduxjs/toolkit";
+import { persistReducer } from "redux-persist";
+import session from "redux-persist/lib/storage/session";
 
 import productReducer from "./productReducer";
+
+const persistConfig = {
+  key: "root",
+  storage: session,
+  // whitelist: ["card"]
+};
 
 const reducers = combineReducers({
   allProducts: productReducer,
 });
-export default reducers;
+
+const persistedReducer = persistReducer(persistConfig, reducers);
+
+export default persistedReducer;

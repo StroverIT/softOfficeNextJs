@@ -9,19 +9,9 @@ import BtnOutlined from "../components/buttons/Outlined";
 import Input from "../components/cart/Input";
 import CartItem from "../components/cart/CartItem";
 //Redux
-import { useSelector, useDispatch } from "react-redux";
+import { connect } from "react-redux";
 import { adjustQty, removeFromCart } from "../redux/actions/productActions";
-export default function Cart() {
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state.allProducts.cart);
-
-  const removeProduct = (itemId) => {
-    dispatch(removeFromCart(itemId));
-  };
-  const changeQty = (itemId, value) => {
-    dispatch(adjustQty(itemId, value));
-  };
-
+function Cart({ cart, adjustQty, removeFromCart }) {
   const addInfo = useRef(null);
   const [isHidd, setHidd] = useState(true);
   const [hidText, setHidText] = useState("Добави адрес");
@@ -77,8 +67,8 @@ export default function Cart() {
                       <CartItem
                         cartData={cartItem}
                         key={cartItem.item._id}
-                        removeProduct={() => removeProduct(cartItem.item._id)}
-                        changeQty={changeQty.bind({}, cartItem.item._id)}
+                        removeProduct={() => removeFromCart(cartItem.item._id)}
+                        changeQty={adjustQty.bind({}, cartItem.item._id)}
                       />
                     );
                   })}
@@ -201,3 +191,9 @@ export default function Cart() {
     </>
   );
 }
+export default connect(
+  (state) => ({
+    cart: state.allProducts.cart,
+  }),
+  { adjustQty, removeFromCart }
+)(Cart);
