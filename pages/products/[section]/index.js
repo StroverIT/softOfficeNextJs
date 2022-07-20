@@ -8,9 +8,6 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 // Styles
 import styles from "../../../styles/products/listProducts.module.css";
 
-// NextJs
-import { useRouter } from "next/router";
-
 // Components
 import AsideHeader from "./../../../components/products/aside/AsideHeader";
 import Product from "./../../../components/products/listProducts/Product";
@@ -23,6 +20,9 @@ import { getAllProducts } from "../../../services/productService";
 // translation
 import { translationToDb } from "../../../utils/translationToRoute";
 import ItemTypes from "../../../components/products/aside/ItemTypes";
+// Redux
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../../redux/actions/productActions";
 
 const totalPricesInitVal = {
   prices: [],
@@ -36,6 +36,12 @@ const filtersInitVal = {
   filterByNameOrPrice: "",
 };
 export default function Section({ products, sectionName }) {
+  const dispatch = useDispatch();
+
+  const addProduct = (product) => {
+    dispatch(addToCart(product));
+  };
+
   const sortingMenu = useRef(null);
   const [isHidden, setHidden] = useState(true);
 
@@ -63,7 +69,7 @@ export default function Section({ products, sectionName }) {
       return price;
     });
     let typesObj = {};
-    articles.forEach((article) => {
+    articles?.forEach((article) => {
       article.items?.forEach((item) => {
         item.types[0].split("\n").forEach((type) => {
           const typeOnly = type.split(":");
@@ -188,7 +194,7 @@ export default function Section({ products, sectionName }) {
                 </div>
                 {/* Button to clear all the filters */}
                 <button
-                  className="flex items-center mt-2 cursor-pointer text-primary border border-primary py-1 px-6 rounded-full font-bold"
+                  className="flex items-center px-6 py-1 mt-2 font-bold border rounded-full cursor-pointer text-primary border-primary"
                   onClick={clearAllFiilters}
                 >
                   Изчисти
@@ -294,6 +300,7 @@ export default function Section({ products, sectionName }) {
                       key={item._id}
                       commonName={products.commonName}
                       sectionName={sectionName}
+                      addProduct={addProduct}
                     />
                   );
                 });
