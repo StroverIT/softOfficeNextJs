@@ -1,4 +1,5 @@
-import { combineReducers } from "redux";
+import { combineReducers } from "@reduxjs/toolkit";
+
 import productReducer from "./productReducer";
 
 const reducers = combineReducers({
