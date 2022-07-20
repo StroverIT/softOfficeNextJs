@@ -1,12 +1,21 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useEffect } from "react";
 // Icons
 import { IoIosArrowUp, IoIosArrowDown } from "react-icons/io";
 
-export default function QuanityInput({ contClass, inputClass }) {
-  const qty = useRef(null);
-
+export default function QuanityInput({
+  contClass,
+  inputClass,
+  cartQty,
+  changeQty,
+}) {
   const [currQty, setQty] = useState(1);
-  if (currQty < 0) setQty(0);
+  const changeHandler = (e) => {
+    if (e.target.value < 1) e.target.value = 1;
+    setQty(e.target.value);
+  };
+  useEffect(() => {
+    setQty(cartQty);
+  }, [cartQty]);
   return (
     <div className={`relative ${contClass ? contClass : ""}`}>
       <input
@@ -16,14 +25,20 @@ export default function QuanityInput({ contClass, inputClass }) {
         }`}
         value={currQty}
         id="qty"
-        onChange={(e) => setQty(e.target.value)}
-        ref={qty}
+        onChange={changeHandler}
+        onBlur={(e) => changeQty(parseInt(currQty))}
       />
       <div className="absolute -translate-y-1/2 select-none top-1/2 right-2">
-        <div className="cursor-pointer" onClick={() => setQty(currQty + 1)}>
+        <div
+          className="cursor-pointer"
+          onClick={() => changeQty(parseInt(currQty) + 1)}
+        >
           <IoIosArrowUp />
         </div>
-        <div className="cursor-pointer" onClick={() => setQty(currQty - 1)}>
+        <div
+          className="cursor-pointer"
+          onClick={() => changeQty(currQty < 2 ? 1 : parseInt(currQty) - 1)}
+        >
           <IoIosArrowDown />
         </div>
       </div>
