@@ -17,7 +17,7 @@ export default function Product({
   const price = item.price.toFixed(2).split(".");
   const itemTypes = item.types.toString().split("\n");
   let imageUrl;
-  item.articleName = article.articleName;
+  item.articleName = `${commonName} ${article.articleName}`;
   item.sectionName = sectionName;
   return (
     <section className="flex items-center mb-5 border border-gray">
