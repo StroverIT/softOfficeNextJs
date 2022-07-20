@@ -21,7 +21,7 @@ import { getAllProducts } from "../../../services/productService";
 import { translationToDb } from "../../../utils/translationToRoute";
 import ItemTypes from "../../../components/products/aside/ItemTypes";
 // Redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/actions/productActions";
 
 const totalPricesInitVal = {

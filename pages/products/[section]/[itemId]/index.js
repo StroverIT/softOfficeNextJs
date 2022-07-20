@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
 // Icons
 import { AiOutlineHeart } from "react-icons/ai";
@@ -10,8 +10,14 @@ import Pricing from "../../../../components/priceStyling/Pricing";
 import QuanityInput from "../../../../components/base/QuanityInput";
 import { productByItemId } from "../../../../services/productService";
 
+import { useDispatch, reduxProducts } from "react-redux";
+
 export default function Index({ product }) {
   const price = product.item.price.toFixed(2).split(".");
+
+  // const reduxProducts = useSelector((state) => state);
+  // const dispatch = useDispatch();
+  // dispatch(setProducts(product))
 
   return (
     <main className="mb-auto">
@@ -105,12 +111,12 @@ export default function Index({ product }) {
             </tbody>
           </table>
         </section>
-        <section className="my-16 bg-gray-300 pb-10 pt-5">
+        <section className="pt-5 pb-10 my-16 bg-gray-300">
           <h3 className="py-5 text-xl font-semibold text-center">
             Пълно Описание
           </h3>
           <div className="flex justify-center">
-            <ul className=" list-disc text-lg">
+            <ul className="text-lg list-disc ">
               {product.description.map((description) => {
                 return <li key={description}>{description}</li>;
               })}
