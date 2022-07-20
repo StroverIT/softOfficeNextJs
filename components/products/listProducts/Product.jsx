@@ -6,13 +6,19 @@ import Link from "next/link";
 //Components
 import Pricing from "../../priceStyling/Pricing";
 import BuyBtn from "../../base/BuyBtn";
-// Translator
 
-export default function Product({ article, item, commonName, sectionName }) {
+export default function Product({
+  article,
+  item,
+  commonName,
+  sectionName,
+  addProduct,
+}) {
   const price = item.price.toFixed(2).split(".");
   const itemTypes = item.types.toString().split("\n");
   let imageUrl;
-  console.log(article);
+  item.articleName = article.articleName;
+  item.sectionName = sectionName;
   return (
     <section className="flex items-center mb-5 border border-gray">
       <div className="md:grid grid-cols-[80%20%] w-full h-full">
@@ -23,7 +29,7 @@ export default function Product({ article, item, commonName, sectionName }) {
                 <Image
                   src={`/images/${imageUrl}`}
                   layout="fill"
-                  alt={`${article.articleName}`}
+                  alt={`${item.articleName}`}
                 />
               </div>
             </Link>
@@ -47,7 +53,7 @@ export default function Product({ article, item, commonName, sectionName }) {
               <Pricing price={price[0]} priceDec={price[1]} size="2xl" />
             </div>
             {/* Create grayer color for future*/}
-            <BuyBtn border={true} />
+            <BuyBtn border={true} onClick={() => addProduct(item)} />
           </div>
         </div>
       </div>
