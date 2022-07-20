@@ -15,6 +15,13 @@ function Cart({ cart, adjustQty, removeFromCart }) {
   const addInfo = useRef(null);
   const [isHidd, setHidd] = useState(true);
   const [hidText, setHidText] = useState("Добави адрес");
+  let subtotal = cart
+    .map((item) => {
+      return item.item.price * item.qty;
+    })
+    .reduce((a, b) => a + b, 0)
+    .toFixed(2)
+    .split(".");
 
   useEffect(() => {
     if (!isHidd) {
@@ -79,7 +86,11 @@ function Cart({ cart, adjustQty, removeFromCart }) {
                 <section className="flex items-center justify-between border-b b-[#e4e7e6] py-2">
                   <div className="font-semibold uppercase ">Междинна сума:</div>
                   <div>
-                    <Price size="2xl" price={200} priceDec={20} />
+                    <Price
+                      size="2xl"
+                      price={subtotal[0]}
+                      priceDec={subtotal[1]}
+                    />
                   </div>
                 </section>
                 <section className="border-b b-[#e4e7e6] py-5">
