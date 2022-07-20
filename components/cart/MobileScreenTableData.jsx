@@ -34,7 +34,7 @@ export default function MobileScreenTableData({
           changeQty={changeQty}
         />
         <div className="flex items-center justify-center mt-2 ">
-          <button
+          <div
             type="button"
             className="flex items-center justify-center cursor-pointer text-gray-darker"
           >
@@ -44,7 +44,7 @@ export default function MobileScreenTableData({
             <button type="button" onClick={removeProduct}>
               Премахни
             </button>
-          </button>
+          </div>
         </div>
       </div>
     </td>
