@@ -1,17 +1,20 @@
-import { createStore, applyMiddleware } from "redux";
-import thunk from "redux-thunk";
-import { composeWithDevTools } from "redux-devtools-extension";
-import { createWrapper } from "next-redux-wrapper";
+// configureStore.js
+
+import { createStore } from "redux";
+import { persistStore, persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage"; // defaults to localStorage for web
+
 import rootReducer from "./reducers";
 
-const initialState = {};
-const middleware = [thunk];
+const persistConfig = {
+  key: "root",
+  storage,
+};
 
-export const store = createStore(
-  rootReducer,
-  initialState,
-  composeWithDevTools(applyMiddleware(...middleware))
-);
-const makeStore = () => store;
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-export const wrapper = createWrapper(makeStore);
+export default () => {
+  let store = createStore(persistedReducer);
+  let persistor = persistStore(store);
+  return { store, persistor };
+};
