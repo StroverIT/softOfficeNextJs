@@ -67,7 +67,7 @@ export default function Create() {
 
     const res = await create(formData);
     const data = await res.json();
-    console.log(data);
+    console.log(res, data);
     //-------
   };
 
@@ -88,7 +88,7 @@ export default function Create() {
     <div className="mt-5">
       <div>
         <button
-          className="text-2xl text-primary-lighter my-5"
+          className="my-5 text-2xl text-primary-lighter"
           onClick={() => router.push("/adminPanel#prodykti")}
         >
           <BsArrowReturnLeft />
@@ -107,6 +107,12 @@ export default function Create() {
               placeholder="Секция"
               id="sectionName"
               value={sectionState.section}
+              onChange={changeHandler}
+            />
+            <Input
+              type="text"
+              placeholder="Общо име"
+              id="commonName"
               onChange={changeHandler}
             />
             <Input
