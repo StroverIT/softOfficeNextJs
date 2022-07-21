@@ -59,10 +59,8 @@ const Navbar = () => {
   useEffect(() => {
     if (showSearch) {
       document.body.style.overflowY = "hidden";
-      document.body.classList.add("blury");
     } else {
-      document.body.style.overflowY = "hidden";
-      document.body.classList.add("blury");
+      document.body.style.removeProperty("overflow-y");
     }
   }, [showSearch]);
   // Scroll event listener
