@@ -22,6 +22,8 @@ const Navbar = () => {
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const [showSearch, setShowSearch] = useState(false);
+  const [searchTabInputs, setSearchTabInputs] = useState({});
+  const [searchInput, setSearchInput] = useState("");
   // Navbar control handler
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const controlNavbar = () => {
@@ -40,9 +42,29 @@ const Navbar = () => {
     }
     setLastScrollY(window.scrollY);
   };
+  const searchHandler = async (e) => {
+    setSearchInput(e.target.value);
+
+    const res = await fetch("/api/search", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ input: e.target.value }),
+    });
+    const data = await res.json();
+    console.log(data);
+    setSearchTabInputs(data);
+  };
   // Hide menu on router change
   useEffect(() => setShowSearch(false), [router]);
-
+  useEffect(() => {
+    if (showSearch) {
+      document.body.style.overflowY = "hidden";
+      document.body.classList.add("blury");
+    } else {
+      document.body.style.overflowY = "hidden";
+      document.body.classList.add("blury");
+    }
+  }, [showSearch]);
   // Scroll event listener
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -141,18 +163,119 @@ const Navbar = () => {
         }`}
         ref={searchMenu}
       >
-        <div className="container flex justify-center py-5 bg-white shadow-lg md:pb-9 md:pt-5 md:rounded-bl-full md:rounded-br-full">
+        <div className="container flex justify-center py-16 bg-white shadow-lg ">
           <div className="relative w-11/12 ">
             <input
               type="text"
               placeholder="Търсене ..."
               className="w-full py-2 pl-3 border-2 rounded-full border-primary focus:outline-none placeholder:text-gray-250"
+              value={searchInput}
+              onChange={searchHandler}
             />
             <div className="absolute text-2xl font-semibold -translate-y-1/2 cursor-pointer text-primary right-3 top-1/2 ">
               <AiOutlineSearch />
             </div>
           </div>
         </div>
+        {(searchTabInputs?.katNomera?.length > 0 ||
+          searchTabInputs?.articleNames?.length > 0 ||
+          searchTabInputs?.sections?.length > 0) && (
+          <div className="  ">
+            <div className="overflow-auto h-96  container shadow-lg">
+              {searchTabInputs.katNomera?.length > 0 && (
+                <div className=" bg-white py-1 w-full">
+                  <h3 className="text-lg text-center bg-primary-lighter py-2 text-white mb-2">
+                    КатНомера
+                  </h3>
+                  <ul>
+                    {searchTabInputs.katNomera.map((item) => {
+                      return (
+                        <Link key={item._id} href={`/products/${item.route}`}>
+                          <li className="cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white transition-transform px-2 py-1 border-b border-primary">
+                            <span className="text-lg text-green">
+                              {item.katNomer} -
+                            </span>
+                            <span>
+                              {item.commonName} {item.articleName}
+                            </span>
+                            <ul className="text-sm flex flex-wrap">
+                              {item.types[0]
+                                .split("\n")
+                                .slice(0, 5)
+                                .map((type, index) => {
+                                  return (
+                                    <li
+                                      key={`${type}=${index}`}
+                                      className="py-1 pr-1"
+                                    >
+                                      {type}
+                                    </li>
+                                  );
+                                })}
+                            </ul>
+                          </li>
+                        </Link>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+              {searchTabInputs.articleNames?.length > 0 && (
+                <div className="w-full bg-white ">
+                  <h3 className="text-lg text-center bg-primary-lighter py-2 text-white mb-2">
+                    Артикули
+                  </h3>
+                  <ul>
+                    {searchTabInputs.articleNames?.map((item) => {
+                      return (
+                        <Link key={item._id} href={`/products/${item.route}`}>
+                          <li className="cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white transition-transform px-2 py-1 border-b border-primary">
+                            <span className="text-lg text-green">
+                              {item.commonName} {item.articleName}
+                            </span>
+                            <ul className="text-sm flex flex-wrap">
+                              {item.types[0]
+                                .split("\n")
+                                .slice(0, 5)
+                                .map((type, index) => {
+                                  return (
+                                    <li
+                                      key={`${type}=${index}`}
+                                      className="py-1 pr-1"
+                                    >
+                                      {type}
+                                    </li>
+                                  );
+                                })}
+                            </ul>
+                          </li>
+                        </Link>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+              {searchTabInputs.sections?.length > 0 && (
+                <div className="w-full bg-white">
+                  <h3 className="text-lg text-center bg-primary-lighter py-2 text-white mb-2">
+                    Секции
+                  </h3>
+                  <ul>
+                    {searchTabInputs.sections.map((item) => {
+                      return (
+                        <Link key={item._id} href={`/products/${item.route}`}>
+                          <li className="cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white transition-transform px-2 py-1">
+                            {item.sectionName}
+                          </li>
+                        </Link>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
