@@ -10,14 +10,27 @@ import Pricing from "../../../../components/priceStyling/Pricing";
 import QuanityInput from "../../../../components/base/QuanityInput";
 import { productByItemId } from "../../../../services/productService";
 
-import { useDispatch, reduxProducts } from "react-redux";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../../redux/actions/productActions";
 
 export default function Index({ product }) {
   const price = product.item.price.toFixed(2).split(".");
 
-  // const reduxProducts = useSelector((state) => state);
-  // const dispatch = useDispatch();
-  // dispatch(setProducts(product))
+  const dispatch = useDispatch();
+
+  const addProduct = (product) => {
+    let newObj = {};
+
+    for (let [key, value] of Object.entries(product.item)) {
+      newObj[key] = value;
+    }
+    for (let [key, value] of Object.entries(product)) {
+      if (key != "item") {
+        newObj[key] = value;
+      }
+    }
+    dispatch(addToCart(newObj));
+  };
 
   return (
     <main className="mb-auto">
@@ -55,6 +68,7 @@ export default function Index({ product }) {
                   <button
                     type="button"
                     className={`w-full px-2 flex py-2  justify-center items-end font-semibold text-white  bg-primary text-sm ml-3`}
+                    onClick={() => addProduct(product)}
                   >
                     Купи
                   </button>
