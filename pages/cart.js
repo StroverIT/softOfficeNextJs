@@ -30,9 +30,7 @@ function Cart({ cart, adjustQty, removeFromCart }) {
       setHidText("Добави адрес");
     }
   }, [isHidd]);
-  useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+
   return (
     <>
       <Head>
