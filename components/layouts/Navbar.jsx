@@ -11,7 +11,9 @@ import style from "../../styles/navigation/Nav.module.css";
 // Icons and images
 import { AiOutlineUser, AiOutlineHeart, AiOutlineSearch } from "react-icons/ai";
 import { BsCart3 } from "react-icons/bs";
-
+function isObjectEmpty(obj) {
+  return Object.keys(obj).length === 0;
+}
 const Navbar = () => {
   const router = useRouter();
 
@@ -51,7 +53,6 @@ const Navbar = () => {
       body: JSON.stringify({ input: e.target.value }),
     });
     const data = await res.json();
-    console.log(data);
     setSearchTabInputs(data);
   };
   // Hide menu on router change
@@ -175,9 +176,9 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        {(searchTabInputs?.katNomera?.length > 0 ||
-          searchTabInputs?.articleNames?.length > 0 ||
-          searchTabInputs?.sections?.length > 0) && (
+        {searchTabInputs?.katNomera?.length > 0 ||
+        searchTabInputs?.articleNames?.length > 0 ||
+        searchTabInputs?.sections?.length > 0 ? (
           <div className="  ">
             <div className="overflow-auto h-96  container shadow-lg">
               {searchTabInputs.katNomera?.length > 0 && (
@@ -273,6 +274,12 @@ const Navbar = () => {
               )}
             </div>
           </div>
+        ) : (
+          !isObjectEmpty(searchTabInputs) && (
+            <div className="container text-center text-secondary bg-white py-10">
+              <span>Няма намерен резултати</span>
+            </div>
+          )
         )}
       </div>
     </header>
