@@ -10,7 +10,6 @@ const shopReducer = (state = initialState, action) => {
 
   switch (action.type) {
     case ActionTypes.ADD_TO_CART:
-      console.log(item);
       // Get the items data from products array
       // Check if Item is in cart already
       const inCart = state.cart.find((cartItem) =>
@@ -24,7 +23,7 @@ const shopReducer = (state = initialState, action) => {
                 ? { ...cartItem, qty: cartItem.qty + 1 }
                 : cartItem
             )
-          : [...state.cart, { ...item, qty: 1 }],
+          : [...state.cart, { ...item, qty: item.customQty }],
       };
 
     case ActionTypes.REMOVE_SELECTED_PRODUCTS:

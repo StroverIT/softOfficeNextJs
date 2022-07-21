@@ -12,9 +12,11 @@ import { productByItemId } from "../../../../services/productService";
 
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../../redux/actions/productActions";
+import AddProductInput from "../../../../components/products/AddProductInput";
 
 export default function Index({ product }) {
   const price = product.item.price.toFixed(2).split(".");
+  const [currQty, setQty] = useState(1);
 
   const dispatch = useDispatch();
 
@@ -29,7 +31,7 @@ export default function Index({ product }) {
         newObj[key] = value;
       }
     }
-    dispatch(addToCart(newObj));
+    dispatch(addToCart(newObj, currQty));
   };
 
   return (
@@ -64,7 +66,7 @@ export default function Index({ product }) {
                   </label>
                 </div>
                 <div className="grid grid-cols-[30%70%]">
-                  <QuanityInput />
+                  <AddProductInput setQty={setQty} currQty={currQty} />
                   <button
                     type="button"
                     className={`w-full px-2 flex py-2  justify-center items-end font-semibold text-white  bg-primary text-sm ml-3`}
