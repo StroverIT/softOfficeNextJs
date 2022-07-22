@@ -20,9 +20,15 @@ const sizeDictionary = {
   "2xl": ["text-3xl", "text-sm", "mt-[5px]", "mt-[1px]", "mt-[9px]"],
   "3xl": ["text-4xl", "", "mt-[2px]", "mt-[3px]", "mt-[11px]"],
 };
-export default function Pricing({ price, priceDec, size, textColor }) {
+export default function Pricing({
+  price,
+  priceDec,
+  size,
+  textColor,
+  isDDS = false,
+}) {
   return (
-    <div className="flex justify-center flex-col items-center py-3">
+    <div className="flex flex-col items-center justify-center py-3">
       <div className={`flex`}>
         <div className={`font-semibold ${sizeDictionary[size][0]}`}>
           {price}
@@ -40,7 +46,7 @@ export default function Pricing({ price, priceDec, size, textColor }) {
           </div>
         </div>
       </div>
-      <div className="text-xs pb-1">Без ДДС</div>
+      <div className="pb-1 text-xs">{isDDS ? "с включено" : "Без"} ДДС</div>
     </div>
   );
 }
