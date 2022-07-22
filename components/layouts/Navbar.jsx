@@ -11,9 +11,9 @@ import style from "../../styles/navigation/Nav.module.css";
 // Icons and images
 import { AiOutlineUser, AiOutlineHeart, AiOutlineSearch } from "react-icons/ai";
 import { BsCart3 } from "react-icons/bs";
-function isObjectEmpty(obj) {
-  return Object.keys(obj).length === 0;
-}
+// Utils
+import isObjectEmpty from "../../utils/isObjectEmpty";
+
 const Navbar = () => {
   const router = useRouter();
 
@@ -85,7 +85,7 @@ const Navbar = () => {
           <div className="flex items-center justify-center logo">
             <Hamburger headRef={headerRef} />
             <Link href="/">
-              <div className="items-center justify-between hidden lg:flex font-bold text-primary-lighter text-3xl lg:ml-1 cursor-pointer">
+              <div className="items-center justify-between hidden text-3xl font-bold cursor-pointer lg:flex text-primary-lighter lg:ml-1">
                 <span className="">Soft</span>
                 <span>Office.bg</span>
               </div>
@@ -108,7 +108,7 @@ const Navbar = () => {
           </div>
           <div className="lg:hidden">
             <Link href="/">
-              <div className="flex items-center justify-between lg:block font-bold text-primary-lighter text-3xl lg:ml-1 cursor-pointer">
+              <div className="flex items-center justify-between text-3xl font-bold cursor-pointer lg:block text-primary-lighter lg:ml-1">
                 <span className="">Soft</span>
                 <span>Office.bg</span>
               </div>
@@ -179,25 +179,25 @@ const Navbar = () => {
         {searchTabInputs?.katNomera?.length > 0 ||
         searchTabInputs?.articleNames?.length > 0 ||
         searchTabInputs?.sections?.length > 0 ? (
-          <div className="  ">
-            <div className="overflow-auto h-96  container shadow-lg">
+          <div className="">
+            <div className="container overflow-auto shadow-lg h-96">
               {searchTabInputs.katNomera?.length > 0 && (
-                <div className=" bg-white py-1 w-full">
-                  <h3 className="text-lg text-center bg-primary-lighter py-2 text-white mb-2">
+                <div className="w-full py-1 bg-white ">
+                  <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-lighter">
                     КатНомера
                   </h3>
                   <ul>
                     {searchTabInputs.katNomera.map((item) => {
                       return (
                         <Link key={item._id} href={`/products/${item.route}`}>
-                          <li className="cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white transition-transform px-2 py-1 border-b border-primary">
+                          <li className="px-2 py-1 transition-transform border-b cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white border-primary">
                             <span className="text-lg text-green">
                               {item.katNomer} -
                             </span>
                             <span>
                               {item.commonName} {item.articleName}
                             </span>
-                            <ul className="text-sm flex flex-wrap">
+                            <ul className="flex flex-wrap text-sm">
                               {item.types[0]
                                 .split("\n")
                                 .slice(0, 5)
@@ -221,25 +221,25 @@ const Navbar = () => {
               )}
               {searchTabInputs.articleNames?.length > 0 && (
                 <div className="w-full bg-white ">
-                  <h3 className="text-lg text-center bg-primary-lighter py-2 text-white mb-2">
+                  <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-lighter">
                     Артикули
                   </h3>
                   <ul>
                     {searchTabInputs.articleNames?.map((item) => {
                       return (
                         <Link key={item._id} href={`/products/${item.route}`}>
-                          <li className="cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white transition-transform px-2 py-1 border-b border-primary">
+                          <li className="px-2 py-1 transition-transform border-b cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white border-primary">
                             <span className="text-lg text-green">
                               {item.commonName} {item.articleName}
                             </span>
-                            <ul className="text-sm flex flex-wrap">
+                            <ul className="flex flex-wrap text-sm">
                               {item.types[0]
                                 .split("\n")
                                 .slice(0, 5)
                                 .map((type, index) => {
                                   return (
                                     <li
-                                      key={`${type}=${index}`}
+                                      key={`${type}-${index}`}
                                       className="py-1 pr-1"
                                     >
                                       {type}
@@ -256,14 +256,14 @@ const Navbar = () => {
               )}
               {searchTabInputs.sections?.length > 0 && (
                 <div className="w-full bg-white">
-                  <h3 className="text-lg text-center bg-primary-lighter py-2 text-white mb-2">
+                  <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-lighter">
                     Секции
                   </h3>
                   <ul>
                     {searchTabInputs.sections.map((item) => {
                       return (
                         <Link key={item._id} href={`/products/${item.route}`}>
-                          <li className="cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white transition-transform px-2 py-1">
+                          <li className="px-2 py-1 transition-transform cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white">
                             {item.sectionName}
                           </li>
                         </Link>
@@ -276,7 +276,7 @@ const Navbar = () => {
           </div>
         ) : (
           !isObjectEmpty(searchTabInputs) && (
-            <div className="container text-center text-secondary bg-white py-10">
+            <div className="container py-10 text-center bg-white text-secondary">
               <span>Няма намерен резултати</span>
             </div>
           )
