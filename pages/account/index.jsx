@@ -14,7 +14,7 @@ import MyFavourites from "../../components/account/MyFavourites";
 // Auth
 import { getSession, signOut } from "next-auth/react";
 
-export default function Index({ userData }) {
+export default function Index({ userData, deliveriesData, favData }) {
   const router = useRouter();
   const [categoryData, setCategoryData] = useState(null);
   const myDetails = useRef(null);
@@ -31,8 +31,14 @@ export default function Index({ userData }) {
         <MyDetails userData={userData} key="MyDetails" />,
         myDetails,
       ],
-      "#my-orders": [<MyOrders key="MyOrders" />, myOrders],
-      "#my-favourites": [<MyFavourites key="MyFavourites" />, myFavourites],
+      "#my-orders": [
+        <MyOrders key="MyOrders" deliveriesData={deliveriesData} />,
+        myOrders,
+      ],
+      "#my-favourites": [
+        <MyFavourites key="MyFavourites" favData={favData.data} />,
+        myFavourites,
+      ],
     };
     const someData =
       categoryComp[window.location.hash] ?? categoryComp["#account-details"]; // Retrieve data based on URL fragment
@@ -133,6 +139,8 @@ export default function Index({ userData }) {
   );
 }
 export async function getServerSideProps(context) {
+  const method = "POST";
+  const headers = { "Content-Type": "application/json" };
   // Session
   const session = await getSession({ req: context.req });
   if (!session) {
@@ -145,15 +153,40 @@ export async function getServerSideProps(context) {
   }
   // Mongodb
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/getUser`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
+    method,
+    headers,
     body: JSON.stringify({
       email: session.user.email,
-      name: session.user.name,
     }),
   });
   const data = await res.json();
+
+  const deliveriesRes = await fetch(
+    `${process.env.NEXTAUTH_URL}/api/account/deliveries/getAll`,
+    {
+      method,
+      headers,
+      body: JSON.stringify({ ownerId: data._id }),
+    }
+  );
+
+  let deliveriesData = await deliveriesRes.json();
+
+  const favouritesRes = await fetch(
+    `${process.env.NEXTAUTH_URL}/api/account/favourites/getAll`,
+    {
+      method,
+      headers,
+      body: JSON.stringify({ ownerId: data._id }),
+    }
+  );
+  const favData = await favouritesRes.json();
+
   return {
-    props: { userData: JSON.parse(JSON.stringify(data)) },
+    props: {
+      userData: JSON.parse(JSON.stringify(data)),
+      deliveriesData,
+      favData,
+    },
   };
 }

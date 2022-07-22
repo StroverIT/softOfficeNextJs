@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useSession } from "next-auth/react";
 
 // My accouts components
 import SectionContainer from "./SectionContainer";
@@ -72,12 +71,10 @@ function Message({ text, err }) {
 }
 
 export default function MyDetails({ userData }) {
-  const { data: session, status } = useSession();
-  if (session) {
-    inputDataEmail[0].defValue = session.user.email;
-    if (userData?.phoneNumber) {
-      inputDataPersonal[0].defValue = userData.phoneNumber;
-    }
+  if (userData) {
+    inputDataEmail[0].defValue = userData.email;
+
+    inputDataPersonal[0].defValue = userData.phoneNumber;
   }
 
   const [nameOrTel, setNameOrTel] = useState([null, false]);

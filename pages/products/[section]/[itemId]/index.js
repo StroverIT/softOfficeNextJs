@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+// Nextjs
+import { getSession } from "next-auth/react";
 
 // Icons
 import { AiOutlineHeart } from "react-icons/ai";
@@ -7,33 +9,38 @@ import style from "../../../../styles/products/showProduct.module.css";
 // Components
 import ThumbsGallery from "../../../../components/swiperJs/ThumbsGallery";
 import Pricing from "../../../../components/priceStyling/Pricing";
-import QuanityInput from "../../../../components/base/QuanityInput";
 import { productByItemId } from "../../../../services/productService";
-
-import { useDispatch } from "react-redux";
-import { addToCart } from "../../../../redux/actions/productActions";
 import AddProductInput from "../../../../components/products/AddProductInput";
 
-export default function Index({ product }) {
+// Redux
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../../../redux/actions/productActions";
+
+// Utils
+import productFormater from "../../../../utils/productFormater";
+
+export default function Index({ product, userData }) {
   const price = product.item.price.toFixed(2).split(".");
   const [currQty, setQty] = useState(1);
-
   const dispatch = useDispatch();
 
   const addProduct = (product) => {
-    let newObj = {};
-
-    for (let [key, value] of Object.entries(product.item)) {
-      newObj[key] = value;
-    }
-    for (let [key, value] of Object.entries(product)) {
-      if (key != "item") {
-        newObj[key] = value;
-      }
-    }
+    const newObj = productFormater(product);
     dispatch(addToCart(newObj, currQty));
   };
+  const addFavourites = async (product) => {
+    const newObj = productFormater(product);
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ product: newObj }),
+    };
 
+    const res = await fetch("/api/account/favourites/adding", options);
+    console.log(res);
+    const data = await res.json();
+    console.log(data);
+  };
   return (
     <main className="mb-auto">
       <div className="container">
@@ -74,14 +81,20 @@ export default function Index({ product }) {
                   >
                     Купи
                   </button>
-                  <div className="flex items-center justify-center col-span-2 mt-6 cursor-pointer group ">
-                    <div className="inline-flex p-2 text-xl rounded-full bg-gray group-hover:bg-gray-200 group-hover:text-white md:ml-5">
-                      <AiOutlineHeart />
+                  {/* Favourites div */}
+                  {userData && (
+                    <div
+                      className="flex items-center justify-center col-span-2 mt-6 cursor-pointer group "
+                      onClick={() => addFavourites(product)}
+                    >
+                      <div className="inline-flex p-2 text-xl rounded-full bg-gray group-hover:bg-gray-200 group-hover:text-white md:ml-5">
+                        <AiOutlineHeart />
+                      </div>
+                      <span className="ml-1 text-sm select-none group-hover:font-medium">
+                        Добави в любими
+                      </span>
                     </div>
-                    <span className="ml-1 text-sm select-none group-hover:font-medium">
-                      Добави в любими
-                    </span>
-                  </div>
+                  )}
                 </div>
               </div>
             </section>
@@ -149,7 +162,12 @@ export async function getServerSideProps(context) {
   const { itemId } = context.params;
 
   const product = await productByItemId(itemId);
+  const session = await getSession({ req: context.req });
+
   return {
-    props: { product: JSON.parse(JSON.stringify(product)) },
+    props: {
+      product: JSON.parse(JSON.stringify(product)),
+      userData: JSON.parse(JSON.stringify(session)),
+    },
   };
 }
