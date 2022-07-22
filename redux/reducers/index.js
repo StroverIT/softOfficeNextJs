@@ -1,6 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
-import session from "redux-persist/lib/storage/session";
+import session from "redux-persist/lib/storage";
 
 import productReducer from "./productReducer";
 
