@@ -26,6 +26,7 @@ export default function Pricing({
   size,
   textColor,
   isDDS = false,
+  NoDDSText = false,
 }) {
   return (
     <div className="flex flex-col items-center justify-center py-3">
@@ -46,7 +47,9 @@ export default function Pricing({
           </div>
         </div>
       </div>
-      <div className="pb-1 text-xs">{isDDS ? "с включено" : "Без"} ДДС</div>
+      {!NoDDSText && (
+        <div className="pb-1 text-xs">{isDDS ? "с включено" : "Без"} ДДС</div>
+      )}
     </div>
   );
 }
