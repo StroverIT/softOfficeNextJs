@@ -25,8 +25,6 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
   // Resizing bug fix
   useEffect(() => {
     function handleResize() {
-      console.log(window.innerWidth, lg);
-
       if (window.innerWidth >= lg) {
         setXAnims(false);
       }
