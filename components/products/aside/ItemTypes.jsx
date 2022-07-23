@@ -39,7 +39,7 @@ function ItemTypes({ type, allTypes, setFilters, filters }) {
                 id={`${type}: ${itemType}`}
                 checked={checked}
                 setChecked={setChecked}
-                quantity={2}
+                // quantity={2}
                 onChange={changeHandler}
               />
             </div>
