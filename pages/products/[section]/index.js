@@ -21,7 +21,6 @@ import ItemTypes from "../../../components/products/aside/ItemTypes";
 // Redux
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/actions/productActions";
-
 const totalPricesInitVal = {
   prices: [],
   min: 0,

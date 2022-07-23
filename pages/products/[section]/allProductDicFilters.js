@@ -1,4 +1,4 @@
-export const sortByDictionary = [
+const sortByDictionary = [
   {
     val: "nameAsc",
     text: "Име (възходящ ред)",
