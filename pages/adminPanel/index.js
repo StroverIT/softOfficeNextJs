@@ -28,6 +28,7 @@ export default function Index({ userData, products, deliveries }) {
     const hash = window.location.hash?.split("#");
     const someData = categoryComp[`#${hash[1]}`] ?? categoryComp["#prodykti"]; // Retrieve data based on URL fragment
     setCategoryData(someData[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, userData]);
   return (
     <>

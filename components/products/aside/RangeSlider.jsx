@@ -46,6 +46,7 @@ const RangeSlider = ({
       ...prevState,
       prices: { min: minValue, max: maxValue },
     }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [minValue, maxValue]);
   useEffect(() => {
     setMinValue(initialMin);

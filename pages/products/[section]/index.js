@@ -155,6 +155,7 @@ export default function Section({ products, sectionName }) {
     } else {
       setArticles(products?.articles);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filters]);
 
   useEffect(() => {
