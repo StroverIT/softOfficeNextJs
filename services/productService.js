@@ -13,6 +13,16 @@ export const getAllProducts = async (sectionName, filter) => {
     },
   });
 };
+export const getAll = async () => {
+  const options = { method: "GET" };
+  const res = await fetch(
+    `${process.env.NEXTAUTH_URL}/api/products/getAll`,
+    options
+  );
+  const data = await res.json();
+
+  return data;
+};
 export const productByItemId = async (itemId) => {
   await connectMongo();
 
