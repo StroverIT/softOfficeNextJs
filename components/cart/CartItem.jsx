@@ -12,7 +12,7 @@ export default function CartItem({ cartData, removeProduct, changeQty }) {
     cartData.item._id
   }`;
   return (
-    <tr className="border-b border-gray-[#e4e7e6] flex flex-wrap lg:table-row justify-between items-center pb-3 mb-3">
+    <tr className="border-b border-gray-[#e4e7e6] flex flex-wrap lg:table-row justify-between items-center py-10 mb-10 gap-10 ">
       {/* Image plus list */}
       <ImageAndListTableData
         listData={cartData?.item.types[0].split("\n")}

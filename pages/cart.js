@@ -110,7 +110,7 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
           </h3>
           {cart.length > 0 && (
             <div className={`xl:grid grid-cols-[70%30%] xl:space-x-4 my-10`}>
-              <table className="w-full table-auto ">
+              <table className="w-full table-fixed ">
                 <thead className="bg-gray-100 text-gray-250">
                   <tr className="hidden mb-1 lg:table-row ">
                     <th colSpan={2} className="py-3 text-left ">
@@ -122,7 +122,7 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
                     <th colSpan={1} className="px-5 py-3">
                       Количество
                     </th>
-                    <th colSpan={1} className="px-5 py-3 text-left">
+                    <th colSpan={1} className="px-5 py-3 ">
                       Общо
                     </th>
                   </tr>
