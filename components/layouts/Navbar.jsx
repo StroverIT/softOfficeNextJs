@@ -102,7 +102,7 @@ const Navbar = ({ cartTotalQty }) => {
             >
               <button type="button" className="w-full h-full">
                 <svg
-                  className="w-6 h-6"
+                  className="w-5 h-5"
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
@@ -114,7 +114,7 @@ const Navbar = ({ cartTotalQty }) => {
           </div>
           <div className="lg:hidden">
             <Link href="/">
-              <div className="flex items-center justify-between text-3xl font-bold cursor-pointer lg:block text-primary-lighter lg:ml-1">
+              <div className="flex items-center justify-between text-sm font-bold cursor-pointer lg:block text-primary-lighter lg:ml-1">
                 <span className="">Soft</span>
                 <span>Office.bg</span>
               </div>
@@ -127,7 +127,7 @@ const Navbar = ({ cartTotalQty }) => {
               className="items-center justify-center hidden px-4 lg:flex h-14 lg:h-20 hover:bg-gray "
               onClick={() => setShowSearch(!showSearch)}
             >
-              <div className="text-3xl">
+              <div className="text-xl">
                 <AiOutlineSearch className="icon" />
               </div>
               <div className="pl-1 font-sans text-sm font-extralight">
@@ -145,7 +145,7 @@ const Navbar = ({ cartTotalQty }) => {
             {/* Account */}
             <Link href="/account">
               <li className="flex flex-col items-center justify-center px-4 h-14 lg:h-20 hover:text-white hover:bg-gray">
-                <div className="text-3xl">
+                <div className="text-2xl md:text-3xl">
                   <AiOutlineUser className="icon" />
                 </div>
               </li>
@@ -153,9 +153,9 @@ const Navbar = ({ cartTotalQty }) => {
             {/* Cart */}
             <Link href="/cart">
               <li className="relative flex flex-col items-center justify-center px-4 h-14 lg:h-20 hover:text-white hover:bg-gray">
-                <div className="relative text-3xl">
+                <div className="relative text-2xl md:text-3xl">
                   <BsCart3 className="icon" />
-                  <div className="absolute px-2 py-1 text-xs font-bold text-white border-2 border-white rounded-full -right-3 -top-3 bg-primary">
+                  <div className="absolute md:px-2 md:py-1 px-[0.50rem] md:text-sm h-7 flex items-center justify-center text-[0.65rem] font-bold text-white border-2 border-white rounded-full -right-3 -top-3 bg-primary">
                     {cartNum}
                   </div>
                 </div>

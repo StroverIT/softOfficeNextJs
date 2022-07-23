@@ -41,9 +41,9 @@ const Hamburger = ({ headRef }) => {
         onClick={() => menuState(!isOpen)}
         ref={hamburger}
       >
-        <div className="block w-6 h-[2px] bg-dark"></div>
-        <div className="block w-5 h-[2px] bg-dark"></div>
-        <div className="block w-3 h-[2px] bg-dark"></div>
+        <div className="block w-6 h-[1px] md:w-6 md:h-[2px] bg-dark "></div>
+        <div className="block w-6 h-[1px] md:w-6 md:h-[2px] bg-dark"></div>
+        <div className="block w-3 h-[1px] md:w-3 md:h-[2px] bg-dark"></div>
       </div>
       <div
         className={`w-full lg:w-auto hover:lg:w-full fixed lg:absolute -z-20 bg-white py-3 ${
