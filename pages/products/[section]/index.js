@@ -12,7 +12,7 @@ import styles from "../../../styles/products/listProducts.module.css";
 import Product from "./../../../components/products/listProducts/Product";
 import Sorting from "./../../../components/products/filters/Sorting";
 // Dictionaries
-import sortByDictionary from "./allProductDicFilters";
+import sortByDictionary from "./allProductDicFilters.dic";
 // Services
 import { getAllProducts } from "../../../services/productService";
 // translation
