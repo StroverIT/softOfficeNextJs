@@ -24,7 +24,6 @@ function ItemTypes({ type, allTypes, setFilters, filters }) {
   };
   useEffect(() => {
     if (filters.types.length <= 0) {
-      console.log("CCliekd");
       setChecked(false);
     }
   }, [filters]);

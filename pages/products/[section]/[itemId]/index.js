@@ -37,9 +37,7 @@ export default function Index({ product, userData }) {
     };
 
     const res = await fetch("/api/account/favourites/adding", options);
-    console.log(res);
     const data = await res.json();
-    console.log(data);
   };
   return (
     <main className="mb-auto">

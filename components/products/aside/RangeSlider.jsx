@@ -42,7 +42,6 @@ const RangeSlider = ({
   useEffect(() => {
     progressRef.current.style.left = minValue / max + "%";
     progressRef.current.style.right = step - maxValue / max + "%";
-    console.log("promqna");
     setFilters((prevState) => ({
       ...prevState,
       prices: { min: minValue, max: maxValue },
