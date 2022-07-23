@@ -10,7 +10,11 @@ const deliveryScheme = new Schema({
   comment: String,
   totalPrice: { type: Number, required: true },
   ownerId: { type: Schema.Types.ObjectId, ref: "User" },
-  status: { type: String, default: "progress" },
+  status: {
+    type: String,
+    default: "sent",
+    enum: ["progress", "sent", "returned", "finished"],
+  },
   createdAt: {
     type: String,
     default: () => {
