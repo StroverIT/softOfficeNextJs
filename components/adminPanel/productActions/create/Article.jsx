@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 
 import Input from "../../../form/AccInput";
-import { ProductContext } from "../productContext";
+import { ProductContext } from "../ProductContext";
 import { v4 as uuidv4 } from "uuid";
 
 import Item from "./Item";

@@ -1,7 +1,7 @@
 import { useContext, useState, useEffect } from "react";
 import { HiX } from "react-icons/hi";
 import Input from "../../../form/AccInput";
-import { ProductContext } from "../productContext";
+import { ProductContext } from "../ProductContext";
 
 import IsComponent from "./IsComponent";
 
@@ -61,7 +61,7 @@ function Item({ itemLen, articleLen, itemData }) {
         <div className="">
           <button
             type="button"
-            className="text-secondary text-lg"
+            className="text-lg text-secondary"
             onClick={removeItem}
           >
             <HiX />
