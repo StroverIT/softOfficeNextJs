@@ -6,13 +6,17 @@ export function Status({ type, isDiv }) {
     text: "",
   };
   switch (type) {
+    case "sent":
+      color.type = "text-primary-lighter";
+      color.text = "Изпратена";
+      break;
     case "progress":
       color.type = "text-primary";
       color.text = "В прогрес";
       break;
-    case "sent":
+    case "finished":
       color.type = "text-green";
-      color.text = "Изпратена";
+      color.text = "Завършена";
       break;
     case "returned":
       color.type = "text-secondary";
