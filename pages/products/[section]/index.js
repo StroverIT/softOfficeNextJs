@@ -12,7 +12,8 @@ import styles from "../../../styles/products/listProducts.module.css";
 import Product from "./../../../components/products/listProducts/Product";
 import Sorting from "./../../../components/products/filters/Sorting";
 // Dictionaries
-import sortByDictionary from "./allProductDicFilters.dic";
+// import sortByDictionary from "./allProductDicFilters.dic";
+import sortByDictionary from "../../../dictonaries/allProductDicFilters";
 // Services
 import { getAllProducts } from "../../../services/productService";
 // translation
