@@ -282,6 +282,7 @@ const Navbar = () => {
           )
         )}
       </div>
+      {/* End search menu */}
     </header>
   );
 };
