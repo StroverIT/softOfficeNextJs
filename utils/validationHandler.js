@@ -1,5 +1,9 @@
+import XRegExp from "xregexp";
+
 export const fullNameVal = (data) => {
-  let regex = /^(\w+ )+\w+$/;
+  // const regex = new RegExp("^\\p{L}+\\s\\p{L}+$", "gm");
+  const regex = XRegExp("^\\p{L}+\\s\\p{L}+$", "gm");
+
   return {
     result: regex.test(data),
     message: "Трябва да има две имена",

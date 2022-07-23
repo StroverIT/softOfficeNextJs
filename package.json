@@ -38,7 +38,8 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "swiper": "^8.1.6",
-    "uuid": "^8.3.2"
+    "uuid": "^8.3.2",
+    "xregexp": "^5.1.1"
   },
   "devDependencies": {
     "@types/formidable": "^2.0.5",
