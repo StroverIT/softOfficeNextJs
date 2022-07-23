@@ -44,7 +44,6 @@ export default async function handler(req, res) {
     });
     res.json({ message: "Успешно направена поръчка" });
   } catch (e) {
-    console.log(e);
-    res.status(400).json(e.error);
+    res.status(400).json(e);
   }
 }

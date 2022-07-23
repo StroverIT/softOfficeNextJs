@@ -15,6 +15,13 @@ import { adjustQty, removeFromCart } from "../redux/actions/productActions";
 // Utils
 import isObjectEmpty from "../utils/isObjectEmpty";
 import Link from "next/link";
+// Notifications
+import {
+  toastHideAll,
+  toastSuccess,
+  toastError,
+  toastPromise,
+} from "../components/notificataions/Toast";
 
 function Cart({ cart, adjustQty, removeFromCart, userData }) {
   const addInfo = useRef(null);
@@ -61,8 +68,15 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
     };
     const res = await fetch("/api/cart/createDelivery", options);
     const message = await res.json();
+    console.log(message);
     //  Tostify while sending to show изпраща се. When is success to show the message otherwise to show the error message. And to clear the cart
-    console.log(res, message);
+    toastHideAll();
+    if (message.error) {
+      toastError(message.error);
+    }
+    if (message.message) {
+      toastSuccess(message.message);
+    }
   };
   const submitHandler = (e) => {
     e.preventDefault();
@@ -283,6 +297,7 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
                           type="submit"
                           text="завърши"
                           name="submitDelivery"
+                          onClick={() => toastPromise("Изпраща се")}
                         />
                       </div>
                     </>
