@@ -29,12 +29,17 @@ export function cyrylicToLatin(word) {
   obj["ш"] = "sh";
   obj["щ"] = "sht";
   obj["ъ"] = "u";
-  obj["ь"] = "y";
+  obj["ь"] = "ua";
   obj["ю"] = "yu";
   obj["я"] = "ia";
 
   for (let i = 0; i < word.length; i++) {
     let c = word.toLowerCase().charAt(i);
+    let commonWord = c + word.toLowerCase().charAt(i + 1);
+    if (obj[commonWord]) {
+      c = commonWord;
+      i += 1;
+    }
     result += obj[c] || c;
   }
   return result;
@@ -71,7 +76,7 @@ export function latinToCyrylic(word) {
   obj["sh"] = "ш";
   obj["sht"] = "щ";
   obj["u"] = "ъ";
-  obj["erMaluk"] = "ь";
+  obj["ua"] = "ь";
   obj["yu"] = "ю";
   obj["ia"] = "я";
 

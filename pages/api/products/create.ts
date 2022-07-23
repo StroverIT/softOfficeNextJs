@@ -34,17 +34,26 @@ const handler = async (
   }
   // Just after the "Method Not Allowed" code
   try {
-    let { fields, files } = await parseForm(req);
+    let { fields, files }: { fields: any; files: any } = await parseForm(req);
     await connectMongo();
 
     const token = await getToken({ req, secret });
-    const user = await User.findOne({ email: token.email });
-
-    if (!user || !token) {
-      return res.json({ error: "Невалиден токен!" });
+    if (!token) {
+      throw {
+        error: "Невалиден токен!",
+      };
     }
+    const user = await User.findOne({ email: token.email });
+    if (!user) {
+      throw {
+        error: "Невалиден акаунт",
+      };
+    }
+
     if (user.role != "admin") {
-      return res.json({ error: "Нямате такива права!" });
+      throw {
+        error: "Нямате такива права!",
+      };
     }
     const sectionImg = files.media || null;
     let articleImg = [];
@@ -65,12 +74,17 @@ const handler = async (
 
     await Product.create(formatedFields);
     // const product = new Product(formatedFields).save();
-
-    res.status(200).json({
+    let data: { message: string; error: any; data: any } = {
       message: "Успешно създадена секция",
       error: null,
-    });
+      data: "Nqmna brat",
+    };
+
+    res.status(200).json(data);
   } catch (e) {
+    if (e.error) {
+      return res.status(400).json(e.error);
+    }
     if (e instanceof FormidableError) {
       res.status(e.httpCode || 400).json({ data: null, error: e.message });
     } else {
