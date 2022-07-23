@@ -19,13 +19,17 @@ import { addToCart } from "../../../../redux/actions/productActions";
 // Utils
 import productFormater from "../../../../utils/productFormater";
 
+// Notifications
+import { toastInformation } from "../../../../components/notificataions/Toast";
+
 export default function Index({ product, userData }) {
   const price = product.item.price.toFixed(2).split(".");
   const [currQty, setQty] = useState(1);
   const dispatch = useDispatch();
 
-  const addProduct = (product) => {
+  const addProduct = (product, productName) => {
     const newObj = productFormater(product);
+    toastInformation(`Добавихте ${productName} в количката`);
     dispatch(addToCart(newObj, currQty));
   };
   const addFavourites = async (product) => {
@@ -44,7 +48,7 @@ export default function Index({ product, userData }) {
       <div className="container">
         <div className="flex flex-col justify-between py-5 my-5 border-b md:flex-row border-gray-bord">
           <div className="text-2xl font-semibold">
-            <span>{product.commonName}</span>
+            {product.commonName && <span>{product.commonName}</span>}
             <span className="ml-1">{product.articleName}</span>
           </div>
           <div className="mt-5 md:mt-1">
@@ -75,7 +79,14 @@ export default function Index({ product, userData }) {
                   <button
                     type="button"
                     className={`w-full px-2 flex py-2  justify-center items-end font-semibold text-white  bg-primary text-sm ml-3`}
-                    onClick={() => addProduct(product)}
+                    onClick={() =>
+                      addProduct(
+                        product,
+                        `${product.commonName ? product.commonName : ""} ${
+                          product.articleName
+                        }`
+                      )
+                    }
                   >
                     Купи
                   </button>

@@ -1,11 +1,9 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-toast.configure();
-
 const options = {
   autoClose: 4000,
-  className: "",
+  className: "text-sm text-gray",
   position: toast.POSITION.TOP_RIGHT,
 };
 const promiseOptions = {

@@ -22,6 +22,9 @@ import ItemTypes from "../../../components/products/aside/ItemTypes";
 // Redux
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/actions/productActions";
+// Notifications
+import { toastInformation } from "../../../components/notificataions/Toast";
+
 const totalPricesInitVal = {
   prices: [],
   min: 0,
@@ -36,7 +39,9 @@ const filtersInitVal = {
 export default function Section({ products, sectionName }) {
   const dispatch = useDispatch();
 
-  const addProduct = (product) => {
+  const addProduct = (product, productName) => {
+    console.log(productName);
+    toastInformation(`Добавихте ${productName} в количката`);
     dispatch(addToCart(product));
   };
 

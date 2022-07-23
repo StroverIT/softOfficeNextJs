@@ -17,7 +17,7 @@ export default function Product({
   const price = item.price.toFixed(2).split(".");
   const itemTypes = item.types.toString().split("\n");
   let imageUrl;
-  item.articleName = `${commonName} ${article.articleName}`;
+  item.articleName = `${commonName ? commonName : ""} ${article.articleName}`;
   item.sectionName = sectionName;
   return (
     <section className="flex items-center mb-5 border border-gray">
@@ -53,7 +53,10 @@ export default function Product({
               <Pricing price={price[0]} priceDec={price[1]} size="2xl" />
             </div>
             {/* Create grayer color for future*/}
-            <BuyBtn border={true} onClick={() => addProduct(item)} />
+            <BuyBtn
+              border={true}
+              onClick={() => addProduct(item, item.articleName)}
+            />
           </div>
         </div>
       </div>

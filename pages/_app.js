@@ -11,7 +11,9 @@ import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "../redux/store";
 
 import { SessionProvider } from "next-auth/react";
-
+// Notificaation
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <>
@@ -30,6 +32,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           </PersistGate>
         </Provider>
       </SessionProvider>
+      <ToastContainer />
     </>
   );
 }
