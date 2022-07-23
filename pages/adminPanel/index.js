@@ -9,15 +9,19 @@ import Products from "../../components/adminPanel/Products";
 import Promotions from "../../components/adminPanel/Promotions";
 import Users from "../../components/adminPanel/Users";
 
-export default function Index({ userData }) {
+// Services
+import { getAll } from "../../services/productService";
+import { getAll as getAllDeliveries } from "../../services/deliveryService";
+
+export default function Index({ userData, products, deliveries }) {
   const router = useRouter();
 
   const [categoryData, setCategoryData] = useState(null);
 
   useEffect(() => {
     const categoryComp = {
-      "#dostavki": [<Deliveries userData={userData} key="Deliveries" />],
-      "#prodykti": [<Products key="MyOrders" />],
+      "#dostavki": [<Deliveries key="Deliveries" deliveries={deliveries} />],
+      "#prodykti": [<Products key="MyOrders" products={products} />],
       "#promocii": [<Promotions key="MyFavourites" />],
       "#potrebiteli": [<Users key="Users" />],
     };
@@ -55,6 +59,7 @@ export async function getServerSideProps(context) {
     }),
   });
   const data = await res.json();
+
   if (data.role != "admin") {
     return {
       redirect: {
@@ -63,7 +68,14 @@ export async function getServerSideProps(context) {
       },
     };
   }
+  const products = await getAll();
+  const deliveries = await getAllDeliveries();
+
   return {
-    props: { userData: JSON.parse(JSON.stringify(data)) },
+    props: {
+      userData: JSON.parse(JSON.stringify(data)),
+      products: JSON.parse(JSON.stringify(products)),
+      deliveries: JSON.parse(JSON.stringify(deliveries)),
+    },
   };
 }
