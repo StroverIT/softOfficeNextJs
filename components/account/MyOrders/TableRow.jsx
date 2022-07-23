@@ -116,7 +116,7 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                 </div>
                 {/* Absolute category (you know :D) */}
                 <div className="absolute flex font-semibold top-1 left-1 ">
-                  <Status type={fullData.status} /> -{" "}
+                  <Status type={fullData.status} isDiv={true} /> -{" "}
                   <span className="ml-1">{fullData.createdAt}</span>
                 </div>
                 <div
