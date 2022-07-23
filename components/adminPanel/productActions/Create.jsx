@@ -7,7 +7,7 @@ import Article from "./create/Article";
 
 // Fetching
 import { create } from "../fetchActions";
-import { ProductContext } from "./productContext";
+import { ProductContext } from "./ProductContext";
 // NextJs
 import { useRouter } from "next/router";
 // Icons
