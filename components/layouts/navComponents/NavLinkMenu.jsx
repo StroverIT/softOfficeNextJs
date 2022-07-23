@@ -84,7 +84,9 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
           <div className="pl-4 font-semibold">{title}</div>
         </div>
         {/* submenu list */}
-        <ul className={`px-5  mt-2  grid grid-cols-2 lg:grid-cols-3 gap-x-2`}>
+        <ul
+          className={`px-5  mt-2  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-2`}
+        >
           {articles.map((article, index) => {
             const isObject = typeof article === "object";
             if (isObject) article = JSON.stringify(article);
