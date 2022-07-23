@@ -15,7 +15,6 @@ import { BsCart3 } from "react-icons/bs";
 import isObjectEmpty from "../../utils/isObjectEmpty";
 // Redux cart
 import { connect } from "react-redux";
-import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 
 const Navbar = ({ cartTotalQty }) => {
   const router = useRouter();
