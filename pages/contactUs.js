@@ -39,7 +39,7 @@ export default function ContactUs() {
               </li>
               <li>
                 <span className="pr-1 font-semibold text-dark">Е-mail:</span>
-                ivda_geo@abv.bg
+                softofficepayment@gmail.com
               </li>
             </ul>
           </div>

@@ -6,12 +6,12 @@ export default function abousUs() {
   return (
     <>
       <Head></Head>
-      <main className=" mb-auto">
-        <div className="container mt-10 lg:mb-14 mb-10">
-          <h3 className="text-3xl mb-5 text-semibold uppercase">За нас</h3>
+      <main className="mb-auto ">
+        <div className="container mt-10 mb-10 lg:mb-14">
+          <h3 className="mb-5 text-3xl uppercase text-semibold">За нас</h3>
           <div className="text-[#444]">
             <p className="mb-1">
-              Фирма<span className="font-medium"> Ивда Гео</span> е създадена
+              Фирма<span className="font-medium">SoftOffice</span> е създадена
               през 1992г. От малък квартален магазин, собствениците на фирмата
               го разрастват до магазин Клас А. С годините, номенклатурата от
               предлагани стоки непрекъснато се увеличава, следвайки стремежа да
@@ -20,7 +20,7 @@ export default function abousUs() {
               момента фирмата предлага над 17 00 артикула от всички области на
               строителството – строителни материали, елекромателиали, ВиК,
               крепежи, битова химия, осветителни тела, инструменти и много
-              други. „Ивда Гео” е надежден и коректен партньор на редица
+              други. „SoftOffice” е надежден и коректен партньор на редица
               български и чуждестранни компании, които се занимават с
               производство и дистрибуция на строителни материали.
             </p>
@@ -38,25 +38,25 @@ export default function abousUs() {
           <div className="mt-5">
             <ul className="text-gray-[#444]">
               <li className="py-1">
-                <span className="font-semibold text-dark pr-2">
+                <span className="pr-2 font-semibold text-dark">
                   Заповядайте в нашия магазин:
                 </span>
                 <br />
                 гр.София ПК-1582 Дружба 2 РУМ Дружба 2 срещу блок 204
               </li>
               <li className="py-1">
-                <span className="font-semibold text-dark pr-2">
+                <span className="pr-2 font-semibold text-dark">
                   Тел. / факс:
                 </span>
                 02/973 15 85
               </li>
               <li className="py-1">
-                <span className="font-semibold text-dark pr-1">GSM:</span> 0888
+                <span className="pr-1 font-semibold text-dark">GSM:</span> 0888
                 900746, 0879 406620
               </li>
               <li>
-                <span className="font-semibold text-dark pr-1">Е-mail:</span>
-                ivda_geo@abv.bg
+                <span className="pr-1 font-semibold text-dark">Е-mail:</span>
+                softofficepayment@gmail.com
               </li>
             </ul>
           </div>
