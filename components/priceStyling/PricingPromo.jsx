@@ -5,10 +5,10 @@ import Pricing from "./Pricing";
 
 const PricePromo = ({ isPromo, price, priceDec }) => {
   return (
-    <div className=" border-t border-gray w-full">
+    <div className="w-full border-t border-gray">
       <div className="flex justify-end ">
         <div
-          className={` inline-flex items-center justify-center   text-white py-2 px-2 ${
+          className={` inline-flex items-center justify-center   text-white  px-2 ${
             !isPromo ? "bg-primary" : " bg-secondary"
           }`}
         >
@@ -17,6 +17,7 @@ const PricePromo = ({ isPromo, price, priceDec }) => {
             priceDec={priceDec}
             size="xl"
             textColor="text-white"
+            NoDDSText={true}
           />
         </div>
       </div>
