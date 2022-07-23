@@ -7,12 +7,9 @@ import { AiOutlineArrowLeft } from "react-icons/ai";
 
 // Styles
 import style from "../../../styles/navigation/NavLinks.module.css";
-// Tailwind conf
-import resolveConfig from "tailwindcss/resolveConfig";
-import tailwindConfig from "../../../tailwind.config.js";
+// Getted from tailwind config
 
-const fullConfig = resolveConfig(tailwindConfig);
-const lg = fullConfig.theme.screens.lg.min.split("px")[0];
+const lg = "1024";
 
 import NavLinkSubMenu from "./NavLinkSubMenu";
 import LinkComp from "./LinkComp";
@@ -28,6 +25,8 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
   // Resizing bug fix
   useEffect(() => {
     function handleResize() {
+      console.log(window.innerWidth, lg);
+
       if (window.innerWidth >= lg) {
         setXAnims(false);
       }
