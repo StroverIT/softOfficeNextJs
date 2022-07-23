@@ -1,4 +1,4 @@
-import React, { useEffect, useState, userId } from "react";
+import React, { useState } from "react";
 
 // Components
 import Input from "../../form/AccInput";
