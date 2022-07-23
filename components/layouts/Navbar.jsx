@@ -13,8 +13,11 @@ import { AiOutlineUser, AiOutlineHeart, AiOutlineSearch } from "react-icons/ai";
 import { BsCart3 } from "react-icons/bs";
 // Utils
 import isObjectEmpty from "../../utils/isObjectEmpty";
+// Redux cart
+import { connect } from "react-redux";
+import { loadGetInitialProps } from "next/dist/shared/lib/utils";
 
-const Navbar = () => {
+const Navbar = ({ cartTotalQty }) => {
   const router = useRouter();
 
   const headerRef = useRef(null);
@@ -26,6 +29,7 @@ const Navbar = () => {
   const [showSearch, setShowSearch] = useState(false);
   const [searchTabInputs, setSearchTabInputs] = useState({});
   const [searchInput, setSearchInput] = useState("");
+  const [cartNum, setCartNum] = useState(0);
   // Navbar control handler
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const controlNavbar = () => {
@@ -55,6 +59,9 @@ const Navbar = () => {
     const data = await res.json();
     setSearchTabInputs(data);
   };
+  useEffect(() => {
+    setCartNum(cartTotalQty);
+  }, [cartTotalQty]);
   // Hide menu on router change
   useEffect(() => setShowSearch(false), [router]);
   useEffect(() => {
@@ -146,9 +153,12 @@ const Navbar = () => {
             </Link>
             {/* Cart */}
             <Link href="/cart">
-              <li className="flex flex-col items-center justify-center px-4 h-14 lg:h-20 hover:text-white hover:bg-gray">
-                <div className="text-3xl">
+              <li className="relative flex flex-col items-center justify-center px-4 h-14 lg:h-20 hover:text-white hover:bg-gray">
+                <div className="relative text-3xl">
                   <BsCart3 className="icon" />
+                  <div className="absolute px-2 py-1 text-xs font-bold text-white border-2 border-white rounded-full -right-3 -top-3 bg-primary">
+                    {cartNum}
+                  </div>
                 </div>
               </li>
             </Link>
@@ -286,5 +296,6 @@ const Navbar = () => {
     </header>
   );
 };
-
-export default Navbar;
+export default connect((state) => ({
+  cartTotalQty: state.allProducts.cart.reduce((a, b) => a + b.qty, 0),
+}))(Navbar);
