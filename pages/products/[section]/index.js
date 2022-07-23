@@ -9,12 +9,10 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import styles from "../../../styles/products/listProducts.module.css";
 
 // Components
-import AsideHeader from "./../../../components/products/aside/AsideHeader";
 import Product from "./../../../components/products/listProducts/Product";
 import Sorting from "./../../../components/products/filters/Sorting";
-import RangeSlider from "./../../../components/products/aside/RangeSlider";
 // Dictionaries
-import { sortByDictionary, pageDictionary } from "./allProductDicFilters";
+import { sortByDictionary } from "./allProductDicFilters";
 // Services
 import { getAllProducts } from "../../../services/productService";
 // translation
