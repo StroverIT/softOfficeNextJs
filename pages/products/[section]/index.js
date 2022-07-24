@@ -39,42 +39,44 @@ export default function Section({ products, sectionName, types }) {
   const [filterMenu, setFilterMenu] = useState(false);
 
   //Product state
-  const [articles, setArticles] = useState(products.articles);
+  const [articles, setArticles] = useState(products?.articles);
 
   // total filters
   const [filters, setFilters] = useState([]);
 
   useEffect(() => {
-    const newProdArt = products.articles.slice();
+    const newProdArt = products?.articles?.slice();
 
     const filteredArticles = [];
 
-    for (let article of newProdArt) {
-      const newArt = Object.assign({}, article);
+    if (newProdArt) {
+      for (let article of newProdArt) {
+        const newArt = Object.assign({}, article);
 
-      let items = [];
-      for (let item of article.items) {
-        const type = item.types[0].split("\n").join(" ");
-        let isFound = true;
-        if (filters.length == 0) {
-          items.push(item);
-        } else {
-          inner: for (let filter of filters) {
-            if (!type.includes(filter)) {
-              isFound = false;
-              break inner;
+        let items = [];
+        for (let item of article.items) {
+          const type = item.types[0].split("\n").join(" ");
+          let isFound = true;
+          if (filters.length == 0) {
+            items.push(item);
+          } else {
+            inner: for (let filter of filters) {
+              if (!type.includes(filter)) {
+                isFound = false;
+                break inner;
+              }
             }
+            if (isFound) items.push(item);
           }
-          if (isFound) items.push(item);
+        }
+        if (items.length > 0) {
+          newArt.items = items;
+          filteredArticles.push(newArt);
         }
       }
-      if (items.length > 0) {
-        newArt.items = items;
-        filteredArticles.push(newArt);
-      }
+      setArticles(filteredArticles);
     }
-    setArticles(filteredArticles);
-  }, [filters, products.articles]);
+  }, [filters, products?.articles]);
 
   useEffect(() => {
     if (filterMenu) {
