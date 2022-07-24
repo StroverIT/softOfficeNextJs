@@ -1,0 +1,48 @@
+/* 
+.submenu{
+    height: 100%;
+    width: 100%;
+    left:0;
+    top:0;
+    background-color: theme("colors.bg-color");   
+    color: theme('colors.dark');
+    transform: translateX(100vw);
+    transition: transform 0.2s ease-in-out;
+}
+.subOpen{
+    transform: translateX(0);
+
+} */
+.icon {
+  border-right: 1px solid black;
+}
+/* .itemsContainer {
+  grid-template-columns: repeat(auto-fill, 240px);
+} */
+/* @media screen('lg'){
+    .submenu{
+        width: 100%;
+        max-width: 750px;
+         width: 76%; 
+        top: 0; 
+   transform: translateX(0);
+
+    }
+    .menu:hover + div{
+        display: block !important;
+        visibility: visible;
+        
+    }
+    .submenu:hover{
+        display: block !important;
+        visibility: visible;
+
+    }
+   
+}
+ @media screen("xl"){
+    .submenu{
+        max-width: 925px;
+
+    } 
+} */

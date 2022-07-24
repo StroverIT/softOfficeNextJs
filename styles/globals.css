@@ -1,0 +1,167 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .acc-active {
+    @apply text-white bg-primary;
+  }
+  .filter-header {
+    @apply text-lg font-semibold text-primary bg-[#f5f5f5] z-10 inline-block relative pr-2;
+  }
+}
+:root {
+  --pag-max-width: 140px;
+  --pag-height: 8px;
+  --pag-height-active: calc(var(--pag-height) - 4px);
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  /* font-family: Helvetica, Arial, sans-serif; */
+}
+
+body {
+  background-color: theme("colors.white");
+  overflow-x: hidden;
+  position: relative;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: white;
+  /* box-shadow: inset 0 0 5px gray; */
+  /* border-radius: 10px; */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #b3b3b3;
+  border-radius: 100px;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+.blue-white-theme > * {
+  color: #a5c4d6;
+}
+
+.blue-white-theme h2 {
+  color: rgb(255, 255, 255);
+}
+.blue-white-theme ul li {
+  color: #a5c4d6;
+}
+.icon {
+  cursor: pointer;
+}
+.logo {
+  object-fit: contain;
+}
+.animate {
+  transform: translateY(0);
+
+  transition: transform 0.4s ease-in-out;
+}
+.animateUp {
+  transform: skewy(2deg) skewx(20deg) translateY(-140%);
+}
+.animateSearch {
+  transform: perspective(600px) rotateX(-90deg);
+  height: 0;
+  padding: 0;
+  transition: all 0.4s ease-in-out;
+}
+.showSearch {
+  transform: perspective(600px) rotateX(0);
+}
+.swiper-pagination-bullets {
+  margin-bottom: 0 !important;
+}
+.freeModeSwiper {
+  padding-bottom: 50px !important;
+}
+@media screen("lg") {
+  .custom-border-input {
+    clip-path: polygon(13% 0, 100% 0, 100% 100%, 0% 100%);
+  }
+  .custom-border-container {
+    position: relative;
+  }
+  .custom-border-container::before {
+    background: #f4f4f4 none repeat scroll 0 0;
+    border-right: 2px solid #d5d5d5;
+    content: "";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 10%;
+    transform: translateX(-50%) skewX(-40deg);
+    height: 100%;
+    width: 100%;
+    z-index: -10;
+  }
+}
+.blury {
+  overflow-y: hidden;
+}
+.blury-bg {
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  cursor: pointer;
+}
+.blury-noProps {
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.filter-container::after {
+  content: "";
+  width: 100%;
+  height: 1px;
+  background-color: hsl(0, 0%, 88%);
+  position: absolute;
+  left: 0;
+  top: 50%;
+  z-index: 1;
+}
+/* Price Range */
+input[type="range"]::-webkit-slider-thumb {
+  pointer-events: auto;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  -webkit-appearance: none;
+  @apply bg-green;
+
+  /* @apply w-6 h-6 appearance-none pointer-events-auto; */
+}

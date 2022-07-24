@@ -1,0 +1,18 @@
+.asideContainer::after {
+  content: "";
+  display: block;
+  width: 10000px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 100%;
+  margin-right: -207px;
+  background: #f5f5f5;
+  z-index: -10;
+}
+@media screen("xl") {
+  .asideContainer::after {
+    margin-right: -250px;
+  }
+}

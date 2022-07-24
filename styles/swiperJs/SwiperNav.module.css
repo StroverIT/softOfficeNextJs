@@ -1,0 +1,19 @@
+.swiperNav {
+  color: theme("colors.bg-color");
+}
+.swiperNav > div {
+  background-color: theme("colors.primary");
+  border-radius: 200px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.swiperNext {
+  right: 0;
+  margin-right: 10px;
+}
+.swiperPrev {
+  margin-left: 10px;
+}
+.swiperDisabled {
+  opacity: 0.5;
+}
