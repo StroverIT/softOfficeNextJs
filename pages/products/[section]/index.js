@@ -25,22 +25,10 @@ import { addToCart } from "../../../redux/actions/productActions";
 // Notifications
 import { toastInformation } from "../../../components/notificataions/Toast";
 
-const totalPricesInitVal = {
-  prices: [],
-  min: 0,
-  max: 0,
-};
-const filtersInitVal = {
-  types: [],
-  colors: [],
-  prices: {},
-  filterByNameOrPrice: "",
-};
-export default function Section({ products, sectionName }) {
+export default function Section({ products, sectionName, types }) {
   const dispatch = useDispatch();
 
   const addProduct = (product, productName) => {
-    console.log(productName);
     toastInformation(`Добавихте ${productName} в количката`);
     dispatch(addToCart(product));
   };
@@ -51,114 +39,41 @@ export default function Section({ products, sectionName }) {
   const [filterMenu, setFilterMenu] = useState(false);
 
   //Product state
-  const [articles, setArticles] = useState([]);
-  //filters
-  const [totalPrices, setTotalPrices] = useState(totalPricesInitVal);
-  const [types, setTypes] = useState({});
-  const [colors, setColors] = useState([]);
+  const [articles, setArticles] = useState(products.articles);
+
   // total filters
-  const [filters, setFilters] = useState(filtersInitVal);
+  const [filters, setFilters] = useState([]);
 
   useEffect(() => {
-    setArticles(products?.articles);
-  }, [products]);
+    const newProdArt = products.articles.slice();
 
-  useEffect(() => {
-    let prices = articles?.map((article) => {
-      let price = 0;
-      article.items?.forEach((item) => {
-        if (item.price > price) price = item.price;
-      });
-      return price;
-    });
-    let typesObj = {};
-    articles?.forEach((article) => {
-      article.items?.forEach((item) => {
-        item.types[0].split("\n").forEach((type) => {
-          const typeOnly = type.split(":");
-          if (!typesObj.hasOwnProperty(typeOnly[0])) {
-            typesObj[typeOnly[0]] = new Set();
+    const filteredArticles = [];
+
+    for (let article of newProdArt) {
+      const newArt = Object.assign({}, article);
+
+      let items = [];
+      for (let item of article.items) {
+        const type = item.types[0].split("\n").join(" ");
+        let isFound = true;
+        if (filters.length == 0) {
+          items.push(item);
+        } else {
+          inner: for (let filter of filters) {
+            if (!type.includes(filter)) {
+              isFound = false;
+              break inner;
+            }
           }
-          typesObj[typeOnly[0]].add(typeOnly[1].trim());
-        });
-      });
-    });
-    setTypes(typesObj);
-
-    setTotalPrices({
-      prices,
-      min: Math.floor(prices?.reduce((a, b) => Math.min(a, b), 1000000)),
-      max: Math.ceil(prices?.reduce((a, b) => Math.max(a, b), 0)),
-    });
-  }, [articles]);
-
-  useEffect(() => {
-    if (filters.types.length > 0) {
-      let filteredArticles = [];
-      articles.forEach((article) => {
-        let artItems = [];
-        article.items.forEach((item) => {
-          let filter = filters;
-          if (filter.length < 0) filter = [];
-
-          const isFound = filters.types.every((filter) =>
-            item.types[0].includes(filter)
-          );
-          if (isFound) {
-            artItems.push(item);
-          }
-        });
-        if (artItems.length > 0) {
-          article.items = artItems;
-          filteredArticles.push(article);
+          if (isFound) items.push(item);
         }
-      });
-      setArticles(filteredArticles);
-    } else if (filters.prices?.max > 0) {
-      let filteredArticles = [];
-      articles.forEach((article) => {
-        let artItems = [];
-        article.items.forEach((item) => {
-          const isFound =
-            item.price <= filters.prices.max &&
-            item.price >= filters.prices.min;
-
-          if (isFound) {
-            artItems.push(item);
-          }
-        });
-        if (artItems.length > 0) {
-          article.items = artItems;
-          filteredArticles.push(article);
-        }
-      });
-      setArticles(filteredArticles);
-    } else if (filters.filterByNameOrPrice.length > 0) {
-      let filter = filters.filterByNameOrPrice;
-
-      switch (filter) {
-        case "nameAsc":
-          filter = articles.sort((a, b) =>
-            b.articleName.localeCompare(a.articleName)
-          );
-
-          break;
-        case "nameDesc":
-          filter = articles.sort((a, b) =>
-            a.articleName.localeCompare(b.articleName)
-          );
-          break;
-        case "priceAsc":
-
-        case "priceDesc":
-          break;
       }
-
-      setArticles(filter);
-    } else {
-      setArticles(products?.articles);
+      if (items.length > 0) {
+        newArt.items = items;
+        filteredArticles.push(newArt);
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    setArticles(filteredArticles);
   }, [filters]);
 
   useEffect(() => {
@@ -204,28 +119,7 @@ export default function Section({ products, sectionName }) {
                   Изчисти
                 </button>
                 {/* <AsideHeader text="Цена" /> */}
-                <div>
-                  {/* {totalPrices && (
-                    <RangeSlider
-                      initialMin={totalPrices.min}
-                      initialMax={totalPrices.max}
-                      min={totalPrices.min}
-                      max={totalPrices.max}
-                      step={1}
-                      priceGap={2}
-                      setFilters={setFilters}
-                    />
-                  )} */}
-                  {/* Pricing line to choose */}
-                  {/* <div className="flex items-center mt-2 cursor-pointer">
-                    <span className="text-primary">
-                      <HiX />
-                    </span>
-                    <span className="pl-1 text-sm text-gray-darker">
-                      Изчисти
-                    </span>
-                  </div> */}
-                </div>
+                <div></div>
               </div>
 
               {types &&
@@ -282,21 +176,13 @@ export default function Section({ products, sectionName }) {
                       data={sortByDictionary}
                     />
                   </div>
-                  {/* <div className="lg:ml-4">
-                    <Sorting
-                      title="Намерени"
-                      qty={totalItemsState.length}
-                      name="pages"
-                      data={pageDictionary}
-                    />
-                  </div> */}
                 </div>
               </div>
             )}
 
             {articles &&
               articles.map((article) => {
-                return article.items?.map((item) => {
+                return article?.items?.map((item) => {
                   return (
                     <Product
                       article={article}
@@ -309,8 +195,6 @@ export default function Section({ products, sectionName }) {
                   );
                 });
               })}
-
-            {/* <Product section={section} /> */}
           </section>
         </div>
       )}
@@ -328,10 +212,39 @@ export async function getServerSideProps(context) {
   const { section } = context.params;
 
   const products = await getAllProducts(translationToDb(section));
+
+  let prices = products?.articles?.map((article) => {
+    let price = 0;
+    article?.items?.forEach((item) => {
+      if (item.price > price) price = item.price;
+    });
+    return price;
+  });
+
+  let min = Math.floor(prices?.reduce((a, b) => Math.min(a, b), 10000000));
+  let max = Math.ceil(prices?.reduce((a, b) => Math.max(a, b)));
+  // Must add total qty on every types how much is qty of the every filter
+  let typesObj = {};
+  products?.articles?.forEach((article) => {
+    article.items?.forEach((item) => {
+      item.types[0].split("\n").forEach((type) => {
+        const typeOnly = type.split(":");
+        if (!typesObj.hasOwnProperty(typeOnly[0])) {
+          typesObj[typeOnly[0]] = new Set();
+        }
+        typesObj[typeOnly[0]].add(typeOnly[1].trim());
+      });
+    });
+  });
+
+  for (let key in typesObj) {
+    typesObj[key] = Array.from(typesObj[key]);
+  }
   return {
     props: {
       products: JSON.parse(JSON.stringify(products)),
       sectionName: section,
+      types: typesObj,
     },
   };
 }
