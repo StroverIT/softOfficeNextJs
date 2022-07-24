@@ -74,7 +74,7 @@ export default function Section({ products, sectionName, types }) {
       }
     }
     setArticles(filteredArticles);
-  }, [filters]);
+  }, [filters, products.articles]);
 
   useEffect(() => {
     if (filterMenu) {
