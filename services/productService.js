@@ -42,3 +42,11 @@ export const productByItemId = async (itemId) => {
   console.log(data);
   return data;
 };
+
+export const getAllLatestTen = async () => {
+  await connectMongo();
+  const data = await Product.findOne({ _id: "62dea6f488620a9fd35bbcec" });
+  // const data = await Product.find().sort({ _id: -1 }).limit(10);
+
+  return data;
+};

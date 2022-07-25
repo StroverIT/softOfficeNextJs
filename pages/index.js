@@ -10,6 +10,7 @@ import Icons from "../components/Icons/Icons";
 // Import Swiper React components
 import SwiperPag from "../components/swiperJs/SwiperPag";
 import SwiperFreeMode from "../components/swiperJs/SwiperFreeMode";
+import { getAllLatestTen } from "../services/productService";
 
 // Images
 const swiperPag = [
@@ -89,7 +90,7 @@ const swiperFreeImages = [
   },
 ];
 
-export default function Home() {
+export default function Home({ topMonthOfferts }) {
   return (
     <>
       <Head>
@@ -171,7 +172,7 @@ export default function Home() {
             <h1 className="mb-3 text-xl font-semibold">
               Месечни топ предложения
             </h1>
-            <SwiperFreeMode images={swiperFreeImages} navSize="3xl" />
+            <SwiperFreeMode data={topMonthOfferts} navSize="3xl" />
           </div>
         </section>
         <section className=" bg-color">
@@ -211,4 +212,13 @@ export default function Home() {
       </main>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const topMonthOfferts = await getAllLatestTen();
+  console.log(topMonthOfferts);
+
+  return {
+    props: { topMonthOfferts: JSON.parse(JSON.stringify(topMonthOfferts)) },
+  };
 }

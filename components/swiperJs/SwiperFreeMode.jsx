@@ -21,8 +21,11 @@ import { FreeMode, Pagination, Navigation } from "swiper";
 // Components
 import PricingPromo from "../priceStyling/PricingPromo";
 import SwiperNav from "./SwiperNav";
+// Utils
 
-export default function SwiperFreeMode({ images, navSize }) {
+import { translationToRoute } from "../../utils/translationToRoute";
+
+export default function SwiperFreeMode({ data, navSize }) {
   const router = useRouter();
 
   return (
@@ -57,39 +60,48 @@ export default function SwiperFreeMode({ images, navSize }) {
           modules={[FreeMode, Pagination, Navigation]}
           className={`mySwiper relative freeModeSwiper`}
         >
-          {images.map((image) => {
-            let [price, priceDec] = image.price.toFixed(2).split(".");
-            return (
-              <SwiperSlide
-                className="flex flex-col bg-white shadow-lg cursor-pointer hover:shadow-xl"
-                key={image.title}
-              >
-                <div
-                  onClick={() => router.push(image.pageUrl)}
-                  className="flex flex-col justify-between h-full"
+          {data.articles.map((article) => {
+            return article.items.map((item) => {
+              let [price, priceDec] = item.price.toFixed(2).split(".");
+              const sectionName = `${data.sectionName} ${article.articleName} ${item.weight}`;
+              return (
+                <SwiperSlide
+                  className="flex flex-col bg-white shadow-lg cursor-pointer hover:shadow-xl"
+                  key={item.title}
                 >
-                  <div>
+                  <div
+                    onClick={() =>
+                      router.push(
+                        `/products/${translationToRoute(data.sectionName)}/${
+                          item._id
+                        }`
+                      )
+                    }
+                    className="flex flex-col justify-between h-full"
+                  >
                     <div>
-                      <Image
-                        src={image.src}
-                        //  layout="fill"
-                        height={700}
-                        width={1000}
-                        alt={image.title}
-                      />
+                      <div>
+                        <Image
+                          src={`/uploads/${data.imageUrl}`}
+                          //  layout="fill"
+                          height={700}
+                          width={800}
+                          alt={sectionName}
+                        />
+                      </div>
+                      <div className="container pt-4 font-medium text-center border-t border-gray">
+                        {sectionName}
+                      </div>
                     </div>
-                    <div className="container font-medium text-center border-t border-gray">
-                      {image.title}
-                    </div>
+                    <PricingPromo
+                      isPromo={item.isPromo}
+                      price={price}
+                      priceDec={priceDec}
+                    />
                   </div>
-                  <PricingPromo
-                    isPromo={image.isPromo}
-                    price={price}
-                    priceDec={priceDec}
-                  />
-                </div>
-              </SwiperSlide>
-            );
+                </SwiperSlide>
+              );
+            });
           })}
           {/* Nav */}
           <SwiperNav size={navSize} />
