@@ -26,23 +26,19 @@ export const getAll = async () => {
 export const productByItemId = async (itemId) => {
   await connectMongo();
 
-  let obj = await Product.findOne({ "articles.items._id": itemId });
+  let data = await Product.findOne({ "articles.items._id": itemId }).lean();
 
-  let formatedObj = {};
-
-  formatedObj.sectionName = obj.sectionName;
-  formatedObj.commonName = obj.commonName;
-  let imageUrl = "";
-
-  outer: for (let article of obj.articles) {
-    formatedObj.description = article.description;
-    formatedObj.articleName = article.articleName;
+  inner: for (let article of data.articles) {
     for (let item of article.items) {
       if (item._id == itemId) {
-        formatedObj.item = item;
-        break outer;
+        article.item = item;
+        data.article = article;
+        delete data.articles;
+        delete article.items;
+        break inner;
       }
     }
   }
-  return formatedObj;
+  console.log(data);
+  return data;
 };

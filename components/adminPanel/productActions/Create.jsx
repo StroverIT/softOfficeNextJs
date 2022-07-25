@@ -22,10 +22,7 @@ export default function Create() {
   const addArticle = (e) => {
     setSectionState((prevState) => ({
       ...prevState,
-      articles: [
-        ...prevState.articles,
-        { items: [], articleName: "", description: "" },
-      ],
+      articles: [...prevState.articles, { items: [], articleName: "" }],
     }));
   };
 
@@ -109,12 +106,14 @@ export default function Create() {
               value={sectionState.section}
               onChange={changeHandler}
             />
-            <Input
-              type="text"
-              placeholder="Общо име"
-              id="commonName"
+            <label htmlFor="types">Описание</label>
+            <textarea
+              name="description"
+              id="description"
+              value={sectionState?.description}
+              className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
               onChange={changeHandler}
-            />
+            ></textarea>
             <Input
               type="file"
               placeholder="Снимка"

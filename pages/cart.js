@@ -6,7 +6,7 @@ import { getSession } from "next-auth/react";
 // Components
 import Price from "../components/priceStyling/Pricing";
 import BtnOutlined from "../components/buttons/Outlined";
-
+import RadioButton from "../components/cart/RadioButton";
 import Input from "../components/cart/Input";
 import CartItem from "../components/cart/CartItem";
 //Redux
@@ -22,6 +22,8 @@ import {
   toastError,
   toastPromise,
 } from "../components/notificataions/Toast";
+// Constants
+import { MAGAZINE, DELIVERY } from "../components/cart/cartCostants";
 
 function Cart({ cart, adjustQty, removeFromCart, userData }) {
   const addInfo = useRef(null);
@@ -32,8 +34,8 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
     .reduce((a, b) => a + b, 0)
     .toFixed(2)
     .split(".");
-
   const [isHidd, setHidd] = useState({ state: true, text: "Добави адрес" });
+  const [radioState, setRadioState] = useState(DELIVERY);
   const [totalPrice, setTotalPrice] = useState(null);
   const [inputs, setInputs] = useState({
     name: "",
@@ -43,6 +45,10 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
     address: "",
     comment: "",
   });
+  const radioChangeHandler = (e) => {
+    const name = e.target.name;
+    setRadioState(name);
+  };
   const changeHandler = (e) => {
     setInputs((prevState) => ({
       ...prevState,
@@ -53,7 +59,10 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ price: parseFloat(subtotal.join(".")) }),
+      body: JSON.stringify({
+        price: parseFloat(subtotal.join(".")),
+        city: inputs.city,
+      }),
     };
     const res = await fetch("/api/cart/deliveryEstimate", options);
     const data = await res.json();
@@ -61,14 +70,24 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
     setHidd({ state: true, text: "Промени адреса" });
   };
   const createDelivery = async () => {
+    if (!totalPrice) {
+      totalPrice = {
+        totalPrice: subtotal,
+        deliveryFee: ["0", "00"],
+      };
+    }
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ cart, formData: inputs, totalPrice }),
+      body: JSON.stringify({
+        cart,
+        formData: inputs,
+        totalPrice,
+        typeOfDelivery: radioState,
+      }),
     };
     const res = await fetch("/api/cart/createDelivery", options);
     const message = await res.json();
-    console.log(message);
     //  Tostify while sending to show изпраща се. When is success to show the message otherwise to show the error message. And to clear the cart
     toastHideAll();
     if (message.error) {
@@ -88,7 +107,9 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
       createDelivery();
     }
   };
-
+  useEffect(() => {
+    setTotalPrice(null);
+  }, [radioState]);
   useEffect(() => {
     setTotalPrice(null);
   }, [cart]);
@@ -171,62 +192,70 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
                     </section>
                     {!isHidd.state && (
                       <section ref={addInfo}>
-                        <section className="container w-full mt-3">
-                          <Input
-                            id="name"
-                            type="text"
-                            text="Име"
-                            holder="Иван Иванов"
-                            value={inputs.name}
-                            handler={changeHandler}
+                        <section className="my-2">
+                          <RadioButton
+                            radioState={radioState}
+                            changeHandler={radioChangeHandler}
                           />
-                          <Input
-                            id="telephone"
-                            type="number"
-                            text="Телефон"
-                            holder="087 123 4561"
-                            value={inputs.telephone}
-                            handler={changeHandler}
-                          />
-                          <Input
-                            id="city"
-                            type="text"
-                            text="Град"
-                            holder="София"
-                            value={inputs.city}
-                            handler={changeHandler}
-                          />
-                          <Input
-                            id="zipCode"
-                            type="text"
-                            text="Пощенски код"
-                            holder="1584"
-                            value={inputs.zipCode}
-                            handler={changeHandler}
-                          />
-                          <div className="flex flex-col justify-between ">
-                            <div className="flex items-center mb-1">
-                              <label
-                                htmlFor="address"
-                                className="font-medium text-dark-400"
-                              >
-                                Адрес
-                              </label>
-                            </div>
-                            <textarea
-                              name="address"
-                              id="address"
-                              type="text"
-                              text="Адрес"
-                              placeholder="РУМ Дружба 2 срещу блок 205"
-                              className="px-3 py-1 text-sm leading-tight text-gray-700 border rounded shadow appearance-none resize-none focus:outline-none focus:shadow-outline placeholder:text-gray-200"
-                              cols="22"
-                              rows="2"
-                              value={inputs.address}
-                              onChange={changeHandler}
-                            ></textarea>
-                          </div>
                         </section>
+                        {radioState === "delivery" && (
+                          <section className="container w-full mt-3">
+                            <Input
+                              id="name"
+                              type="text"
+                              text="Име"
+                              holder="Иван Иванов"
+                              value={inputs.name}
+                              handler={changeHandler}
+                            />
+                            <Input
+                              id="telephone"
+                              type="number"
+                              text="Телефон"
+                              holder="087 123 4561"
+                              value={inputs.telephone}
+                              handler={changeHandler}
+                            />
+                            <Input
+                              id="city"
+                              type="text"
+                              text="Град"
+                              holder="София"
+                              value={inputs.city}
+                              handler={changeHandler}
+                            />
+                            <Input
+                              id="zipCode"
+                              type="text"
+                              text="Пощенски код"
+                              holder="1584"
+                              value={inputs.zipCode}
+                              handler={changeHandler}
+                            />
+                            <div className="flex flex-col justify-between ">
+                              <div className="flex items-center mb-1">
+                                <label
+                                  htmlFor="address"
+                                  className="font-medium text-dark-400"
+                                >
+                                  Адрес
+                                </label>
+                              </div>
+                              <textarea
+                                name="address"
+                                id="address"
+                                type="text"
+                                text="Адрес"
+                                placeholder="РУМ Дружба 2 срещу блок 205"
+                                className="px-3 py-1 text-sm leading-tight text-gray-700 border rounded shadow appearance-none resize-none focus:outline-none focus:shadow-outline placeholder:text-gray-200"
+                                cols="22"
+                                rows="2"
+                                value={inputs.address}
+                                onChange={changeHandler}
+                              ></textarea>
+                            </div>
+                          </section>
+                        )}
 
                         <div className="mt-2 ">
                           <div className="mb-2">
@@ -247,36 +276,44 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
                             className="w-full p-3 px-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none resize-none focus:outline-none focus:shadow-outline placeholder:text-gray-200"
                           ></textarea>
                         </div>
-                        <div className="flex justify-center mt-2">
-                          <button
-                            type="submit"
-                            name="deliveryEstimate"
-                            className="w-full py-2 text-sm font-medium text-white uppercase transition-colors duration-300 border px-14 bg-dark hover:bg-transparent hover:text-dark border-dark"
-                          >
-                            ОЦЕНКА НА ДОСТАВКАТА
-                          </button>
-                        </div>
+
+                        {radioState === "delivery" && (
+                          <div className="flex justify-center mt-2">
+                            <button
+                              type="submit"
+                              name="deliveryEstimate"
+                              className="w-full py-2 text-sm font-medium text-white uppercase transition-colors duration-300 border px-14 bg-dark hover:bg-transparent hover:text-dark border-dark"
+                            >
+                              ОЦЕНКА НА ДОСТАВКАТА
+                            </button>
+                          </div>
+                        )}
                       </section>
                     )}
                   </section>
-                  {totalPrice && (
+                  {(totalPrice || radioState == MAGAZINE) && (
                     <>
                       <section className="flex items-center justify-between py-2 mt-1">
-                        <div className="font-semibold uppercase ">
-                          Доставка:
-                        </div>
-                        <div className="flex items-center justify-center">
-                          {totalPrice.deliveryFee.join(".") > 0 ? (
-                            <Price
-                              size="xl"
-                              price={totalPrice?.deliveryFee[0]}
-                              priceDec={totalPrice?.deliveryFee[1]}
-                              NoDDSText={true}
-                            />
-                          ) : (
-                            <div>Безплатна</div>
-                          )}
-                        </div>
+                        {totalPrice && (
+                          <>
+                            {" "}
+                            <div className="font-semibold uppercase ">
+                              Доставка:
+                            </div>
+                            <div className="flex items-center justify-center">
+                              {totalPrice?.deliveryFee?.join(".") > 0 ? (
+                                <Price
+                                  size="xl"
+                                  price={totalPrice?.deliveryFee[0]}
+                                  priceDec={totalPrice?.deliveryFee[1]}
+                                  NoDDSText={true}
+                                />
+                              ) : (
+                                <div>Безплатна</div>
+                              )}
+                            </div>
+                          </>
+                        )}
                       </section>
                       <section className="flex items-center justify-between mb-2">
                         <div className="font-semibold uppercase ">
@@ -285,8 +322,8 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
                         <div>
                           <Price
                             size="2xl"
-                            price={totalPrice?.totalPrice[0]}
-                            priceDec={totalPrice?.totalPrice[1]}
+                            price={totalPrice?.totalPrice[0] || subtotal[0]}
+                            priceDec={totalPrice?.totalPrice[1] || subtotal[1]}
                             isDDS={true}
                           />
                         </div>

@@ -8,11 +8,6 @@ import IsComponent from "./IsComponent";
 function Item({ itemLen, articleLen, itemData }) {
   const { sectionState, setSectionState } = useContext(ProductContext);
 
-  const [itemState, setItemState] = useState({});
-
-  const [isColors, setIsColors] = useState(false);
-  const [isImage, setIsImage] = useState(false);
-
   const removeItem = (e) => {
     const itemRem = sectionState.articles.map((article, index) => {
       if (index == articleLen) {
@@ -30,7 +25,7 @@ function Item({ itemLen, articleLen, itemData }) {
   const changeHandler = (e) => {
     const name = e.target.name;
     let value = e.target.value;
-
+    console.log(name, value);
     if (name.includes("image")) {
       value = e.target.files[0];
     }
@@ -68,41 +63,8 @@ function Item({ itemLen, articleLen, itemData }) {
           </button>
         </div>
       </div>
-      <div className="flex flex-col items-center justify-center gap-3 mb-2 sm:flex-row">
-        <div className="flex">
-          {/* Button is here */}
-          <IsComponent
-            state={isImage}
-            setState={setIsImage}
-            onText="Добави снимка"
-            offText="Премахни снимката"
-          />
-        </div>
-        <div className="flex">
-          <IsComponent
-            state={isColors}
-            setState={setIsColors}
-            onText="Добави Цветовете"
-            offText="Премахни Цветовете"
-          />
-        </div>
-      </div>
 
-      <Input
-        type="text"
-        placeholder="КатНомер"
-        id="katNomer"
-        value={itemData?.katNomer}
-        onChange={changeHandler}
-      />
-      <Input
-        type="text"
-        placeholder="Цена"
-        id="price"
-        value={itemData?.price}
-        onChange={changeHandler}
-      />
-      <div>
+      {/* <div>
         <label htmlFor="types">Типове</label>
         <textarea
           name="types"
@@ -111,27 +73,21 @@ function Item({ itemLen, articleLen, itemData }) {
           className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
           onChange={changeHandler}
         ></textarea>
-      </div>
-      {isColors && (
-        <div>
-          <label htmlFor="colors">Цветове</label>
-          <textarea
-            name="colors"
-            id="colors"
-            className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
-            onChange={changeHandler}
-          ></textarea>
-        </div>
-      )}
-
-      {isImage && (
-        <Input
-          type="file"
-          placeholder="Снимка"
-          id="imageUrl"
-          onChange={changeHandler}
-        />
-      )}
+      </div> */}
+      <Input
+        type="text"
+        placeholder="Тежест"
+        id="weight"
+        value={itemData?.weight}
+        onChange={changeHandler}
+      />
+      {/* <Input
+        type="text"
+        placeholder="Цена"
+        id="price"
+        value={itemData?.price}
+        onChange={changeHandler}
+      /> */}
     </div>
   );
 }

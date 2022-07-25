@@ -11,6 +11,7 @@ import styles from "../../../styles/products/listProducts.module.css";
 // Components
 import Product from "./../../../components/products/listProducts/Product";
 import Sorting from "./../../../components/products/filters/Sorting";
+import AsideHeader from "../../../components/products/aside/AsideHeader";
 // Dictionaries
 // import sortByDictionary from "./allProductDicFilters.dic";
 import sortByDictionary from "../../../dictonaries/allProductDicFilters";
@@ -18,14 +19,14 @@ import sortByDictionary from "../../../dictonaries/allProductDicFilters";
 import { getAllProducts } from "../../../services/productService";
 // translation
 import { translationToDb } from "../../../utils/translationToRoute";
-import ItemTypes from "../../../components/products/aside/ItemTypes";
+import Checkbox from "../../../components/base/Checkbox";
 // Redux
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/actions/productActions";
 // Notifications
 import { toastInformation } from "../../../components/notificataions/Toast";
 
-export default function Section({ products, sectionName, types }) {
+export default function Section({ products, types, sectionRoute }) {
   const dispatch = useDispatch();
 
   const addProduct = (product, productName) => {
@@ -54,7 +55,7 @@ export default function Section({ products, sectionName, types }) {
 
         let items = [];
         for (let item of article.items) {
-          const type = item.types[0].split("\n").join(" ");
+          const type = item.weight;
           let isFound = true;
           if (filters.length == 0) {
             items.push(item);
@@ -85,7 +86,7 @@ export default function Section({ products, sectionName, types }) {
     }
   }, [filterMenu]);
   const clearAllFiilters = () => {
-    setFilters(filtersInitVal);
+    setFilters([]);
   };
   return (
     <main className="mb-auto">
@@ -93,7 +94,7 @@ export default function Section({ products, sectionName, types }) {
         <div className="lg:grid grid-cols-[20%80%] lg:space-x-10 container">
           {products && (
             <aside
-              className={` w-full h-full lg:block bg-[#f5f5f5] max-lg:overflow-auto pb-10 ${
+              className={` w-full h-full lg:block  max-lg:overflow-auto pb-10 ${
                 styles.asideContainer
               } lg:relative pt-4 px-5 ${
                 filterMenu
@@ -122,16 +123,17 @@ export default function Section({ products, sectionName, types }) {
                 {/* <AsideHeader text="Цена" /> */}
                 <div></div>
               </div>
-
+              <AsideHeader text="Количество" />
               {types &&
-                Object.entries(types).map((type) => {
+                types.map((type, index) => {
                   return (
-                    <ItemTypes
-                      key={type[0]}
-                      type={type[0]}
-                      allTypes={Array.from(type[1])}
-                      setFilters={setFilters}
+                    <Checkbox
+                      key={type}
+                      text={type}
+                      id={`${type}`}
+                      // quantity={2}
                       filters={filters}
+                      setFilters={setFilters}
                     />
                   );
                 })}
@@ -169,14 +171,14 @@ export default function Section({ products, sectionName, types }) {
                   } `}
                   ref={sortingMenu}
                 >
-                  <div>
+                  {/* <div>
                     <Sorting
                       title="Сортирай"
                       name="sortBy"
                       setFilters={setFilters}
                       data={sortByDictionary}
                     />
-                  </div>
+                  </div> */}
                 </div>
               </div>
             )}
@@ -189,8 +191,10 @@ export default function Section({ products, sectionName, types }) {
                       article={article}
                       item={item}
                       key={item._id}
-                      commonName={products.commonName}
-                      sectionName={sectionName}
+                      imageUrl={products.imageUrl}
+                      sectionName={products.sectionName}
+                      sectionRoute={sectionRoute}
+                      description={products.description}
                       addProduct={addProduct}
                     />
                   );
@@ -210,41 +214,21 @@ export default function Section({ products, sectionName, types }) {
 
 // Getting all product.. if filtering Must be filtering somehow
 export async function getServerSideProps(context) {
-  const { section } = context.params;
+  let { section } = context.params;
+  const products = await getAllProducts(section.split("-").join(" "));
 
-  const products = await getAllProducts(translationToDb(section));
-
-  let prices = products?.articles?.map((article) => {
-    let price = 0;
-    article?.items?.forEach((item) => {
-      if (item.price > price) price = item.price;
-    });
-    return price;
-  });
-
-  let min = Math.floor(prices?.reduce((a, b) => Math.min(a, b), 10000000));
-  let max = Math.ceil(prices?.reduce((a, b) => Math.max(a, b)));
   // Must add total qty on every types how much is qty of the every filter
-  let typesObj = {};
+  let typesObj = new Set();
   products?.articles?.forEach((article) => {
     article.items?.forEach((item) => {
-      item.types[0].split("\n").forEach((type) => {
-        const typeOnly = type.split(":");
-        if (!typesObj.hasOwnProperty(typeOnly[0])) {
-          typesObj[typeOnly[0]] = new Set();
-        }
-        typesObj[typeOnly[0]].add(typeOnly[1].trim());
-      });
+      typesObj.add(item.weight);
     });
   });
-
-  for (let key in typesObj) {
-    typesObj[key] = Array.from(typesObj[key]);
-  }
+  typesObj = Array.from(typesObj);
   return {
     props: {
       products: JSON.parse(JSON.stringify(products)),
-      sectionName: section,
+      sectionRoute: section,
       types: typesObj,
     },
   };

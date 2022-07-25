@@ -10,24 +10,24 @@ import BuyBtn from "../../base/BuyBtn";
 export default function Product({
   article,
   item,
-  commonName,
   sectionName,
   addProduct,
+  imageUrl,
+  sectionRoute,
 }) {
-  const price = item.price.toFixed(2).split(".");
-  const itemTypes = item.types.toString().split("\n");
-  let imageUrl;
-  item.articleName = `${commonName ? commonName : ""} ${article.articleName}`;
+  const price = item?.price.toFixed(2).split(".");
+  item.articleName = `${sectionName} ${article.articleName} - ${item.weight}`;
   item.sectionName = sectionName;
+  item.imageUrl = imageUrl;
   return (
     <section className="flex items-center mb-5 border border-gray">
       <div className="md:grid grid-cols-[80%20%] w-full h-full">
         <div className="items-center h-full py-3 sm:flex">
           {imageUrl && (
-            <Link href={`/products/${sectionName}/${item._id}`}>
-              <div className="relative flex w-full h-48 cursor-pointer sm:w-52 sm:h-32">
+            <Link href={`/products/${sectionRoute}/${item._id}`}>
+              <div className="relative flex w-full h-48 cursor-pointer sm:w-44 sm:h-32">
                 <Image
-                  src={`/images/${imageUrl}`}
+                  src={`/uploads/${imageUrl}`}
                   layout="fill"
                   alt={`${item.articleName}`}
                 />
@@ -35,16 +35,9 @@ export default function Product({
             </Link>
           )}
           <div className="pl-4">
-            <Link href={`/products/${sectionName}/${item._id}`}>
-              <h2 className="text-lg cursor-pointer">
-                {commonName} {article.articleName}
-              </h2>
+            <Link href={`/products/${sectionRoute}/${item._id}`}>
+              <h2 className="text-lg cursor-pointer">{item.articleName}</h2>
             </Link>
-            <ul className="pt-2 text-sm text-gray-darker">
-              {itemTypes.slice(0, 5).map((type) => {
-                return <li key={type}>{type}</li>;
-              })}
-            </ul>
           </div>
         </div>
         <div className="bg-grayBg">

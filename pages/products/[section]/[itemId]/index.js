@@ -23,13 +23,14 @@ import productFormater from "../../../../utils/productFormater";
 import { toastInformation } from "../../../../components/notificataions/Toast";
 
 export default function Index({ product, userData }) {
-  const price = product.item.price.toFixed(2).split(".");
+  const price = product?.article?.item?.price?.toFixed(2).split(".");
   const [currQty, setQty] = useState(1);
   const dispatch = useDispatch();
 
   const addProduct = (product, productName) => {
     const newObj = productFormater(product);
-    toastInformation(`Добавихте ${productName} в количката`);
+    console.log(newObj);
+    toastInformation(`Добавихте ${newObj.articleName} в количката`);
     dispatch(addToCart(newObj, currQty));
   };
   const addFavourites = async (product) => {
@@ -43,20 +44,20 @@ export default function Index({ product, userData }) {
     const res = await fetch("/api/account/favourites/adding", options);
     const data = await res.json();
   };
+  const itemName = `${product.sectionName} ${product.article.articleName} ${product.article.item.weight}`;
   return (
     <main className="mb-auto">
       <div className="container">
         <div className="flex flex-col justify-between py-5 my-5 border-b md:flex-row border-gray-bord">
           <div className="text-2xl font-semibold">
-            {product.commonName && <span>{product.commonName}</span>}
-            <span className="ml-1">{product.articleName}</span>
+            <span className="ml-1">{itemName}</span>
           </div>
-          <div className="mt-5 md:mt-1">
+          {/* <div className="mt-5 md:mt-1">
             <ul className="text-sm text-right text-gray-250">
-              {/* <li>Код: 23141412</li> */}
+              <li>Код: 23141412</li> 
               <li>КатНомер: {product.item.katNomer}</li>
             </ul>
-          </div>
+          </div> */}
         </div>
         <div className="grid-cols-2 lg:grid xl:grid-cols-[40%30%30%] auto-cols-max">
           <ThumbsGallery navSize="2xl" />
@@ -79,14 +80,7 @@ export default function Index({ product, userData }) {
                   <button
                     type="button"
                     className={`w-full px-2 flex py-2  justify-center items-end font-semibold text-white  bg-primary text-sm ml-3`}
-                    onClick={() =>
-                      addProduct(
-                        product,
-                        `${product.commonName ? product.commonName : ""} ${
-                          product.articleName
-                        }`
-                      )
-                    }
+                    onClick={() => addProduct(product, itemName)}
                   >
                     Купи
                   </button>
@@ -110,15 +104,15 @@ export default function Index({ product, userData }) {
           </section>
           <section className="p-4 mt-4 bg-gray-300 xl:order-1 md:col-span-2 xl:col-span-1 md:mt-0">
             <h3 className="text-xl font-semibold">Кратко описание</h3>
-            <ul className="text-[#3b3b3b] text-sm mt-1  pb-4">
-              {product.item.types[0]
+            {/* <ul className="text-[#3b3b3b] text-sm mt-1  pb-4">
+              {product.description[0]
                 .split("\n")
                 .slice(0, 5)
                 .map((type) => {
                   return <li key={type}>{type}</li>;
                 })}
-            </ul>
-            <div className="flex justify-center">
+            </ul> */}
+            <div className="flex justify-center mt-2">
               <ul className=" text-[0.95rem]">
                 {product.description.slice(0, 2).map((description) => {
                   return <li key={description}>{description}</li>;
@@ -128,7 +122,7 @@ export default function Index({ product, userData }) {
           </section>
         </div>
 
-        <section className="my-16">
+        {/* <section className="my-16">
           <h3 className="py-5 text-xl font-semibold text-center">
             ВСИЧКИ ХАРАКТЕРИСТИКИ
           </h3>
@@ -148,7 +142,7 @@ export default function Index({ product, userData }) {
                 })}
             </tbody>
           </table>
-        </section>
+        </section> */}
         <section className="pt-5 pb-10 my-16 bg-gray-300">
           <h3 className="py-5 text-xl font-semibold text-center">
             Пълно Описание
@@ -172,7 +166,6 @@ export async function getServerSideProps(context) {
 
   const product = await productByItemId(itemId);
   const session = await getSession({ req: context.req });
-
   return {
     props: {
       product: JSON.parse(JSON.stringify(product)),

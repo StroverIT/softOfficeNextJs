@@ -49,16 +49,16 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
   const isXAnim = classNames({
     [style.subOpen]: xAnim,
   });
-
+  const menuClasses = `bg-white cursor-pointer text-dark lg:hover:text-dark lg:hover:bg-color ${
+    !isHome ? "px-5 py-[0.40rem]" : "pl-4"
+  } lg:py-2 flex w-full peer group-hover:lg:bg-color group-hover:lg:text-primary font-normal font-sans text-lg leading-5`;
   return (
     <li
       className={`item w-full font-thin group ${!isHome ? "lg:w-64 mt-2" : ""}`}
     >
       {/* Menu */}
       <div
-        className={`bg-white cursor-pointer text-dark lg:hover:text-dark lg:hover:bg-color ${
-          !isHome ? "px-5 py-[0.40rem]" : "pl-4"
-        } lg:py-2 flex w-full peer group-hover:lg:bg-color group-hover:lg:text-primary font-normal font-sans text-lg leading-5`}
+        className={title.length > 0 ? menuClasses : ""}
         onClick={showMenu}
         ref={menu}
       >

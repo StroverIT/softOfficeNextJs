@@ -4,10 +4,12 @@ import User from "../../../db/models/User";
 import { connectMongo } from "../../../db/connectDb";
 
 import { getToken } from "next-auth/jwt";
+import { DELIVERY } from "../../../components/cart/cartCostants";
+
 const secret = process.env.NEXTAUTH_SECRET;
 
 export default async function handler(req, res) {
-  const { cart, formData, totalPrice } = req.body;
+  const { cart, formData, totalPrice, typeOfDelivery } = req.body;
 
   try {
     await connectMongo();
@@ -36,14 +38,21 @@ export default async function handler(req, res) {
     }
     let price = totalPrice.totalPrice.join(".");
 
-    await Delivery.create({
+    let data = {
       cart: [...cart],
-      ...formData,
       totalPrice: price,
       ownerId: user._id,
-    });
+      typeOfDelivery,
+    };
+    if (typeOfDelivery == DELIVERY) {
+      data.addressInfo = { ...formData };
+    }
+
+    await Delivery.create(data);
+
     res.json({ message: "Успешно направена поръчка" });
   } catch (e) {
+    console.log(e);
     res.status(400).json(e);
   }
 }

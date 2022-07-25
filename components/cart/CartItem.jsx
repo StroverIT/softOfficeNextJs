@@ -15,9 +15,9 @@ export default function CartItem({ cartData, removeProduct, changeQty }) {
     <tr className="border-b border-gray-[#e4e7e6] flex flex-wrap lg:table-row justify-between items-center py-10 mb-10 gap-10 ">
       {/* Image plus list */}
       <ImageAndListTableData
-        listData={cartData?.item.types[0].split("\n")}
         cartName={cartData?.item.articleName}
         route={route}
+        imageUrl={cartData.item.imageUrl}
       />
       {/* MObile version */}
       <MobileScreenTableData

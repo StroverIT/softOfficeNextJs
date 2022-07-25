@@ -13,14 +13,25 @@ import Users from "../../components/adminPanel/Users";
 import { getAll } from "../../services/productService";
 import { getAll as getAllDeliveries } from "../../services/deliveryService";
 
-export default function Index({ userData, products, deliveries }) {
+export default function Index({
+  userData,
+  products,
+  forDelivery,
+  forMagazine,
+}) {
   const router = useRouter();
 
   const [categoryData, setCategoryData] = useState(null);
 
   useEffect(() => {
     const categoryComp = {
-      "#dostavki": [<Deliveries key="Deliveries" deliveries={deliveries} />],
+      "#dostavki": [
+        <Deliveries
+          key="Deliveries"
+          forHome={forDelivery}
+          forMagazine={forMagazine}
+        />,
+      ],
       "#prodykti": [<Products key="MyOrders" products={products} />],
       "#promocii": [<Promotions key="MyFavourites" />],
       "#potrebiteli": [<Users key="Users" />],
@@ -71,12 +82,19 @@ export async function getServerSideProps(context) {
   }
   const products = await getAll();
   const deliveries = await getAllDeliveries();
+  const forDelivery = deliveries.filter((type) => {
+    return type.typeOfDelivery != "delivery";
+  });
+  const forMagazine = deliveries.filter((type) => {
+    return type.typeOfDelivery != "magazine";
+  });
 
   return {
     props: {
       userData: JSON.parse(JSON.stringify(data)),
       products: JSON.parse(JSON.stringify(products)),
-      deliveries: JSON.parse(JSON.stringify(deliveries)),
+      forDelivery: JSON.parse(JSON.stringify(forDelivery)),
+      forMagazine: JSON.parse(JSON.stringify(forMagazine)),
     },
   };
 }

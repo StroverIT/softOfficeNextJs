@@ -1,6 +1,6 @@
 export default async function handler(req, res) {
-  const { price } = req.body;
-  let deliveryFee = 10;
+  const { price, city } = req.body;
+  let deliveryFee = 20;
 
   // Must check if everythings is correcly filled
   /*
@@ -9,9 +9,10 @@ export default async function handler(req, res) {
   2. DDS priced
   return totalPrice.toFixed(2).split(".")
    */
-  if (price > 50) {
-    deliveryFee = 0;
-  }
+  // city = sofiq
+  // if (city.toLowerCase() != "sofiq" || city.toLowerCase() != "софия") {
+  //   deliveryFee = 80;
+  // }
   const totalPrice = (price * 1.2 + deliveryFee).toFixed(2).split(".");
   res.json({
     totalPrice: totalPrice,

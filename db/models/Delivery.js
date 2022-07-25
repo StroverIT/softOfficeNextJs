@@ -1,18 +1,22 @@
 import { Schema, model, models } from "mongoose";
 
+const addressSchema = new Schema({
+  name: { type: String },
+  telephone: { type: String },
+  city: { type: String },
+  zipCode: { type: String },
+  address: { type: String },
+});
 const deliveryScheme = new Schema({
   cart: [{ type: Object, required: true }],
-  name: { type: String, required: true },
-  telephone: { type: String, required: true },
-  city: { type: String, required: true },
-  zipCode: { type: String, required: true },
-  address: { type: String, required: true },
+
+  addressInfo: addressSchema,
   comment: String,
   totalPrice: { type: Number, required: true },
   ownerId: { type: Schema.Types.ObjectId, ref: "User" },
   status: {
     type: String,
-    default: "sent",
+    default: "progress",
     enum: ["progress", "sent", "returned", "finished"],
   },
   createdAt: {
@@ -21,6 +25,7 @@ const deliveryScheme = new Schema({
       return new Date(Date.now()).toLocaleDateString();
     },
   },
+  typeOfDelivery: { type: String, required: true },
 });
 
 const Delivery = models.Delivery || model("Delivery", deliveryScheme);

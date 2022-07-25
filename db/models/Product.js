@@ -1,29 +1,14 @@
 import { Schema, model, models } from "mongoose";
 
 const itemScheme = new Schema({
-  katNomer: {
-    type: String,
-    required: true,
-  },
-  price: {
-    type: Number,
-  },
-  types: [{ type: String }],
-  colors: [[{ type: String }]],
-  imageUrl: {
-    type: String,
-  },
+  weight: String,
+  price: Number,
 });
 const articlesScheme = new Schema({
   articleName: {
     type: String,
   },
-  description: {
-    type: [{ type: String }],
-  },
-  imageUrl: {
-    type: String,
-  },
+
   items: [itemScheme],
 });
 
@@ -34,8 +19,8 @@ const productScheme = new Schema({
   imageUrl: {
     type: String,
   },
-  commonName: {
-    type: String,
+  description: {
+    type: [{ type: String }],
   },
   articles: [articlesScheme],
 });

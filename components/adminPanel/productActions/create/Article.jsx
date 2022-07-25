@@ -11,7 +11,6 @@ import IsComponent from "./IsComponent";
 
 function Article({ articleLen, articleData }) {
   const { sectionState, setSectionState } = useContext(ProductContext);
-  const [isImage, setIsImage] = useState(false);
 
   const articleCons = sectionState.articles[articleLen];
   const itemsCons = articleCons?.items;
@@ -19,7 +18,7 @@ function Article({ articleLen, articleData }) {
   const addItem = (e) => {
     const addItemArticle = sectionState.articles.map((article, index) => {
       if (articleLen == index) {
-        article.items.push({ katNomer: "", price: "", types: "" });
+        article.items.push({ weight: "", price: 0 });
       }
       return article;
     });
@@ -71,26 +70,7 @@ function Article({ articleLen, articleData }) {
           </button>
         </div>
       </div>
-      <div className="flex justify-center">
-        <IsComponent
-          state={isImage}
-          setState={setIsImage}
-          onText="Добави Снимка"
-          offText="Премахни снимка"
-          sectionState={sectionState}
-          setSectionState={setSectionState}
-        />
-      </div>
 
-      <div>
-        <input
-          type="checkbox"
-          id="commonName"
-          name="commonName"
-          onChange={changeHandler}
-        />
-        <label htmlFor="commonName">Премахни общото име</label>
-      </div>
       <Input
         type="text"
         placeholder="Име на артикула"
@@ -98,21 +78,7 @@ function Article({ articleLen, articleData }) {
         value={articleData?.articleName}
         onChange={changeHandler}
       />
-      <Input
-        type="text"
-        placeholder="Описание"
-        id="description"
-        value={articleData?.description}
-        onChange={changeHandler}
-      />
-      {isImage && (
-        <Input
-          type="file"
-          placeholder="Снимка"
-          id="imageUrl"
-          onChange={changeHandler}
-        />
-      )}
+
       {itemsCons &&
         itemsCons.map((item, index) => {
           return (

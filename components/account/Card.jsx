@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions/productActions";
 
 export function Card({ itemData }) {
+  console.log(itemData);
   const dispatch = useDispatch();
 
   const addProduct = (product) => {
@@ -32,31 +33,31 @@ export function Card({ itemData }) {
     <div className="w-full">
       <div className="relative w-full h-48">
         <Image
-          src="/images/testImage2.png"
+          src={`/uploads/${product.imageUrl}`}
           layout="fill"
           objectFit="contain"
           alt="Test image is that"
         />
         <div
-          className="absolute right-0 top-3 cursor-pointer text-dark bg-white rounded-full p-2 text-xl border border-gray-200 hover:scale-105 hover:text-primary transition-all"
+          className="absolute right-0 p-2 text-xl transition-all bg-white border border-gray-200 rounded-full cursor-pointer top-3 text-dark hover:scale-105 hover:text-primary"
           onClick={removeProduct}
         >
           <BsTrash />
         </div>
       </div>
       <div>
-        <h5 className="font-semibold text-sm text-center">
+        <h5 className="text-sm font-semibold text-center">
           <span> {product.commonName}</span>
           <span className="ml-1"> {product.articleName}</span>
         </h5>
       </div>
-      <div className="pb-2 pt-1">
+      <div className="pt-1 pb-2">
         <Pricing price={price[0]} priceDec={price[1]} size="sm" />
       </div>
       <div>
         <button
           type="button"
-          className="bg-primary text-white py-2 w-full text-xs font-semibold"
+          className="w-full py-2 text-xs font-semibold text-white bg-primary"
           onClick={() => addProduct(itemData.product)}
         >
           ДОБАВИ В КОЛИЧКА
