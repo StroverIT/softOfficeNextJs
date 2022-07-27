@@ -1,6 +1,8 @@
 import React from "react";
 import { useRouter } from "next/router";
 
+import GetAll from "./GetAll";
+
 export default function Main({ products }) {
   const router = useRouter();
   const changeTypeAction = (type) => {
@@ -17,7 +19,12 @@ export default function Main({ products }) {
           Създай продукт
         </button>
       </div>
-      <section></section>
+      <section className="my-5">
+        {products.length > 0 &&
+          products.map((product) => {
+            return <GetAll product={product} key={product._id} />;
+          })}
+      </section>
     </div>
   );
 }
