@@ -206,9 +206,9 @@ export default function Home({ topMonthOfferts }) {
             </section>
           </div>
         </section>
-        <section className="py-5 bg-color">
+        {/* <section className="py-5 bg-color">
           <h1 className="text-center">Тука ще има нашите партньори</h1>
-        </section>
+        </section> */}
       </main>
     </>
   );
