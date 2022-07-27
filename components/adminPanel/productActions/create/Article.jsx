@@ -15,7 +15,7 @@ function Article({ articleLen, articleData }) {
   const addItem = (e) => {
     const addItemArticle = sectionState.articles.map((article, index) => {
       if (articleLen == index) {
-        article.items.push({ weight: "", price: 0 });
+        article.items.push({ weight: "", price: "" });
       }
       return article;
     });

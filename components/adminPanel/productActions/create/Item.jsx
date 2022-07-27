@@ -81,13 +81,13 @@ function Item({ itemLen, articleLen, itemData }) {
         value={itemData?.weight}
         onChange={changeHandler}
       />
-      {/* <Input
+      <Input
         type="text"
         placeholder="Цена"
         id="price"
         value={itemData?.price}
         onChange={changeHandler}
-      /> */}
+      />
     </div>
   );
 }
