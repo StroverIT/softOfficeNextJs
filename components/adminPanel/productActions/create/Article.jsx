@@ -2,12 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 
 import Input from "../../../form/AccInput";
 import { ProductContext } from "../ProductContext";
-import { v4 as uuidv4 } from "uuid";
 
 import Item from "./Item";
 import { HiX } from "react-icons/hi";
-
-import IsComponent from "./IsComponent";
 
 function Article({ articleLen, articleData }) {
   const { sectionState, setSectionState } = useContext(ProductContext);
