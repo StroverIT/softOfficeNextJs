@@ -216,7 +216,6 @@ export default function Home({ topMonthOfferts }) {
 
 export async function getServerSideProps(context) {
   const topMonthOfferts = await getAllLatestTen();
-  console.log(topMonthOfferts);
 
   return {
     props: { topMonthOfferts: JSON.parse(JSON.stringify(topMonthOfferts)) },
