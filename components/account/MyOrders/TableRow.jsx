@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Status } from "./Status";
 import { AiOutlineSearch } from "react-icons/ai";
 import { HiX } from "react-icons/hi";
+import Image from "next/image";
 
 function ListAddress({ text, value }) {
   return (
@@ -21,9 +22,18 @@ function ListProduct({ text }) {
 function CartItem({ data }) {
   return (
     <>
-      <ListProduct text={["КатНомер", data.katNomer]} />
+      <ListProduct text={["Име на продукта", data.articleName]} />
+
       <ListProduct text={["Ед. цена", data.price]} />
-      <ListProduct text={["Типове", data.types[0]]} />
+      <div className="absolute top-1/2 -translate-y-1/2 right-0">
+        <div className="relative h-20 w-20">
+          <Image
+            layout="fill"
+            alt={data.articleName}
+            src={`/uploads/${data.imageUrl}`}
+          />
+        </div>
+      </div>
     </>
   );
 }
@@ -36,6 +46,9 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
       document.body.style.removeProperty("overflow-y");
     }
   }, [menu]);
+
+  const addressInfo = fullData?.addresInfo;
+
   return (
     <>
       <tr>
@@ -76,34 +89,45 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
             {/* Menu on open */}
             <section className="absolute z-20 w-full -translate-x-1/2 -translate-y-1/2 h-2/3 md:h-1/2 md:w-3/4 top-1/2 bg-gray left-1/2">
               <div className="relative h-full">
-                <div className="flex flex-wrap mx-1 pt-7 text-primary-lighter">
-                  <section className="w-full text-left">
-                    <h3 className="text-lg font-semibold text-center uppercase">
-                      За адреса
-                    </h3>
-                    <ul>
-                      <ListAddress text="Име: " value={fullData.name} />
-                      <ListAddress text="Телефон:" value={fullData.telephone} />
-                      <ListAddress text="Град:" value={fullData.telephone} />
-                      <ListAddress
-                        text="Пощенски код:"
-                        value={fullData.telephone}
-                      />
-                      <ListAddress
-                        text="Коментар:"
-                        value={fullData.telephone}
-                      />
-                    </ul>
-                  </section>
+                <div className="flex flex-wrap mx-1 pt-7 text-primary-lighter flex-col">
+                  {addressInfo && (
+                    <section className="w-full text-left">
+                      <h3 className="text-lg font-semibold text-center uppercase text-green">
+                        За адреса
+                      </h3>
+                      <ul>
+                        <ListAddress text="Име: " value={addressInfo.name} />
+                        <ListAddress
+                          text="Телефон:"
+                          value={addressInfo.telephone}
+                        />
+                        <ListAddress
+                          text="Град:"
+                          value={addressInfo.telephone}
+                        />
+                        <ListAddress
+                          text="Пощенски код:"
+                          value={addressInfo.telephone}
+                        />
+                        <ListAddress
+                          text="Коментар:"
+                          value={addressInfo.telephone}
+                        />
+                      </ul>
+                    </section>
+                  )}
                   <section className="font-semibold md:ml-2 ">
-                    <h3 className="text-lg font-semibold uppercase">
-                      За продуктите
+                    <h3 className="text-lg font-semibold uppercase flex items-center justify-center text-green">
+                      продукти
                     </h3>
 
-                    <section className="relative flex flex-wrap gap-x-10">
+                    <section className="relative flex flex-wrap gap-x-10 w-full">
                       {fullData.cart.map((cart, index) => {
                         return (
-                          <ul key={cart.item._id} className="mt-2 text-left">
+                          <ul
+                            key={cart.item._id}
+                            className="mt-2 text-left relative w-full"
+                          >
                             <li>
                               Продукт № {index} - Бройки: {cart.qty}
                             </li>
