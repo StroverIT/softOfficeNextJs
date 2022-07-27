@@ -56,7 +56,7 @@ async function handler(req, res) {
     }
     const message = `
       <h3>За потвърждаване на имейла в IvdaGeo.bg.
-      </h2><a href="${process.env.NEXTAUTH_URL}/account/verifyAccountToken/${user._id}/${token.token}">Цъкнете тук</a>
+      </h2><a href="${process.env.HOST_URL}/account/verifyAccountToken/${user._id}/${token.token}">Цъкнете тук</a>
       `;
     // Sending email
     await sendEmail(
