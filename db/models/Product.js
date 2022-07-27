@@ -10,6 +10,7 @@ const itemScheme = new Schema({
 const articlesScheme = new Schema({
   articleName: {
     type: String,
+    default: "",
   },
 
   items: [itemScheme],

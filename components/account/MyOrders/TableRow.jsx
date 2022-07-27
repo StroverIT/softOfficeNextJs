@@ -25,8 +25,8 @@ function CartItem({ data }) {
       <ListProduct text={["Име на продукта", data.articleName]} />
 
       <ListProduct text={["Ед. цена", data.price]} />
-      <div className="absolute top-1/2 -translate-y-1/2 right-0">
-        <div className="relative h-20 w-20">
+      <div className="absolute right-0 -translate-y-1/2 top-1/2">
+        <div className="relative w-20 h-20">
           <Image
             layout="fill"
             alt={data.articleName}
@@ -89,7 +89,7 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
             {/* Menu on open */}
             <section className="absolute z-20 w-full -translate-x-1/2 -translate-y-1/2 h-2/3 md:h-1/2 md:w-3/4 top-1/2 bg-gray left-1/2">
               <div className="relative h-full">
-                <div className="flex flex-wrap mx-1 pt-7 text-primary-lighter flex-col">
+                <div className="flex flex-col flex-wrap mx-1 pt-7 text-primary-lighter">
                   {addressInfo && (
                     <section className="w-full text-left">
                       <h3 className="text-lg font-semibold text-center uppercase text-green">
@@ -117,16 +117,16 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                     </section>
                   )}
                   <section className="font-semibold md:ml-2 ">
-                    <h3 className="text-lg font-semibold uppercase flex items-center justify-center text-green">
+                    <h3 className="flex items-center justify-center text-lg font-semibold uppercase text-green">
                       продукти
                     </h3>
 
-                    <section className="relative flex flex-wrap gap-x-10 w-full">
+                    <section className="relative flex flex-wrap w-full gap-x-10">
                       {fullData.cart.map((cart, index) => {
                         return (
                           <ul
                             key={cart.item._id}
-                            className="mt-2 text-left relative w-full"
+                            className="relative w-full mt-2 text-left"
                           >
                             <li>
                               Продукт № {index} - Бройки: {cart.qty}
