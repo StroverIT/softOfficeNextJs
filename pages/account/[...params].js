@@ -24,9 +24,10 @@ export default function Index({ data }) {
     confPassword: "",
   };
   const [inputs, setInputs] = useState(passData);
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState(null);
   const [disabled, setDisabled] = useState(true);
   const [dataState, setDataState] = useState(data);
+  const [isLoading, setLoading] = useState(false);
 
   function passStateHandler(e) {
     const { name, value } = e.target;
@@ -56,18 +57,16 @@ export default function Index({ data }) {
     }));
   }
   useEffect(() => {
-    const errors = [];
-    if (inputs.password != inputs.confPassword || inputs.password.length <= 0) {
-      errors.push("Паролите трябва да съвпадат");
+    if (inputs.password.length > 0 || inputs.confPassword.length > 0) {
+      if (inputs.password != inputs.confPassword) {
+        setErrors("Паролите трябва да съвпадат");
+        setDisabled(true);
+      } else {
+        setErrors(null);
+        setDisabled(false);
+      }
     }
-    if (errors.length > 0) {
-      setErrors([...errors]);
-      setDisabled(true);
-    } else {
-      setErrors([]);
-      setDisabled(false);
-    }
-  }, [inputs]);
+  }, [errors, inputs]);
 
   return (
     <>
@@ -125,6 +124,8 @@ export default function Index({ data }) {
                     disabled && "cursor-not-allowed opacity-50"
                   }`}
                   isDisabled={disabled}
+                  isLoading={isLoading}
+                  onClick={() => setLoading(true)}
                 />
               </form>
             </div>

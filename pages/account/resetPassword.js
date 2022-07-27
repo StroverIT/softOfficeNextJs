@@ -13,6 +13,8 @@ export default function ResetPassword() {
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessages, setErrorMessages] = useState([]);
   const [inputs, setInputs] = useState(initialValues);
+  const [isLoading, setLoader] = useState(false);
+
   function formHandlerInputs(e) {
     const { name, value } = e.target;
     setInputs({ ...inputs, [name]: value });
@@ -20,14 +22,14 @@ export default function ResetPassword() {
 
   async function submitHandler(e) {
     e.preventDefault();
-
+    setLoader(true);
     const errors = [];
     const emailCheck = emailVal(inputs.email);
     if (!emailCheck.result) errors.push(emailCheck.message);
     if (errors.length > 0) {
       setErrorMessages([...errors]);
       setSuccessMessage(null);
-
+      setLoader(false);
       return;
     }
     const res = await fetch("/api/account/forgotten/password", {
@@ -42,12 +44,15 @@ export default function ResetPassword() {
       const data = await res.json();
       setErrorMessages([...data.map((e) => e)]);
       setSuccessMessage(null);
+      setLoader(false);
+
       return;
     }
 
     // Send message
     setErrorMessages([]);
     setSuccessMessage("Успешно изпратена заявка, вижте си и-мейла!");
+    setLoader(false);
   }
   return (
     <>
@@ -91,10 +96,10 @@ export default function ResetPassword() {
 
               <div className="flex items-center justify-center ">
                 <button
-                  className="w-full px-4 py-2 font-bold text-white rounded shadow-md disabled:opacity-25 bg-primary hover:bg-primary focus:outline-none focus:shadow-outline"
+                  className="w-full px-4 py-2 font-bold text-white rounded shadow-md disabled:opacity-25 bg-primary hover:bg-primary focus:outline-none focus:shadow-outline flex justify-center items-center"
                   type="submit"
                 >
-                  Изпрати
+                  {isLoading ? <div className="loader"></div> : "Изпрати"}
                 </button>
               </div>
             </form>

@@ -7,6 +7,7 @@ export default function Outlined({
   isDisabled,
   name,
   onClick,
+  isLoading,
 }) {
   return (
     <button
@@ -14,11 +15,11 @@ export default function Outlined({
       disabled={isDisabled}
       name={name}
       onClick={onClick}
-      className={`w-full py-2 font-medium text-white uppercase transition-colors duration-100 border px-14 bg-primary hover:bg-transparent hover:text-primary border-primary ${
+      className={`w-full py-2 font-medium text-white uppercase transition-colors duration-100 border px-14 bg-primary hover:bg-transparent hover:text-primary border-primary flex items-center justify-center ${
         custom ? custom : ""
       }`}
     >
-      {text}
+      {isLoading ? <div className="loader"></div> : text}
     </button>
   );
 }

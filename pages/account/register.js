@@ -23,9 +23,11 @@ const Register = () => {
   const [inputs, setInputs] = useState(initialValues);
   const [errorMessages, setErrorMessages] = useState([]);
   const [disabled, setDisabled] = useState(true);
+  const [isLoading, setLoading] = useState(false);
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
     if (errorMessages.length > 0) return;
     //POST form values
     const res = await fetch("/api/auth/signup", {
@@ -39,18 +41,13 @@ const Register = () => {
     //Await for data for any desirable next steps
     if (res.status != 201) {
       const data = await res.json();
-
+      console.log(data);
       setErrorMessages([...data.map((e) => e)]);
+      setLoading(false);
       return;
     }
     // MUST SEND A EMAIL FOR VERIFICATION
-    await fetch("/api/account/forgotten/verifyingAcc", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email: inputs.email }),
-    });
+
     // Redirect
     router.push("/account/verifyRegistration");
   };
@@ -203,12 +200,12 @@ const Register = () => {
               </div> */}
               <div className="flex items-center justify-center ">
                 <button
-                  className="w-full px-4 py-2 font-bold text-white rounded shadow-md disabled:opacity-25 bg-primary hover:bg-primary focus:outline-none focus:shadow-outline"
+                  className={`w-full px-4 py-2 font-bold text-white rounded shadow-md disabled:opacity-25 bg-primary hover:bg-primary focus:outline-none focus:shadow-outline flex items-center justify-center`}
                   type="submit"
                   disabled={disabled}
-                  onClick={}
                 >
-                  Регистрация
+                  {isLoading && <div className="loader text-sm"></div>}
+                  {!isLoading && "Регистрация"}
                 </button>
               </div>
             </form>

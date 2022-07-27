@@ -15,7 +15,7 @@ const sendEmail = async (fromEmail, email, subject, text) => {
       service: "gmail",
       auth: {
         type: "OAuth2",
-        user: "emilzlatinov123@gmail.com",
+        user: process.env.EMAIL_SEND,
         clientId: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
         refreshToken: process.env.REFRESH_TOKEN,

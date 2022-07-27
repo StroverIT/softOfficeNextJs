@@ -22,19 +22,16 @@ html,
 body {
   padding: 0;
   margin: 0;
-
-  background-color: theme("colors.white");
-  overflow-x: hidden;
-  font-family: "Roboto", sans-serif;
-  font-stretch: expanded;
-  position: relative;
-
-  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   /* font-family: Helvetica, Arial, sans-serif; */
 }
 
 body {
+  background-color: theme("colors.white");
+  font-family: "Roboto", sans-serif;
+  overflow-x: hidden;
+  position: relative;
 }
 ::-webkit-scrollbar {
   width: 10px;
@@ -170,4 +167,22 @@ input[type="range"]::-webkit-slider-thumb {
   @apply bg-green;
 
   /* @apply w-6 h-6 appearance-none pointer-events-auto; */
+}
+
+.loader {
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

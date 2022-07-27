@@ -4,6 +4,8 @@ import User from "../../../db/models/User";
 
 import { fullNameVal, emailVal } from "../../../utils/validationHandler";
 import { hash } from "bcryptjs";
+import Token from "../../../db/models/Token";
+import sendEmail from "../sendEmail";
 
 async function handler(req, res) {
   //Only POST mothod is accepted
@@ -28,6 +30,7 @@ async function handler(req, res) {
     //Check existing
     const checkExisting = await User.findOne({ email });
     //Send error response if duplicate user is found
+
     if (checkExisting) {
       errors.push("Вече съществува такъв и-мейл");
     }
@@ -37,13 +40,34 @@ async function handler(req, res) {
       return res.status(406).json(errors);
     }
 
-    const status = await User.create({
+    const user = await User.create({
       email,
       password: await hash(password, 12),
       fullName,
     });
+
+    let token = await Token.findOne({ userId: ObjectId(user._id) });
+    if (!token) {
+      token = await Token.create({
+        userId: user._id,
+        token: new ObjectId(),
+      });
+    }
+    const message = `
+      <h3>За потвърждаване на имейла в IvdaGeo.bg.
+      </h2><a href="${process.env.NEXTAUTH_URL}/account/verifyAccountToken/${user._id}/${token.token}">Цъкнете тук</a>
+      `;
+    // Sending email
+    await sendEmail(
+      process.env.EMAIL_SEND,
+      email,
+      "Потвърждаване на и-мейла IvdaGeo",
+      message
+    );
+    return res
+      .status(201)
+      .json({ message: "Успешно изпратена заявка", isErr: false });
     //Send success response
-    res.status(201).json({ message: "success", ...status });
     //Close DB connection
     mongoose.connection.close();
   } else {

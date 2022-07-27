@@ -53,7 +53,9 @@ async function handler(req, res) {
       message
     );
     mongoose.connection.close();
-    return res.status(201);
+    return res
+      .status(201)
+      .json({ message: "Успешно изпратена заявка. Вижте си и-мейла" });
   }
 }
 export default handler;

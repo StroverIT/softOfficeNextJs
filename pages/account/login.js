@@ -16,8 +16,11 @@ import { signIn, getSession } from "next-auth/react";
 const Login = ({ session }) => {
   const router = useRouter();
   const [errMess, setErrMess] = useState(null);
+  const [isLoading, setLoader] = useState(false);
   async function submitHandler(e) {
     e.preventDefault();
+    setLoader(true);
+
     const formData = new FormData(e.currentTarget);
     const email = formData.get("email");
     const password = formData.get("password");
@@ -28,6 +31,7 @@ const Login = ({ session }) => {
     });
     if (status.error) {
       setErrMess(status.error);
+      setLoader(false);
     }
     if (status.url) {
       router.push("/account");
@@ -90,10 +94,10 @@ const Login = ({ session }) => {
               </div> */}
               <div className="flex items-center justify-center ">
                 <button
-                  className="w-full px-4 py-2 font-bold text-white rounded shadow-md bg-primary hover:bg-primary focus:outline-none focus:shadow-outline"
+                  className="w-full px-4 py-2 font-bold text-white rounded shadow-md bg-primary hover:bg-primary focus:outline-none focus:shadow-outline flex items-center justify-center"
                   type="submit"
                 >
-                  Вход
+                  {isLoading ? <div className="loader"></div> : "Вход"}
                 </button>
               </div>
             </form>
