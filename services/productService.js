@@ -28,19 +28,37 @@ export const productByItemId = async (itemId) => {
 
   let data = await Product.findOne({ "articles.items._id": itemId }).lean();
 
+  const filteredData = {
+    foundItem: {},
+    alternatives: [],
+  };
+
+  const foundItem = filteredData.foundItem;
+
   inner: for (let article of data.articles) {
     for (let item of article.items) {
       if (item._id == itemId) {
-        article.item = item;
-        data.article = article;
-        delete data.articles;
-        delete article.items;
+        foundItem.item = item;
+        foundItem.articleName = article.articleName;
+        foundItem.sectionName = data.sectionName;
+        foundItem.imageUrl = data.imageUrl;
+        foundItem.description = data.description;
         break inner;
       }
     }
   }
-  console.log(data);
-  return data;
+  for (let i = 0; i < 5; i++) {
+    const article = data.articles[i];
+    if (!article) break;
+
+    const item = article.items[0];
+
+    filteredData.alternatives.push({
+      articleName: article.articleName,
+      item: item,
+    });
+  }
+  return filteredData;
 };
 
 export const getAllLatestTen = async () => {

@@ -56,6 +56,7 @@ const Navbar = ({ cartTotalQty }) => {
       body: JSON.stringify({ input: e.target.value }),
     });
     const data = await res.json();
+    console.log(data);
     setSearchTabInputs(data);
   };
   useEffect(() => {
@@ -197,42 +198,35 @@ const Navbar = ({ cartTotalQty }) => {
             </div>
           </div>
         </div>
-        {searchTabInputs?.katNomera?.length > 0 ||
+        {searchTabInputs?.items?.length > 0 ||
         searchTabInputs?.articleNames?.length > 0 ||
         searchTabInputs?.sections?.length > 0 ? (
           <div className="">
             <div className="container overflow-auto shadow-lg h-96">
-              {searchTabInputs.katNomera?.length > 0 && (
+              {searchTabInputs.items?.length > 0 && (
                 <div className="w-full py-1 bg-white ">
                   <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-lighter">
-                    КатНомера
+                    Продукти
                   </h3>
                   <ul>
-                    {searchTabInputs.katNomera.map((item) => {
+                    {searchTabInputs.items.map((item, index) => {
                       return (
-                        <Link key={item._id} href={`/products/${item.route}`}>
-                          <li className="px-2 py-1 transition-transform border-b cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white border-primary">
-                            <span className="text-lg text-green">
-                              {item.katNomer} -
-                            </span>
-                            <span>
-                              {item.commonName} {item.articleName}
-                            </span>
-                            <ul className="flex flex-wrap text-sm">
-                              {item.types[0]
-                                .split("\n")
-                                .slice(0, 5)
-                                .map((type, index) => {
-                                  return (
-                                    <li
-                                      key={`${type}=${index}`}
-                                      className="py-1 pr-1"
-                                    >
-                                      {type}
-                                    </li>
-                                  );
-                                })}
-                            </ul>
+                        <Link
+                          key={item.section}
+                          href={`/products/${item.route}`}
+                        >
+                          <li className="px-2 py-1 transition-transform border-b cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white border-primary flex items-center justify-between">
+                            <div className="text-lg">
+                              {item.sectionName} {item.articleName}{" "}
+                              {item.weight}
+                            </div>
+                            <div className="relative w-20 h-20">
+                              <Image
+                                src={`/uploads/${item.imageUrl}`}
+                                alt={item.sectionName}
+                                layout="fill"
+                              />
+                            </div>
                           </li>
                         </Link>
                       );
@@ -248,26 +242,21 @@ const Navbar = ({ cartTotalQty }) => {
                   <ul>
                     {searchTabInputs.articleNames?.map((item) => {
                       return (
-                        <Link key={item._id} href={`/products/${item.route}`}>
-                          <li className="px-2 py-1 transition-transform border-b cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white border-primary">
-                            <span className="text-lg text-green">
-                              {item.commonName} {item.articleName}
-                            </span>
-                            <ul className="flex flex-wrap text-sm">
-                              {item.types[0]
-                                .split("\n")
-                                .slice(0, 5)
-                                .map((type, index) => {
-                                  return (
-                                    <li
-                                      key={`${type}-${index}`}
-                                      className="py-1 pr-1"
-                                    >
-                                      {type}
-                                    </li>
-                                  );
-                                })}
-                            </ul>
+                        <Link
+                          key={`${item.section} ${item.articleName}`}
+                          href={`/products/${item.route}`}
+                        >
+                          <li className="px-2 py-1 transition-transform border-b cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white border-primary flex items-center justify-between">
+                            <div className="text-lg">
+                              {item.section} {item.articleName}
+                            </div>
+                            <div className="relative w-20 h-20">
+                              <Image
+                                src={`/uploads/${item.imageUrl}`}
+                                alt={`${item.section} ${item.articleName}`}
+                                layout="fill"
+                              />
+                            </div>
                           </li>
                         </Link>
                       );
@@ -283,9 +272,19 @@ const Navbar = ({ cartTotalQty }) => {
                   <ul>
                     {searchTabInputs.sections.map((item) => {
                       return (
-                        <Link key={item._id} href={`/products/${item.route}`}>
-                          <li className="px-2 py-1 transition-transform cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white">
-                            {item.sectionName}
+                        <Link
+                          key={item.sectionName}
+                          href={`/products/${item.route}`}
+                        >
+                          <li className="px-2 py-1 transition-transform cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white flex justify-between items-center">
+                            <div className="text-lg">{item.sectionName}</div>
+                            <div className="relative w-20 h-20">
+                              <Image
+                                src={`/uploads/${item.imageUrl}`}
+                                alt={item.sectionName}
+                                layout="fill"
+                              />
+                            </div>
                           </li>
                         </Link>
                       );

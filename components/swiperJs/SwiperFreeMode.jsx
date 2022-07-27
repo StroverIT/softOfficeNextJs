@@ -67,7 +67,7 @@ export default function SwiperFreeMode({ data, navSize }) {
                 const sectionName = `${data.sectionName} ${article.articleName} ${item.weight}`;
                 return (
                   <SwiperSlide
-                    className="flex flex-col bg-white shadow-lg cursor-pointer hover:shadow-xl"
+                    className="flex flex-col bg-white shadow-lg cursor-pointer hover:shadow-xl "
                     key={item.title}
                   >
                     <div

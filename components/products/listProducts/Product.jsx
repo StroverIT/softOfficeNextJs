@@ -25,7 +25,7 @@ export default function Product({
         <div className="items-center h-full py-3 sm:flex">
           {imageUrl && (
             <Link href={`/products/${sectionRoute}/${item._id}`}>
-              <div className="relative flex w-full h-48 cursor-pointer sm:w-44 sm:h-32">
+              <div className="relative flex w-full h-64 cursor-pointer sm:w-40 sm:h-32">
                 <Image
                   src={`/uploads/${imageUrl}`}
                   layout="fill"
@@ -42,7 +42,7 @@ export default function Product({
         </div>
         <div className="bg-grayBg">
           <div className="container flex flex-col justify-center h-full itesm-center">
-            <div className="flex justify-center">
+            <div className="">
               <Pricing price={price[0]} priceDec={price[1]} size="2xl" />
             </div>
             {/* Create grayer color for future*/}

@@ -7,7 +7,7 @@ const PricePromo = ({ isPromo, price, priceDec }) => {
   return (
     <div className="w-full border-t border-gray">
       <div className="flex justify-between ">
-        <div className="flex items-center ml-5 text-xs font-medium">
+        <div className="flex items-center ml-5 text-xs font-medium text-gray-200">
           Цената е без ДДС
         </div>
         <div

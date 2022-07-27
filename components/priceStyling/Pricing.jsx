@@ -16,15 +16,15 @@ INDEXES:
 
 const sizeDictionary = {
   sm: ["text-xl", "text-[11px]", "mt-[4px]", "mt-[0.2px]", "mt-[8px] ml-[2px]"],
-  xl: ["text-2xl", "text-xs", "mt-[4px]", "mt-[1px]", "mt-[8px]"],
-  "2xl": ["text-3xl", "text-sm", "mt-[5px]", "mt-[1px]", "mt-[9px]"],
-  "3xl": ["text-4xl", "", "mt-[2px]", "mt-[3px]", "mt-[11px]"],
+  xl: ["text-2xl", "text-xs", "mt-[4px]", "mt-[1px]", "mt-[9px]"],
+  "2xl": ["text-3xl", "", "mt-[2px]", "", "mt-[11px]"],
+  "3xl": ["text-4xl", "text-[18px]", "mt-[0px]", "mt-[2px]", "mt-[12px]"],
 };
 export default function Pricing({
   price,
   priceDec,
   size,
-  textColor,
+
   isDDS = false,
   NoDDSText = false,
 }) {
@@ -35,20 +35,16 @@ export default function Pricing({
           {price}
         </div>
         <div
-          className={`relative flex flex-col items-center h-full ${sizeDictionary[size][1]} ${sizeDictionary[size][2]} `}
+          className={`relative flex flex-col items-center h-full font-semibold ${sizeDictionary[size][1]} ${sizeDictionary[size][2]} `}
         >
           <div className={`h-0 ${sizeDictionary[size][3]} `}>{priceDec}</div>
-          <div
-            className={`h-0 ${sizeDictionary[size][4]} ${
-              textColor ? textColor : "text-primary"
-            } `}
-          >
-            лв.
-          </div>
+          <div className={`h-0 ml-1 ${sizeDictionary[size][4]}  `}>лв.</div>
         </div>
       </div>
       {!NoDDSText && (
-        <div className="pb-1 text-xs">{isDDS ? "с включено" : "Без"} ДДС</div>
+        <div className="pb-1 text-xs text-gray-200">
+          {isDDS ? "с включено" : "Без"} ДДС
+        </div>
       )}
     </div>
   );

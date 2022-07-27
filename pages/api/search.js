@@ -14,63 +14,55 @@ export default async function handler(req, res) {
       $options: "i",
     };
     let search = {
-      katNomera: [],
+      items: [],
       articleNames: [],
       sections: [],
     };
 
-    let katNomer = await Product.find({
-      "articles.items.katNomer": options,
-    }).exec();
     let articleName = await Product.find({
       "articles.articleName": options,
     }).exec();
     let section = await Product.find({ sectionName: options }).select(
-      "sectionName"
+      "sectionName imageUrl"
     );
     mongoose.connection.close();
 
     search.sections = section.map((section) => {
       return {
         sectionName: section.sectionName,
+        imageUrl: section.imageUrl,
         route: translationToRoute(section.sectionName),
       };
     });
-    for (let section of katNomer) {
-      for (let articles of section?.articles) {
-        for (let item of articles?.items) {
-          if (item.katNomer.toLowerCase().includes(input.toLowerCase())) {
-            search.katNomera.push({
-              commonName: section.commonName,
-              section: section.sectionName,
-              articleName: articles.articleName,
-              types: item.types,
-              _id: item._id,
-              katNomer: item.katNomer,
-              route: `${translationToRoute(section.sectionName)}/${item._id}`,
-            });
-          }
-        }
-      }
-    }
+    // for (let section of items) {
+    //   for (let articles of section?.articles) {
+    //     if (articles.articleName.toLowerCase().includes(input.toLowerCase())) {
+    //       for (let item of articles?.items) {
+    //         search.items.push({
+    //           section: section.sectionName,
+    //           articleName: articles.articleName,
+    //           weight: item.weight,
+    //           _id: item._id,
+    //           route: `${translationToRoute(section.sectionName)}/${item._id}`,
+    //         });
+    //       }
+    //     }
+    //   }
+    // }
     for (let section of articleName) {
       for (let articles of section?.articles) {
         if (articles.articleName.toLowerCase().includes(input.toLowerCase())) {
-          for (let item of articles?.items) {
-            search.articleNames.push({
-              section: section.sectionName,
-              articleName: articles.articleName,
-              types: item.types,
-              _id: item._id,
-              katNomer: item.katNomer,
-              route: `${translationToRoute(section.sectionName)}/${item._id}`,
-            });
-          }
+          search.articleNames.push({
+            section: section.sectionName,
+            articleName: articles.articleName,
+            imageUrl: section.imageUrl,
+            route: `${translationToRoute(section.sectionName)}`,
+          });
         }
       }
     }
 
-    search.katNomera = search.katNomera.slice(0, 10);
+    // search.items = search.items.slice(0, 10);
     search.articleNames = search.articleNames.slice(0, 10);
     search.sections = search.sections.slice(0, 10);
 
