@@ -17,9 +17,13 @@ const customColors = {
   gray: {
     DEFAULT: "hsl(0, 0%, 85%)",
     100: "#fafafa",
+
+    150: "#ededed",
     200: "#a1a1aa",
     250: "#5a5a5a",
     300: "#f6f6f6",
+    350: "#6e6e6e",
+
     400: "#eee",
     bord: "#dfdfdf",
     darker: "hsl(0, 0%, 50%)",
