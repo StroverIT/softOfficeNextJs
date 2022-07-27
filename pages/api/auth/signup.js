@@ -1,5 +1,6 @@
 import { connectMongo } from "../../../db/connectDb";
 import mongoose from "mongoose";
+import { ObjectId } from "mongodb";
 import User from "../../../db/models/User";
 
 import { fullNameVal, emailVal } from "../../../utils/validationHandler";
