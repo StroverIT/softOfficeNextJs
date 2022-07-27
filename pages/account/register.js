@@ -206,6 +206,7 @@ const Register = () => {
                   className="w-full px-4 py-2 font-bold text-white rounded shadow-md disabled:opacity-25 bg-primary hover:bg-primary focus:outline-none focus:shadow-outline"
                   type="submit"
                   disabled={disabled}
+                  onClick={}
                 >
                   Регистрация
                 </button>
