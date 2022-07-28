@@ -1,5 +1,15 @@
 import interiornaBoq from "./interiornaBoq";
-
+import fasadnaBoq from "./fasadnaBoq";
+import antibakterialnaBoq from "./antibakterialnaBoq";
+import boqZaDirektnoPolaganeVurhyBeton from "./boqZaDirektnoPolaganeVurhyBeton";
+import pqni from "./pqni";
+import boqNaVarovaOsnova from "./boqNaVarovaOsnova";
+import grundove from "./grundove";
+import grundoveZaPetna from "./grundoveZaPetna";
+import alkidnaBoqZaMetal from "./alkidnaBoqZaMetal";
+import boqZaMetalDurvoPlastmasa from "./boqZaMetalDurvoPlastmasa";
+import dvykomponentniHidroizolacii from "./dvykomponentniHidroizolacii";
+import silikoni from "./silikoni";
 /*
 mainRoute: "Main route"
 articles: {
@@ -18,23 +28,32 @@ const dictionary = [
     articles: interiornaBoq,
     icon: "",
   },
-  { title: "", articles: [] },
-  { title: "", articles: [] },
+  { title: "Фасадна Боя", articles: fasadnaBoq },
+  { title: "Антибактериална боя", articles: antibakterialnaBoq },
 
-  { title: "", articles: [] },
+  {
+    title: "Боя за директно полагане върху бетон",
+    articles: boqZaDirektnoPolaganeVurhyBeton,
+  },
 
-  { title: "", articles: [] },
+  { title: "Пяни", articles: pqni },
 
-  { title: "", articles: [] },
+  { title: "Боя на варова основа", articles: boqNaVarovaOsnova },
 
-  { title: "", articles: [] },
-  { title: "", articles: [] },
+  { title: "Грундове", articles: grundove },
+  { title: "Грундове за петна", articles: grundoveZaPetna },
 
-  { title: "", articles: [] },
-  { title: "", articles: [] },
-  { title: "", articles: [] },
+  { title: "Алкидна Боя За Метал", articles: alkidnaBoqZaMetal },
+  {
+    title: "Боя за метал, дърво, пластмаса",
+    articles: boqZaMetalDurvoPlastmasa,
+  },
+  {
+    title: "Двукомпонентни Хидроизолации",
+    articles: dvykomponentniHidroizolacii,
+  },
 
-  { title: "", articles: [] },
+  { title: "Силикони", articles: silikoni },
 
   { title: "", articles: [] },
 
