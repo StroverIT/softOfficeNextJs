@@ -67,9 +67,9 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
       {/* Submenu */}
       <div
         className={`fixed  lg:absolute py-2 overflow-auto  ${
-          mobSubmenu ? "translate-x-0" : "translate-x-screen"
+          mobSubmenu ? "translate-x-0" : "translate-x-full"
         } transition-transform lg:transition-none lg:translate-x-0 lg:scale-0 h-full w-full  top-0  bg-color  ${
-          isHome ? "right-0" : "lg:right-[0px] xl:right-[0]"
+          isHome ? "right-0 w-3/4" : "lg:right-[0px] xl:right-[0]"
         } lg:hover:scale-100 text-dark peer-hover:lg:scale-100 lg:max-w-[780px]  xl:max-w-[1050px]  ${isXAnim} `}
         ref={subMenu}
       >

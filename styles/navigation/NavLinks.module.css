@@ -1,5 +1,4 @@
-/* 
-.submenu{
+/* .submenu{
     height: 100%;
     width: 100%;
     left:0;
@@ -8,10 +7,9 @@
     color: theme('colors.dark');
     transform: translateX(100vw);
     transition: transform 0.2s ease-in-out;
-}
-.subOpen{
-    transform: translateX(0);
-
+} */
+/* .subOpen {
+  transform: translateX(0);
 } */
 .icon {
   border-right: 1px solid black;
