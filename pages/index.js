@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // NextJS
 import Head from "next/head";
 import Image from "next/image";
@@ -11,6 +13,11 @@ import Icons from "../components/Icons/Icons";
 import SwiperPag from "../components/swiperJs/SwiperPag";
 import SwiperFreeMode from "../components/swiperJs/SwiperFreeMode";
 import { getAllLatestTen } from "../services/productService";
+
+// Fetches
+import { addNewUser } from "../services/newsletterServiceFetch";
+// Notifications
+import { toastSuccess, toastError } from "../components/notificataions/Toast";
 
 // Images
 const swiperPag = [
@@ -45,52 +52,28 @@ const swiperPag = [
     pageUrl: "/products/product",
   },
 ];
-const swiperFreeImages = [
-  {
-    src: "/images/testCarousel.jpg",
-    title: "Боя за коса",
-    price: 123,
-    isPromo: false,
-    pageUrl: "/products/product1",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "ШКАФ ЗА БАНЯ С ОГЛЕДАЛО SYNCHRO Т2108-80К",
-    price: 123,
-    isPromo: false,
-    pageUrl: "/products/product2",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "СМЕСИТЕЛ ЗА КУХНЯ FORMA VITA КРИСТАЛ",
-    price: 23.94,
-    isPromo: true,
-    pageUrl: "/products/product3",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "СМЕСИТЕЛ ЗА КУХНЯ FORMA VITA Диамант",
-    price: 1000.94,
-    isPromo: false,
-    pageUrl: "/products/product4",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "Шкаф за обувки",
-    price: 10,
-    isPromo: false,
-    pageUrl: "/products/product5",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "Шкаф за дрехи",
-    price: 15,
-    isPromo: false,
-    pageUrl: "/products/product6",
-  },
-];
 
 export default function Home({ topMonthOfferts }) {
+  const [email, setEmail] = useState("");
+  const [isLoading, setLoading] = useState(false);
+
+  const emailHandler = (e) => {
+    setEmail(e.target.value);
+  };
+  const newsLetterSubmitHandler = async (e) => {
+    setLoading(true);
+    e.preventDefault();
+    const res = await addNewUser(email);
+    const data = await res.json();
+    console.log(data);
+    if (data.error) {
+      toastError(data.error);
+    }
+    if (data.message) {
+      toastSuccess(data.message);
+    }
+    setLoading(false);
+  };
   return (
     <>
       <Head>
@@ -143,6 +126,8 @@ export default function Home({ topMonthOfferts }) {
                             type="email"
                             placeholder="И-мейл за абонамент"
                             required={true}
+                            value={email}
+                            onChange={emailHandler}
                             name="email"
                           />
                           <label
@@ -157,6 +142,8 @@ export default function Home({ topMonthOfferts }) {
                         <BtnOutlined
                           text="изпрати"
                           type="submit"
+                          isLoading={isLoading}
+                          onClick={newsLetterSubmitHandler}
                           custom="lg:hover:bg-primary-lighter lg:hover:text-white"
                         />
                       </div>
@@ -216,7 +203,6 @@ export default function Home({ topMonthOfferts }) {
 
 export async function getServerSideProps(context) {
   const topMonthOfferts = await getAllLatestTen();
-
   return {
     props: { topMonthOfferts: JSON.parse(JSON.stringify(topMonthOfferts)) },
   };

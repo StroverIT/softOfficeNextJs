@@ -64,14 +64,14 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
       </div>
       {/* Submenu */}
       <div
-        className={`fixed  lg:absolute py-2 overflow-auto  ${
+        className={`fixed  lg:absolute pt-5 overflow-auto  ${
           mobSubmenu ? "translate-x-0" : "translate-x-full"
         } transition-transform lg:transition-none lg:translate-x-0 lg:scale-0 h-full w-full  top-0  bg-color  ${
           isHome ? "right-0 w-3/4" : "lg:right-[0px] xl:right-[0]"
         } lg:hover:scale-100 text-dark peer-hover:lg:scale-100 lg:max-w-[780px]  xl:max-w-[1050px]  ${isXAnim} `}
         ref={subMenu}
       >
-        <div className={` flex items-center ml-2`}>
+        <div className={` flex items-center ml-4 md:ml-2`}>
           <div
             type="button"
             className={`${style.icon} flex py-2 px-2 lg:hidden`}
@@ -82,7 +82,7 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
           <div className="pl-4 font-semibold">{title}</div>
         </div>
         {/* submenu list */}
-        <ul className={`pl-6 mt-2  grid grid-cols-1 md:grid-cols-2 gap-x-2 `}>
+        <ul className={`pl-6 mt-2  grid grid-cols-1 md:grid-cols-2 gap-x-2`}>
           {articles.map((article, index) => {
             const isObject = typeof article === "object";
             if (isObject) article = JSON.stringify(article);
