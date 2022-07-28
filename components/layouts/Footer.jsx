@@ -7,19 +7,19 @@ const Footer = () => {
       <div className="container">
         <div className="grid justify-between gap-4 py-8 sm:grid-cols-2 md:flex">
           <div>
-            <h2 className="mb-6 text-sm font-semibold uppercase">IvdaGeo</h2>
+            <h2 className="mb-2 font-semibold uppercase text-md">IvdaGeo</h2>
             <ul className="text-gray-300">
-              <li className="mb-4">
+              <li className="mb-1">
                 <Link href="/aboutUs">
                   <a className="hover:underline">За нас</a>
                 </Link>
               </li>
-              <li className="mb-4">
+              <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Работа при нас
                 </a>
               </li>
-              <li className="mb-4">
+              <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Общи условия
                 </a>
@@ -27,17 +27,17 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-400 uppercase">
+            <h2 className="mb-2 font-semibold text-gray-400 uppercase text-md">
               Контакти
             </h2>
             <ul className="text-gray-300">
-              <li className="mb-4">
+              <li className="mb-1">
                 <a href="contactUs" className="hover:underline">
                   Контакти
                 </a>
               </li>
 
-              <li className="mb-4">
+              <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Празнично работно време
                 </a>
@@ -45,32 +45,32 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-400 uppercase">
+            <h2 className="mb-2 font-semibold text-gray-400 uppercase text-md">
               За клиента
             </h2>
             <ul className="text-gray-300">
-              <li className="mb-4">
+              <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Вземи от магазин
                 </a>
               </li>
 
-              <li className="mb-4">
+              <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Транспорт
                 </a>
               </li>
-              <li className="mb-4">
+              <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Съвети
                 </a>
               </li>
-              <li className="mb-4">
+              <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Връщане на поръчка
                 </a>
               </li>
-              <li className="mb-4">
+              <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Доставка при онлайн покупка
                 </a>
@@ -78,22 +78,22 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-400 uppercase">
+            <h2 className="mb-2 font-semibold text-gray-400 uppercase text-md">
               Обща информация
             </h2>
             <ul className="text-gray-300">
-              <li className="mb-4">
+              <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Услуги
                 </a>
               </li>
 
-              <li className="mb-4">
+              <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Как да поръчвам
                 </a>
               </li>
-              <li className="mb-4">
+              <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Как да върна продукт?
                 </a>
@@ -101,14 +101,14 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h2 className="mb-6 text-sm font-semibold text-gray-400 uppercase">
+            <h2 className="mb-2 font-semibold text-gray-400 uppercase text-md">
               Социални Мрежи
             </h2>
-            <ul className="flex mt-4 space-x-6 md:mt-0">
+            <ul className="flex mt-4 space-x-3 md:justify-center md:mt-0">
               <li>
                 <a href="#" className="text-gray-400 hover:text-white">
                   <svg
-                    className="w-5 h-5"
+                    className="w-7 h-7"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
@@ -124,7 +124,7 @@ const Footer = () => {
               <li>
                 <a href="#" className="text-gray-400 hover:text-white">
                   <svg
-                    className="w-5 h-5"
+                    className="w-7 h-7"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"
@@ -141,7 +141,7 @@ const Footer = () => {
               <li>
                 <a href="#" className="text-gray-400 hover:text-white">
                   <svg
-                    className="w-5 h-5"
+                    className="w-7 h-7"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                     aria-hidden="true"

@@ -46,7 +46,7 @@ const Hamburger = ({ headRef }) => {
         <div className="block w-3 h-[1px] md:w-3 md:h-[2px] bg-dark"></div>
       </div>
       <div
-        className={`w-full lg:w-auto hover:lg:w-full fixed lg:absolute -z-20 bg-white py-3 ${
+        className={`w-full lg:w-auto hover:lg:w-full fixed lg:absolute -z-20 bg-white pt-3 pb-10 ${
           styles.navLinks
         } ${router.route == "/" ? "lg:hidden" : ""} `}
         ref={navLinks}

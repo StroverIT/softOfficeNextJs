@@ -103,7 +103,7 @@ export default function Home({ topMonthOfferts }) {
           <div className="container pb-2 mt-10 mb-10 bg-white shadow-lg">
             <section className="lg:grid lg:space-x-2 lg:grid-cols-[25%75%] w-full relative lg:py-2">
               <section className="z-10">
-                <h1 className="hidden pl-3 text-lg font-medium xl:block">
+                <h1 className="hidden pl-3 ml-1 text-lg font-medium xl:block">
                   Категории продукти
                 </h1>
                 <div className="mt-2">

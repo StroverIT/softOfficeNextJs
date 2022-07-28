@@ -50,12 +50,10 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
     [style.subOpen]: xAnim,
   });
   const menuClasses = `bg-white cursor-pointer text-dark lg:hover:text-dark lg:hover:bg-color ${
-    !isHome ? "px-5 py-[0.40rem]" : "pl-4"
-  } lg:py-2 flex w-full peer group-hover:lg:bg-color group-hover:lg:text-primary font-normal font-sans text-lg leading-5`;
+    !isHome ? "px-3 -my-[0.15rem]" : "pl-4 lg:py-[0.2rem]"
+  }  flex w-full peer group-hover:lg:bg-color group-hover:lg:text-primary font-normal font-sans text-lg `;
   return (
-    <li
-      className={`item w-full font-thin group ${!isHome ? "lg:w-64 mt-2" : ""}`}
-    >
+    <li className={`item w-full  group ${!isHome ? "lg:w-64 mt-2" : ""}`}>
       {/* Menu */}
       <div
         className={title.length > 0 ? menuClasses : ""}
@@ -84,9 +82,7 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
           <div className="pl-4 font-semibold">{title}</div>
         </div>
         {/* submenu list */}
-        <ul
-          className={`px-5  mt-2  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-2`}
-        >
+        <ul className={`pl-6 mt-2  grid grid-cols-1 md:grid-cols-2 gap-x-2 `}>
           {articles.map((article, index) => {
             const isObject = typeof article === "object";
             if (isObject) article = JSON.stringify(article);
