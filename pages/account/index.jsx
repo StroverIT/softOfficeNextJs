@@ -117,7 +117,9 @@ export default function Index({ userData, deliveriesData, favData }) {
                     <button
                       type="button"
                       className="flex items-center justify-center h-full px-5 py-2 text-sm font-semibold text-white border cursor-pointer bg-secondary hover:bg-transparent hover:text-secondary border-secondary"
-                      onClick={() => signOut()}
+                      onClick={() =>
+                        signOut({ callbackUrl: `${window.location.origin}` })
+                      }
                     >
                       <div className="mr-1">
                         <ImExit />
