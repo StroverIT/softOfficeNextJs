@@ -20,15 +20,24 @@ import { addToCart } from "../../../../redux/actions/productActions";
 import productFormater from "../../../../utils/productFormater";
 
 // Notifications
-import { toastInformation } from "../../../../components/notificataions/Toast";
+import {
+  toastInformation,
+  toastPromise,
+  toastSuccess,
+  toastError,
+  toastHideAll,
+} from "../../../../components/notificataions/Toast";
 import Card from "../../../../components/products/Card";
+// Service
+import { isFav } from "../../../../services/favouriteService";
+import { getUser } from "../../../../services/userServicejs";
 
-export default function Index({ data, userData }) {
+export default function Index({ data, userData, isInFav }) {
   const product = data?.foundItem;
   const alternatives = data?.alternatives;
-
   const price = product?.item?.price?.toFixed(2).split(".");
   const [currQty, setQty] = useState(1);
+  const [isFav, setIsFav] = useState(isInFav);
   const dispatch = useDispatch();
 
   const addProduct = (product, productName) => {
@@ -37,6 +46,7 @@ export default function Index({ data, userData }) {
     dispatch(addToCart(newObj, currQty));
   };
   const addFavourites = async (product) => {
+    toastPromise("Изпраща се...");
     const newObj = productFormater(product);
     const options = {
       method: "POST",
@@ -46,6 +56,38 @@ export default function Index({ data, userData }) {
 
     const res = await fetch("/api/account/favourites/adding", options);
     const data = await res.json();
+
+    toastHideAll();
+
+    if (data.error) {
+      toastError(data.error);
+    }
+    if (data.message) {
+      toastSuccess(data.message);
+      setIsFav(true);
+    }
+  };
+  const removeFavourites = async (productId) => {
+    toastPromise("Изпраща се...");
+
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ productId }),
+    };
+
+    const res = await fetch("/api/account/favourites/remove", options);
+    const data = await res.json();
+
+    toastHideAll();
+
+    if (data.error) {
+      toastError(data.error);
+    }
+    if (data.message) {
+      toastSuccess(data.message);
+      setIsFav(false);
+    }
   };
   const itemName = `${product.sectionName} ${product.articleName} ${product.item.weight}`;
   return (
@@ -88,10 +130,10 @@ export default function Index({ data, userData }) {
                 Купи
               </button>
               {/* Favourites div */}
-              {userData && (
+              {userData && !isFav && (
                 <div
                   className="flex items-center justify-center col-span-2 mt-6 cursor-pointer group hover:-translate-y-1 transition-transform"
-                  onClick={() => addFavourites(product)}
+                  onClick={() => addFavourites(product, itemName)}
                 >
                   <div className="inline-flex p-2 text-xl rounded-full bg-gray  group-hover:text-white group-hover:bg-primary md:ml-5  ">
                     <AiOutlineHeart />
@@ -101,49 +143,23 @@ export default function Index({ data, userData }) {
                   </span>
                 </div>
               )}
+              {userData && isFav && (
+                <div
+                  className="flex items-center justify-center col-span-2 mt-6 cursor-pointer group hover:-translate-y-1 transition-transform"
+                  onClick={() => removeFavourites(product.item._id)}
+                >
+                  <div className="inline-flex p-2 text-xl rounded-full bg-gray  group-hover:text-white group-hover:bg-secondary md:ml-5  ">
+                    <AiOutlineHeart />
+                  </div>
+                  <span className="ml-1 text-sm select-none group-hover:text-secondary">
+                    Премахни от любими
+                  </span>
+                </div>
+              )}
             </section>
           </section>
-          {/* <section className="p-4 mt-4 bg-gray-300 xl:order-1 md:col-span-2 xl:col-span-1 md:mt-0">
-            <h3 className="text-xl font-semibold">Кратко описание</h3>
-             <ul className="text-[#3b3b3b] text-sm mt-1  pb-4">
-              {product.description[0]
-                .split("\n")
-                .slice(0, 5)
-                .map((type) => {
-                  return <li key={type}>{type}</li>;
-                })}
-            </ul> 
-            <div className="flex justify-center mt-2">
-              <ul className=" text-[0.95rem]">
-                {product.description.slice(0, 2).map((description) => {
-                  return <li key={description}>{description}</li>;
-                })}
-              </ul>
-            </div>
-          </section> */}
         </div>
 
-        {/* <section className="my-16">
-          <h3 className="py-5 text-xl font-semibold text-center">
-            ВСИЧКИ ХАРАКТЕРИСТИКИ
-          </h3>
-          <table className={`table-fixed  ${style.table} w-full`}>
-            <tbody className="even:bg-dark">
-              {product.item.types[0]
-                .split("\n")
-
-                .map((type) => {
-                  type = type.split(":");
-                  return (
-                    <tr key={type}>
-                      <td>{type[0]}</td>
-                      <td>{type[1]}</td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
-        </section> */}
         <section className="pt-5 pb-10 my-16 border border-gray-150">
           <h3 className="py-5  font-semibold text-center text-primary text-2xl">
             Описание
@@ -181,10 +197,18 @@ export async function getServerSideProps(context) {
 
   const product = await productByItemId(itemId);
   const session = await getSession({ req: context.req });
+
+  let isInFav = false;
+
+  if (session) {
+    const user = await getUser(session.user.email);
+    isInFav = await isFav(itemId, user._id);
+  }
   return {
     props: {
       data: JSON.parse(JSON.stringify(product)),
       userData: JSON.parse(JSON.stringify(session)),
+      isInFav,
     },
   };
 }

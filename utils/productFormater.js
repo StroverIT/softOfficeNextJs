@@ -1,5 +1,4 @@
 const productFormater = (product) => {
-  console.log(product);
   let formated = {};
   formated.articleName = `${product.sectionName} ${product.articleName} ${product.item.weight}`;
   formated.imageUrl = product.imageUrl;

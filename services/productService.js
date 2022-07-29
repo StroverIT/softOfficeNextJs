@@ -20,7 +20,6 @@ export const getAll = async () => {
     options
   );
   const data = await res.json();
-
   return data;
 };
 export const productByItemId = async (itemId) => {

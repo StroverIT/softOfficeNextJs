@@ -5,27 +5,43 @@ import Pricing from "../priceStyling/Pricing";
 // Redux
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../redux/actions/productActions";
+// Notifications
+import {
+  toastError,
+  toastHideAll,
+  toastPromise,
+  toastSuccess,
+} from "../notificataions/Toast";
 
-export function Card({ itemData }) {
-  console.log(itemData);
+export function Card({ itemData, setFavState }) {
   const dispatch = useDispatch();
 
   const addProduct = (product) => {
     dispatch(addToCart(product));
   };
-  const removeProduct = async () => {
-    const ownerId = itemData.ownerId;
-    const favId = itemData.favId;
+  const removeFavourites = async (productId) => {
+    toastPromise("Изпраща се...");
 
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ownerId, favId }),
+      body: JSON.stringify({ productId }),
     };
+
     const res = await fetch("/api/account/favourites/remove", options);
-    console.log(res);
     const data = await res.json();
-    console.log(data);
+
+    toastHideAll();
+
+    if (data.error) {
+      toastError(data.error);
+    }
+    if (data.message) {
+      toastSuccess(data.message);
+      setFavState((prevState) =>
+        prevState.filter((obj) => obj.product._id != productId)
+      );
+    }
   };
   const product = itemData.product;
   const price = product.price.toFixed(2).split(".");
@@ -40,7 +56,7 @@ export function Card({ itemData }) {
         />
         <div
           className="absolute right-0 p-2 text-xl transition-all bg-white border border-gray-200 rounded-full cursor-pointer top-3 text-dark hover:scale-105 hover:text-primary"
-          onClick={removeProduct}
+          onClick={() => removeFavourites(product._id)}
         >
           <BsTrash />
         </div>
