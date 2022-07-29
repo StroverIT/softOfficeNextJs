@@ -57,4 +57,10 @@ export default NextAuth({
       },
     }),
   ],
+  callbacks: {
+    redirect: async (url, baseUrl) => {
+      console.log(url, baseUrl);
+      return Promise.resolve(url);
+    },
+  },
 });
