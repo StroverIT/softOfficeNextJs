@@ -13,7 +13,7 @@ const AccInput = ({
   const inputField = useRef(null);
 
   const replaceVal = (val) => {
-    return val.replace(/\W/gi, "").replace(/(.{3})/g, "$1 ");
+    return val?.replace(/\W/gi, "")?.replace(/(.{3})/g, "$1 ");
   };
   const changeHandler = (e) => {
     const val = e.target.value;
