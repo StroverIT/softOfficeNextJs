@@ -13,7 +13,7 @@ import Checkbox from "../../components/base/Checkbox";
 
 import { signIn, getSession } from "next-auth/react";
 
-const Login = ({ session }) => {
+const Login = ({ query }) => {
   const router = useRouter();
   const [errMess, setErrMess] = useState(null);
   const [isLoading, setLoader] = useState(false);
@@ -34,6 +34,10 @@ const Login = ({ session }) => {
       setLoader(false);
     }
     if (status.url) {
+      if (query) {
+        router.push("/delivery");
+        return;
+      }
       router.push("/account");
     }
   }
@@ -135,6 +139,7 @@ const Login = ({ session }) => {
 export default Login;
 
 export async function getServerSideProps(context) {
+  const { query } = context;
   const session = await getSession({ req: context.req });
 
   if (session) {
@@ -146,6 +151,6 @@ export async function getServerSideProps(context) {
     };
   }
   return {
-    props: { session },
+    props: { session, query },
   };
 }
