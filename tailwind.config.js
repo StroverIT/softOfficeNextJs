@@ -25,6 +25,7 @@ const customColors = {
     350: "#6e6e6e",
 
     400: "#eee",
+    450: "#6f6f6f",
     bord: "#dfdfdf",
     darker: "hsl(0, 0%, 50%)",
   },
@@ -44,6 +45,7 @@ module.exports = {
       // => @media (min-width: 640px) { ... }
 
       md: { min: "768px" },
+      smToLg: { min: "640px", max: "1024px" },
       lg: { min: "1024px" },
       "max-lg": { max: "1024px" },
 
