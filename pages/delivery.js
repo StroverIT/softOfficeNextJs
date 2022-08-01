@@ -187,19 +187,19 @@ function Delivery({ cart, userData, cities }) {
                           />
                         </Tab>
                       )}
-                    {priceState.totalPrice < 300 ||
-                      (selected.cityName != "София" && (
-                        <Tab>
-                          <RadioButton
-                            radioState={orderState}
-                            changeHandler={changeOrderHandler}
-                            name={EKONT}
-                            id={EKONT}
-                            text="Офис Еконт: 2.99 лв."
-                            icon="shop"
-                          />
-                        </Tab>
-                      ))}
+                    {(priceState.totalPrice < 300 ||
+                      selected.cityName != "София") && (
+                      <Tab>
+                        <RadioButton
+                          radioState={orderState}
+                          changeHandler={changeOrderHandler}
+                          name={EKONT}
+                          id={EKONT}
+                          text="Офис Еконт: 2.99 лв."
+                          icon="shop"
+                        />
+                      </Tab>
+                    )}
                   </Tab.List>
                   <Tab.Panels>
                     <div className="mt-6 ml-10">
