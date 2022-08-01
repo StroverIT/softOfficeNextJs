@@ -19,7 +19,11 @@ import { Pagination, Navigation, Autoplay, EffectFade } from "swiper";
 // Components
 import SwiperNav from "./SwiperNav";
 
-export default function SwiperPag({ images, navSize }) {
+export default function SwiperPag({
+  images,
+  navSize,
+  imgHeight_lg = "lg:h-[500px]",
+}) {
   return (
     <>
       <Swiper
@@ -43,7 +47,7 @@ export default function SwiperPag({ images, navSize }) {
           disabledClass: `${navStyle.swiperDisabled}`,
         }}
         modules={[Pagination, Navigation, Autoplay, EffectFade]}
-        className={`mySwiper ${style.swiper}`}
+        className={`mySwiper ${style.swiper} relative h-96 w-full ${imgHeight_lg}  ml-auto`}
       >
         <div className={`${style.paginationCont}`}>
           <div className={`${style.pagination}`}></div>
@@ -53,17 +57,13 @@ export default function SwiperPag({ images, navSize }) {
           return (
             <SwiperSlide key={image.key}>
               <Link href={image.pageUrl ? image.pageUrl : ""}>
-                <div>
-                  <div className="relative h-96 w-full">
-                    <Image
-                      src={image.src}
-                      //  layout="fill"
-                      layout="fill"
-                      alt={image.key}
-                      className={`${style.swiperSlideImg} cursor-pointer`}
-                    />
-                  </div>
-                </div>
+                <Image
+                  src={image.src}
+                  //  layout="fill"
+                  layout="fill"
+                  alt={image.key}
+                  className={`${style.swiperSlideImg} cursor-pointer max-lg:object-[10%90%]  text-right pl-auto`}
+                />
               </Link>
             </SwiperSlide>
           );
