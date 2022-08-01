@@ -17,7 +17,7 @@ export default function QuanityInput({
     setQty(cartQty);
   }, [cartQty]);
   return (
-    <div className={`relative ${contClass ? contClass : ""}`}>
+    <div className={`relative ${contClass ? contClass : ""} `}>
       <input
         type="number"
         className={`w-full border border-l pl-4  border-primary py-[0.3rem] placeholder:text-sm placeholder:font-default placeholder:text-[#808080] placeholder:absolute placeholder:left-2 placeholder:top-1/2 placeholder:-translate-y-1/2 ${
