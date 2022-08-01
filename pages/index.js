@@ -2,7 +2,6 @@ import { useState } from "react";
 
 // NextJS
 import Head from "next/head";
-import Image from "next/image";
 
 // Components
 import NavLinks from "../components/layouts/navComponents/navLinks";
@@ -22,34 +21,41 @@ import { toastSuccess, toastError } from "../components/notificataions/Toast";
 // Images
 const swiperPag = [
   {
-    src: "/images/testCarousel.jpg",
-    key: "test carousel for my monday 1",
-    pageUrl: "/products/product",
+    src: "/images/homeBanner/seriqMaster.jpg",
+    key: "Серия мастер",
+    pageUrl: "/listSeries/master",
   },
   {
-    src: "/images/testImage2.png",
-    key: "test carousel for my monday version 2",
-    pageUrl: "/products/product",
+    src: "/images/homeBanner/4Seasons.jpg",
+    key: "Серия четири сезона",
+    pageUrl: "/listSeries/4-seasons",
+  },
+];
+const forUs = [
+  {
+    src: "/images/AboutUs/slide-1.jpg",
+    key: "Image for ivdageo slide 1",
+    pageUrl: "/",
   },
   {
-    src: "/images/testCarousel.jpg",
-    key: "test carousel for my monday version 3",
-    pageUrl: "/products/product",
+    src: "/images/AboutUs/slide-2.jpg",
+    key: "Image for ivdageo slide 2",
+    pageUrl: "/",
   },
   {
-    src: "/images/testImage2.png",
-    key: "test carousel for my monday version 4",
-    pageUrl: "/products/product",
+    src: "/images/AboutUs/slide-3.jpg",
+    key: "Image for ivdageo slide 3",
+    pageUrl: "/",
   },
   {
-    src: "/images/testCarousel.jpg",
-    key: "test carousel for my monday version 5",
-    pageUrl: "/products/product",
+    src: "/images/AboutUs/slide-4.jpg",
+    key: "Image for ivdageo slide 4",
+    pageUrl: "/",
   },
   {
-    src: "/images/testImage2.png",
-    key: "test carousel for my monday version 6",
-    pageUrl: "/products/product",
+    src: "/images/AboutUs/slide-5.jpg",
+    key: "Image for ivdageo slide 5",
+    pageUrl: "/",
   },
 ];
 
@@ -84,16 +90,16 @@ export default function Home({ topMonthOfferts }) {
       <main className="mb-auto bg-color">
         <section className="">
           <div className="container pb-2 mt-10 mb-10 bg-white shadow-lg">
-            <section className="lg:grid lg:space-x-2 lg:grid-cols-[25%75%] w-full relative lg:py-2">
-              <section className="z-10">
-                <h1 className="hidden pl-3 ml-1 text-lg font-medium xl:block">
+            <section className="lg:grid lg:space-x-2 lg:grid-cols-[25%75%] w-full relative ">
+              <section className="z-10 hidden lg:py-2 lg:block">
+                <h1 className="pl-3 ml-1 text-lg font-medium xl:block">
                   Категории продукти
                 </h1>
                 <div className="mt-2">
                   <NavLinks isHome={true} />
                 </div>
               </section>
-              <section className="relative flex items-center justify-center">
+              <section className="relative flex items-center justify-center ">
                 <SwiperPag images={swiperPag} navSize="3xl" />
               </section>
             </section>
@@ -163,9 +169,9 @@ export default function Home({ topMonthOfferts }) {
           </div>
         </section>
         <section className=" bg-color">
-          <div className="container">
+          <div className="container ">
             <section className="items-center justify-center grid-cols-2 my-5 lg:grid">
-              <div className="mt-5 text-center sm:mb-5 lg:text-left lg:my-0 lg:w-5/6">
+              <div className="mt-5 mb-5 text-center lg:text-left lg:my-0 lg:w-5/6">
                 <h2 className="py-2 text-2xl font-semibold ">
                   За нас и нашият магазин
                 </h2>
@@ -180,14 +186,12 @@ export default function Home({ topMonthOfferts }) {
                 </span>
               </div>
 
-              <div className="relative flex items-center justify-center w-full h-52 lg:h-96">
+              <div className="flex items-center justify-center w-full h-full lg:h-96">
                 {/* Image  of the shop*/}
-
-                <Image
-                  src="/images/testCarousel.jpg"
-                  alt="atasda"
-                  layout="fill"
-                  objectFit="contain"
+                <SwiperPag
+                  images={forUs}
+                  navSize="3xl"
+                  imgHeight_lg="lg:[500px]"
                 />
               </div>
             </section>
