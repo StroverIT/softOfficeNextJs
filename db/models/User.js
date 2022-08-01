@@ -1,5 +1,13 @@
 import { Schema, model, models } from "mongoose";
 
+const addressSchema = new Schema({
+  name: { type: String },
+  telephone: { type: String },
+  city: { type: String },
+  zipCode: { type: String },
+  address: { type: String },
+});
+
 const userScheme = new Schema({
   fullName: {
     type: String,
@@ -20,11 +28,7 @@ const userScheme = new Schema({
       return Date.now();
     },
   },
-  addresses: [
-    {
-      type: String,
-    },
-  ],
+  addresses: [addressSchema],
   role: {
     type: String,
     enum: ["user", "admin"],

@@ -21,7 +21,7 @@ import productFormater from "../../../../utils/productFormater";
 
 // Notifications
 import {
-  toastInformation,
+  toastProduct,
   toastPromise,
   toastSuccess,
   toastError,
@@ -42,7 +42,8 @@ export default function Index({ data, userData, isInFav }) {
 
   const addProduct = (product, productName) => {
     const newObj = productFormater(product);
-    toastInformation(`Добавихте ${newObj.articleName} в количката`);
+    // ${productName} Беше успешно добавен в количката
+    toastProduct(newObj.articleName);
     dispatch(addToCart(newObj, currQty));
   };
   const addFavourites = async (product) => {

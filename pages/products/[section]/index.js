@@ -24,13 +24,13 @@ import Checkbox from "../../../components/base/Checkbox";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/actions/productActions";
 // Notifications
-import { toastInformation } from "../../../components/notificataions/Toast";
+import { toastProduct } from "../../../components/notificataions/Toast";
 
 export default function Section({ products, types, sectionRoute }) {
   const dispatch = useDispatch();
 
   const addProduct = (product, productName) => {
-    toastInformation(`Добавихте ${productName} в количката`);
+    toastProduct(productName);
     dispatch(addToCart(product));
   };
 

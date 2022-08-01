@@ -13,7 +13,7 @@ import Checkbox from "../../components/base/Checkbox";
 
 import { signIn, getSession } from "next-auth/react";
 
-const Login = ({ session }) => {
+const Login = ({ query }) => {
   const router = useRouter();
   const [errMess, setErrMess] = useState(null);
   const [isLoading, setLoader] = useState(false);
@@ -34,6 +34,10 @@ const Login = ({ session }) => {
       setLoader(false);
     }
     if (status.url) {
+      if (query) {
+        router.push("/delivery");
+        return;
+      }
       router.push("/account");
     }
   }
@@ -46,10 +50,10 @@ const Login = ({ session }) => {
       </Head>
 
       <main>
-        <div className="container justify-center grid-cols-2 my-24 xl:grid">
-          <div className="relative hidden w-full h-full ml-2 xl:block">
+        <div className="container justify-center my-24 md:w-2/3 lg:w-1/3">
+          {/* <div className="relative hidden w-full h-full ml-2 xl:block">
             <Image src="/images/testCarousel.jpg" layout="fill" alt="test" />
-          </div>
+          </div> */}
           <div className="w-full bg-white rounded shadow-xl">
             <div className="my-5 ml-8">
               <h3 className="text-2xl">Влезте във вашият акаунт</h3>
@@ -94,7 +98,7 @@ const Login = ({ session }) => {
               </div> */}
               <div className="flex items-center justify-center ">
                 <button
-                  className="w-full px-4 py-2 font-bold text-white rounded shadow-md bg-primary hover:bg-primary focus:outline-none focus:shadow-outline flex items-center justify-center"
+                  className="flex items-center justify-center w-full px-4 py-2 font-bold text-white rounded shadow-md bg-primary hover:bg-primary focus:outline-none focus:shadow-outline"
                   type="submit"
                 >
                   {isLoading ? <div className="loader"></div> : "Вход"}
@@ -135,6 +139,7 @@ const Login = ({ session }) => {
 export default Login;
 
 export async function getServerSideProps(context) {
+  const { query } = context;
   const session = await getSession({ req: context.req });
 
   if (session) {
@@ -146,6 +151,6 @@ export async function getServerSideProps(context) {
     };
   }
   return {
-    props: { session },
+    props: { session, query },
   };
 }

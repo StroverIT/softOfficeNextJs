@@ -29,7 +29,7 @@ export default function MobileScreenTableData({
       </div>
       <div>
         <QunityInput
-          contClass="w-1/2 mx-auto mt-2 lg:mt-10"
+          contClass="w-1/2 mx-auto mt-2 "
           cartQty={qty}
           changeQty={changeQty}
         />

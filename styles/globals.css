@@ -186,3 +186,7 @@ input[type="range"]::-webkit-slider-thumb {
     transform: rotate(360deg);
   }
 }
+/* To change icon color */
+.font-roboto {
+  font-family: "Roboto", sans-serif;
+}

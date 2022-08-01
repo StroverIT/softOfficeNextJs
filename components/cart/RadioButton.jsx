@@ -1,46 +1,50 @@
 import React from "react";
 import { useState } from "react";
+// Icons
+import { GiShoppingBag } from "react-icons/gi";
+import { AiOutlineCar } from "react-icons/ai";
 
-import { DELIVERY, MAGAZINE } from "./cartCostants";
-
-export default function RadioButton({ price, changeHandler, radioState }) {
-  // const data = e.target.dataset.type;
-  // const isChecked = e.target.checked;
-
+function IconType({ icon }) {
+  let type;
+  switch (icon) {
+    case "shop":
+      type = <GiShoppingBag />;
+      break;
+    case "address":
+      type = <AiOutlineCar />;
+      break;
+  }
+  return <div>{type}</div>;
+}
+export default function RadioButton({
+  changeHandler,
+  radioState,
+  name,
+  id,
+  text,
+  customLabelClass,
+  icon,
+}) {
   return (
-    <div>
-      <div className="form-check ">
-        <input
-          className="float-left w-4 h-4 mt-1 mr-2 align-top transition duration-200 bg-white bg-center bg-no-repeat bg-contain border rounded-full appearance-none cursor-pointer form-check-input checked:bg-primary checked:border-primary focus:outline-none border-gray"
-          type="radio"
-          name={MAGAZINE}
-          id="fromMagazine"
-          checked={radioState == MAGAZINE ? true : false}
-          onChange={changeHandler}
-        />
-        <label
-          className="inline-block font-normal text-gray-800 cursor-pointer select-none form-check-label"
-          htmlFor="fromMagazine"
-        >
-          Вземи от магазин
-        </label>
-      </div>
-      <div className="form-check ">
-        <input
-          className="float-left w-4 h-4 mt-1 mr-2 align-top transition duration-200 bg-white bg-center bg-contain border rounded-full appearance-none cursor-pointer bg-no-repe at form-check-input checked:bg-primary checked:border-primary focus:outline-none border-gray "
-          type="radio"
-          name={DELIVERY}
-          id="delivery"
-          checked={radioState == DELIVERY ? true : false}
-          onChange={changeHandler}
-        />
-        <label
-          className="inline-block font-normal text-gray-800 cursor-pointer select-none form-check-label"
-          htmlFor="delivery"
-        >
-          Доставка до вкъщи
-        </label>
-      </div>
+    <div className="relative form-check ">
+      <input
+        className={` float-left w-3 h-3 mt-1 mr-2 align-top transition duration-200 bg-white bg-center bg-no-repeat bg-contain border  rounded-full appearance-none cursor-pointer form-check-input checked:bg-primary checked:border-primary focus:outline-none border-gray `}
+        type="radio"
+        name={name}
+        id={id}
+        checked={radioState == name ? true : false}
+        onChange={changeHandler}
+      />
+      <label
+        className={`inline-block font-normal text-gray-800 cursor-pointer select-none form-check-label ${customLabelClass} flex `}
+        htmlFor={id}
+      >
+        <div className="pr-1 my-auto text-xl font-bold">
+          <IconType icon={icon} />
+        </div>
+
+        <div>{text}</div>
+      </label>
     </div>
   );
 }
