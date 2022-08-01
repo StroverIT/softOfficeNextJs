@@ -22,7 +22,7 @@ const AccInput = ({
     setTelephone(replaceVal(val));
   };
   useEffect(() => {
-    const val = phoneNumber.toString();
+    const val = phoneNumber?.toString();
     setTelephone(replaceVal(val));
   }, [phoneNumber]);
   return (
