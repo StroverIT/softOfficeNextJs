@@ -137,7 +137,7 @@ function Delivery({ cart, userData, cities }) {
           <section className="border shadow-md border-gray">
             {/* Населено място */}
             <section>
-              <div className="flex items-center py-2 pl-3 text-lg bg-gray-300 border-b border-gray-150">
+              <div className="flex items-center py-4 pl-3 text-lg bg-gray-300 border-b border-gray-150 font-semibold">
                 <div>
                   <GrLocation />
                 </div>
@@ -153,7 +153,7 @@ function Delivery({ cart, userData, cities }) {
             </section>
             {/* Метод на доставка */}
             <section>
-              <div className="flex items-center py-2 pl-3 text-lg bg-gray-300 border-y border-gray-150">
+              <div className="flex items-center py-4 pl-3 text-lg bg-gray-300 border-y border-gray-150 font-semibold">
                 <div>
                   <AiOutlineCar />
                 </div>
@@ -223,7 +223,7 @@ function Delivery({ cart, userData, cities }) {
           </section>
           {/* Начин на плащане */}
           <section className="mt-4 border shadow border-gray">
-            <div className="flex items-center py-2 pl-3 text-lg bg-gray-300 border-b border-gray-150">
+            <div className="flex items-center py-4 pl-3 text-lg bg-gray-300 border-b border-gray-150 font-semibold">
               <div>
                 <GoCreditCard />
               </div>
@@ -259,7 +259,7 @@ function Delivery({ cart, userData, cities }) {
           <section className="lg:grid grid-cols-[75%25%] mt-4 space-x-4">
             {/* Добави коментар */}
             <section className="flex flex-col border border-gray ">
-              <div className="flex items-center py-2 pl-3 text-lg bg-gray-300 border-b border-gray-150">
+              <div className="flex items-center py-4 pl-3 text-lg bg-gray-300 border-b border-gray-150 font-semibold">
                 <div>
                   <AiOutlineComment />
                 </div>
@@ -274,7 +274,7 @@ function Delivery({ cart, userData, cities }) {
             </section>
             {/* Дължима сума */}
             <section className="flex flex-col justify-between font-semibold border border-gray">
-              <section className="flex items-center py-2 pl-3 bg-gray-300 border-b border-gray-150">
+              <section className="flex items-center py-4 pl-3 bg-gray-300 border-b border-gray-150">
                 <div>
                   <FaRegMoneyBillAlt />
                 </div>
