@@ -22,7 +22,7 @@ import SwiperNav from "./SwiperNav";
 export default function SwiperPag({
   images,
   navSize,
-  imgHeight_lg = "lg:h-[500px]",
+  imgHeight_lg = "lg:h-[470px]",
 }) {
   return (
     <>

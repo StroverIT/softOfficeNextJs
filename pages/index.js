@@ -89,7 +89,7 @@ export default function Home({ topMonthOfferts }) {
 
       <main className="mb-auto bg-color">
         <section className="">
-          <div className="container pb-2 mt-10 mb-10 bg-white shadow-lg">
+          <div className="container  mt-10 mb-10 bg-white shadow-lg">
             <section className="lg:grid lg:space-x-2 lg:grid-cols-[25%75%] w-full relative ">
               <section className="z-10 hidden lg:py-2 lg:block">
                 <h1 className="pl-3 ml-1 text-lg font-medium xl:block">
@@ -99,7 +99,7 @@ export default function Home({ topMonthOfferts }) {
                   <NavLinks isHome={true} />
                 </div>
               </section>
-              <section className="relative flex items-center justify-center ">
+              <section className="relative flex items-center justify-center h-full">
                 <SwiperPag images={swiperPag} navSize="3xl" />
               </section>
             </section>
