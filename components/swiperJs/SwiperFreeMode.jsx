@@ -61,8 +61,8 @@ export default function SwiperFreeMode({ data, navSize }) {
           className={`mySwiper relative freeModeSwiper`}
         >
           {data &&
-            data?.articles?.slice(0, 10)?.map((article) => {
-              return article.items.map((item) => {
+            data?.articles?.slice(0, 1)?.map((article) => {
+              return article.items.slice(0, 10)?.map((item) => {
                 let [price, priceDec] = item.price.toFixed(2).split(".");
                 const sectionName = `${data.sectionName} ${article.articleName} ${item.weight}`;
                 return (
