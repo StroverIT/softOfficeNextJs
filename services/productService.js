@@ -62,7 +62,12 @@ export const productByItemId = async (itemId) => {
 
 export const getAllLatestTen = async () => {
   await connectMongo();
+  // Local
+  // const data = await Product.findOne({ _id: "62dea6f488620a9fd35bbcec" });
+
+  // This is for ivdaGeo
   const data = await Product.findOne({ _id: "62e1b3bfc2e0d00808f15e34" });
+
   // const data = await Product.find().sort({ _id: -1 }).limit(10);
 
   return data;
