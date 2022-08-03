@@ -83,7 +83,6 @@ export default function Home({ topMonthOfferts }) {
   return (
     <>
       <Head>
-        <title>IvdaGeo</title>
         <meta name="description" content="Онлайн магазин IvdaGeo" />
       </Head>
 
