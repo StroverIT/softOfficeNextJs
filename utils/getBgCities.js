@@ -15,7 +15,7 @@ async function getCities() {
       if (
         fullData.findIndex((item) => item.cityName == city.regionName) == -1
       ) {
-        fullData.push({ cityName: city.regionName });
+        fullData.push({ cityName: city.regionName, cityId: city.id });
       }
     }
   });

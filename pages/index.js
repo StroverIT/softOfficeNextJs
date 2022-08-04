@@ -58,7 +58,7 @@ const forUs = [
     pageUrl: "/",
   },
 ];
-
+[];
 export default function Home({ topMonthOfferts }) {
   const [email, setEmail] = useState("");
   const [isLoading, setLoading] = useState(false);

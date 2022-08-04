@@ -72,3 +72,10 @@ export const getAllLatestTen = async () => {
 
   return data;
 };
+export const getBySection = async (sectionName, filter) => {
+  await connectMongo();
+  // for case insensitive
+  return Product.find({
+    sectionName: { $regex: new RegExp(sectionName, "i") },
+  });
+};
