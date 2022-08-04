@@ -24,9 +24,10 @@ export default function RadioButton({
   text,
   customLabelClass,
   icon,
+  onClick,
 }) {
   return (
-    <div className="relative form-check ">
+    <div className="relative form-check " onClick={onClick}>
       <input
         className={` float-left w-3 h-3 mt-1 mr-2 align-top transition duration-200 bg-white bg-center bg-no-repeat bg-contain border  rounded-full appearance-none cursor-pointer form-check-input checked:bg-primary checked:border-primary focus:outline-none border-gray `}
         type="radio"
