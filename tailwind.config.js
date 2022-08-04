@@ -48,6 +48,7 @@ module.exports = {
       smToLg: { min: "640px", max: "1024px" },
       lg: { min: "1024px" },
       "max-lg": { max: "1024px" },
+      smToXl: { min: "640px", max: "1280px" },
 
       xl: { min: "1280px" },
 
