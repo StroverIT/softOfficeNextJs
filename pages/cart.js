@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 // NextJs
 import Head from "next/head";
 import { getSession } from "next-auth/react";
@@ -15,6 +17,12 @@ import { adjustQty, removeFromCart } from "../redux/actions/productActions";
 function Cart({ cart, adjustQty, removeFromCart, userData }) {
   const router = useRouter();
 
+  const [isLoading, setLoading] = useState(false);
+
+  const changeRoute = () => {
+    setLoading(true);
+    router.push("/delivery");
+  };
   let subtotal = cart
     .map((item) => {
       return item.item.price * item.qty;
@@ -72,7 +80,7 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
                 </tbody>
               </table>
 
-              <aside className="border-[4px] border-gray-100 p-5 relative h-48 md:sticky top-24">
+              <aside className="border-[4px] border-gray-100 p-5 relative h-48 md:sticky sm:top-24">
                 <section className="flex items-center justify-between border-b b-[#e4e7e6] py-2">
                   <div className="font-semibold uppercase ">Междинна сума:</div>
 
@@ -87,8 +95,9 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
 
                 <section className="mt-2">
                   <BtnOutlined
+                    isLoading={isLoading}
                     text="Към завършване"
-                    onClick={() => router.push("/delivery")}
+                    onClick={changeRoute}
                   />
                 </section>
               </aside>
