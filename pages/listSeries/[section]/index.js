@@ -217,7 +217,7 @@ export default function Section({ products, types, sectionRoute }) {
 // Getting all product.. if filtering Must be filtering somehow
 export async function getServerSideProps(context) {
   let { section } = context.params;
-  const products = await getBySection(section);
+  const products = await getBySection(section.split("-").join(" "));
   // Must add total qty on every types how much is qty of the every filter
   let typesObj = new Set();
   products?.articles?.forEach((article) => {
