@@ -33,7 +33,7 @@ export default function GetAll({ product }) {
   const [inputs, setInputs] = useState(inputInit);
 
   const [isForm, setIsForm] = useState(false);
-  const [isChange, setIsChange] = useState(false);
+  const [isItemUnitForm, setItemUnitForm] = useState(false);
 
   const changeHandler = (e) => {
     const name = e.target.name;
@@ -62,9 +62,10 @@ export default function GetAll({ product }) {
     }
   };
   useEffect(() => {}, [inputs]);
+  console.log(inputs);
   return (
     <InputContext.Provider value={{ inputs, setInputs }}>
-      <section className="border border-primary p-2 md:p-5">
+      <section className="border border-primary p-2 md:p-5 mb-10">
         <section className="mb-5 relative">
           {!isForm && (
             <div>
@@ -108,6 +109,26 @@ export default function GetAll({ product }) {
               text={!isForm ? "Редактирай" : "Откажи"}
             />
           </div>
+          {!inputs?.itemsUnit && (
+            <section className="flex justify-between">
+              {isItemUnitForm && (
+                <section>
+                  <Input
+                    id="itemUnit"
+                    text="Мерна единица"
+                    holder="Мерна единица"
+                    value={inputs.itemUnit}
+                    handler={changeHandler}
+                  />
+                </section>
+              )}
+              <Edit
+                clickHandler={() => setItemUnitForm(!isItemUnitForm)}
+                theme={!isItemUnitForm ? "red" : "red"}
+                text={!isItemUnitForm ? "Добави мерна единица" : "Откажи"}
+              />
+            </section>
+          )}
         </section>
 
         {product?.articles &&
