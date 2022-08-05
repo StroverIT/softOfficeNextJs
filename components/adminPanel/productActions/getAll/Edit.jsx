@@ -7,10 +7,10 @@ function Edit({
   text = "Редактирай",
 }) {
   const genTheme = (color) => {
-    return `border-${color} bg-${color} hover:text-${color}`;
+    return ` border-${color} bg-${color} hover:text-${color}`;
   };
 
-  let typeOfTheme = `border text-white hover:bg-transparent py-1 px-4 text-${size} uppercase font-semibold`;
+  let typeOfTheme = `border text-white hover:bg-transparent py-1 px-4 text-${size}  uppercase font-semibold`;
 
   // Switch statement
   if (theme == "blueLight") {
