@@ -3,7 +3,7 @@ import { FaRegMoneyBillAlt } from "react-icons/fa";
 
 import BtnOutlined from "../../buttons/Outlined";
 
-export default function DueAmount({ priceState }) {
+export default function DueAmount({ priceState, createDelivery }) {
   return (
     <section className=" font-semibold y sticky top-20 h-72 flex flex-col">
       <section className="flex flex-col justify-between border border-gray shadow-lg">
@@ -48,7 +48,11 @@ export default function DueAmount({ priceState }) {
         </section>
       </section>
       <section className="mt-2 shadow-lg ">
-        <BtnOutlined text="Завърши поръчката" custom="text-sm px-0 " />
+        <BtnOutlined
+          text="Завърши поръчката"
+          custom="text-sm px-0 "
+          onClick={createDelivery}
+        />
       </section>
     </section>
   );
