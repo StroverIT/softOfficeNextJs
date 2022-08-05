@@ -21,7 +21,6 @@ const AccInput = ({
           id={id}
           name={id}
           type={type}
-          placeholder={placeholder}
           value={value}
           defaultValue={defValue}
           onChange={onChange}
