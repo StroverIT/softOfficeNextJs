@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import RadioButton from "../../cart/RadioButton";
 import MagazinePanel from "../../delivery/MagazinePanel";
@@ -12,7 +12,10 @@ import { Tab } from "@headlessui/react";
 import { DELIVERY, MAGAZINE, EKONT } from "../../cart/cartCostants";
 // Utils
 import getOffices from "../../../utils/getOffices";
+import quartersFetch from "../../../utils/getQuarters";
 
+// Context
+import { InputContext } from "../Context";
 export default function MethodOfDeliv({
   selected,
   orderState,
@@ -21,15 +24,28 @@ export default function MethodOfDeliv({
   userData,
   officeSelected,
   setOfficeSelected,
+  quarterSelected,
+  setQuarterSelected,
 }) {
+  const { inputs, setInputs } = useContext(InputContext);
+
   const [isOfficeLoading, setIsOfficeLoading] = useState(false);
+  const [isQuartersLoading, setQuartesLoading] = useState(false);
+
   const [officeData, setOfficeData] = useState(null);
+  const [quartersData, setQuartersData] = useState(null);
 
   const getOfficeData = async () => {
     setIsOfficeLoading(true);
     const data = await getOffices(selected.cityId);
     setIsOfficeLoading(false);
     setOfficeData(data);
+  };
+  const getQuarters = async () => {
+    setQuartesLoading(true);
+    const data = await quartersFetch(selected.cityId);
+    setQuartesLoading(false);
+    setQuartersData(data);
   };
   return (
     <section>
@@ -42,7 +58,7 @@ export default function MethodOfDeliv({
       <section className="xl:grid grid-cols-[23%72%]">
         <Tab.Group>
           <Tab.List className="py-4  pl-3 space-y-1 border-b smToXl:space-x-2 border-gray xl:border-r xl:border-b-0 sm:justify-around flex flex-wrap xl:block">
-            {selected.cityName == "София" && (
+            {selected.name == "София" && (
               <Tab>
                 <RadioButton
                   radioState={orderState}
@@ -54,7 +70,7 @@ export default function MethodOfDeliv({
                 />
               </Tab>
             )}
-            {priceState.totalPrice >= 300 && selected.cityName == "София" && (
+            {priceState.totalPrice >= 300 && selected.name == "София" && (
               <Tab>
                 <RadioButton
                   radioState={orderState}
@@ -63,10 +79,11 @@ export default function MethodOfDeliv({
                   id="delivery"
                   text="Доставка до вкъщи"
                   icon="address"
+                  onClick={getQuarters}
                 />
               </Tab>
             )}
-            {(priceState.totalPrice < 300 || selected.cityName != "София") && (
+            {(priceState.totalPrice < 300 || selected.name != "София") && (
               <Tab>
                 <RadioButton
                   radioState={orderState}
@@ -87,18 +104,30 @@ export default function MethodOfDeliv({
               </h3>
             </div>
             <section className="px-4">
-              {selected.cityName == "София" && (
+              {selected.name == "София" && (
                 <Tab.Panel>
                   <MagazinePanel userData={userData} />
                 </Tab.Panel>
               )}
-              {priceState.totalPrice >= 300 && selected.cityName == "София" && (
+              {priceState.totalPrice >= 300 && selected.name == "София" && (
                 <Tab.Panel>
-                  <DeliveryPanel userData={userData} />
+                  {!isQuartersLoading && (
+                    <DeliveryPanel
+                      userData={userData}
+                      quartersData={quartersData}
+                      quarterSelected={quarterSelected}
+                      setQuarterSelected={setQuarterSelected}
+                      quarters={quartersData}
+                    />
+                  )}
+                  {isQuartersLoading && (
+                    <div className="flex justify-center items-center py-5">
+                      <div className="loader"></div>
+                    </div>
+                  )}
                 </Tab.Panel>
               )}
-              {(priceState.totalPrice < 300 ||
-                selected.cityName != "София") && (
+              {(priceState.totalPrice < 300 || selected.name != "София") && (
                 <Tab.Panel>
                   {!isOfficeLoading && (
                     <EkontPanel
