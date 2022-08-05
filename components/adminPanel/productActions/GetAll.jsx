@@ -18,6 +18,7 @@ export default function GetAll({ product }) {
   const inputInit = {
     sectionName: product.sectionName,
     description: product.description,
+    itemUnit: product.itemUnit,
     articles: product.articles.map((article) => {
       return {
         articleName: article.articleName,
@@ -65,15 +66,15 @@ export default function GetAll({ product }) {
   console.log(inputs);
   return (
     <InputContext.Provider value={{ inputs, setInputs }}>
-      <section className="border border-primary p-2 md:p-5 mb-10">
-        <section className="mb-5 relative">
+      <section className="p-2 mb-10 border border-primary md:p-5">
+        <section className="relative mb-5">
           {!isForm && (
             <div>
               <div>Секция: {product.sectionName}</div>
               <div>Описание: {product.description}</div>
               <div className="flex flex-wrap items-center ">
                 Снимка:{" "}
-                <div className="relative h-24 w-24">
+                <div className="relative w-24 h-24">
                   <Image
                     src={`/uploads/${product.imageUrl}`}
                     layout="fill"
@@ -109,7 +110,7 @@ export default function GetAll({ product }) {
               text={!isForm ? "Редактирай" : "Откажи"}
             />
           </div>
-          {!inputs?.itemsUnit && (
+          {!inputs?.itemUnit && (
             <section className="flex justify-between">
               {isItemUnitForm && (
                 <section>
@@ -129,6 +130,26 @@ export default function GetAll({ product }) {
               />
             </section>
           )}
+          {inputs?.itemUnit && (
+            <section className="flex justify-between">
+              {isItemUnitForm && (
+                <section>
+                  <Input
+                    id="itemUnit"
+                    text="Мерна единица"
+                    holder="Мерна единица"
+                    value={inputs.itemUnit}
+                    handler={changeHandler}
+                  />
+                </section>
+              )}
+              <Edit
+                clickHandler={() => setItemUnitForm(!isItemUnitForm)}
+                theme={!isItemUnitForm ? "blueLight" : "red"}
+                text={!isItemUnitForm ? "Смени мерната единица" : "Откажи"}
+              />
+            </section>
+          )}
         </section>
 
         {product?.articles &&
@@ -143,7 +164,7 @@ export default function GetAll({ product }) {
           })}
         <div className="flex items-center justify-center">
           <button
-            className="text-lg text-white bg-primary hover:text-primary hover:bg-transparent border border-primary  font-semibold py-1 px-14"
+            className="py-1 text-lg font-semibold text-white border bg-primary hover:text-primary hover:bg-transparent border-primary px-14"
             onClick={submitHandler}
           >
             Изпрати
