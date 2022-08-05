@@ -17,6 +17,7 @@ const inputDataPersonal = [
     type: "text",
     isReq: true,
     iconType: "phoneNumber",
+    type: "phoneNumber",
   },
 ];
 const inputDataEmail = [
