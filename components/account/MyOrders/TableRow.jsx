@@ -87,7 +87,7 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
               {/* Mongodb */}
             </div>
             {/* Menu on open */}
-            <section className="absolute z-20 w-full -translate-x-1/2 -translate-y-1/2 h-2/3 md:h-1/2 md:w-3/4 top-1/2 bg-gray left-1/2">
+            <section className="absolute z-20 w-full -translate-x-1/2 -translate-y-1/2 h-2/3 md:h-1/2 md:w-3/4 top-1/2 bg-gray left-1/2 overflow-auto">
               <div className="relative h-full">
                 <div className="flex flex-col flex-wrap mx-1 pt-7 text-primary-lighter">
                   {addressInfo && (
@@ -121,7 +121,7 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                       продукти
                     </h3>
 
-                    <section className="relative flex flex-wrap w-full gap-x-10">
+                    <section className="relative flex flex-wrap w-full gap-x-10 ">
                       {fullData.cart.map((cart, index) => {
                         return (
                           <ul
@@ -144,7 +144,7 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                   <span className="ml-1">{fullData.createdAt}</span>
                 </div>
                 <div
-                  className="absolute cursor-pointer top-1 right-1"
+                  className="fixed cursor-pointer top-1 right-1 text-xl"
                   onClick={() => setMenu(false)}
                 >
                   <HiX />
