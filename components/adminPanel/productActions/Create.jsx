@@ -120,6 +120,13 @@ export default function Create() {
               id="imageUrl"
               onChange={changeHandler}
             />
+            <Input
+              type="text"
+              placeholder="Мерна единица"
+              id="itemUnit"
+              value={sectionState?.articleName}
+              onChange={changeHandler}
+            />
             {sectionState.articles &&
               sectionState.articles.map((article, index) => {
                 return (
