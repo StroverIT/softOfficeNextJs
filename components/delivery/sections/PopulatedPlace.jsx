@@ -15,7 +15,7 @@ export default function PopulatedPlace({ selected, setSelected, cities }) {
         </div>
         <h3 className="pl-1">Населено място</h3>
       </div>
-      <section className="my-10">
+      <section className="my-10 container">
         <ListBoxSearch
           selected={selected}
           setSelected={setSelected}
