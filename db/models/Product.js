@@ -26,6 +26,7 @@ const productScheme = new Schema({
   description: {
     type: [{ type: String }],
   },
+  itemUnit: { type: String },
   totalBoughtProducts: { type: Number, default: 0 },
   articles: [articlesScheme],
 });
