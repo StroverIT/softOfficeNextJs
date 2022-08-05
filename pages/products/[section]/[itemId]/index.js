@@ -90,11 +90,12 @@ export default function Index({ data, userData, isInFav }) {
       setIsFav(false);
     }
   };
-  const itemName = `${product.sectionName} ${product.articleName} ${product.item.weight}`;
+  console.log(product);
+  const itemName = `${product.sectionName} ${product.articleName} ${product.item.weight} ${product.itemUnit}`;
   return (
     <main className="mb-auto">
       <div className="container">
-        <div className="flex flex-col justify-between py-5 my-5 border-b md:flex-row border-gray-bord text-gray-500">
+        <div className="flex flex-col justify-between py-5 my-5 text-gray-500 border-b md:flex-row border-gray-bord">
           <div className="text-2xl font-semibold">
             <span className="ml-1 ">{itemName}</span>
           </div>
@@ -106,17 +107,17 @@ export default function Index({ data, userData, isInFav }) {
           </div> */}
         </div>
         <div className="grid-cols-2 lg:grid xl:grid-cols-[60%40%] ">
-          <div className="border border-gray-bord py-20">
+          <div className="py-20 border border-gray-bord">
             <ThumbsGallery navSize="2xl" image={product.imageUrl} />
           </div>
-          <section className="p-5 flex flex-col space-y-10">
+          <section className="flex flex-col p-5 space-y-10">
             <section className="flex items-center justify-between border-b border-gray-bord ">
               <div className="text-lg font-bold">Цена:</div>
               <div>
                 <Pricing price={price[0]} priceDec={price[1]} size="3xl" />
               </div>
             </section>
-            <section className="flex flex-col sm:w-1/2 md:w-3/4 mx-auto justify-center h-full">
+            <section className="flex flex-col justify-center h-full mx-auto sm:w-1/2 md:w-3/4">
               <div className="mb-1">
                 <label htmlFor="qty" className="font-semibold text-gray-200">
                   Количество:
@@ -133,10 +134,10 @@ export default function Index({ data, userData, isInFav }) {
               {/* Favourites div */}
               {userData && !isFav && (
                 <div
-                  className="flex items-center justify-center col-span-2 mt-6 cursor-pointer group hover:-translate-y-1 transition-transform"
+                  className="flex items-center justify-center col-span-2 mt-6 transition-transform cursor-pointer group hover:-translate-y-1"
                   onClick={() => addFavourites(product, itemName)}
                 >
-                  <div className="inline-flex p-2 text-xl rounded-full bg-gray  group-hover:text-white group-hover:bg-primary md:ml-5  ">
+                  <div className="inline-flex p-2 text-xl rounded-full bg-gray group-hover:text-white group-hover:bg-primary md:ml-5 ">
                     <AiOutlineHeart />
                   </div>
                   <span className="ml-1 text-sm select-none group-hover:text-primary">
@@ -146,10 +147,10 @@ export default function Index({ data, userData, isInFav }) {
               )}
               {userData && isFav && (
                 <div
-                  className="flex items-center justify-center col-span-2 mt-6 cursor-pointer group hover:-translate-y-1 transition-transform"
+                  className="flex items-center justify-center col-span-2 mt-6 transition-transform cursor-pointer group hover:-translate-y-1"
                   onClick={() => removeFavourites(product.item._id)}
                 >
-                  <div className="inline-flex p-2 text-xl rounded-full bg-gray  group-hover:text-white group-hover:bg-secondary md:ml-5  ">
+                  <div className="inline-flex p-2 text-xl rounded-full bg-gray group-hover:text-white group-hover:bg-secondary md:ml-5 ">
                     <AiOutlineHeart />
                   </div>
                   <span className="ml-1 text-sm select-none group-hover:text-secondary">
@@ -162,10 +163,10 @@ export default function Index({ data, userData, isInFav }) {
         </div>
 
         <section className="pt-5 pb-10 my-16 border border-gray-150">
-          <h3 className="py-5  font-semibold text-center text-primary text-2xl">
+          <h3 className="py-5 text-2xl font-semibold text-center text-primary">
             Описание
           </h3>
-          <div className="flex ml-4 sm:ml-10 px-3">
+          <div className="flex px-3 ml-4 sm:ml-10">
             <ul className="list-disc ">
               {product.description[0].split("\n").map((description) => {
                 return <li key={description}>{description}</li>;
@@ -173,7 +174,7 @@ export default function Index({ data, userData, isInFav }) {
             </ul>
           </div>
         </section>
-        <section className="flex justify-center gap-x-16 my-20 flex-wrap gap-y-10 ">
+        <section className="flex flex-wrap justify-center my-20 gap-x-16 gap-y-10 ">
           {alternatives &&
             alternatives.map((alt) => {
               console.log();

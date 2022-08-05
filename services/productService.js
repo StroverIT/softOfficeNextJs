@@ -40,6 +40,7 @@ export const productByItemId = async (itemId) => {
         foundItem.item = item;
         foundItem.articleName = article.articleName;
         foundItem.sectionName = data.sectionName;
+        foundItem.itemUnit = data.itemUnit;
         foundItem.imageUrl = data.imageUrl;
         foundItem.description = data.description;
         break inner;

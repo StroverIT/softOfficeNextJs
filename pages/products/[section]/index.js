@@ -193,6 +193,7 @@ export default function Section({ products, types, sectionRoute }) {
                       key={item._id}
                       imageUrl={products.imageUrl}
                       sectionName={products.sectionName}
+                      itemUnit={products.itemUnit}
                       sectionRoute={sectionRoute}
                       description={products.description}
                       addProduct={addProduct}

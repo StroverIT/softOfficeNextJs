@@ -10,13 +10,16 @@ import BuyBtn from "../../base/BuyBtn";
 export default function Product({
   article,
   item,
+  itemUnit,
   sectionName,
   addProduct,
   imageUrl,
   sectionRoute,
 }) {
   const price = item?.price.toFixed(2).split(".");
-  item.articleName = `${sectionName} ${article.articleName} - ${item.weight}`;
+  item.articleName = `${sectionName} ${article.articleName} - ${item.weight} ${
+    itemUnit ? itemUnit : ""
+  }`;
   item.sectionName = sectionName;
   item.imageUrl = imageUrl;
   return (

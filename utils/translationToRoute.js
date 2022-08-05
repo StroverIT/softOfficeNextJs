@@ -7,7 +7,7 @@ import { latinToCyrylic } from "./translations";
 */
 export const translationToRoute = (data) => {
   return data
-    .toString()
+    ?.toString()
     .split(" ")
     .map((word) => {
       word = word.replace(",", "");
@@ -18,7 +18,7 @@ export const translationToRoute = (data) => {
 };
 export const translationToDb = (data) => {
   return data
-    .toString()
+    ?.toString()
     .split("-")
     .map((word) => {
       return latinToCyrylic(word);
