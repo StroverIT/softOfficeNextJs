@@ -21,7 +21,7 @@ const AccInput = ({
     getOuterVal(e);
   };
 
-  const [telephone, setTelephone] = useState(replaceVal(defValue.toString()));
+  const [telephone, setTelephone] = useState(replaceVal(defValue?.toString()));
   const inputField = useRef(null);
 
   useEffect(() => {
