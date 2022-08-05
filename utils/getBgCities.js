@@ -12,16 +12,11 @@ async function getCities() {
   const fullData = [];
   data.cities.forEach((city) => {
     if (city.regionName.length > 0) {
-      if (
-        fullData.findIndex((item) => item.cityName == city.regionName) == -1
-      ) {
-        fullData.push({ cityName: city.regionName, cityId: city.id });
+      if (fullData.findIndex((item) => item.name == city.regionName) == -1) {
+        fullData.push({ name: city.regionName, cityId: city.id });
       }
     }
   });
-  console.log(fullData.length);
-  return Array.from(fullData).sort((a, b) =>
-    a.cityName.localeCompare(b.cityName)
-  );
+  return Array.from(fullData).sort((a, b) => a.name.localeCompare(b.name));
 }
 export default getCities;

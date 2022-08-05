@@ -14,7 +14,7 @@ async function getOffices(cityID) {
     const filteredData = [];
     for (let office of data.offices) {
       filteredData.push({
-        officeName: `${office.name} (${office.address.fullAddress})`,
+        name: `${office.name} (${office.address.fullAddress})`,
       });
     }
     return filteredData;
