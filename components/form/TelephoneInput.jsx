@@ -5,22 +5,25 @@ const AccInput = ({
   placeholder,
   id,
   value,
-  onChange,
+  getOuterVal,
   readOnly = null,
   phoneNumber,
+  defValue = "",
 }) => {
-  const [telephone, setTelephone] = useState("");
-  const inputField = useRef(null);
-
   const replaceVal = (val) => {
     return val?.replace(/\W/gi, "")?.replace(/(.{3})/g, "$1 ");
   };
   const changeHandler = (e) => {
     const val = e.target.value;
 
-    if (val.replace(/\W/gi, "").length > 10) return;
+    if (val.replace(/\W/gi, "").length > 9) return;
     setTelephone(replaceVal(val));
+    getOuterVal(e);
   };
+
+  const [telephone, setTelephone] = useState(replaceVal(defValue.toString()));
+  const inputField = useRef(null);
+
   useEffect(() => {
     const val = phoneNumber?.toString();
     setTelephone(replaceVal(val));
