@@ -32,11 +32,16 @@ import MethodOfDeliv from "../components/delivery/sections/MethodOfDeliv";
 
 // Inline constants
 const CARD_PAYMENT = "cardPayment";
+// Context
+import { InputContext } from "../components/delivery/Context";
 
 function Delivery({ cart, userData, cities }) {
   const [selected, setSelected] = useState(cities[21]);
   const [officeSelected, setOfficeSelected] = useState({
-    officeName: "Избери офис",
+    name: "Избери офис",
+  });
+  const [quarterSelected, setQuarterSelected] = useState({
+    name: "Избери квартал",
   });
 
   const [orderState, setTypeOfOrder] = useState(MAGAZINE);
@@ -48,29 +53,27 @@ function Delivery({ cart, userData, cities }) {
     dds: 0,
   });
   const [inputs, setInputs] = useState({
-    name: "",
-    telephone: "",
-    city: "",
-    zipCode: "",
-    address: "",
+    email: userData.email,
+    address: {},
     comment: "",
+    typeOfDelivery: "",
+    typeOfPayment: "",
   });
 
   const createDelivery = async () => {
-    if (!priceState) {
-      priceState = {
-        totalPrice: subtotal,
-        deliveryFee: ["0", "00"],
-      };
-    }
+    toastPromise("Изпраща се...");
+
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         cart,
-        formData: inputs,
-        totalPrice: priceState,
-        typeOfDelivery: orderState,
+        inputs,
+        deliveryInfo: {
+          city: selected,
+          office: officeSelected,
+          quarter: quarterSelected,
+        },
       }),
     };
     const res = await fetch("/api/cart/createDelivery", options);
@@ -84,7 +87,11 @@ function Delivery({ cart, userData, cities }) {
       toastSuccess(message.message);
     }
   };
-
+  const changeHandler = (e) => {
+    const name = e.target.name;
+    const val = e.target.value;
+    setInputs((prevState) => ({ ...prevState, [name]: val }));
+  };
   const changePaymentHandler = (e) => {
     const name = e.target.name;
     setTypePayment(name);
@@ -93,12 +100,7 @@ function Delivery({ cart, userData, cities }) {
     const name = e.target.name;
     setTypeOfOrder(name);
   };
-  const changeInputHandler = (e) => {
-    setInputs((prevState) => ({
-      ...prevState,
-      [e.target.name]: e.target.value,
-    }));
-  };
+
   useEffect(() => {
     let subTotal = parseFloat(
       cart
@@ -116,11 +118,11 @@ function Delivery({ cart, userData, cities }) {
       dds,
       subTotal,
     };
-    if (selected.cityName == "София") {
+    if (selected.name == "София") {
       setPriceState(() => state);
       setTypeOfOrder(MAGAZINE);
     }
-    if (selected.cityName != "София") {
+    if (selected.name != "София") {
       const delivery = 2.99;
       state.delivery = delivery;
       state.totalPrice = subTotal + dds + delivery;
@@ -129,6 +131,7 @@ function Delivery({ cart, userData, cities }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
+
   return (
     <>
       <Head>
@@ -137,79 +140,93 @@ function Delivery({ cart, userData, cities }) {
       </Head>
       <main className="mt-10 mb-16 container ">
         <section className="lg:grid lg:grid-cols-[75%25%] xl:grid-cols-[80%20%] lg:space-x-3">
-          <section className="">
-            <section className="border shadow-md border-gray">
-              <PopulatedPlace
-                selected={selected}
-                setSelected={setSelected}
-                cities={cities}
-              />
-              <MethodOfDeliv
-                selected={selected}
-                setSelected={setSelected}
-                orderState={orderState}
-                changeOrderHandler={changeOrderHandler}
-                priceState={priceState}
-                userData={userData}
-                officeSelected={officeSelected}
-                setOfficeSelected={setOfficeSelected}
-              />
-            </section>
-            {/* Начин на плащане */}
-            <section className="mt-4 border shadow border-gray">
-              <div className="flex items-center py-4 pl-3 text-lg bg-gray-300 border-b border-gray-150 font-semibold">
-                <div>
-                  <GoCreditCard />
-                </div>
-                <h3 className="pl-1">Начин на плащане</h3>
-              </div>
-              <section>
-                {paymentState == CARD_PAYMENT && (
-                  <div className="px-2 pt-6 font-semibold text-center text-secondary">
-                    За момента не може да се плаща с карта. От IvdaGeo се
-                    извиняваме за причиненото неудобство
-                  </div>
-                )}
-                <section className="py-4 pl-6">
-                  <RadioButton
-                    radioState={paymentState}
-                    changeHandler={changePaymentHandler}
-                    name="cashOnDelivery"
-                    id="cashOnDelivery"
-                    text="Наложен платеж"
-                  />
-                  <RadioButton
-                    radioState={paymentState}
-                    changeHandler={changePaymentHandler}
-                    name={CARD_PAYMENT}
-                    id={CARD_PAYMENT}
-                    text="Плащане с карта"
-                    customLabelClass="line-through"
-                  />
-                </section>
+          <InputContext.Provider
+            value={{
+              inputs,
+              setInputs,
+            }}
+          >
+            <section className="">
+              <section className="border shadow-md border-gray">
+                <PopulatedPlace
+                  selected={selected}
+                  setSelected={setSelected}
+                  cities={cities}
+                />
+                <MethodOfDeliv
+                  selected={selected}
+                  setSelected={setSelected}
+                  orderState={orderState}
+                  changeOrderHandler={changeOrderHandler}
+                  priceState={priceState}
+                  userData={userData}
+                  officeSelected={officeSelected}
+                  setOfficeSelected={setOfficeSelected}
+                  quarterSelected={quarterSelected}
+                  setQuarterSelected={setQuarterSelected}
+                />
               </section>
-            </section>
-            {/* Total and comment if is needed */}
-            <section className=" mt-4 space-x-4">
-              {/* Добави коментар */}
-              <section className="flex flex-col border border-gray ">
+              {/* Начин на плащане */}
+              <section className="mt-4 border shadow border-gray">
                 <div className="flex items-center py-4 pl-3 text-lg bg-gray-300 border-b border-gray-150 font-semibold">
                   <div>
-                    <AiOutlineComment />
+                    <GoCreditCard />
                   </div>
-                  <h3 className="pl-1">Добави коментар</h3>
+                  <h3 className="pl-1">Начин на плащане</h3>
                 </div>
-                <section className="flex h-full">
-                  <textarea
-                    placeholder="Напиши коментар..."
-                    className="w-full p-3 m-4 border border-gray-200 placeholder:text-gray-450 pb-14"
-                  ></textarea>
+                <section>
+                  {paymentState == CARD_PAYMENT && (
+                    <div className="px-2 pt-6 font-semibold text-center text-secondary">
+                      За момента не може да се плаща с карта. От IvdaGeo се
+                      извиняваме за причиненото неудобство
+                    </div>
+                  )}
+                  <section className="py-4 pl-6">
+                    <RadioButton
+                      radioState={paymentState}
+                      changeHandler={changePaymentHandler}
+                      name="cashOnDelivery"
+                      id="cashOnDelivery"
+                      text="Наложен платеж"
+                    />
+                    <RadioButton
+                      radioState={paymentState}
+                      changeHandler={changePaymentHandler}
+                      name={CARD_PAYMENT}
+                      id={CARD_PAYMENT}
+                      text="Плащане с карта"
+                      customLabelClass="line-through"
+                    />
+                  </section>
                 </section>
               </section>
-              {/* Дължима сума */}
+              {/* Total and comment if is needed */}
+              <section className=" mt-4 space-x-4">
+                {/* Добави коментар */}
+                <section className="flex flex-col border border-gray ">
+                  <div className="flex items-center py-4 pl-3 text-lg bg-gray-300 border-b border-gray-150 font-semibold">
+                    <div>
+                      <AiOutlineComment />
+                    </div>
+                    <h3 className="pl-1">Добави коментар</h3>
+                  </div>
+                  <section className="flex h-full">
+                    <textarea
+                      placeholder="Напиши коментар..."
+                      name="comment"
+                      className="w-full p-3 m-4 border border-gray-200 placeholder:text-gray-450 pb-14"
+                      onChange={changeHandler}
+                    ></textarea>
+                  </section>
+                </section>
+                {/* Дължима сума */}
+              </section>
             </section>
-          </section>
-          <DueAmount priceState={priceState} />
+            <DueAmount
+              priceState={priceState}
+              createDelivery={createDelivery}
+            />
+          </InputContext.Provider>
         </section>
       </main>
     </>
