@@ -1,6 +1,6 @@
 async function getCities() {
   const res = await fetch(
-    "http://ee.econt.com/services/Nomenclatures/NomenclaturesService.getCities.json",
+    "https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getCities.json",
     {
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -1,7 +1,7 @@
 async function getQuarters(cityID) {
   try {
     const res = await fetch(
-      "http://ee.econt.com/services/Nomenclatures/NomenclaturesService.getQuarters.json",
+      "https://ee.econt.com/services/Nomenclatures/NomenclaturesService.getQuarters.json",
       {
         method: "POST",
         headers: {
