@@ -86,7 +86,7 @@ export default function Home({ topMonthOfferts }) {
         <meta name="description" content="Онлайн магазин IvdaGeo" />
       </Head>
 
-      <main className="mb-auto bg-color">
+      <main className="mb-auto pb-20 bg-color">
         <section className="">
           <div className="container  mt-10 mb-10 bg-white shadow-lg">
             <section className="lg:grid lg:space-x-2 lg:grid-cols-[25%75%] w-full relative ">
@@ -104,7 +104,7 @@ export default function Home({ topMonthOfferts }) {
             </section>
           </div>
         </section>
-        <section className="pt-3 pb-2 bg-color">
+        <section className="pt-3 pb-2 bg-color mb-5">
           <div className="container relative z-20 h-full bg-white shadow-lg">
             <section className="py-5 border custom-border-container border-gray-bord border-l-primary">
               <section className="container grid-cols-2 lg:grid">
@@ -159,7 +159,7 @@ export default function Home({ topMonthOfferts }) {
             </section>
           </div>
         </section>
-        <section className="py-5 ">
+        <section className="py-5 mb-5">
           <div className="container">
             <h1 className="mb-3 text-xl font-semibold">
               Месечни топ предложения
@@ -167,7 +167,7 @@ export default function Home({ topMonthOfferts }) {
             <SwiperFreeMode data={topMonthOfferts} navSize="3xl" />
           </div>
         </section>
-        <section className=" bg-color">
+        <section className=" bg-color mb-5">
           <div className="container ">
             <section className="items-center justify-center grid-cols-2 my-5 lg:grid">
               <div className="mt-5 mb-5 text-center lg:text-left lg:my-0 lg:w-5/6">

@@ -8,10 +8,11 @@
   transform: translateY(-50%);
 }
 .swiperNext {
-  right: 0;
+  right: 1%;
   margin-right: 10px;
 }
 .swiperPrev {
+  left: 1%;
   margin-left: 10px;
 }
 .swiperDisabled {
