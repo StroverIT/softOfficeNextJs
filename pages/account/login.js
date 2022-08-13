@@ -49,12 +49,17 @@ const Login = ({ query }) => {
         <meta name="description" content="Онлайн магазин IvdaGeo" />
       </Head>
 
-      <main>
-        <div className="container justify-center my-24 md:w-2/3 lg:w-1/3">
-          {/* <div className="relative hidden w-full h-full ml-2 xl:block">
-            <Image src="/images/testCarousel.jpg" layout="fill" alt="test" />
-          </div> */}
-          <div className="w-full bg-white rounded shadow-xl">
+      <main className="container">
+        <div className=" justify-center my-24 xl:grid xl:grid-cols-[70%30%] w-full">
+          <div className="relative hidden w-full h-[500px] ml-2 xl:block">
+            <Image
+              src="/images/magazin1.jpg"
+              layout="fill"
+              alt="test"
+              objectFit="fill"
+            />
+          </div>
+          <div className="w-full bg-white rounded shadow-xl xl:p-2">
             <div className="my-5 ml-8">
               <h3 className="text-2xl">Влезте във вашият акаунт</h3>
               <p className="mt-1">

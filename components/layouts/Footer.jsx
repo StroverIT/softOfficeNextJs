@@ -14,15 +14,13 @@ const Footer = () => {
                   <a className="hover:underline">За нас</a>
                 </Link>
               </li>
+
               <li className="mb-1">
-                <a href="#" className="hover:underline">
-                  Работа при нас
-                </a>
-              </li>
-              <li className="mb-1">
-                <a href="#" className="hover:underline">
-                  Общи условия
-                </a>
+                <Link href="/general-terms">
+                  <a href="#" className="hover:underline">
+                    Общи условия
+                  </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -34,12 +32,6 @@ const Footer = () => {
               <li className="mb-1">
                 <a href="contactUs" className="hover:underline">
                   Контакти
-                </a>
-              </li>
-
-              <li className="mb-1">
-                <a href="#" className="hover:underline">
-                  Празнично работно време
                 </a>
               </li>
             </ul>
@@ -100,7 +92,7 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div>
+          {/* <div>
             <h2 className="mb-2 font-semibold text-gray-400 uppercase text-md">
               Социални Мрежи
             </h2>
@@ -151,12 +143,12 @@ const Footer = () => {
                 </a>
               </li>
             </ul>
-          </div>
+          </div> */}
         </div>
-        <div className="flex items-center justify-center py-6 bg-gray-700">
-          <div className="text-sm text-center">
-            © 2022 <a href="/contact">ivdaGeo™</a>. Всички права запазени.
-          </div>
+      </div>
+      <div className="flex items-center justify-center py-6 bg-primary-second ">
+        <div className="text-sm text-center text-gray-500">
+          © 2022 <a href="/contact">ivdaGeo™</a>. Всички права запазени.
         </div>
       </div>
     </footer>

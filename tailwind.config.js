@@ -1,6 +1,7 @@
 const customColors = {
   "bg-color": "#f3f3f3",
   primary: "hsl(215, 80%, 33%)",
+  "primary-second": "hsl(215, 80%, 25%)",
   "primary-lighter": "hsl(215, 80%, 60%)",
   "primary-trans": "hsl(215, 80%, 60%, 100%)",
   "primary-0": "hsl(215, 80%, 60%, 15%)",

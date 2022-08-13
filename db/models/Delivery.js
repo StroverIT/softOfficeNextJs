@@ -9,7 +9,7 @@ const addressSchema = new Schema({
 });
 const deliveryScheme = new Schema({
   cart: [{ type: Object, required: true }],
-
+  isVerified: { type: Boolean, default: false },
   addressInfo: addressSchema,
   comment: String,
   totalPrice: { type: Number, required: true },
