@@ -86,25 +86,25 @@ export default function Home({ topMonthOfferts }) {
         <meta name="description" content="Онлайн магазин IvdaGeo" />
       </Head>
 
-      <main className="mb-auto pb-20 bg-color">
-        <section className="">
-          <div className="container  mt-10 mb-10 bg-white shadow-lg">
-            <section className="lg:grid lg:space-x-2 lg:grid-cols-[25%75%] w-full relative ">
-              <section className="z-10 hidden lg:py-2 lg:block">
-                <h1 className="pl-3 ml-1 text-lg font-medium xl:block">
+      <main className="pb-20 mb-auto bg-color">
+        <section>
+          <div className="mb-10 -mt-24 sm:mt-0 md:shadow-lg md:bg-white sm:container">
+            <section className="lg:grid lg:space-x-2 lg:grid-cols-[20%80%] w-full relative ">
+              <section className="z-10 hidden mt-3 lg:py-2 lg:block ">
+                <h1 className="pl-3 ml-1 text-lg font-semibold xl:block">
                   Категории продукти
                 </h1>
                 <div className="mt-2">
                   <NavLinks isHome={true} />
                 </div>
               </section>
-              <section className="relative flex items-center justify-center h-full">
+              <section className="relative flex items-center justify-center h-full ">
                 <SwiperPag images={swiperPag} navSize="3xl" />
               </section>
             </section>
           </div>
         </section>
-        <section className="pt-3 pb-2 bg-color mb-5">
+        <section className="pt-3 pb-2 mb-5 bg-color">
           <div className="container relative z-20 h-full bg-white shadow-lg">
             <section className="py-5 border custom-border-container border-gray-bord border-l-primary">
               <section className="container grid-cols-2 lg:grid">
@@ -167,7 +167,7 @@ export default function Home({ topMonthOfferts }) {
             <SwiperFreeMode data={topMonthOfferts} navSize="3xl" />
           </div>
         </section>
-        <section className=" bg-color mb-5">
+        <section className="mb-5 bg-color">
           <div className="container ">
             <section className="items-center justify-center grid-cols-2 my-5 lg:grid">
               <div className="mt-5 mb-5 text-center lg:text-left lg:my-0 lg:w-5/6">

@@ -22,7 +22,7 @@ import SwiperNav from "./SwiperNav";
 export default function SwiperPag({
   images,
   navSize,
-  imgHeight_lg = "lg:h-[470px]",
+  imgHeight_lg = "lg:h-[550px]",
 }) {
   return (
     <>
@@ -47,7 +47,7 @@ export default function SwiperPag({
           disabledClass: `${navStyle.swiperDisabled}`,
         }}
         modules={[Pagination, Navigation, Autoplay, EffectFade]}
-        className={`mySwiper ${style.swiper} relative h-96 w-full ${imgHeight_lg}  ml-auto`}
+        className={`mySwiper ${style.swiper} relative h-96 w-full  ${imgHeight_lg}  ml-auto`}
       >
         <div className={`${style.paginationCont}`}>
           <div className={`${style.pagination}`}></div>
@@ -57,13 +57,16 @@ export default function SwiperPag({
           return (
             <SwiperSlide key={image.key}>
               <Link href={image.pageUrl ? image.pageUrl : ""}>
-                <Image
-                  src={image.src}
-                  //  layout="fill"
-                  layout="fill"
-                  alt={image.key}
-                  className={`${style.swiperSlideImg} cursor-pointer max-lg:object-[10%90%]  text-right pl-auto`}
-                />
+                <div className="flex items-center justify-center">
+                  <Image
+                    src={image.src}
+                    //  layout="fill"
+                    layout="fill"
+                    alt={image.key}
+                    objectFit="contain"
+                    className={`${style.swiperSlideImg} cursor-pointer max-lg:object-[10%90%]  text-right pl-auto`}
+                  />
+                </div>
               </Link>
             </SwiperSlide>
           );
