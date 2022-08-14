@@ -17,7 +17,6 @@ async function handler(req, res) {
     //Validate
     if (!email || !password) {
       errors.push("Всички полета трябва да бъдат попълнени");
-      return;
     }
 
     const fullNameCheck = fullNameVal(fullName);
