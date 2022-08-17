@@ -10,6 +10,7 @@ const secret = process.env.NEXTAUTH_SECRET;
 
 export default async function handler(req, res) {
   const { cart, inputs, deliveryInfo } = req.body;
+  console.log(inputs);
 
   try {
     let subTotal = parseFloat(
@@ -48,7 +49,8 @@ export default async function handler(req, res) {
       }
     }
     if (
-      inputs.address.phoneNumber.length === 0 ||
+      inputs.address.phoneNumber?.length === 0 ||
+      inputs.address.phoneNumber == null ||
       inputs.address.fullName.length === 0
     ) {
       throw {
@@ -56,7 +58,6 @@ export default async function handler(req, res) {
       };
     }
     if (inputs.typeOfDelivery == DELIVERY) {
-      console.log(deliveryInfo);
       if (
         deliveryInfo.office == "Избери квартал" ||
         deliveryInfo.city.name != "София" ||
@@ -73,8 +74,18 @@ export default async function handler(req, res) {
       totalPrice,
       ownerId: user._id,
       typeOfDelivery: inputs.typeOfDelivery,
+      comment: inputs.comment,
     };
-
+    console.log(deliveryInfo, inputs);
+    if (inputs.typeOfDelivery == DELIVERY) {
+      const address = inputs.address;
+      data.addressInfo = {
+        name: address.fullName,
+        telephone: address.phoneNumber,
+        address: `${deliveryInfo.quarter.name} ${address.address}`,
+        city: deliveryInfo.city.name,
+      };
+    }
     await Delivery.create(data);
 
     res.json({ message: "Успешно направена поръчка" });
