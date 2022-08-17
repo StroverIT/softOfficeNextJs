@@ -24,8 +24,6 @@ export default function MethodOfDeliv({
   userData,
   officeSelected,
   setOfficeSelected,
-  quarterSelected,
-  setQuarterSelected,
 }) {
   const { inputs, setInputs } = useContext(InputContext);
 
@@ -49,7 +47,7 @@ export default function MethodOfDeliv({
   };
   return (
     <section>
-      <div className="flex items-center py-4 pl-3 text-lg bg-gray-300 border-y border-gray-150 font-semibold">
+      <div className="flex items-center py-4 pl-3 text-lg font-semibold bg-gray-300 border-y border-gray-150">
         <div>
           <AiOutlineCar />
         </div>
@@ -57,7 +55,7 @@ export default function MethodOfDeliv({
       </div>
       <section className="xl:grid grid-cols-[23%72%]">
         <Tab.Group>
-          <Tab.List className="py-4  pl-3 space-y-1 border-b smToXl:space-x-2 border-gray xl:border-r xl:border-b-0 sm:justify-around flex flex-wrap xl:block">
+          <Tab.List className="flex flex-wrap py-4 pl-3 space-y-1 border-b smToXl:space-x-2 border-gray xl:border-r xl:border-b-0 sm:justify-around xl:block">
             {selected.name == "София" && (
               <Tab>
                 <RadioButton
@@ -90,7 +88,7 @@ export default function MethodOfDeliv({
                   changeHandler={changeOrderHandler}
                   name={EKONT}
                   id={EKONT}
-                  text="Офис Еконт: 2.99 лв."
+                  text="Еконт"
                   icon="shop"
                   onClick={getOfficeData}
                 />
@@ -115,13 +113,11 @@ export default function MethodOfDeliv({
                     <DeliveryPanel
                       userData={userData}
                       quartersData={quartersData}
-                      quarterSelected={quarterSelected}
-                      setQuarterSelected={setQuarterSelected}
                       quarters={quartersData}
                     />
                   )}
                   {isQuartersLoading && (
-                    <div className="flex justify-center items-center py-5">
+                    <div className="flex items-center justify-center py-5">
                       <div className="loader"></div>
                     </div>
                   )}
@@ -139,7 +135,7 @@ export default function MethodOfDeliv({
                     />
                   )}
                   {isOfficeLoading && (
-                    <div className="flex justify-center items-center py-5">
+                    <div className="flex items-center justify-center py-5">
                       <div className="loader"></div>
                     </div>
                   )}
