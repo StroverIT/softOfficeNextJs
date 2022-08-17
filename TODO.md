@@ -65,10 +65,12 @@ Pages to create:
 --[ x ] Delivery page
 ---[ ] Don't allow to go to this page, if is not logged in || pop menu for login or register
 
-- [ ] Admin panel
-      [ ] Deliveries for home
-      [ ] Delivery for the shop
-      [ ] Redirect if is not admin || not logged in
+- [ x ] Admin panel
+  [ x ] Deliveries for home
+  [ x ] Delivery for the shop
+  [ x ] Redirect if is not admin || not logged in
+  [ ] Delivery for EKONT
+  [ ] Delivery to OFFICE for EKONT
 
 [ x ] Products
 [ x ] Show product
