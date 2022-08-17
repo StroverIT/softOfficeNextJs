@@ -8,16 +8,11 @@ import ListBoxSearch from "../base/ListBoxSearch";
 // Context
 import { InputContext } from "./Context";
 // InnerUtils
-import { changeHandler } from "./innerUtils";
 import { DELIVERY } from "../cart/cartCostants";
 
-export default function DeliveryPanel({
-  userData,
-  setQuarterSelected,
-  quarterSelected,
-  quarters,
-}) {
-  const { inputs, setInputs } = useContext(InputContext);
+export default function DeliveryPanel({ userData, quarters }) {
+  const { inputs, setInputs, quarterSelected, setQuarterSelected } =
+    useContext(InputContext);
 
   const [addresses, setAddresses] = useState(userData.addresses);
   const [selected, setSelected] = useState(userData.addresses[0]);
@@ -40,6 +35,15 @@ export default function DeliveryPanel({
       setNewAddress(true);
     }
   }, [selected]);
+  const changeHandler = (e) => {
+    const name = e.target.name;
+    const val = e.target.value;
+
+    setInputs((prevState) => ({
+      ...prevState,
+      address: { ...prevState.address, [name]: val },
+    }));
+  };
 
   return (
     <section>
@@ -58,7 +62,7 @@ export default function DeliveryPanel({
               id="fullName"
               type="text"
               isReq={false}
-              onChange={(e) => changeHandler(e, setInputs)}
+              onChange={changeHandler}
               defValue={userData?.fullName}
             />
             <TelehponeInput
@@ -70,7 +74,7 @@ export default function DeliveryPanel({
               phoneNumber={userData.phoneNumber}
             />
           </section>
-          <section className="w-full flex flex-col space-y-5 mt-3">
+          <section className="flex flex-col w-full mt-3 space-y-5">
             <ListBoxSearch
               selected={quarterSelected}
               setSelected={setQuarterSelected}
@@ -82,7 +86,7 @@ export default function DeliveryPanel({
               id="address"
               type="text"
               isReq={false}
-              onChange={(e) => changeHandler(e, setInputs)}
+              onChange={changeHandler}
             />
           </section>
         </section>
