@@ -22,6 +22,13 @@ const Footer = () => {
                   </a>
                 </Link>
               </li>
+              <li className="mb-1">
+                <Link href="/personal-data-policy">
+                  <a href="#" className="hover:underline">
+                    Политика за личните данни
+                  </a>
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
