@@ -29,7 +29,6 @@ export default function Product({ delivery }) {
             <ul className="flex flex-col flex-wrap gap-x-2 gap-y-1">
               <li>Град: {address.city}</li>
               <li>Адрес за доставка: {address.address}</li>
-              <li>Пощенски код: {address.zipCode}</li>
               <li>Име: {address.name}</li>
               <li>Телефон: {address.telephone}</li>
               {address.comment && <li>Коментар: {address.comment}</li>}
