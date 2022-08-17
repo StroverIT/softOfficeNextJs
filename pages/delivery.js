@@ -138,12 +138,14 @@ function Delivery({ cart, userData, cities }) {
         <title>IvdaGeo</title>
         <meta name="description" content="Онлайн магазин IvdaGeo" />
       </Head>
-      <main className="mt-10 mb-16 container ">
+      <main className="container mt-10 mb-16 ">
         <section className="lg:grid lg:grid-cols-[75%25%] xl:grid-cols-[80%20%] lg:space-x-3">
           <InputContext.Provider
             value={{
               inputs,
               setInputs,
+              quarterSelected,
+              setQuarterSelected,
             }}
           >
             <section className="">
@@ -162,13 +164,11 @@ function Delivery({ cart, userData, cities }) {
                   userData={userData}
                   officeSelected={officeSelected}
                   setOfficeSelected={setOfficeSelected}
-                  quarterSelected={quarterSelected}
-                  setQuarterSelected={setQuarterSelected}
                 />
               </section>
               {/* Начин на плащане */}
               <section className="mt-4 border shadow border-gray">
-                <div className="flex items-center py-4 pl-3 text-lg bg-gray-300 border-b border-gray-150 font-semibold">
+                <div className="flex items-center py-4 pl-3 text-lg font-semibold bg-gray-300 border-b border-gray-150">
                   <div>
                     <GoCreditCard />
                   </div>
@@ -201,10 +201,10 @@ function Delivery({ cart, userData, cities }) {
                 </section>
               </section>
               {/* Total and comment if is needed */}
-              <section className=" mt-4 space-x-4">
+              <section className="mt-4 space-x-4 ">
                 {/* Добави коментар */}
                 <section className="flex flex-col border border-gray ">
-                  <div className="flex items-center py-4 pl-3 text-lg bg-gray-300 border-b border-gray-150 font-semibold">
+                  <div className="flex items-center py-4 pl-3 text-lg font-semibold bg-gray-300 border-b border-gray-150">
                     <div>
                       <AiOutlineComment />
                     </div>
@@ -237,6 +237,7 @@ export async function getServerSideProps(context) {
   // Session
   const session = await getSession({ req: context.req });
   let data = {};
+  // Must add if cart is empty and if is not logged in
   if (!session) {
     return {
       redirect: {
