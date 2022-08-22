@@ -36,7 +36,23 @@ export default function MagazinePanel({
   };
   const changeTypeHandler = (e) => {
     const name = e.target.name;
+    const cond = name == "address" ? "office" : "address";
     setTypeEkont(name);
+
+    if (name == "office") {
+      setQuarterSelected({ name: "Избери квартал" });
+    }
+    if (name == "address") {
+      setSelected({ name: "Избери офис" });
+    }
+
+    setInputs((prevState) => ({
+      ...prevState,
+      address: {
+        ...prevState.address,
+        [cond]: null,
+      },
+    }));
   };
   const changeHandler = (e) => {
     const name = e.target.name;
@@ -62,6 +78,7 @@ export default function MagazinePanel({
     }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
+
   return (
     <section className="flex flex-col my-10 md:mx-10">
       <section className="items-center justify-center lg:space-x-4 lg:flex">
@@ -94,8 +111,8 @@ export default function MagazinePanel({
         <RadioButton
           radioState={typeEkont}
           changeHandler={changeTypeHandler}
-          name="home"
-          id="home"
+          name="address"
+          id="address"
           text="До адрес"
           onClick={getQuarters}
         />
@@ -108,7 +125,7 @@ export default function MagazinePanel({
           inputPlaceholder={"Oфис..."}
         />
       )}
-      {typeEkont == "home" && (
+      {typeEkont == "address" && (
         <>
           {!isQuartersLoading && (
             <>
