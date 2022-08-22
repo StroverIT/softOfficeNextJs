@@ -1,14 +1,11 @@
-import React from "react";
+import React, { useRef } from "react";
 import { useState, useEffect } from "react";
 
-export default function Checkbox({ text, id }) {
-  const [checked, setChecked] = useState(false);
-  const changeHandler = (e) => {
-    const isChecked = e.target.checked;
-
-    setChecked(isChecked);
+export default function Checkbox({ text, id, checked, setChecked }) {
+  const inputRef = useRef(null);
+  const handler = (e) => {
+    setChecked(inputRef, e);
   };
-
   return (
     <div className="form-check ">
       <input
@@ -16,7 +13,8 @@ export default function Checkbox({ text, id }) {
         type="checkbox"
         id={id}
         checked={checked}
-        onChange={changeHandler}
+        ref={inputRef}
+        onChange={handler}
         value="option1"
         data-type={id}
       />

@@ -20,6 +20,8 @@ import quartersFetch from "../../../utils/getQuarters";
 
 // Context
 import { InputContext } from "../Context";
+import ListBox from "../../base/ListBox";
+import Input from "../../form/DeliveryInput";
 
 export default function MethodOfDeliv({
   selected,
@@ -37,7 +39,9 @@ export default function MethodOfDeliv({
 
   const [officeData, setOfficeData] = useState(null);
   const [quartersData, setQuartersData] = useState(null);
-
+  const [invoiceSelect, setInvoiceSelect] = useState({
+    name: "Юридическо лице",
+  });
   const getOfficeData = async () => {
     setIsOfficeLoading(true);
     const data = await getOffices(selected.cityId);
@@ -49,6 +53,11 @@ export default function MethodOfDeliv({
     const data = await quartersFetch(selected.cityId);
     setQuartesLoading(false);
     setQuartersData(data);
+  };
+  const invoiceHandler = (e, event) => {
+    const input = e.current;
+    const isChecked = input.checked;
+    setInvoice((prevState) => ({ ...prevState, isInvoice: isChecked }));
   };
   return (
     <section>
@@ -148,7 +157,105 @@ export default function MethodOfDeliv({
               )}
             </section>
             <section className="pb-6 pl-5">
-              <Checkbox text="Фактура" id="invoice" />
+              <Checkbox
+                text="Фактура"
+                id="invoice"
+                checked={invoice.isInvoice}
+                setChecked={invoiceHandler}
+              />
+              {invoice.isInvoice && (
+                <>
+                  <ListBox
+                    selected={invoiceSelect}
+                    setSelected={setInvoiceSelect}
+                    data={[
+                      { name: "Юридическо лице" },
+                      { name: "Физическо лице" },
+                    ]}
+                  />
+                  {invoiceSelect.name == "Юридическо лице" && (
+                    <section className="my-6">
+                      <Input
+                        placeholder="Фирма"
+                        id="firm"
+                        type="text"
+                        isReq={true}
+                        onChange={(e) => changeHandler(e, setInputs)}
+                        defValue={userData?.fullName}
+                      />
+                      <Input
+                        placeholder="МОЛ"
+                        id="mol"
+                        type="text"
+                        isReq={true}
+                        onChange={(e) => changeHandler(e, setInputs)}
+                        defValue={userData?.fullName}
+                      />
+                      <Input
+                        placeholder="ЕИК"
+                        id="eik"
+                        type="text"
+                        isReq={true}
+                        onChange={(e) => changeHandler(e, setInputs)}
+                        defValue={userData?.fullName}
+                      />
+                      <Input
+                        placeholder="Фирма"
+                        id="firm"
+                        type="text"
+                        isReq={true}
+                        onChange={(e) => changeHandler(e, setInputs)}
+                        defValue={userData?.fullName}
+                      />
+                      <Input
+                        placeholder="Адрес"
+                        id="address"
+                        type="text"
+                        isReq={true}
+                        onChange={(e) => changeHandler(e, setInputs)}
+                        defValue={userData?.fullName}
+                      />
+                    </section>
+                  )}
+                  {invoiceSelect.name == "Физическо лице" && (
+                    <section className="my-6">
+                      <Input
+                        placeholder="Име"
+                        id="name"
+                        type="text"
+                        isReq={true}
+                        onChange={(e) => changeHandler(e, setInputs)}
+                        defValue={userData?.fullName}
+                      />
+                      <Input
+                        placeholder="ЕГН"
+                        id="egn"
+                        type="text"
+                        isReq={true}
+                        onChange={(e) => changeHandler(e, setInputs)}
+                        defValue={userData?.fullName}
+                      />
+                      <Input
+                        placeholder="Град"
+                        id="eik"
+                        type="text"
+                        isReq={true}
+                        onChange={(e) => changeHandler(e, setInputs)}
+                        defValue={userData?.fullName}
+                      />
+
+                      <Input
+                        placeholder="Адрес"
+                        id="address"
+                        type="text"
+                        isReq={true}
+                        onChange={(e) => changeHandler(e, setInputs)}
+                        defValue={userData?.fullName}
+                      />
+                    </section>
+                  )}
+                </>
+              )}
             </section>
           </Tab.Panels>
         </Tab.Group>
