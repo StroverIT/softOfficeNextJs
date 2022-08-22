@@ -4,7 +4,7 @@ import User from "../../../db/models/User";
 import { connectMongo } from "../../../db/connectDb";
 
 import { getToken } from "next-auth/jwt";
-import { DELIVERY, MAGAZINE } from "../../../components/cart/cartCostants";
+import { DELIVERY, EKONT } from "../../../components/cart/cartCostants";
 
 const secret = process.env.NEXTAUTH_SECRET;
 
@@ -76,7 +76,6 @@ export default async function handler(req, res) {
       typeOfDelivery: inputs.typeOfDelivery,
       comment: inputs.comment,
     };
-    console.log(deliveryInfo, inputs);
     if (inputs.typeOfDelivery == DELIVERY) {
       const address = inputs.address;
       data.addressInfo = {
@@ -86,7 +85,16 @@ export default async function handler(req, res) {
         city: deliveryInfo.city.name,
       };
     }
-    await Delivery.create(data);
+    if (inputs.typeOfDelivery == EKONT) {
+      if (inputs.address?.office) {
+        // Write needed data when is for office to EKONT
+      }
+      if (inputs.address?.address) {
+        // Write needed data when is for address to EKONT
+      }
+      // Send to ekont needed data
+    }
+    // await Delivery.create(data);
 
     res.json({ message: "Успешно направена поръчка" });
   } catch (e) {
