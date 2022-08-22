@@ -43,8 +43,10 @@ function Delivery({ cart, userData, cities }) {
   const [quarterSelected, setQuarterSelected] = useState({
     name: "Избери квартал",
   });
+  const [invoice, setInvoice] = useState({ isInvoice: false, data: {} });
 
   const [orderState, setTypeOfOrder] = useState(MAGAZINE);
+
   const [paymentState, setTypePayment] = useState("cashOnDelivery");
   const [priceState, setPriceState] = useState({
     subTotal: 0,
@@ -98,6 +100,7 @@ function Delivery({ cart, userData, cities }) {
   };
   const changeOrderHandler = (e) => {
     const name = e.target.name;
+    console.log(name);
     setTypeOfOrder(name);
   };
 
@@ -146,6 +149,8 @@ function Delivery({ cart, userData, cities }) {
               setInputs,
               quarterSelected,
               setQuarterSelected,
+              invoice,
+              setInvoice,
             }}
           >
             <section className="">
