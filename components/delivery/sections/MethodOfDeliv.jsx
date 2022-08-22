@@ -1,6 +1,10 @@
 import React, { useContext, useState } from "react";
 
+// Components
 import RadioButton from "../../cart/RadioButton";
+import Checkbox from "../../base/CheckBoxBase";
+
+// Panels
 import MagazinePanel from "../../delivery/MagazinePanel";
 import DeliveryPanel from "../../delivery/DeliveryPanel";
 import EkontPanel from "../../delivery/EkontPanel";
@@ -16,6 +20,7 @@ import quartersFetch from "../../../utils/getQuarters";
 
 // Context
 import { InputContext } from "../Context";
+
 export default function MethodOfDeliv({
   selected,
   orderState,
@@ -25,7 +30,7 @@ export default function MethodOfDeliv({
   officeSelected,
   setOfficeSelected,
 }) {
-  const { inputs, setInputs } = useContext(InputContext);
+  const { invoice, setInvoice } = useContext(InputContext);
 
   const [isOfficeLoading, setIsOfficeLoading] = useState(false);
   const [isQuartersLoading, setQuartesLoading] = useState(false);
@@ -141,6 +146,9 @@ export default function MethodOfDeliv({
                   )}
                 </Tab.Panel>
               )}
+            </section>
+            <section className="pb-6 pl-5">
+              <Checkbox text="Фактура" id="invoice" />
             </section>
           </Tab.Panels>
         </Tab.Group>
