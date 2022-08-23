@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 
 // NextJs
 import Head from "next/head";
@@ -167,6 +167,7 @@ function Delivery({ cart, userData, cities }) {
                   changeOrderHandler={changeOrderHandler}
                   priceState={priceState}
                   userData={userData}
+                  cities={cities}
                   officeSelected={officeSelected}
                   setOfficeSelected={setOfficeSelected}
                 />

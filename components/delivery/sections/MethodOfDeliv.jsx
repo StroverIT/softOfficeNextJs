@@ -1,14 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 // Components
 import RadioButton from "../../cart/RadioButton";
 import Checkbox from "../../base/CheckBoxBase";
-
+import ListBox from "../../base/ListBox";
+import Input from "../../form/DeliveryInput";
+import ListBoxSearch from "../../base/ListBoxSearch";
 // Panels
 import MagazinePanel from "../../delivery/MagazinePanel";
 import DeliveryPanel from "../../delivery/DeliveryPanel";
 import EkontPanel from "../../delivery/EkontPanel";
-import { AiOutlineCar } from "react-icons/ai";
 
 // Headles ui
 import { Tab } from "@headlessui/react";
@@ -20,8 +21,8 @@ import quartersFetch from "../../../utils/getQuarters";
 
 // Context
 import { InputContext } from "../Context";
-import ListBox from "../../base/ListBox";
-import Input from "../../form/DeliveryInput";
+// Icons
+import { AiOutlineCar } from "react-icons/ai";
 
 export default function MethodOfDeliv({
   selected,
@@ -31,6 +32,7 @@ export default function MethodOfDeliv({
   userData,
   officeSelected,
   setOfficeSelected,
+  cities,
 }) {
   const { invoice, setInvoice } = useContext(InputContext);
 
@@ -39,9 +41,12 @@ export default function MethodOfDeliv({
 
   const [officeData, setOfficeData] = useState(null);
   const [quartersData, setQuartersData] = useState(null);
+
   const [invoiceSelect, setInvoiceSelect] = useState({
     name: "Юридическо лице",
   });
+  const [citySelected, setCitySelected] = useState(cities[21]);
+
   const getOfficeData = async () => {
     setIsOfficeLoading(true);
     const data = await getOffices(selected.cityId);
@@ -54,11 +59,23 @@ export default function MethodOfDeliv({
     setQuartesLoading(false);
     setQuartersData(data);
   };
-  const invoiceHandler = (e, event) => {
+  const invoiceCheckHandler = (e, event) => {
     const input = e.current;
     const isChecked = input.checked;
     setInvoice((prevState) => ({ ...prevState, isInvoice: isChecked }));
   };
+  const invoiceInputHandler = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    setInvoice((prevState) => ({
+      ...prevState,
+      data: { ...prevState.data, [name]: value },
+    }));
+  };
+  useEffect(() => {
+    setInvoice((prevState) => ({ ...prevState, data: {} }));
+  }, [setInvoice]);
   return (
     <section>
       <div className="flex items-center py-4 pl-3 text-lg font-semibold bg-gray-300 border-y border-gray-150">
@@ -161,7 +178,7 @@ export default function MethodOfDeliv({
                 text="Фактура"
                 id="invoice"
                 checked={invoice.isInvoice}
-                setChecked={invoiceHandler}
+                setChecked={invoiceCheckHandler}
               />
               {invoice.isInvoice && (
                 <>
@@ -180,40 +197,37 @@ export default function MethodOfDeliv({
                         id="firm"
                         type="text"
                         isReq={true}
-                        onChange={(e) => changeHandler(e, setInputs)}
-                        defValue={userData?.fullName}
+                        onChange={invoiceInputHandler}
+                        defValue={invoice?.firm}
                       />
                       <Input
                         placeholder="МОЛ"
                         id="mol"
                         type="text"
                         isReq={true}
-                        onChange={(e) => changeHandler(e, setInputs)}
-                        defValue={userData?.fullName}
+                        onChange={invoiceInputHandler}
+                        defValue={invoice?.mol}
                       />
                       <Input
                         placeholder="ЕИК"
                         id="eik"
                         type="text"
                         isReq={true}
-                        onChange={(e) => changeHandler(e, setInputs)}
-                        defValue={userData?.fullName}
+                        onChange={invoiceInputHandler}
+                        defValue={invoice?.eik}
                       />
-                      <Input
-                        placeholder="Фирма"
-                        id="firm"
-                        type="text"
-                        isReq={true}
-                        onChange={(e) => changeHandler(e, setInputs)}
-                        defValue={userData?.fullName}
+                      <ListBoxSearch
+                        selected={citySelected}
+                        setSelected={setCitySelected}
+                        data={cities}
                       />
                       <Input
                         placeholder="Адрес"
                         id="address"
                         type="text"
                         isReq={true}
-                        onChange={(e) => changeHandler(e, setInputs)}
-                        defValue={userData?.fullName}
+                        onChange={invoiceInputHandler}
+                        defValue={invoice?.address}
                       />
                     </section>
                   )}
@@ -224,33 +238,29 @@ export default function MethodOfDeliv({
                         id="name"
                         type="text"
                         isReq={true}
-                        onChange={(e) => changeHandler(e, setInputs)}
-                        defValue={userData?.fullName}
+                        onChange={invoiceInputHandler}
+                        defValue={invoice?.name}
                       />
                       <Input
                         placeholder="ЕГН"
                         id="egn"
                         type="text"
                         isReq={true}
-                        onChange={(e) => changeHandler(e, setInputs)}
-                        defValue={userData?.fullName}
+                        onChange={invoiceInputHandler}
+                        defValue={invoice?.egn}
                       />
-                      <Input
-                        placeholder="Град"
-                        id="eik"
-                        type="text"
-                        isReq={true}
-                        onChange={(e) => changeHandler(e, setInputs)}
-                        defValue={userData?.fullName}
+                      <ListBoxSearch
+                        selected={citySelected}
+                        setSelected={setCitySelected}
+                        data={cities}
                       />
-
                       <Input
                         placeholder="Адрес"
                         id="address"
                         type="text"
                         isReq={true}
-                        onChange={(e) => changeHandler(e, setInputs)}
-                        defValue={userData?.fullName}
+                        onChange={invoiceInputHandler}
+                        defValue={invoice?.address}
                       />
                     </section>
                   )}
