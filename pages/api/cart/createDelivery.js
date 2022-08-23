@@ -87,13 +87,18 @@ export default async function handler(req, res) {
     }
     if (inputs.typeOfDelivery == EKONT) {
       if (inputs.address?.office) {
+        if (!inputs.address.office) throw { error: "Пратен е невалиден офис" };
         // Write needed data when is for office to EKONT
       }
       if (inputs.address?.address) {
+        if (!inputs.address.address)
+          throw { error: "Пратен е невалиден адрес" };
+
         // Write needed data when is for address to EKONT
       }
       // Send to ekont needed data
     }
+    console.log(data);
     // await Delivery.create(data);
 
     res.json({ message: "Успешно направена поръчка" });
