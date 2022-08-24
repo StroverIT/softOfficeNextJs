@@ -42,14 +42,14 @@ async function handler(req, res) {
 
     // MUST SEND A PASSWORD page to change password with token URL
     const message = `
-      <h3>За сменяне на паролата в IvdaGeo.bg.
+      <h3>За сменяне на паролата в SoftOffice.bg.
       </h2><a href="${process.env.HOST_URL}/account/changePassword/${user._id}/${token.token}">Цъкнете тук</a>
       `;
     // Sending email
     await sendEmail(
       process.env.EMAIL_SEND,
       email,
-      "Смяна на парола IvdaGeo",
+      "Смяна на парола SoftOffice",
       message
     );
     mongoose.connection.close();

@@ -19,9 +19,9 @@ function NavLinkSubMenu({ subMenuData }) {
           isOpen ? "text-primary-lighter" : ""
         } transition-colors text-left text-[1rem] hover:text-primary pr-3`}
       >
-        <div className="flex items-center justify-center relative">
+        <div className="relative flex items-center justify-center">
           {data.menu}
-          <div className="absolute top-1/2 -translate-y-1/2 -right-5  text-primary">
+          <div className="absolute -translate-y-1/2 top-1/2 -right-5 text-primary">
             {isOpen ? <IoIosArrowDropdown /> : <IoIosArrowDropright />}
           </div>
         </div>
@@ -29,7 +29,13 @@ function NavLinkSubMenu({ subMenuData }) {
       {isOpen && (
         <ul>
           {subMenu.map((item, index) => {
-            return <LinkComp key={item} route={item} />;
+            return (
+              <LinkComp
+                key={item.name}
+                route={item.name}
+                name={item.displayName}
+              />
+            );
           })}
         </ul>
       )}

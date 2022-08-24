@@ -3,15 +3,16 @@ import mongoose from "mongoose";
 
 import Product from "../db/models/Product";
 
-export const getAllProducts = async (sectionName, filter) => {
+export const getAllProducts = async (route, filter) => {
   await connectMongo();
   // for case insensitive
 
-  return Product.findOne({
-    sectionName: {
-      $regex: new RegExp(sectionName, "i"),
-    },
+  const data = await Product.findOne({
+    name: route,
   });
+
+  mongoose.connection.close();
+  return data;
 };
 export const getAll = async () => {
   const options = { method: "GET" };
@@ -24,7 +25,7 @@ export const getAll = async () => {
 };
 export const productByItemId = async (itemId) => {
   await connectMongo();
-
+  console.log("vlezna");
   let data = await Product.findOne({ "articles.items._id": itemId }).lean();
 
   const filteredData = {
@@ -33,22 +34,19 @@ export const productByItemId = async (itemId) => {
   };
 
   const foundItem = filteredData.foundItem;
-
-  inner: for (let article of data.articles) {
-    for (let item of article.items) {
-      if (item._id == itemId) {
-        foundItem.item = item;
-        foundItem.articleName = article.articleName;
-        foundItem.sectionName = data.sectionName;
-        foundItem.itemUnit = data.itemUnit;
-        foundItem.imageUrl = data.imageUrl;
-        foundItem.description = data.description;
-        break inner;
-      }
+  inner: for (let article of data.subsection) {
+    if (article._id == itemId) {
+      foundItem.article = article;
+      foundItem.section = {
+        name: data.name,
+        nameToDisplay: data.nameToDisplay,
+        _id: data._id,
+      };
+      break inner;
     }
   }
   for (let i = 0; i < 5; i++) {
-    const article = data.articles[i];
+    const article = data.subsection[i];
     if (!article) break;
 
     const item = article.items[0];
@@ -58,6 +56,7 @@ export const productByItemId = async (itemId) => {
       item: item,
     });
   }
+
   return filteredData;
 };
 
@@ -66,7 +65,7 @@ export const getAllLatestTen = async () => {
   // Local
   // const data = await Product.findOne({ _id: "62dea6f488620a9fd35bbcec" });
 
-  // This is for ivdaGeo
+  // This is for SoftOffice
   const data = await Product.findOne({ _id: "62e1b3bfc2e0d00808f15e34" });
 
   // const data = await Product.find().sort({ _id: -1 }).limit(10);

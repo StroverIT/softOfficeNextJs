@@ -1,10 +1,9 @@
-import boiLateksi from "./boiLateksi/index";
-import pqni from "./pqni";
-import grundove from "./grundove";
-import grundoveZaPetna from "./grundoveZaPetna";
-import alkidnaBoqZaMetal from "./boiLateksi/alkidnaBoqZaMetal";
-import dvykomponentniHidroizolacii from "./dvykomponentniHidroizolacii";
-import silikoni from "./silikoni";
+import officeMatArt from "./officeMatArt";
+import tehnikiKonsymativiArt from "./tehnikiKonsymativiArt";
+import sredstvaZaPrezentaciqArt from "./sredstvaZaPrezentaciqArt";
+import hraniINapitkiArt from "./hraniINapitkiArt";
+import higienniSredstvaArt from "./higienniSredstvaArt";
+import obzavejdaneZaOfisArt from "./obzavejdaneZaOfisArt";
 /*
 mainRoute: "Main route"
 articles: {
@@ -18,25 +17,36 @@ articles: {
 */
 const dictionary = [
   {
-    title: "Бои/Латекси",
+    title: "Офис материали",
     // Menu
-    articles: boiLateksi,
+    articles: officeMatArt,
     icon: "",
   },
-
-  { title: "Пяни", articles: pqni },
-
-  { title: "Грундове", articles: grundove },
-  { title: "Грундове за петна", articles: grundoveZaPetna },
-
-  { title: "Алкидна Боя За Метал", articles: alkidnaBoqZaMetal },
-
   {
-    title: "Двукомпонентни Хидроизолации",
-    articles: dvykomponentniHidroizolacii,
+    title: "Техника и консумативи",
+    articles: tehnikiKonsymativiArt,
+    icon: "",
   },
-
-  { title: "Силикони", articles: silikoni },
+  {
+    title: "Средства за презентация",
+    articles: sredstvaZaPrezentaciqArt,
+    icon: "",
+  },
+  {
+    title: "Храни и напитки",
+    articles: hraniINapitkiArt,
+    icon: "",
+  },
+  {
+    title: "Хигиенни средства",
+    articles: higienniSredstvaArt,
+    icon: "",
+  },
+  {
+    title: "Обзавеждане за офис",
+    articles: obzavejdaneZaOfisArt,
+    icon: "",
+  },
 ];
 
 export default dictionary;

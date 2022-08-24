@@ -2,7 +2,7 @@
   "cacheDirectories": [
     ".next/cache"
   ],
-  "name": "ivdageo-site-nextjs",
+  "name": "SoftOffice-site-nextjs",
   "version": "0.1.0",
   "private": true,
   "scripts": {

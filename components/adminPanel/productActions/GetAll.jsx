@@ -62,8 +62,7 @@ export default function GetAll({ product }) {
       toastSuccess(data?.message);
     }
   };
-  useEffect(() => {}, [inputs]);
-  console.log(inputs);
+
   return (
     <InputContext.Provider value={{ inputs, setInputs }}>
       <section className="p-2 mb-10 border border-primary md:p-5">

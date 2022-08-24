@@ -75,7 +75,7 @@ export default function ContactUs() {
               </li>
               <li>
                 <span className="pr-1 font-semibold text-dark">Е-mail:</span>
-                ivdageopaint@gmail.com
+                softoffice@gmail.com
               </li>
             </ul>
           </div>

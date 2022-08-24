@@ -10,12 +10,12 @@ import { translationToRoute } from "../../utils/translationToRoute";
 import PricingPromo from "../priceStyling/PricingPromo";
 
 export default function Card({ data, sectionImage, sectionName }) {
-  const price = data.item.price.toFixed(2).split(".");
+  // const price = data.item.price.toFixed(2).split(".");
 
   const router = useRouter();
 
   return (
-    <section className="flex flex-col bg-white shadow-lg cursor-pointer hover:shadow-xl hover:-translate-y-2 transition-transform">
+    <section className="flex flex-col transition-transform bg-white shadow-lg cursor-pointer hover:shadow-xl hover:-translate-y-2">
       <div
         onClick={() =>
           router.push(
@@ -32,11 +32,11 @@ export default function Card({ data, sectionImage, sectionName }) {
               alt={sectionName}
             />
           </div>
-          <div className="container pt-4 font-medium text-center border-t border-gray py-10">
-            {sectionName} {data.articleName} {data.item.weight}
+          <div className="container py-10 pt-4 font-medium text-center border-t border-gray">
+            {sectionName} {data.articleName}
           </div>
         </div>
-        <PricingPromo isPromo={false} price={price[0]} priceDec={price[1]} />
+        {/* <PricingPromo isPromo={false} price={price[0]} priceDec={price[1]} /> */}
       </div>
     </section>
   );

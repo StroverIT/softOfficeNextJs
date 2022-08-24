@@ -10,7 +10,6 @@ const secret = process.env.NEXTAUTH_SECRET;
 
 export default async function handler(req, res) {
   const { cart, inputs, deliveryInfo } = req.body;
-  console.log(inputs);
 
   try {
     let subTotal = parseFloat(
@@ -76,7 +75,6 @@ export default async function handler(req, res) {
       typeOfDelivery: inputs.typeOfDelivery,
       comment: inputs.comment,
     };
-    console.log(deliveryInfo, inputs);
     if (inputs.typeOfDelivery == DELIVERY) {
       const address = inputs.address;
       data.addressInfo = {
@@ -90,7 +88,6 @@ export default async function handler(req, res) {
 
     res.json({ message: "Успешно направена поръчка" });
   } catch (e) {
-    console.log(e);
     res.status(400).json(e);
   }
 }

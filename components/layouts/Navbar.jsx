@@ -56,7 +56,6 @@ const Navbar = ({ cartTotalQty }) => {
       body: JSON.stringify({ input: e.target.value }),
     });
     const data = await res.json();
-    console.log(data);
     setSearchTabInputs(data);
   };
   useEffect(() => {
@@ -87,27 +86,25 @@ const Navbar = ({ cartTotalQty }) => {
       className={`z-50 animate sticky top-0  ${show ? "animateUp" : ""}`}
       ref={headerRef}
     >
-      <nav className={`flex bg-color ${style.cShadow}`}>
+      <nav className={`flex bg-[#0D6EFD] ${style.cShadow}`}>
         <div className="container relative flex items-center justify-between ">
-          <div className="flex items-center justify-center logo">
-            <Hamburger headRef={headerRef} />
+          <div className="flex items-center justify-center h-full">
             <Link href="/">
-              <div className="items-center justify-between hidden lg:flex">
-                <Image
-                  src="/images/logo.png"
-                  width={250}
-                  height={50}
-                  className="cursor-pointer"
-                  alt="This is test image"
-                />
+              <div className="items-center justify-between hidden text-4xl font-black cursor-pointer lg:flex text-primary-lighter lg:ml-1">
+                <span className="text-primary-100">Soft</span>
+                <span className="text-white">Office.bg</span>
               </div>
             </Link>
+            <Hamburger headRef={headerRef} />
 
             <li
-              className="flex items-center justify-center px-2 cursor-pointer lg:hidden hover:text-white hover:bg-gray h-14"
+              className="flex items-center justify-center px-2 transition-colors cursor-pointer lg:hidden group hover:bg-white h-14 "
               onClick={() => setShowSearch(!showSearch)}
             >
-              <button type="button" className="w-full h-full">
+              <button
+                type="button"
+                className="w-full h-full text-white group-hover:text-primary-100"
+              >
                 <svg
                   className="w-5 h-5"
                   fill="currentColor"
@@ -119,17 +116,11 @@ const Navbar = ({ cartTotalQty }) => {
               </button>
             </li>
           </div>
-
           <div className="lg:hidden">
             <Link href="/">
-              <div className="flex items-center justify-between lg:block">
-                <Image
-                  src="/images/logo.png"
-                  width={210}
-                  height={45}
-                  className="cursor-pointer"
-                  alt="This is test image"
-                />
+              <div className="flex items-center justify-between text-sm font-bold cursor-pointer lg:block text-primary-lighter lg:ml-1">
+                <span className="text-primary-100">Soft</span>
+                <span className="text-white">Office.bg</span>
               </div>
             </Link>
           </div>
@@ -137,38 +128,38 @@ const Navbar = ({ cartTotalQty }) => {
           <ul className={`${style.list} flex items-center justify-center `}>
             {/* Search icon */}
             <li
-              className="items-center justify-center hidden px-4 lg:flex h-14 lg:h-20 hover:bg-gray "
+              className="items-center justify-center hidden px-4 text-2xl transition-colors lg:flex h-14 lg:h-20 hover:bg-white group"
               onClick={() => setShowSearch(!showSearch)}
             >
-              <div className="text-xl">
+              <div className="font-bold text-white group-hover:text-primary-100">
                 <AiOutlineSearch className="icon" />
               </div>
-              <div className="pl-1 font-sans text-sm font-extralight">
+              <div className="pl-1 font-sans text-lg font-medium text-white group-hover:text-primary-100">
                 Търси
               </div>
             </li>
             {/* Favourite items */}
             <Link href="/account#my-favourites">
-              <li className="flex-col items-center justify-center hidden px-4 lg:flex h-14 lg:h-20 hover:text-white hover:bg-gray">
-                <div className="text-3xl">
+              <li className="flex-col items-center justify-center hidden px-4 transition-colors lg:flex h-14 lg:h-20 group hover:bg-white">
+                <div className="text-3xl text-white group-hover:text-primary-100">
                   <AiOutlineHeart className="icon" />
                 </div>
               </li>
             </Link>
             {/* Account */}
             <Link href="/account">
-              <li className="flex flex-col items-center justify-center px-4 h-14 lg:h-20 hover:text-white hover:bg-gray">
-                <div className="text-2xl md:text-3xl">
+              <li className="flex flex-col items-center justify-center px-4 transition-colors h-14 lg:h-20 group hover:bg-white ">
+                <div className="text-2xl text-white md:text-3xl group-hover:text-primary-100">
                   <AiOutlineUser className="icon" />
                 </div>
               </li>
             </Link>
             {/* Cart */}
             <Link href="/cart">
-              <li className="relative flex flex-col items-center justify-center px-4 h-14 lg:h-20 hover:text-white hover:bg-gray">
-                <div className="relative text-2xl md:text-3xl">
+              <li className="relative flex flex-col items-center justify-center px-4 transition-colors h-14 lg:h-20 group hover:bg-white">
+                <div className="relative text-2xl text-white md:text-3xl group-hover:text-primary-100">
                   <BsCart3 className="icon" />
-                  <div className="absolute md:px-2 md:py-1 px-[0.50rem] md:text-sm h-7 flex items-center justify-center text-[0.65rem] font-bold text-white border-2 border-white rounded-full -right-3 -top-3 bg-primary">
+                  <div className="absolute md:px-2 md:py-1 px-[0.50rem] md:text-sm h-7 flex items-center justify-center text-[0.65rem] font-bold text-white border-2 border-white rounded-full -right-3 -top-3 bg-primary-100">
                     {cartNum}
                   </div>
                 </div>
@@ -198,35 +189,42 @@ const Navbar = ({ cartTotalQty }) => {
             </div>
           </div>
         </div>
-        {searchTabInputs?.items?.length > 0 ||
+        {searchTabInputs?.katNomera?.length > 0 ||
         searchTabInputs?.articleNames?.length > 0 ||
         searchTabInputs?.sections?.length > 0 ? (
           <div className="">
             <div className="container overflow-auto shadow-lg h-96">
-              {searchTabInputs.items?.length > 0 && (
+              {searchTabInputs.katNomera?.length > 0 && (
                 <div className="w-full py-1 bg-white ">
                   <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-lighter">
-                    Продукти
+                    КатНомера
                   </h3>
                   <ul>
-                    {searchTabInputs.items.map((item, index) => {
+                    {searchTabInputs.katNomera.map((item) => {
                       return (
-                        <Link
-                          key={item.section}
-                          href={`/products/${item.route}`}
-                        >
-                          <li className="px-2 py-1 transition-transform border-b cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white border-primary flex items-center justify-between">
-                            <div className="text-lg">
-                              {item.sectionName} {item.articleName}{" "}
-                              {item.weight}
-                            </div>
-                            <div className="relative w-20 h-20">
-                              <Image
-                                src={`/uploads/${item.imageUrl}`}
-                                alt={item.sectionName}
-                                layout="fill"
-                              />
-                            </div>
+                        <Link key={item._id} href={`/products/${item.route}`}>
+                          <li className="px-2 py-1 transition-transform border-b cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white border-primary">
+                            <span className="text-lg text-green">
+                              {item.katNomer} -
+                            </span>
+                            <span>
+                              {item.commonName} {item.articleName}
+                            </span>
+                            <ul className="flex flex-wrap text-sm">
+                              {item.types[0]
+                                .split("\n")
+                                .slice(0, 5)
+                                .map((type, index) => {
+                                  return (
+                                    <li
+                                      key={`${type}=${index}`}
+                                      className="py-1 pr-1"
+                                    >
+                                      {type}
+                                    </li>
+                                  );
+                                })}
+                            </ul>
                           </li>
                         </Link>
                       );
@@ -242,21 +240,26 @@ const Navbar = ({ cartTotalQty }) => {
                   <ul>
                     {searchTabInputs.articleNames?.map((item) => {
                       return (
-                        <Link
-                          key={`${item.section} ${item.articleName}`}
-                          href={`/products/${item.route}`}
-                        >
-                          <li className="px-2 py-1 transition-transform border-b cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white border-primary flex items-center justify-between">
-                            <div className="text-lg">
-                              {item.section} {item.articleName}
-                            </div>
-                            <div className="relative w-20 h-20">
-                              <Image
-                                src={`/uploads/${item.imageUrl}`}
-                                alt={`${item.section} ${item.articleName}`}
-                                layout="fill"
-                              />
-                            </div>
+                        <Link key={item._id} href={`/products/${item.route}`}>
+                          <li className="px-2 py-1 transition-transform border-b cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white border-primary">
+                            <span className="text-lg text-green">
+                              {item.commonName} {item.articleName}
+                            </span>
+                            <ul className="flex flex-wrap text-sm">
+                              {item.types[0]
+                                .split("\n")
+                                .slice(0, 5)
+                                .map((type, index) => {
+                                  return (
+                                    <li
+                                      key={`${type}-${index}`}
+                                      className="py-1 pr-1"
+                                    >
+                                      {type}
+                                    </li>
+                                  );
+                                })}
+                            </ul>
                           </li>
                         </Link>
                       );
@@ -272,19 +275,9 @@ const Navbar = ({ cartTotalQty }) => {
                   <ul>
                     {searchTabInputs.sections.map((item) => {
                       return (
-                        <Link
-                          key={item.sectionName}
-                          href={`/products/${item.route}`}
-                        >
-                          <li className="px-2 py-1 transition-transform cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white flex justify-between items-center">
-                            <div className="text-lg">{item.sectionName}</div>
-                            <div className="relative w-20 h-20">
-                              <Image
-                                src={`/uploads/${item.imageUrl}`}
-                                alt={item.sectionName}
-                                layout="fill"
-                              />
-                            </div>
+                        <Link key={item._id} href={`/products/${item.route}`}>
+                          <li className="px-2 py-1 transition-transform cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white">
+                            {item.sectionName}
                           </li>
                         </Link>
                       );

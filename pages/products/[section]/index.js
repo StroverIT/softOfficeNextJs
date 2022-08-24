@@ -18,7 +18,6 @@ import sortByDictionary from "../../../dictonaries/allProductDicFilters";
 // Services
 import { getAllProducts } from "../../../services/productService";
 // translation
-import { translationToDb } from "../../../utils/translationToRoute";
 import Checkbox from "../../../components/base/Checkbox";
 // Redux
 import { useDispatch } from "react-redux";
@@ -40,7 +39,7 @@ export default function Section({ products, types, sectionRoute }) {
   const [filterMenu, setFilterMenu] = useState(false);
 
   //Product state
-  const [articles, setArticles] = useState(products?.articles);
+  const [articles, setArticles] = useState(products?.subsection);
 
   // total filters
   const [filters, setFilters] = useState([]);
@@ -183,24 +182,22 @@ export default function Section({ products, types, sectionRoute }) {
               </div>
             )}
 
-            {articles &&
-              articles.map((article) => {
-                return article?.items?.map((item) => {
+            <section className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
+              {articles &&
+                articles.map((article) => {
                   return (
                     <Product
+                      key={article._id}
+                      section={{
+                        name: products.nameToDisplay,
+                        route: products.name,
+                      }}
                       article={article}
-                      item={item}
-                      key={item._id}
-                      imageUrl={products.imageUrl}
-                      sectionName={products.sectionName}
-                      itemUnit={products.itemUnit}
-                      sectionRoute={sectionRoute}
-                      description={products.description}
                       addProduct={addProduct}
                     />
                   );
-                });
-              })}
+                })}
+            </section>
           </section>
         </div>
       )}
@@ -216,21 +213,20 @@ export default function Section({ products, types, sectionRoute }) {
 // Getting all product.. if filtering Must be filtering somehow
 export async function getServerSideProps(context) {
   let { section } = context.params;
-  const products = await getAllProducts(section.split("-").join(" "));
-
+  const products = await getAllProducts(section);
   // Must add total qty on every types how much is qty of the every filter
-  let typesObj = new Set();
-  products?.articles?.forEach((article) => {
-    article.items?.forEach((item) => {
-      typesObj.add(item.weight);
-    });
-  });
-  typesObj = Array.from(typesObj);
+  // let typesObj = new Set();
+  // products?.subsection?.forEach((article) => {
+  //   article.items?.forEach((item) => {
+  //     typesObj.add(item.weight);
+  //   });
+  // });
+  // typesObj = Array.from(typesObj);
   return {
     props: {
       products: JSON.parse(JSON.stringify(products)),
       sectionRoute: section,
-      types: typesObj,
+      // types: typesObj,
     },
   };
 }

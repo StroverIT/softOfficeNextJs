@@ -25,7 +25,6 @@ function Item({ itemLen, articleLen, itemData }) {
   const changeHandler = (e) => {
     const name = e.target.name;
     let value = e.target.value;
-    console.log(name, value);
     if (name.includes("image")) {
       value = e.target.files[0];
     }

@@ -1,116 +1,226 @@
-import { useState } from "react";
-
 // NextJS
 import Head from "next/head";
+import Image from "next/image";
 
 // Components
-import NavLinks from "../components/layouts/navComponents/navLinks";
+
 import BtnOutlined from "../components/buttons/Outlined";
 import Icons from "../components/Icons/Icons";
 
 // Import Swiper React components
 import SwiperPag from "../components/swiperJs/SwiperPag";
 import SwiperFreeMode from "../components/swiperJs/SwiperFreeMode";
-import { getAllLatestTen } from "../services/productService";
-
-// Fetches
-import { addNewUser } from "../services/newsletterServiceFetch";
-// Notifications
-import { toastSuccess, toastError } from "../components/notificataions/Toast";
 
 // Images
 const swiperPag = [
   {
-    src: "/images/homeBanner/seriqMaster.jpg",
-    key: "Серия мастер",
-    pageUrl: "/listSeries/master",
+    src: "/carousel/hero_slides_1.png",
+    key: "test carousel for my monday 1",
+    pageUrl: "/products/product",
   },
   {
-    src: "/images/homeBanner/4Seasons.jpg",
-    key: "Серия четири сезона",
-    pageUrl: "/listSeries/4-seasons",
-  },
-];
-const forUs = [
-  {
-    src: "/images/AboutUs/slide-1.jpg",
-    key: "Image for ivdageo slide 1",
-    pageUrl: "/",
-  },
-  {
-    src: "/images/AboutUs/slide-2.jpg",
-    key: "Image for ivdageo slide 2",
-    pageUrl: "/",
-  },
-  {
-    src: "/images/AboutUs/slide-3.jpg",
-    key: "Image for ivdageo slide 3",
-    pageUrl: "/",
-  },
-  {
-    src: "/images/AboutUs/slide-4.jpg",
-    key: "Image for ivdageo slide 4",
-    pageUrl: "/",
-  },
-  {
-    src: "/images/AboutUs/slide-5.jpg",
-    key: "Image for ivdageo slide 5",
-    pageUrl: "/",
-  },
-];
-[];
-export default function Home({ topMonthOfferts }) {
-  const [email, setEmail] = useState("");
-  const [isLoading, setLoading] = useState(false);
+    src: "/carousel/hero_slides_2.png",
 
-  const emailHandler = (e) => {
-    setEmail(e.target.value);
-  };
-  const newsLetterSubmitHandler = async (e) => {
-    setLoading(true);
-    e.preventDefault();
-    const res = await addNewUser(email);
-    const data = await res.json();
-    console.log(data);
-    if (data.error) {
-      toastError(data.error);
-    }
-    if (data.message) {
-      toastSuccess(data.message);
-    }
-    setLoading(false);
-  };
+    key: "test carousel for my monday version 2",
+    pageUrl: "/products/product",
+  },
+  {
+    src: "/carousel/hero_slides_3.png",
+
+    key: "test carousel for my monday version 3",
+    pageUrl: "/products/product",
+  },
+  {
+    src: "/carousel/hero_slides_4.png",
+
+    key: "test carousel for my monday version 4",
+    pageUrl: "/products/product",
+  },
+  {
+    src: "/carousel/hero_slides_5.png",
+
+    key: "test carousel for my monday version 5",
+    pageUrl: "/products/product",
+  },
+  {
+    src: "/carousel/ferero.png",
+
+    key: "test carousel for my monday version 6",
+    pageUrl: "/products/product",
+  },
+  {
+    src: "/carousel/freedeliveryLego.png",
+
+    key: "test carousel for my monday version 7",
+    pageUrl: "/products/product",
+  },
+];
+const swiperFreeImages = [
+  {
+    src: "/images/testCarousel.jpg",
+    title: "Боя за коса",
+    price: 123,
+    isPromo: false,
+    pageUrl: "/products/product1",
+  },
+  {
+    src: "/images/testCarousel.jpg",
+    title: "ШКАФ ЗА БАНЯ С ОГЛЕДАЛО SYNCHRO Т2108-80К",
+    price: 123,
+    isPromo: false,
+    pageUrl: "/products/product2",
+  },
+  {
+    src: "/images/testCarousel.jpg",
+    title: "СМЕСИТЕЛ ЗА КУХНЯ FORMA VITA КРИСТАЛ",
+    price: 23.94,
+    isPromo: true,
+    pageUrl: "/products/product3",
+  },
+  {
+    src: "/images/testCarousel.jpg",
+    title: "СМЕСИТЕЛ ЗА КУХНЯ FORMA VITA Диамант",
+    price: 1000.94,
+    isPromo: false,
+    pageUrl: "/products/product4",
+  },
+  {
+    src: "/images/testCarousel.jpg",
+    title: "Шкаф за обувки",
+    price: 10,
+    isPromo: false,
+    pageUrl: "/products/product5",
+  },
+  {
+    src: "/images/testCarousel.jpg",
+    title: "Шкаф за дрехи",
+    price: 15,
+    isPromo: false,
+    pageUrl: "/products/product6",
+  },
+];
+import { FaShieldAlt } from "react-icons/fa";
+import { TiStopwatch } from "react-icons/ti";
+
+export default function Home() {
   return (
     <>
       <Head>
-        <meta name="description" content="Онлайн магазин IvdaGeo" />
+        <title>SoftOffice</title>
+        <meta name="description" content="Онлайн магазин SoftOffice" />
       </Head>
 
-      <main className="pb-20 mb-auto bg-color">
+      <main className="pb-10 mb-auto bg-color">
         <section>
-          <div className="mb-10 -mt-24 sm:mt-0 md:shadow-lg md:bg-white sm:container">
-            <section className="lg:grid lg:space-x-2 lg:grid-cols-[20%80%] w-full relative ">
-              <section className="z-10 hidden mt-3 lg:py-2 lg:block ">
-                <h1 className="pl-3 ml-1 text-lg font-semibold xl:block">
-                  Категории продукти
-                </h1>
-                <div className="mt-2">
-                  <NavLinks isHome={true} />
-                </div>
-              </section>
-              <section className="relative flex items-center justify-center h-full ">
+          <div className="shadow-md ">
+            <section className="relative w-full ">
+              <section className="relative flex items-center justify-center">
                 <SwiperPag images={swiperPag} navSize="3xl" />
               </section>
             </section>
           </div>
         </section>
-        <section className="pt-3 pb-2 mb-5 bg-color">
+        <section className="container items-center justify-center my-10 text-5xl sm:flex sm:gap-x-5">
+          <div className="flex flex-col items-center justify-center mb-5 sm:mb-0">
+            <FaShieldAlt />
+            <div className="text-sm font-semibold uppercase">ценова защита</div>
+          </div>
+          <div className="hidden gray-line sm:block"></div>
+          <div className="flex flex-col items-center justify-center">
+            <TiStopwatch />
+            <div className="text-sm font-semibold uppercase">
+              експресна доставка
+            </div>
+          </div>
+        </section>
+        {/* Images for edi kakvo si */}
+
+        <section className="container flex flex-wrap items-center justify-center gap-6 py-10 cursor-pointer mb-14">
+          <div className="relative w-full sm:h-96 md:w-[600px] md:h-[300px] h-[200px] shadow-lg border-gray-300 border">
+            <Image
+              src="/homeImages/chairForOffices.jpg"
+              alt="ivan"
+              layout="fill"
+            />
+            <div className="absolute px-5 py-1 text-white bottom-2 right-2 bg-primary-100">
+              Виж повече
+            </div>
+          </div>
+          <div className="relative w-full sm:h-96 md:w-[600px] md:h-[300px] h-[200px] cursor-pointer shadow-lg border-gray-300 border">
+            <Image
+              src="/homeImages/lazerenPrinter.jpg"
+              alt="ivan"
+              layout="fill"
+            />
+            <div className="absolute px-5 py-1 text-white bottom-2 right-2 bg-primary-100">
+              Виж повече
+            </div>
+          </div>
+          <div className="relative w-full sm:h-96 md:w-[600px] md:h-[300px] h-[200px] cursor-pointer shadow-lg border-gray-300 border">
+            <Image src="/homeImages/office.jpg" alt="ivan" layout="fill" />
+            <div className="h-full backdrop-blur-[2px]"></div>
+            <div className="absolute w-3/4 text-white -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+              <div className="w-full py-6 font-sans text-2xl font-semibold text-center border border-gray-150 bg-dark-transparent">
+                Обзаведи твоят офис
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Promotion header */}
+        <section className="relative z-10 text-center index-title">
+          <h3 className="inline px-4 text-3xl font-medium bg-color">
+            Промоции
+          </h3>
+          <div className="text-xs uppercase cursor-pointer text-primary-100">
+            виж всички
+          </div>
+        </section>
+
+        <section className="container mt-10 mb-10">
+          <SwiperFreeMode images={swiperFreeImages} navSize="3xl" />
+        </section>
+        <section className=" bg-color">
+          <div className="container">
+            <section className="relative z-10 text-center index-title">
+              <h3 className="inline px-4 mt-1 text-3xl font-medium bg-color">
+                Онлайн магазин SoftOffice
+              </h3>
+            </section>
+            <section className="items-center justify-center grid-cols-2 my-5 lg:grid">
+              <div className="mt-5 text-center sm:mb-5 lg:text-left lg:my-0 lg:w-5/6">
+                <span className="font-semibold text-gray-darker">
+                  Ние от Softoffice сме убедени, че Вие трябва да се чувствате
+                  свободни при избора си, затова наш приоритет е предлагане на
+                  услуги и комплексни решения от ново поколение, които да дават
+                  възможност Вие да покриете изискванията си максимално и да сте
+                  100% удовлетворени от партньорството с нас.
+                </span>
+              </div>
+
+              <div className="relative flex items-center justify-center w-full h-52 lg:h-96">
+                {/* Image  of the shop*/}
+
+                <Image
+                  src="/images/testCarousel.jpg"
+                  alt="atasda"
+                  layout="fill"
+                  objectFit="contain"
+                />
+              </div>
+            </section>
+          </div>
+        </section>
+        {/* <section className="py-5 bg-color">
+          <h1 className="text-center">Тука ще има нашите партньори</h1>
+        </section> */}
+        <section className="pb-2 bg-color">
           <div className="container relative z-20 h-full bg-white shadow-lg">
             <section className="py-5 border custom-border-container border-gray-bord border-l-primary">
               <section className="container grid-cols-2 lg:grid">
                 <div className="">
                   <h2 className="mb-1 text-lg font-semibold">
-                    ИвдаГео бюлетин
+                    SoftOffice бюлетин
                   </h2>
                   <p className="mb-3 text-sm text-dark-400 lg:max-w-lg">
                     Абонирайте се за нашият онлайн бюлетин, за да получавате
@@ -131,8 +241,6 @@ export default function Home({ topMonthOfferts }) {
                             type="email"
                             placeholder="И-мейл за абонамент"
                             required={true}
-                            value={email}
-                            onChange={emailHandler}
                             name="email"
                           />
                           <label
@@ -147,8 +255,6 @@ export default function Home({ topMonthOfferts }) {
                         <BtnOutlined
                           text="изпрати"
                           type="submit"
-                          isLoading={isLoading}
-                          onClick={newsLetterSubmitHandler}
                           custom="lg:hover:bg-primary-lighter lg:hover:text-white"
                         />
                       </div>
@@ -159,54 +265,7 @@ export default function Home({ topMonthOfferts }) {
             </section>
           </div>
         </section>
-        <section className="py-5 mb-5">
-          <div className="container">
-            <h1 className="mb-3 text-xl font-semibold">
-              Месечни топ предложения
-            </h1>
-            <SwiperFreeMode data={topMonthOfferts} navSize="3xl" />
-          </div>
-        </section>
-        <section className="mb-5 bg-color">
-          <div className="container ">
-            <section className="items-center justify-center grid-cols-2 my-5 lg:grid">
-              <div className="mt-5 mb-5 text-center lg:text-left lg:my-0 lg:w-5/6">
-                <h2 className="py-2 text-2xl font-semibold ">
-                  За нас и нашият магазин
-                </h2>
-                <span className="font-semibold text-center text-gray-darker">
-                  Строителен супермаркет Ивда Гео с повече от 20 години опит в
-                  търговията със строителни материали, инструменти, крепежни
-                  елементи и други. В нашата железария ще намерите винаги богат
-                  асортимент от продукти на отлични цени и качествено
-                  обслужване. През годините се доказахме като надежден и лоялен
-                  партньор в бранша. Ние следим всички нови тенденции и можем да
-                  ви предложим решение за всеки индивидуален проект.
-                </span>
-              </div>
-
-              <div className="flex items-center justify-center w-full h-full lg:h-96">
-                {/* Image  of the shop*/}
-                <SwiperPag
-                  images={forUs}
-                  navSize="3xl"
-                  imgHeight_lg="lg:[500px]"
-                />
-              </div>
-            </section>
-          </div>
-        </section>
-        {/* <section className="py-5 bg-color">
-          <h1 className="text-center">Тука ще има нашите партньори</h1>
-        </section> */}
       </main>
     </>
   );
-}
-
-export async function getServerSideProps(context) {
-  const topMonthOfferts = await getAllLatestTen();
-  return {
-    props: { topMonthOfferts: JSON.parse(JSON.stringify(topMonthOfferts)) },
-  };
 }

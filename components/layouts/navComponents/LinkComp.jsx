@@ -1,14 +1,16 @@
 import React from "react";
-import Link from "next/link";
-import { translationToRoute } from "../../../utils/translationToRoute";
+import { useRouter } from "next/router";
 
-function LinkComp({ route, mainRoute }) {
+import Link from "next/link";
+// import { translationToRoute } from "../../../utils/translationToRoute";
+
+function LinkComp({ route, name }) {
   return (
-    <Link href={`/products/${translationToRoute(route)}`}>
+    <Link href={`/products/${route}`}>
       <li
-        className={`hover:translate-x-1  text-[1rem]  cursor-pointer hover:text-primary  transition-transform text-gray-darker max-w-full`}
+        className={`hover:translate-x-1  text-[1rem]  cursor-pointer hover:text-primary  transition-transform`}
       >
-        {route}
+        {name}
       </li>
     </Link>
   );

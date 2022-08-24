@@ -1,36 +1,63 @@
 import { Schema, model, models } from "mongoose";
 
 // Item
-const itemScheme = new Schema({
-  weight: String,
-  price: Number,
-  boughts: { type: Number, default: 0 },
+const imageSchema = new Schema({
+  name: String,
+  desc: String,
+  img: {
+    data: Buffer,
+    contentType: String,
+  },
 });
-// Article
-const articlesScheme = new Schema({
-  articleName: {
+const itemsSchema = new Schema({
+  cvetove: {
+    type: Boolean,
+  },
+  cena: {
+    type: Number,
+    required: true,
+  },
+  katNomer: {
+    type: String,
+    required: true,
+  },
+  tipove: {
+    type: String,
+    required: true,
+  },
+  isOnPromotions: {
+    type: Boolean,
+    default: false,
+  },
+  isOnlyNumb: {
+    type: Boolean,
+    default: false,
+  },
+  isInStock: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+const subsectionSchema = new Schema({
+  opisanie: {
+    type: String,
+  },
+  tiput: {
     type: String,
   },
 
-  items: [itemScheme],
-  totalItemBoughts: { type: Number, default: 0 },
-});
-// Section
-const productScheme = new Schema({
-  sectionName: {
+  nameToDisplay: {
     type: String,
   },
-  imageUrl: {
-    type: String,
-  },
-  description: {
-    type: [{ type: String }],
-  },
-  itemUnit: { type: String },
-  totalBoughtProducts: { type: Number, default: 0 },
-  articles: [articlesScheme],
+  img: [imageSchema],
+  items: [itemsSchema],
 });
-
-const Product = models.Product || model("Product", productScheme);
+const ProductsSchema = new Schema({
+  name: { type: String, required: true },
+  nameToDisplay: { type: String, unique: false, required: false },
+  subsection: [subsectionSchema],
+});
+const Product = models.Product || model("Product", ProductsSchema);
 
 export default Product;

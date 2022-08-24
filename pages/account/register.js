@@ -41,7 +41,6 @@ const Register = () => {
     //Await for data for any desirable next steps
     if (res.status != 201) {
       const data = await res.json();
-      console.log(data);
       setErrorMessages([...data.map((e) => e)]);
       setLoading(false);
       return;
@@ -88,8 +87,8 @@ const Register = () => {
   return (
     <>
       <Head>
-        <title>IvdaGeo register page</title>
-        <meta name="description" content="Онлайн магазин IvdaGeo" />
+        <title>SoftOffice register page</title>
+        <meta name="description" content="Онлайн магазин SoftOffice" />
       </Head>
 
       <main>
@@ -172,7 +171,7 @@ const Register = () => {
                         правилата и условията
                       </span>
                     </Link>
-                    на IvdaGeo
+                    на SoftOffice
                   </label>
                 </div>
               </div>
@@ -194,7 +193,7 @@ const Register = () => {
                         условията за поверителност на лични данни
                       </span>
                     </Link>
-                    на IvdaGeo
+                    на SoftOffice
                   </label>
                 </div>
               </div> */}

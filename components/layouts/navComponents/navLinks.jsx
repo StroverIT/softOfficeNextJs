@@ -15,12 +15,12 @@ const NavLinks = ({ isHome }) => {
         }`}
         data-columns="2"
       >
-        {dictionary.map((section, index) => {
+        {dictionary.map((section) => {
           return (
             <NavLinkMenu
               title={section.title}
               articles={section.articles}
-              key={section.title + index}
+              key={section.title}
               isHome={isHome}
             />
           );

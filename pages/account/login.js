@@ -45,8 +45,8 @@ const Login = ({ query }) => {
   return (
     <>
       <Head>
-        <title>IvdaGeo login page</title>
-        <meta name="description" content="Онлайн магазин IvdaGeo" />
+        <title>SoftOffice login page</title>
+        <meta name="description" content="Онлайн магазин SoftOffice" />
       </Head>
 
       <main className="container">
@@ -134,7 +134,7 @@ const Login = ({ query }) => {
             </div>
           </div>
 
-          {/* Image is the something of IvdaGeo */}
+          {/* Image is the something of SoftOffice */}
         </div>
       </main>
     </>

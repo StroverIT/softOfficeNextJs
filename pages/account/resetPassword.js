@@ -57,8 +57,8 @@ export default function ResetPassword() {
   return (
     <>
       <Head>
-        <title>IvdaGeo reset password</title>
-        <meta name="description" content="Онлайн магазин IvdaGeo" />
+        <title>SoftOffice reset password</title>
+        <meta name="description" content="Онлайн магазин SoftOffice" />
       </Head>
       <main>
         <div className="container flex justify-center my-10">

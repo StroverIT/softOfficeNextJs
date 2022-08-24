@@ -3,11 +3,11 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="bg-primary blue-white-theme">
+    <footer className="bg-primary-500 blue-white-theme">
       <div className="container">
         <div className="grid justify-between gap-4 py-8 sm:grid-cols-2 md:flex">
           <div>
-            <h2 className="mb-2 font-semibold uppercase text-md">IvdaGeo</h2>
+            <h2 className="mb-2 font-semibold uppercase text-md">SoftOffice</h2>
             <ul className="text-gray-300">
               <li className="mb-1">
                 <Link href="/aboutUs">
@@ -155,7 +155,7 @@ const Footer = () => {
       </div>
       <div className="flex items-center justify-center py-6 bg-primary-second ">
         <div className="text-sm text-center text-gray-500">
-          © 2022 <a href="/contact">ivdaGeo™</a>. Всички права запазени.
+          © 2022 <a href="/contact">SoftOffice™</a>. Всички права запазени.
         </div>
       </div>
     </footer>

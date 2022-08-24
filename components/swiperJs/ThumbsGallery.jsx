@@ -19,7 +19,7 @@ import SwiperNav from "./SwiperNav";
 import { FreeMode, Navigation, Thumbs, Zoom } from "swiper";
 
 const dictionary = {
-  lg: "lg:h-[21rem]",
+  lg: "lg:h-[35rem]",
 };
 export default function ThumsGallery({ navSize, image }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -40,19 +40,17 @@ export default function ThumsGallery({ navSize, image }) {
               thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
           }}
           modules={[FreeMode, Navigation, Thumbs, Zoom]}
-          className="relative mySwiper2 "
+          className="relative mySwiper2"
         >
-          {image && (
-            <SwiperSlide>
-              <div className="flex items-center justify-center">
-                <div
-                  className={`relative w-full sm:w-64 md:w-96 h-52 ${dictionary.lg} `}
-                >
-                  <Image src={`/uploads/${image}`} layout="fill" alt={image} />
-                </div>
+          <SwiperSlide>
+            <section className="sm:px-24">
+              <div
+                className={`relative  h-96 sm:h-[30rem] md:h-[20rem] ${dictionary.lg} flex items-center justify-center`}
+              >
+                <Image src={`/uploads/${image}`} layout="fill" alt="Img" />
               </div>
-            </SwiperSlide>
-          )}
+            </section>
+          </SwiperSlide>
 
           <SwiperNav size={navSize} />
         </Swiper>
@@ -72,13 +70,18 @@ export default function ThumsGallery({ navSize, image }) {
 
             // when window width is >= 768px
           }}
-          className="mySwiper mt-3"
+          className="mt-3 mySwiper"
         >
-          {/* <SwiperSlide>
-            <div className="relative w-36 h-24">
-              <Image src={`/uploads/${image}`} layout="fill" alt={image} />
+          <SwiperSlide>
+            <div className="relative w-full h-24">
+              <Image
+                src={`/uploads/${image}`}
+                layout="fill"
+                alt="Img"
+                className="object-contain"
+              />
             </div>
-          </SwiperSlide> */}
+          </SwiperSlide>
         </Swiper>
       </div>
     </>

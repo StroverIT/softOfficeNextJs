@@ -23,7 +23,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
         />
         <link rel="icon" href="images/titleLogo32x32.png" type="image/png" />
-        <title>Строителен магазин ИвдаГео</title>
+        <title>Строителен магазин СофтОфис</title>
       </Head>
       <SessionProvider session={pageProps.session}>
         <Provider store={store}>

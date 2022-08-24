@@ -135,8 +135,8 @@ function Delivery({ cart, userData, cities }) {
   return (
     <>
       <Head>
-        <title>IvdaGeo</title>
-        <meta name="description" content="Онлайн магазин IvdaGeo" />
+        <title>SoftOffice</title>
+        <meta name="description" content="Онлайн магазин SoftOffice" />
       </Head>
       <main className="container mt-10 mb-16 ">
         <section className="lg:grid lg:grid-cols-[75%25%] xl:grid-cols-[80%20%] lg:space-x-3">
@@ -177,7 +177,7 @@ function Delivery({ cart, userData, cities }) {
                 <section>
                   {paymentState == CARD_PAYMENT && (
                     <div className="px-2 pt-6 font-semibold text-center text-secondary">
-                      За момента не може да се плаща с карта. От IvdaGeo се
+                      За момента не може да се плаща с карта. От SoftOffice се
                       извиняваме за причиненото неудобство
                     </div>
                   )}

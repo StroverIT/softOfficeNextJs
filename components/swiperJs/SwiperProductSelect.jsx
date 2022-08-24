@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 // NextJs
-import { useRouter } from "next/router";
 import Image from "next/image";
 
 // Import Swiper React components
@@ -22,9 +21,11 @@ import { FreeMode, Pagination, Navigation } from "swiper";
 import PricingPromo from "../priceStyling/PricingPromo";
 import SwiperNav from "./SwiperNav";
 
-export default function SwiperFreeMode({ images, navSize }) {
-  const router = useRouter();
-
+export default function SwiperProductSelect({
+  articleItems,
+  article,
+  navSize,
+}) {
   return (
     <>
       <div className="flex flex-row items-stretch swipebody">
@@ -44,48 +45,45 @@ export default function SwiperFreeMode({ images, navSize }) {
           breakpoints={{
             // when window width is >= 640px
             0: {
-              slidesPerView: 1,
+              slidesPerView: 1.25,
             },
             640: {
-              slidesPerView: 2.25,
+              slidesPerView: 2,
             },
             // when window width is >= 768px
             768: {
-              slidesPerView: 4,
+              slidesPerView: articleItems.length > 3 ? 3 : 2,
             },
           }}
           modules={[FreeMode, Pagination, Navigation]}
           className={`mySwiper relative freeModeSwiper`}
         >
-          {images.map((image) => {
-            let [price, priceDec] = image.price.toFixed(2).split(".");
+          {articleItems.map((item) => {
+            let price = item.cena.split(".");
             return (
               <SwiperSlide
                 className="flex flex-col bg-white shadow-lg cursor-pointer hover:shadow-xl"
-                key={image.title}
+                key={item._id}
               >
-                <div
-                  onClick={() => router.push(image.pageUrl)}
-                  className="flex flex-col justify-between h-full"
-                >
+                <div className="flex flex-col justify-between w-full h-full">
                   <div>
-                    <div>
+                    <div className="relative w-full h-96">
                       <Image
-                        src={image.src}
-                        //  layout="fill"
+                        src={`/uploads/${article.img}`}
                         height={700}
                         width={1000}
-                        alt={image.title}
+                        // layout="fill"
+                        alt={article.img}
                       />
                     </div>
                     <div className="container font-medium text-center border-t border-gray">
-                      {image.title}
+                      Gosho
                     </div>
                   </div>
                   <PricingPromo
-                    isPromo={image.isPromo}
-                    price={price}
-                    priceDec={priceDec}
+                    // isPromo={image.isPromo}
+                    price={price[0]}
+                    priceDec={price[1]}
                   />
                 </div>
               </SwiperSlide>
