@@ -28,7 +28,9 @@ const sendEmail = async (fromEmail, email, subject, text) => {
       subject: subject,
       html: text,
     });
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 
 export default sendEmail;
