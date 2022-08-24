@@ -65,6 +65,9 @@ function Delivery({ cart, userData, cities }) {
   const createDelivery = async () => {
     toastPromise("Изпраща се...");
 
+    if (invoice.isInvoice) {
+      inputs.invoice = invoice.data;
+    }
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
