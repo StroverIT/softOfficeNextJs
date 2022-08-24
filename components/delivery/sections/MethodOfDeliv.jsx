@@ -66,8 +66,11 @@ export default function MethodOfDeliv({
   };
   const invoiceInputHandler = (e) => {
     const name = e.target.name;
-    const value = e.target.value;
+    let value = e.target.value;
 
+    if (name == "address") {
+      value = `${citySelected.name} ${value}`;
+    }
     setInvoice((prevState) => ({
       ...prevState,
       data: { ...prevState.data, [name]: value },
@@ -76,6 +79,7 @@ export default function MethodOfDeliv({
   useEffect(() => {
     setInvoice((prevState) => ({ ...prevState, data: {} }));
   }, [setInvoice]);
+
   return (
     <section>
       <div className="flex items-center py-4 pl-3 text-lg font-semibold bg-gray-300 border-y border-gray-150">
