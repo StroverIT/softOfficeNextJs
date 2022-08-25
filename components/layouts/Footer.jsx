@@ -54,26 +54,26 @@ const Footer = () => {
                 </a>
               </li>
 
-              <li className="mb-1">
+              {/* <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Транспорт
                 </a>
-              </li>
-              <li className="mb-1">
+              </li> */}
+              {/* <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Съвети
                 </a>
-              </li>
+              </li> */}
               <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Връщане на поръчка
                 </a>
               </li>
-              <li className="mb-1">
+              {/* <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Доставка при онлайн покупка
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div>
@@ -81,11 +81,11 @@ const Footer = () => {
               Обща информация
             </h2>
             <ul className="text-gray-300">
-              <li className="mb-1">
+              {/* <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Услуги
                 </a>
-              </li>
+              </li> */}
 
               <li className="mb-1">
                 <a href="#" className="hover:underline">
