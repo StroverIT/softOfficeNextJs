@@ -57,9 +57,6 @@ export default function Index({ data }) {
       message: resData.message,
     }));
   }
-  if (innerRoutes.verifyDelivery) {
-    localStorage.clear();
-  }
 
   useEffect(() => {
     if (inputs.password.length > 0 || inputs.confPassword.length > 0) {
@@ -72,6 +69,15 @@ export default function Index({ data }) {
       }
     }
   }, [errors, inputs]);
+  useEffect(() => {
+    console.log(dataState);
+    if (
+      innerRoutes.verifyDelivery &&
+      dataState?.message == "Успешно потвърдихте поръчката си"
+    ) {
+      localStorage.clear();
+    }
+  }, [dataState]);
 
   return (
     <>
