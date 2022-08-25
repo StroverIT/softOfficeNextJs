@@ -191,3 +191,6 @@ input[type="range"]::-webkit-slider-thumb {
 .font-roboto {
   font-family: "Roboto", sans-serif;
 }
+.Toastify__toast-container--top-right {
+  top: 5.5rem !important;
+}
