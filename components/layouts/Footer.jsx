@@ -7,31 +7,6 @@ const Footer = () => {
       <div className="container">
         <div className="grid justify-between gap-4 py-8 sm:grid-cols-2 md:flex">
           <div>
-            <h2 className="mb-2 font-semibold uppercase text-md">IvdaGeo</h2>
-            <ul className="text-gray-300">
-              <li className="mb-1">
-                <Link href="/aboutUs">
-                  <a className="hover:underline">За нас</a>
-                </Link>
-              </li>
-
-              <li className="mb-1">
-                <Link href="/terms-and-conditions">
-                  <a href="#" className="hover:underline">
-                    Общи условия
-                  </a>
-                </Link>
-              </li>
-              <li className="mb-1">
-                <Link href="/privacy-and-policy">
-                  <a href="#" className="hover:underline">
-                    Политика за личните данни
-                  </a>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
             <h2 className="mb-2 font-semibold text-gray-400 uppercase text-md">
               Контакти
             </h2>
@@ -151,6 +126,38 @@ const Footer = () => {
               </li>
             </ul>
           </div> */}
+          <div>
+            <h2 className="mb-2 font-semibold uppercase text-md">IvdaGeo</h2>
+            <ul className="text-gray-300">
+              <li className="mb-1">
+                <Link href="/aboutUs">
+                  <a className="hover:underline">За нас</a>
+                </Link>
+              </li>
+
+              <li className="mb-1">
+                <Link href="/terms-and-conditions">
+                  <a href="#" className="hover:underline">
+                    Общи условия
+                  </a>
+                </Link>
+              </li>
+              <li className="mb-1">
+                <Link href="/privacy-and-policy">
+                  <a href="#" className="hover:underline">
+                    Политика за личните данни
+                  </a>
+                </Link>
+              </li>
+              <li className="mb-1">
+                <Link href="/policy-returning-products">
+                  <a href="#" className="hover:underline">
+                    Политика за връщане
+                  </a>
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div className="flex items-center justify-center py-6 bg-primary-second ">
