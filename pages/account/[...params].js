@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 const innerRoutes = {
   verifyAccount: "verifyAccountToken",
   changePassword: "changePassword",
+  verifyDelivery: "verifyDelivery",
 };
 export default function Index({ data }) {
   const router = useRouter();
@@ -56,6 +57,7 @@ export default function Index({ data }) {
       message: resData.message,
     }));
   }
+
   useEffect(() => {
     if (inputs.password.length > 0 || inputs.confPassword.length > 0) {
       if (inputs.password != inputs.confPassword) {
@@ -67,6 +69,15 @@ export default function Index({ data }) {
       }
     }
   }, [errors, inputs]);
+  useEffect(() => {
+    console.log(dataState);
+    if (
+      innerRoutes.verifyDelivery &&
+      dataState?.message == "Успешно потвърдихте поръчката си"
+    ) {
+      localStorage.clear();
+    }
+  }, [dataState]);
 
   return (
     <>
@@ -92,7 +103,7 @@ export default function Index({ data }) {
               </div>
             </>
           )}
-          {dataState?.route == "changePassword" && !dataState?.error && (
+          {dataState?.route == innerRoutes.changePassword && !dataState?.error && (
             <div className="container flex flex-col items-center justify-center">
               <h1 className="mb-5 text-lg font-medium text-primary">
                 Смяна на паролата
@@ -170,6 +181,21 @@ export async function getServerSideProps(context) {
         data.route = innerRoutes.changePassword;
         data.token = token;
         data.userId = userId;
+      }
+    }
+    if (url == innerRoutes.verifyDelivery) {
+      if (!data.error) {
+        const res = await fetch(
+          `${process.env.HOST_URL}/api/account/verifyDeliveryToken/${userId}/${token}`
+        );
+
+        const resData = await res.json();
+        if (res.status != 201) {
+          throw {
+            message: resData.message,
+          };
+        }
+        data.message = resData.message;
       }
     }
   } catch (e) {

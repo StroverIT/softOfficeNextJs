@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container">
         <div className="grid justify-between gap-4 py-8 sm:grid-cols-2 md:flex">
           <div>
-            <h2 className="mb-2 font-semibold uppercase text-md">SoftOffice</h2>
+            <h2 className="mb-2 font-semibold uppercase text-md">IvdaGeo</h2>
             <ul className="text-gray-300">
               <li className="mb-1">
                 <Link href="/aboutUs">
@@ -54,26 +54,26 @@ const Footer = () => {
                 </a>
               </li>
 
-              <li className="mb-1">
+              {/* <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Транспорт
                 </a>
-              </li>
-              <li className="mb-1">
+              </li> */}
+              {/* <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Съвети
                 </a>
-              </li>
+              </li> */}
               <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Връщане на поръчка
                 </a>
               </li>
-              <li className="mb-1">
+              {/* <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Доставка при онлайн покупка
                 </a>
-              </li>
+              </li> */}
             </ul>
           </div>
           <div>
@@ -81,11 +81,11 @@ const Footer = () => {
               Обща информация
             </h2>
             <ul className="text-gray-300">
-              <li className="mb-1">
+              {/* <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Услуги
                 </a>
-              </li>
+              </li> */}
 
               <li className="mb-1">
                 <a href="#" className="hover:underline">
@@ -151,6 +151,38 @@ const Footer = () => {
               </li>
             </ul>
           </div> */}
+          <div>
+            <h2 className="mb-2 font-semibold uppercase text-md">IvdaGeo</h2>
+            <ul className="text-gray-300">
+              <li className="mb-1">
+                <Link href="/aboutUs">
+                  <a className="hover:underline">За нас</a>
+                </Link>
+              </li>
+
+              <li className="mb-1">
+                <Link href="/terms-and-conditions">
+                  <a href="#" className="hover:underline">
+                    Общи условия
+                  </a>
+                </Link>
+              </li>
+              <li className="mb-1">
+                <Link href="/privacy-and-policy">
+                  <a href="#" className="hover:underline">
+                    Политика за личните данни
+                  </a>
+                </Link>
+              </li>
+              <li className="mb-1">
+                <Link href="/policy-returning-products">
+                  <a href="#" className="hover:underline">
+                    Политика за връщане
+                  </a>
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
       <div className="flex items-center justify-center py-6 bg-primary-second ">

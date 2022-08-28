@@ -32,7 +32,7 @@ Hamburger:
 
 Footer:
 [ x ] information
-[ ] Links
+[ x] Links
 [ ] social media Icons HYPER LINKS
 
 Home Content:
@@ -44,13 +44,13 @@ Pages to create:
 [ x ] Forgotten password page
 
 - [ x ] Register
-  [ ] after succefuly registration redirect to this page ↓
+  [x ] after succefuly registration redirect to this page ↓
   [ x ] Verify account page
 
 [ x ] Resend verify code
 
 - [ x ] deliveri page
-  [ ] When is not valid format or is not delivery checked can't send delivery
+  [ x] When is not valid format or is not delivery checked can't send delivery
 
 - [ x ] Account
   [ x ] Change password
@@ -58,25 +58,25 @@ Pages to create:
   [ x ] Email
   [ x ] Made orders
   [ x ] Favourites
-  [] Redirect to login page if no account
-  [ ] If users is logged in go to /account page
+  [x] Redirect to login page if no account
+  [ x] If users is logged in go to /account page
 
 [ x ] Cart
 --[ x ] Delivery page
----[ ] Don't allow to go to this page, if is not logged in || pop menu for login or register
+---[ x] Don't allow to go to this page, if is not logged in || pop menu for login or register
 
 - [ x ] Admin panel
   [ x ] Deliveries for home
   [ x ] Delivery for the shop
   [ x ] Redirect if is not admin || not logged in
-  [ ] Delivery for EKONT
-  [ ] Delivery to OFFICE for EKONT
+  [x ] Delivery for EKONT
+  [ x] Delivery to OFFICE for EKONT
 
 [ x ] Products
 [ x ] Show product
 
-[ ] Rules and privacy
-[ ] Terms and contidions
+[ x] Rules and privacy
+[ x] Terms and contidions
 
 [ x ] About us
 [ ] How to buy
@@ -91,15 +91,15 @@ Functionalities:
   [ x] Login
   [x ] register
   [ x] Account
-  [ ] Delivery page(When user make a delivery)
-  [ ] Admin deliveries page
-  [ ] Product page
-  [ ] Show product page
+  [x ] Delivery page(When user make a delivery)
+  [ x] Admin deliveries page
+  [x ] Product page
+  [ x] Show product page
 
-- [ ] Toast notification
-      [ ] While is pending
-      [ ] If succesful (Sometimes need to redirect to other page)
-      [ ] If not succesful (Maybe show what is wrong, maybe not. We'll see :D)
+- [ x] Toast notification
+  [ x] While is pending
+  [ x] If succesful (Sometimes need to redirect to other page)
+  [ x] If not succesful (Maybe show what is wrong, maybe not. We'll see :D)
 
 - [ x] Auth
   [ x] Check if is admin || not
@@ -115,14 +115,14 @@ Functionalities:
       [ ] Bank Transaction
       [ ] Credit/Debit Card
       [ ] On place
-- [ ] Delivery fee
-      [ ] In Sofia - 20 lv
-      [ ] Outside Sofiq less than 100 km - 80 lv
-      [ ] Outside Sofiq more than 100 km - 180 lv
+- [ x] Delivery fee
 
-[ ] Search on write to show products
+- [ ] Delivery page
+      [] Фактура
+
+[x ] Search on write to show products
 [ ] On click search to go to different page and show all matched searches
-[ ] Show by filter
+[ x] Show by filter
 [ ] Pagination
 [ ] News latter
 <------ Hints ------>
@@ -192,3 +192,8 @@ imageUrl - LINK or img path
 
 Да се сложи логиката за доставки
 Като засега ще има само с личен транспорт и взимане от място
+
+---- ! Логиката за фактурата !----
+Тази фактура трябва да може да е на всяка страница
+
+Само трябва да се вкара в базата данни при сървъра, иначе е готово !!! Това став въпрос за фактурата. Всичко е готово

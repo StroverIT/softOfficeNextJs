@@ -25,6 +25,7 @@ const deliveryScheme = new Schema({
       return new Date(Date.now()).toLocaleDateString();
     },
   },
+  invoice: { type: Object },
   typeOfDelivery: { type: String, required: true },
 });
 

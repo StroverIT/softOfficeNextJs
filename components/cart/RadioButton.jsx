@@ -27,7 +27,7 @@ export default function RadioButton({
   onClick,
 }) {
   return (
-    <div className="relative form-check " onClick={onClick}>
+    <div className="relative flex form-check" onClick={onClick}>
       <input
         className={` float-left w-3 h-3 mt-1 mr-2 align-top transition duration-200 bg-white bg-center bg-no-repeat bg-contain border  rounded-full appearance-none cursor-pointer form-check-input checked:bg-primary checked:border-primary focus:outline-none border-gray `}
         type="radio"
@@ -37,7 +37,9 @@ export default function RadioButton({
         onChange={changeHandler}
       />
       <label
-        className={`inline-block font-normal text-gray-800 cursor-pointer select-none form-check-label ${customLabelClass} flex `}
+        className={`font-normal text-gray-800 cursor-pointer select-none form-check-label ${
+          customLabelClass && customLabelClass
+        } flex `}
         htmlFor={id}
       >
         <div className="pr-1 my-auto text-xl font-bold">
