@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
 // Nextjs
 import { getSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 // Icons
 import { AiOutlineHeart } from "react-icons/ai";
 // Styling
-import style from "../../../../styles/products/showProduct.module.css";
-// Components
-import ThumbsGallery from "../../../../components/swiperJs/ThumbsGallery";
 import Pricing from "../../../../components/priceStyling/Pricing";
 import { productByItemId } from "../../../../services/productService";
 import AddProductInput from "../../../../components/products/AddProductInput";
@@ -35,13 +33,19 @@ import Image from "next/image";
 import SwiperProductSelect from "../../../../components/swiperJs/SwiperProductSelect";
 
 export default function Index({ data, userData, isInFav }) {
-  const product = data?.foundItem;
+  const router = useRouter();
+  const routerHash = router?.asPath?.split("#");
+
+  const [product, setProduct] = useState({ ...data.foundItem });
   const alternatives = data?.alternatives;
 
   const [currQty, setQty] = useState(1);
   const [price, setPrice] = useState(null);
   const [isFav, setIsFav] = useState(isInFav);
+  const [isSelected, setSelected] = useState(false);
+
   const dispatch = useDispatch();
+
   const addProduct = (product, productName) => {
     const newObj = productFormater(product);
     // ${productName} Беше успешно добавен в количката
@@ -95,12 +99,42 @@ export default function Index({ data, userData, isInFav }) {
 
   const itemName = `${product?.section?.nameToDisplay} ${product?.article?.nameToDisplay} `;
 
+  const selectedProductHandler = (data) => {
+    router.push(`#${data.item._id}`, undefined, { shallow: true });
+  };
+
   useEffect(() => {
     if (product?.article?.items?.length == 1) {
       setPrice(product?.article?.items[0]?.cena);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  useEffect(() => {
+    console.log("smenq se");
+    if (routerHash[1]) {
+      console.log("tyka vliza1");
+      const newData = Object.assign({}, data.foundItem);
+
+      inner: for (let item of newData?.article?.items) {
+        if (item._id == routerHash[1]) {
+          newData.article.items = [{ ...item }];
+          break inner;
+        }
+      }
+
+      if (newData?.article?.items?.length > 1) {
+        setPrice(newData.article.items[0].cena);
+        setSelected(true);
+        setProduct(newData);
+      }
+    } else {
+      console.log("tyka vliza2");
+
+      setProduct({ ...data.foundItem });
+      setSelected(false);
+    }
+  }, [router.asPath]);
   return (
     <main className="mb-auto">
       <div className="container">
@@ -111,11 +145,11 @@ export default function Index({ data, userData, isInFav }) {
           {/* <div className="mt-5 md:mt-1">
             <ul className="text-sm text-right text-gray-250">
               <li>Код: 23141412</li> 
-              <li>КатНомер: {product.item.katNomer}</li>
+              <li>КатНомер: {product.katNomer}</li>
             </ul>
           </div> */}
         </div>
-        {product?.article?.items?.length == 1 && (
+        {(product?.article?.items?.length == 1 || isSelected) && (
           <>
             <div className="grid-cols-2 lg:grid xl:grid-cols-[60%40%] ">
               <div className="py-20 border border-gray-bord">
@@ -179,7 +213,7 @@ export default function Index({ data, userData, isInFav }) {
                   {userData && isFav && (
                     <div
                       className="flex items-center justify-center col-span-2 mt-6 transition-transform cursor-pointer group hover:-translate-y-1"
-                      onClick={() => removeFavourites(product.item._id)}
+                      onClick={() => removeFavourites(product._id)}
                     >
                       <div className="inline-flex p-2 text-xl rounded-full bg-gray group-hover:text-white group-hover:bg-secondary md:ml-5 ">
                         <AiOutlineHeart />
@@ -219,12 +253,13 @@ export default function Index({ data, userData, isInFav }) {
             </section>
           </>
         )}
-        {product?.article?.items?.length > 1 && (
+        {product?.article?.items?.length > 1 && !isSelected && (
           <>
             <SwiperProductSelect
               articleItems={product?.article?.items}
               article={{ img: product?.article?.img?.originalname }}
               navSize="3xl"
+              onClick={selectedProductHandler}
             />
           </>
         )}

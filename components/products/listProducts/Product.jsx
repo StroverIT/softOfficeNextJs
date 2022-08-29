@@ -12,7 +12,7 @@ import { HiX } from "react-icons/hi";
 
 export default function Product({ section, article, addProduct }) {
   const router = useRouter();
-  // const routerHash = router.asPath.split("#");
+  const routerHash = router?.asPath?.split("#");
 
   const [openItemsMenu, setOpenItemsMenu] = useState(false);
   const name = `${section.name} ${article.nameToDisplay} `;
@@ -25,15 +25,15 @@ export default function Product({ section, article, addProduct }) {
 
   const openMenu = (e) => {
     const _id = e.target.getAttribute("data");
-    // router.push(`#${_id}`, undefined, { shallow: true });
+    router.push(`#${_id}`, undefined, { shallow: true });
     setOpenItemsMenu(true);
   };
   const closeMenu = () => {
     setOpenItemsMenu(false);
   };
-  // useEffect(() => {
-  //   if (article._id == routerHash[1]) setOpenItemsMenu(true);
-  // }, []);
+  useEffect(() => {
+    if (article._id == routerHash[1]) setOpenItemsMenu(true);
+  }, [article._id]);
   useEffect(() => {
     if (openItemsMenu) {
       document.body.style.overflowY = "hidden";

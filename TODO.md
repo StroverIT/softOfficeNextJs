@@ -193,7 +193,22 @@ imageUrl - LINK or img path
 Да се сложи логиката за доставки
 Като засега ще има само с личен транспорт и взимане от място
 
----- ! Логиката за фактурата !----
-Тази фактура трябва да може да е на всяка страница
+----Pages for integration for new db models----
 
-Само трябва да се вкара в базата данни при сървъра, иначе е готово !!! Това став въпрос за фактурата. Всичко е готово
+[] Buy button
+-[] section page
+
+- [] product page
+  [] Favourite
+  -[] product page
+  -[] Account page
+  [X] Section page (List all products)
+  [] Product page
+  [] Cart
+  [] Account
+- [] fav products
+- [] delivery products
+
+[] Delivery back-end logic
+
+--- Ideas for integration ----

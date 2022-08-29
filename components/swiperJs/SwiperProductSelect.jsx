@@ -25,6 +25,7 @@ export default function SwiperProductSelect({
   articleItems,
   article,
   navSize,
+  onClick,
 }) {
   return (
     <>
@@ -64,15 +65,14 @@ export default function SwiperProductSelect({
               <SwiperSlide
                 className="flex flex-col bg-white shadow-lg cursor-pointer hover:shadow-xl"
                 key={item._id}
+                onClick={() => onClick({ item })}
               >
                 <div className="flex flex-col justify-between w-full h-full">
                   <div>
                     <div className="relative w-full h-96">
                       <Image
                         src={`/uploads/${article.img}`}
-                        height={700}
-                        width={1000}
-                        // layout="fill"
+                        layout="fill"
                         alt={article.img}
                       />
                     </div>
