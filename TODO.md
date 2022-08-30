@@ -218,3 +218,20 @@ imageUrl - LINK or img path
   [] Delivery back-end logic
 
 --- Ideas for integration ----
+item: {
+route: item.\_id,
+types: item.tipove,
+cena: item.price,
+isOnPromotion: item.isOnPromotion,
+isOnlyNumb: item.isOnlyNumb,
+},
+article: {
+imgUrl,
+name: article.nameToDisplay,
+route: article.name
+
+},
+section: {
+name: section.nameToDisplay,
+route: section.name
+},

@@ -28,8 +28,11 @@ import { toastProduct } from "../../../components/notificataions/Toast";
 export default function Section({ products, types, sectionRoute }) {
   const dispatch = useDispatch();
 
-  const addProduct = (product, productName) => {
-    toastProduct(productName);
+  const addProduct = (product) => {
+    const name = `${product.section.name} ${product.article.name}`;
+    toastProduct(name);
+
+    console.log(product);
     dispatch(addToCart(product));
   };
 

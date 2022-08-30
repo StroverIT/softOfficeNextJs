@@ -5,11 +5,26 @@ import BuyBtn from "../../base/BuyBtn";
 
 import Pricing from "../../priceStyling/Pricing";
 
-export default function ListItem({ section, articleData, item }) {
+export default function ListItem({ section, articleData, item, addProduct }) {
   const name = `${section.name} ${articleData.name}`;
   const types = item.tipove.split(";");
   const price = item.cena.toFixed(2).split(".");
 
+  const sanitezedData = {
+    item: {
+      route: item._id,
+      types: item.tipove,
+      cena: item.cena,
+      isOnPromotion: item.isOnPromotions,
+      isOnlyNumb: item.isOnlyNumb,
+    },
+    article: {
+      ...articleData,
+    },
+    section: {
+      ...section,
+    },
+  };
   return (
     <div className="flex flex-col items-center justify-center w-full break-words bg-white border shadow-2xl sm:w-96 border-primary rounded-3xl">
       <section className="container">
@@ -41,7 +56,7 @@ export default function ListItem({ section, articleData, item }) {
       <div className="w-full bg-gray-300 rounded-3xl">
         <section className="container py-5">
           <div className="mb-3">
-            <BuyBtn />
+            <BuyBtn onClick={() => addProduct(sanitezedData)} />
           </div>
           <Link href={`/products/${section.route}/${articleData.route}`}>
             <button className="w-full py-1 font-semibold border rounded-full border-primary text-primary">

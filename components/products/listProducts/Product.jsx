@@ -69,7 +69,27 @@ export default function Product({ section, article, addProduct }) {
                   metaData={article._id}
                 />
               ) : (
-                <BuyBtn />
+                <BuyBtn
+                  onClick={() =>
+                    addProduct({
+                      item: {
+                        route: article.items[0]._id,
+                        types: article.items[0].tipove,
+                        cena: article.items[0].cena,
+                        isOnPromotion: article.items[0].isOnPromotions,
+                        isOnlyNumb: article.items[0].isOnlyNumb,
+                      },
+
+                      article: {
+                        ...articleData,
+                      },
+                      section: {
+                        name: section.name,
+                        route: section.route,
+                      },
+                    })
+                  }
+                />
               )}
             </div>
             <Link href={`/products/${section.route}/${article._id}`}>
@@ -99,6 +119,7 @@ export default function Product({ section, article, addProduct }) {
                         item={item}
                         articleData={articleData}
                         section={section}
+                        addProduct={addProduct}
                       />
                     );
                   })}
