@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 
 // Icons
 import { AiOutlineHeart } from "react-icons/ai";
-import {IoArrowUndo} from "react-icons/io"
+import { IoArrowUndo } from "react-icons/io5";
 // Styling
 import Pricing from "../../../../components/priceStyling/Pricing";
 import { productByItemId } from "../../../../services/productService";
@@ -112,35 +112,52 @@ export default function Index({ data, userData, isInFav }) {
   }, []);
 
   useEffect(() => {
-    console.log("smenq se");
     if (routerHash[1]) {
-      console.log("tyka vliza1");
-      const newData = Object.assign({}, data.foundItem);
+      console.log("dataItem Len_OLD", data.foundItem.article.items.length);
 
+      console.log("tyka vliza1");
+      const newData = JSON.parse(JSON.stringify(data.foundItem));
       inner: for (let item of newData?.article?.items) {
         if (item._id == routerHash[1]) {
           newData.article.items = [{ ...item }];
           break inner;
         }
       }
-
-      if (newData?.article?.items?.length > 1) {
+      if (newData?.article?.items?.length >= 1) {
+        setProduct(newData);
         setPrice(newData.article.items[0].cena);
         setSelected(true);
-        setProduct(newData);
       }
     } else {
-      console.log("tyka vliza2");
-
+      console.log(data.foundItem);
       setProduct({ ...data.foundItem });
       setSelected(false);
     }
+    console.log("dataItem Len_New", data.foundItem.article.items.length);
+    console.log("data", data);
   }, [router.asPath]);
   return (
     <main className="mb-auto">
       <div className="container">
         <div className="flex flex-col justify-between py-5 my-5 text-gray-500 border-b md:flex-row border-gray-bord">
           <div className="text-2xl font-semibold">
+            {isSelected && (
+              <div
+                className="cursor-pointer mb-5 flex items-center text-secondary hover:text-primary-100"
+                onClick={() =>
+                  router.push(
+                    `/products/hartiq/61eb119d7815ce846f1745b7`,
+                    undefined,
+                    { shallow: true }
+                  )
+                }
+              >
+                <div>
+                  <IoArrowUndo />
+                </div>
+                <div className="text-sm mt-1 ml-1">Назад</div>
+              </div>
+            )}
             <span className="ml-1 ">{itemName}</span>
           </div>
           {/* <div className="mt-5 md:mt-1">
