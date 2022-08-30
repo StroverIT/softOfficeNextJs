@@ -203,12 +203,16 @@ imageUrl - LINK or img path
   -[] product page
   -[] Account page
   [X] Section page (List all products)
-  [] Product page
+  [x] Product page
   [] Cart
   [] Account
 - [] fav products
 - [] delivery products
-
-[] Delivery back-end logic
+  [] if is not buyable, but to show number
+  [] Promotion
+- [] Admin panel create
+- [] on index to show all promotions
+- [] if item is on promotion
+  [] Delivery back-end logic
 
 --- Ideas for integration ----
