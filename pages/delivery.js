@@ -8,7 +8,7 @@ import RadioButton from "../components/cart/RadioButton";
 import DueAmount from "../components/delivery/sections/DueAmount";
 
 // Utils
-import { MAGAZINE, EKONT } from "../components/cart/cartCostants";
+import { MAGAZINE, EKONT, DELIVERY } from "../components/cart/cartCostants";
 // Fetches Ekont
 import getBgCities from "../utils/getBgCities";
 
@@ -45,7 +45,7 @@ function Delivery({ cart, userData, cities }) {
   });
   const [invoice, setInvoice] = useState({ isInvoice: false, data: {} });
 
-  const [orderState, setTypeOfOrder] = useState(MAGAZINE);
+  const [orderState, setTypeOfOrder] = useState(DELIVERY);
 
   const [paymentState, setTypePayment] = useState("cashOnDelivery");
   const [priceState, setPriceState] = useState({
@@ -111,30 +111,27 @@ function Delivery({ cart, userData, cities }) {
     let subTotal = parseFloat(
       cart
         .map((item) => {
-          return item.item.price * item.qty;
+          console.log(item);
+          return item.item.item.cena * item.qty;
         })
         .reduce((a, b) => a + b, 0)
         .toFixed(2)
     );
 
     let dds = subTotal * 0.2;
+
     let state = {
-      delivery: 0,
+      delivery: 10,
       totalPrice: subTotal + dds,
       dds,
       subTotal,
     };
-    if (selected.name == "София") {
-      setPriceState(() => state);
-      setTypeOfOrder(MAGAZINE);
+
+    if (state.totalPrice > 50) {
+      state.delivery = 0;
     }
-    if (selected.name != "София") {
-      const delivery = 2.99;
-      state.delivery = delivery;
-      state.totalPrice = subTotal + dds + delivery;
-      setPriceState(() => state);
-      setTypeOfOrder(EKONT);
-    }
+    state.totalPrice = subTotal + dds + state.delivery;
+    setPriceState(() => state);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
 
@@ -186,8 +183,7 @@ function Delivery({ cart, userData, cities }) {
                 <section>
                   {paymentState == CARD_PAYMENT && (
                     <div className="px-2 pt-6 font-semibold text-center text-secondary">
-                      За момента не може да се плаща с карта. От SoftOffice се
-                      извиняваме за причиненото неудобство
+                      Очаквайте скоро!
                     </div>
                   )}
                   <section className="py-4 pl-6">

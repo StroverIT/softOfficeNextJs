@@ -70,7 +70,6 @@ export default function Index({ data }) {
     }
   }, [errors, inputs]);
   useEffect(() => {
-    console.log(dataState);
     if (
       innerRoutes.verifyDelivery &&
       dataState?.message == "Успешно потвърдихте поръчката си"
@@ -186,7 +185,7 @@ export async function getServerSideProps(context) {
     if (url == innerRoutes.verifyDelivery) {
       if (!data.error) {
         const res = await fetch(
-          `${process.env.HOST_URL}/api/account/verifyDeliveryToken/${userId}/${token}`
+          `${process.env.NEXTAUTH_URL}/api/account/verifyDeliveryToken/${userId}/${token}`
         );
 
         const resData = await res.json();

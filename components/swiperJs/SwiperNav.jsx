@@ -7,9 +7,7 @@ import { BsArrowRightCircle, BsArrowLeftCircle } from "react-icons/bs";
 import style from "../../styles/swiperJs/SwiperNav.module.css";
 
 const SwiperNav = ({ size }) => {
-  const animateArrow = (e) => {
-    console.log(e);
-  };
+  const animateArrow = (e) => {};
   return (
     <div className={`${style.swiperNav} z-10 text-${size} hidden sm:inline`}>
       <div className={`${style.swiperPrev}  absolute z-10  `}>

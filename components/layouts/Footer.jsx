@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="container">
         <div className="grid justify-between gap-4 py-8 sm:grid-cols-2 md:flex">
           <div>
-            <h2 className="mb-2 font-semibold uppercase text-md">IvdaGeo</h2>
+            <h2 className="mb-2 font-semibold uppercase text-md">SoftOffice</h2>
             <ul className="text-gray-300">
               <li className="mb-1">
                 <Link href="/aboutUs">
@@ -152,7 +152,7 @@ const Footer = () => {
             </ul>
           </div> */}
           <div>
-            <h2 className="mb-2 font-semibold uppercase text-md">IvdaGeo</h2>
+            <h2 className="mb-2 font-semibold uppercase text-md">SoftOffice</h2>
             <ul className="text-gray-300">
               <li className="mb-1">
                 <Link href="/aboutUs">

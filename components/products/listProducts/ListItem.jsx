@@ -12,6 +12,9 @@ export default function ListItem({ section, articleData, item, addProduct }) {
 
   const sanitezedData = {
     item: {
+      tipove: item.tipove,
+      katNomer: item.katNomer,
+
       route: item._id,
       types: item.tipove,
       cena: item.cena,

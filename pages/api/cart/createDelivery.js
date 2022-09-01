@@ -19,7 +19,7 @@ export default async function handler(req, res) {
     let subTotal = parseFloat(
       cart
         .map((item) => {
-          return item.item.price * item.qty;
+          return item.item.item.cena * item.qty;
         })
         .reduce((a, b) => a + b, 0)
         .toFixed(2)
@@ -61,15 +61,15 @@ export default async function handler(req, res) {
       };
     }
     if (inputs.typeOfDelivery == DELIVERY) {
-      if (
-        deliveryInfo.office == "Избери квартал" ||
-        deliveryInfo.city.name != "София" ||
-        totalPrice < 300
-      ) {
+      if (deliveryInfo.quarter.name === "Избери квартал") {
         throw {
-          error: "Пратени са невалидни данни",
+          error: "Моля изберете квартал",
         };
       }
+    } else {
+      throw {
+        error: "Метода на доставка не е правилна!",
+      };
     }
 
     let data = {
@@ -88,38 +88,27 @@ export default async function handler(req, res) {
         city: deliveryInfo.city.name,
       };
     }
-    if (inputs.typeOfDelivery == EKONT) {
-      if (inputs.address?.office) {
-        if (!inputs.address.office) throw { error: "Пратен е невалиден офис" };
-        // Write needed data when is for office to EKONT
-      }
-      if (inputs.address?.address) {
-        if (!inputs.address.address)
-          throw { error: "Пратен е невалиден адрес" };
-
-        // Write needed data when is for address to EKONT
-      }
-      // Send to ekont needed data
-    }
 
     const verifyToken = await Token.create({
       userId: user._id,
       token: new ObjectId(),
     });
     const message = `
-    <h3>За потвърждаване на поръчка в IvdaGeo.bg.
-    </h2><a href="${process.env.HOST_URL}/account/verifyDelivery/${user._id}/${verifyToken.token}">Цъкнете тук</a>
+    <h3>За потвърждаване на поръчка в SoftOffice.bg.</h2>
+    <a href="${process.env.HOST_URL}/account/verifyDelivery/${user._id}/${verifyToken.token}">Цъкнете тук</a>
     `;
     sendEmail(
       process.env.EMAIL_SEND,
       user.email,
-      "Потвърждаване на поръчка IvdaGeo",
+      "Потвърждаване на поръчка SoftOffice",
       message
     );
+    console.log(data);
     await Delivery.create(data);
 
-    res.json({ message: "Успешно направена поръчка" });
+    res.json({ message: "Поръчката беше направена, вижте си и-мейла!" });
   } catch (e) {
+    console.log(e);
     res.status(400).json(e);
   }
 }

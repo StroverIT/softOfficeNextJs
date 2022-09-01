@@ -25,7 +25,6 @@ export const getAll = async () => {
 };
 export const productByItemId = async (itemId) => {
   await connectMongo();
-  console.log("vlezna");
   let data = await Product.findOne({ "articles.items._id": itemId }).lean();
 
   const filteredData = {

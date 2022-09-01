@@ -28,6 +28,7 @@ async function handler(req, res) {
       .json({ message: "Успешно потвърдихте поръчката си" });
   } catch (e) {
     console.log(e);
+    res.json(e);
   }
 }
 

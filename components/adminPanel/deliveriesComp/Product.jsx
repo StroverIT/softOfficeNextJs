@@ -22,7 +22,7 @@ export default function Product({ delivery }) {
       key={delivery._id}
       className="relative pt-4 pl-2 mb-10 border-l-4 border-primary"
     >
-      <div className="flex flex-col flex-wrap gap-y-5">
+      <div className="flex flex-col flex-wrap pt-4 gap-y-5">
         {delivery.addressInfo && (
           <div>
             <h3 className="font-semibold uppercase">За адреса:</h3>
@@ -35,24 +35,35 @@ export default function Product({ delivery }) {
             </ul>
           </div>
         )}
-        <div className="relative pl-1 border-l-2 border-green">
+        <div className="relative ">
           <h3 className="font-semibold uppercase">Продукти:</h3>
           {cart &&
             cart.map((product) => {
+              const name = `${product.item.section.name} ${product.item.article.name}`;
               return (
-                <ul key={product.item._id} className="relative mb-1">
-                  <li>Име на продукта: {product.item.articleName}</li>
+                <ul
+                  key={product.item._id}
+                  className="relative p-5 mb-5 border border-green"
+                >
+                  <li className="pl-2 border border-primary-100">
+                    <div>Име на продукта: {name}</div>
+                    <div>Типът на продукта </div>
+                    <ul className="pl-2 ml-2 border-l border-primary-200">
+                      {product.item.item.tipove.split(";").map((type) => {
+                        return <li key={type}>{type}</li>;
+                      })}
+                    </ul>
+                  </li>
                   <li>Бройки: {product.qty}</li>
-                  <li>Ед. цена: {product.item.price}</li>
+                  <li>Ед. цена: {product.item.item.cena}</li>
                   <li>
                     Обща. цена за продуктите:{" "}
-                    {(product.qty * product.item.price).toFixed(2)}
+                    {(product.qty * product.item.item.cena).toFixed(2)}
                   </li>
-
-                  <div className="absolute top-0 right-0 ">
-                    <div className="relative w-20 h-20">
+                  <div className="flex items-center justify-center">
+                    <div className="relative w-28 h-28">
                       <Image
-                        src={`/uploads/${product.item.imageUrl}`}
+                        src={`/uploads/${product.item.article.imgUrl}`}
                         layout="fill"
                         alt={product.item.imageUrl}
                       />
@@ -63,8 +74,10 @@ export default function Product({ delivery }) {
             })}
         </div>
       </div>
-      <div className="absolute top-0 right-0 flex text-green">
-        Обща Сума: {delivery.totalPrice} лв.
+      <div className="absolute top-0 left-0 flex justify-between w-full text-primary-100">
+        <div className="ml-2">
+          Обща Сума: {delivery.totalPrice.toFixed(2)} лв.
+        </div>
         <div className="ml-2">
           <Status type={status} isDiv={true} />
         </div>

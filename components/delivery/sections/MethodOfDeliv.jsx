@@ -30,16 +30,13 @@ export default function MethodOfDeliv({
   changeOrderHandler,
   priceState,
   userData,
-  officeSelected,
-  setOfficeSelected,
+
   cities,
 }) {
   const { invoice, setInvoice } = useContext(InputContext);
 
-  const [isOfficeLoading, setIsOfficeLoading] = useState(false);
   const [isQuartersLoading, setQuartesLoading] = useState(false);
 
-  const [officeData, setOfficeData] = useState(null);
   const [quartersData, setQuartersData] = useState(null);
 
   const [invoiceSelect, setInvoiceSelect] = useState({
@@ -47,12 +44,6 @@ export default function MethodOfDeliv({
   });
   const [citySelected, setCitySelected] = useState(cities[21]);
 
-  const getOfficeData = async () => {
-    setIsOfficeLoading(true);
-    const data = await getOffices(selected.cityId);
-    setIsOfficeLoading(false);
-    setOfficeData(data);
-  };
   const getQuarters = async () => {
     setQuartesLoading(true);
     const data = await quartersFetch(selected.cityId);
@@ -79,7 +70,10 @@ export default function MethodOfDeliv({
   useEffect(() => {
     setInvoice((prevState) => ({ ...prevState, data: {} }));
   }, [setInvoice]);
-
+  useEffect(() => {
+    getQuarters();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <section>
       <div className="flex items-center py-4 pl-3 text-lg font-semibold bg-gray-300 border-y border-gray-150">
@@ -91,44 +85,16 @@ export default function MethodOfDeliv({
       <section className="xl:grid grid-cols-[23%72%]">
         <Tab.Group>
           <Tab.List className="flex flex-wrap py-4 pl-3 space-y-1 border-b smToXl:space-x-2 border-gray xl:border-r xl:border-b-0 sm:justify-around xl:block">
-            {selected.name == "София" && (
-              <Tab>
-                <RadioButton
-                  radioState={orderState}
-                  changeHandler={changeOrderHandler}
-                  name={MAGAZINE}
-                  id="fromMagazine"
-                  text="Вземи от магазин"
-                  icon="shop"
-                />
-              </Tab>
-            )}
-            {priceState.totalPrice >= 300 && selected.name == "София" && (
-              <Tab>
-                <RadioButton
-                  radioState={orderState}
-                  changeHandler={changeOrderHandler}
-                  name={DELIVERY}
-                  id="delivery"
-                  text="Доставка до вкъщи"
-                  icon="address"
-                  onClick={getQuarters}
-                />
-              </Tab>
-            )}
-            {(priceState.totalPrice < 300 || selected.name != "София") && (
-              <Tab>
-                <RadioButton
-                  radioState={orderState}
-                  changeHandler={changeOrderHandler}
-                  name={EKONT}
-                  id={EKONT}
-                  text="Еконт"
-                  icon="shop"
-                  onClick={getOfficeData}
-                />
-              </Tab>
-            )}
+            <Tab>
+              <RadioButton
+                radioState={orderState}
+                changeHandler={changeOrderHandler}
+                name={DELIVERY}
+                id="delivery"
+                text="Доставка до вкъщи"
+                icon="address"
+              />
+            </Tab>
           </Tab.List>
           <Tab.Panels>
             <div className="mt-6 ml-10">
@@ -137,45 +103,20 @@ export default function MethodOfDeliv({
               </h3>
             </div>
             <section className="px-4">
-              {selected.name == "София" && (
-                <Tab.Panel>
-                  <MagazinePanel userData={userData} />
-                </Tab.Panel>
-              )}
-              {priceState.totalPrice >= 300 && selected.name == "София" && (
-                <Tab.Panel>
-                  {!isQuartersLoading && (
-                    <DeliveryPanel
-                      userData={userData}
-                      quartersData={quartersData}
-                      quarters={quartersData}
-                    />
-                  )}
-                  {isQuartersLoading && (
-                    <div className="flex items-center justify-center py-5">
-                      <div className="loader"></div>
-                    </div>
-                  )}
-                </Tab.Panel>
-              )}
-              {(priceState.totalPrice < 300 || selected.name != "София") && (
-                <Tab.Panel>
-                  {!isOfficeLoading && (
-                    <EkontPanel
-                      userData={userData}
-                      officeData={officeData}
-                      isOfficeLoading={isOfficeLoading}
-                      selected={officeSelected}
-                      setSelected={setOfficeSelected}
-                    />
-                  )}
-                  {isOfficeLoading && (
-                    <div className="flex items-center justify-center py-5">
-                      <div className="loader"></div>
-                    </div>
-                  )}
-                </Tab.Panel>
-              )}
+              <Tab.Panel>
+                {!isQuartersLoading && (
+                  <DeliveryPanel
+                    userData={userData}
+                    quartersData={quartersData}
+                    quarters={quartersData}
+                  />
+                )}
+                {isQuartersLoading && (
+                  <div className="flex items-center justify-center py-5">
+                    <div className="loader"></div>
+                  </div>
+                )}
+              </Tab.Panel>
             </section>
             <section className="pb-6 pl-5">
               <Checkbox

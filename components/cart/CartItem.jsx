@@ -6,6 +6,7 @@ import LgScreenTableData from "./LgScreenTableData";
 import MobileScreenTableData from "./MobileScreenTableData";
 
 export default function CartItem({ cartData, removeProduct, changeQty }) {
+  console.log(cartData);
   let route;
   if (cartData.item.item.itemsLen == 1) {
     route = `/products/${cartData.item.section.route}/${cartData.item.article.route}`;
@@ -20,6 +21,10 @@ export default function CartItem({ cartData, removeProduct, changeQty }) {
         cartName={name}
         route={route}
         imageUrl={cartData?.item?.article?.imgUrl}
+        moreInfo={{
+          tipove: cartData?.item?.item?.tipove,
+          katNomer: cartData?.item?.item?.katNomer,
+        }}
       />
       {/* MObile version */}
       <MobileScreenTableData

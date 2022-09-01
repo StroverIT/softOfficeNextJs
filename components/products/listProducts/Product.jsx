@@ -75,6 +75,8 @@ export default function Product({ section, article, addProduct }) {
                     addProduct({
                       item: {
                         itemsLen,
+                        tipove: article.items[0].tipove,
+                        katNomer: article.items[0].katNomer,
                         route: article.items[0]._id,
                         types: article.items[0].tipove,
                         cena: article.items[0].cena,

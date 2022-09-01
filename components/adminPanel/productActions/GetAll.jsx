@@ -16,20 +16,9 @@ import { edit } from "../../../services/productServiceFetch";
 
 export default function GetAll({ product }) {
   const inputInit = {
-    sectionName: product.sectionName,
-    description: product.description,
+    name: product.name,
+    nameToDisplay: product.nameToDisplay,
     itemUnit: product.itemUnit,
-    articles: product.articles.map((article) => {
-      return {
-        articleName: article.articleName,
-        items: article.items.map((item) => {
-          return {
-            weight: item.weight,
-            price: item.price,
-          };
-        }),
-      };
-    }),
   };
   const [inputs, setInputs] = useState(inputInit);
 
@@ -69,16 +58,41 @@ export default function GetAll({ product }) {
         <section className="relative mb-5">
           {!isForm && (
             <div>
-              <div>Секция: {product.sectionName}</div>
-              <div>Описание: {product.description}</div>
-              <div className="flex flex-wrap items-center ">
-                Снимка:{" "}
-                <div className="relative w-24 h-24">
-                  <Image
-                    src={`/uploads/${product.imageUrl}`}
-                    layout="fill"
-                    alt={product.imageUrl}
-                  />
+              <div>Име: {product.name}</div>
+              <div>Името което се показва: {product.nameToDisplay}</div>
+
+              <div className="p-5 my-2 border border-primary-50">
+                <h1 className="text-lg font-bold text-center text-primary-500">
+                  Продукти:
+                </h1>
+                <div className="flex flex-wrap items-center p-2 my-2 border border-primary-200">
+                  {product.subsection.map((subsection) => {
+                    let img = "nqma";
+                    if (subsection.img) {
+                      img = subsection.img[0].originalname;
+                    }
+                    return (
+                      <section
+                        className="p-5 my-2 border border-primary-300"
+                        key={subsection._id}
+                      >
+                        <div>Описание: {subsection.tiput}</div>
+
+                        <div className="flex items-center justify-center">
+                          Снимка:
+                          <div className="relative ml-2 w-28 h-28">
+                            <Image
+                              layout="fill"
+                              src={`/uploads/${img}`}
+                              alt={img}
+                            />
+                          </div>
+                        </div>
+
+                        <div>Описание: {subsection.opisanie}</div>
+                      </section>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -109,46 +123,6 @@ export default function GetAll({ product }) {
               text={!isForm ? "Редактирай" : "Откажи"}
             />
           </div>
-          {!inputs?.itemUnit && (
-            <section className="flex justify-between">
-              {isItemUnitForm && (
-                <section>
-                  <Input
-                    id="itemUnit"
-                    text="Мерна единица"
-                    holder="Мерна единица"
-                    value={inputs.itemUnit}
-                    handler={changeHandler}
-                  />
-                </section>
-              )}
-              <Edit
-                clickHandler={() => setItemUnitForm(!isItemUnitForm)}
-                theme={!isItemUnitForm ? "red" : "red"}
-                text={!isItemUnitForm ? "Добави мерна единица" : "Откажи"}
-              />
-            </section>
-          )}
-          {inputs?.itemUnit && (
-            <section className="flex justify-between">
-              {isItemUnitForm && (
-                <section>
-                  <Input
-                    id="itemUnit"
-                    text="Мерна единица"
-                    holder="Мерна единица"
-                    value={inputs.itemUnit}
-                    handler={changeHandler}
-                  />
-                </section>
-              )}
-              <Edit
-                clickHandler={() => setItemUnitForm(!isItemUnitForm)}
-                theme={!isItemUnitForm ? "blueLight" : "red"}
-                text={!isItemUnitForm ? "Смени мерната единица" : "Откажи"}
-              />
-            </section>
-          )}
         </section>
 
         {product?.articles &&

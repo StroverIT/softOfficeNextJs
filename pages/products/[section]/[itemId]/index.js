@@ -113,9 +113,6 @@ export default function Index({ data, userData, isInFav }) {
 
   useEffect(() => {
     if (routerHash[1]) {
-      console.log("dataItem Len_OLD", data.foundItem.article.items.length);
-
-      console.log("tyka vliza1");
       const newData = JSON.parse(JSON.stringify(data.foundItem));
       inner: for (let item of newData?.article?.items) {
         if (item._id == routerHash[1]) {
@@ -129,12 +126,9 @@ export default function Index({ data, userData, isInFav }) {
         setSelected(true);
       }
     } else {
-      console.log(data.foundItem);
       setProduct({ ...data.foundItem });
       setSelected(false);
     }
-    console.log("dataItem Len_New", data.foundItem.article.items.length);
-    console.log("data", data);
   }, [router.asPath]);
   return (
     <main className="mb-auto">

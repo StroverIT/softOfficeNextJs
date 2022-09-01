@@ -103,7 +103,7 @@ export default function Index({ userData, deliveriesData, favData }) {
                     <li className="pt-2 pb-5 my-1 sm:pt-0 sm:pb-1 lg:pt-10 ">
                       <button
                         onClick={() => router.push("/adminPanel")}
-                        className="px-2 py-2 text-sm font-semibold text-white border rounded-lg bg-primary-lighter hover:bg-transparent border-primary-lighter hover:text-primary-lighter"
+                        className="px-2 py-2 text-sm font-semibold text-white border rounded-lg bg-primary-100 hover:bg-transparent border-primary-100 hover:text-primary-100"
                       >
                         Админ панел
                       </button>

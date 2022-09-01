@@ -7,7 +7,6 @@ const initialState = {
 
 const shopReducer = (state = initialState, action) => {
   const item = action.payload;
-  console.log(item);
   switch (action.type) {
     case ActionTypes.ADD_TO_CART:
       // Get the items data from products array

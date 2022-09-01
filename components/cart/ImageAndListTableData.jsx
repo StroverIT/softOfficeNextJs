@@ -3,7 +3,12 @@ import Image from "next/image";
 import Link from "next/link";
 import TableData from "./TableData";
 
-export default function ImageAndListTableData({ imageUrl, cartName, route }) {
+export default function ImageAndListTableData({
+  imageUrl,
+  cartName,
+  route,
+  moreInfo,
+}) {
   return (
     <>
       <TableData>
@@ -21,8 +26,21 @@ export default function ImageAndListTableData({ imageUrl, cartName, route }) {
       </TableData>
       <TableData classes="mt-3 text-center lg:text-left xl:pl-2">
         <Link href={route}>
-          <h3 className="cursor-pointer">{cartName}</h3>
+          <h3 className="cursor-pointer">{cartName} </h3>
         </Link>
+        <ul>
+          {moreInfo.tipove
+            .split(";")
+            .splice(0, 5)
+            .map((type) => {
+              return (
+                <li key={type} className="text-xs">
+                  {type}
+                </li>
+              );
+            })}
+        </ul>
+        <div className="text-xs ">Катномер: {moreInfo.katNomer}</div>
       </TableData>
     </>
   );
