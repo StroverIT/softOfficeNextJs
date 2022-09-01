@@ -13,6 +13,7 @@ import { HiX } from "react-icons/hi";
 export default function Product({ section, article, addProduct }) {
   const router = useRouter();
   const routerHash = router?.asPath?.split("#");
+  const itemsLen = article.items.length;
 
   const [openItemsMenu, setOpenItemsMenu] = useState(false);
   const name = `${section.name} ${article.nameToDisplay} `;
@@ -73,6 +74,7 @@ export default function Product({ section, article, addProduct }) {
                   onClick={() =>
                     addProduct({
                       item: {
+                        itemsLen,
                         route: article.items[0]._id,
                         types: article.items[0].tipove,
                         cena: article.items[0].cena,

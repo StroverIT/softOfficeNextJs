@@ -25,7 +25,7 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
   };
   let subtotal = cart
     .map((item) => {
-      return item.item.price * item.qty;
+      return item.item.item.cena * item.qty;
     })
     .reduce((a, b) => a + b, 0)
     .toFixed(2)
@@ -71,9 +71,11 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
                     return (
                       <CartItem
                         cartData={cartItem}
-                        key={cartItem.item._id}
-                        removeProduct={() => removeFromCart(cartItem.item._id)}
-                        changeQty={adjustQty.bind({}, cartItem.item._id)}
+                        key={cartItem?.item?.item?.route}
+                        removeProduct={() =>
+                          removeFromCart(cartItem.item.item.route)
+                        }
+                        changeQty={adjustQty.bind({}, cartItem.item.item.route)}
                       />
                     );
                   })}

@@ -7,19 +7,19 @@ const initialState = {
 
 const shopReducer = (state = initialState, action) => {
   const item = action.payload;
-
+  console.log(item);
   switch (action.type) {
     case ActionTypes.ADD_TO_CART:
       // Get the items data from products array
       // Check if Item is in cart already
       const inCart = state.cart.find((cartItem) =>
-        cartItem.item._id == item.item._id ? true : false
+        cartItem.item.item.route == item.item.item.route ? true : false
       );
       return {
         ...state,
         cart: inCart
           ? state.cart.map((cartItem) =>
-              cartItem.item._id == item.item._id
+              cartItem.item.item.route == item.item.item.route
                 ? { ...cartItem, qty: cartItem.qty + item.customQty }
                 : cartItem
             )
@@ -29,16 +29,18 @@ const shopReducer = (state = initialState, action) => {
     case ActionTypes.REMOVE_SELECTED_PRODUCTS:
       return {
         ...state,
-        cart: state.cart.filter((cartItem) => cartItem.item._id != item._id),
+        cart: state.cart.filter((cartItem) => {
+          return cartItem.item.item.route != item._id;
+        }),
       };
     case ActionTypes.ADJUST_QTY:
       return {
         ...state,
-        cart: state.cart.map((cartItem) =>
-          cartItem.item._id === item._id
+        cart: state.cart.map((cartItem) => {
+          return cartItem.item.item.route === item._id
             ? { ...cartItem, qty: item.qty }
-            : cartItem
-        ),
+            : cartItem;
+        }),
       };
     case ActionTypes.LOAD_CURRENT_ITEM:
       return { ...state, currentItem: action.payload };

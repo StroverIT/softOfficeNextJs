@@ -32,7 +32,6 @@ export default function Section({ products, types, sectionRoute }) {
     const name = `${product.section.name} ${product.article.name}`;
     toastProduct(name);
 
-    console.log(product);
     dispatch(addToCart(product));
   };
 
