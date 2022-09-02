@@ -250,7 +250,7 @@ export default function Index({ data, userData, isInFav }) {
                 </ul>
               </div>
             </section>
-            <section className="flex flex-wrap justify-center my-20 gap-x-16 gap-y-10 ">
+            {/* <section className="flex flex-wrap justify-center my-20 gap-x-16 gap-y-10 ">
               {alternatives &&
                 alternatives.map((alt) => {
                   return (
@@ -262,7 +262,7 @@ export default function Index({ data, userData, isInFav }) {
                     />
                   );
                 })}
-            </section>
+            </section> */}
           </>
         )}
         {product?.article?.items?.length > 1 && !isSelected && (

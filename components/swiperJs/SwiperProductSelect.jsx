@@ -74,6 +74,7 @@ export default function SwiperProductSelect({
                         src={`/uploads/${article.img}`}
                         layout="fill"
                         alt={article.img}
+                        className="object-contain"
                       />
                     </div>
                     <div className="container font-medium text-center border-t border-gray">
