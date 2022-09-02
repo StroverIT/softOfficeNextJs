@@ -25,7 +25,7 @@ export const getAll = async () => {
 };
 export const productByItemId = async (itemId) => {
   await connectMongo();
-  let data = await Product.findOne({ "articles.items._id": itemId }).lean();
+  let data = await Product.findOne({ "subsection._id": itemId }).lean();
 
   const filteredData = {
     foundItem: {},
@@ -33,6 +33,7 @@ export const productByItemId = async (itemId) => {
   };
 
   const foundItem = filteredData.foundItem;
+
   inner: for (let article of data.subsection) {
     if (article._id == itemId) {
       foundItem.article = article;
@@ -44,6 +45,7 @@ export const productByItemId = async (itemId) => {
       break inner;
     }
   }
+  console.log(filteredData.foundItem);
   for (let i = 0; i < 5; i++) {
     const article = data.subsection[i];
     if (!article) break;
