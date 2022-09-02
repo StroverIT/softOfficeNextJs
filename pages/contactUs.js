@@ -56,26 +56,39 @@ export default function ContactUs() {
           <div>
             <h3 className="text-2xl font-medium uppercase">Контакти</h3>
             <ul className="mt-2 text-gray-250">
-              <li className="py-1">
+              {/* <li className="py-1">
                 <span className="pr-2 font-semibold text-dark">
                   Заповядайте в нашия магазин:
                 </span>
                 <br />
-                гр.София ПК-1582 Дружба 2 РУМ Дружба 2 срещу блок 204
-              </li>
-              <li className="py-1">
+                Дружба 2
+              </li> */}
+              {/* <li className="py-1">
                 <span className="pr-2 font-semibold text-dark">
                   Тел. / факс:
                 </span>
                 02/973 15 85
+              </li> */}
+              <li className="">
+                <span className="pr-1 font-semibold text-dark">Телефон 1:</span>{" "}
+                +359 87 667 2848
               </li>
-              <li className="py-1">
-                <span className="pr-1 font-semibold text-dark">GSM:</span> +359
-                87 940 6621
+              <li className="">
+                <span className="pr-1 font-semibold text-dark">Телефон 2:</span>{" "}
+                +359 87 998 8825
+              </li>
+
+              <li>
+                <span className="pr-1 font-semibold text-dark">И-мейл 1:</span>
+                softofficebulgaria@gmail.com
               </li>
               <li>
-                <span className="pr-1 font-semibold text-dark">Е-mail:</span>
-                softoffice@gmail.com
+                <span className="pr-1 font-semibold text-dark">И-мейл 2:</span>
+                office@softofficebg.com
+              </li>
+              <li>
+                <span className="pr-1 font-semibold text-dark">Офис:</span>
+                Офис: гр. София, Ул. Обиколна Бл. 275
               </li>
             </ul>
           </div>
