@@ -219,6 +219,7 @@ imageUrl - LINK or img path
 
 --- Ideas for integration ----
 item: {
+itemLen:
 route: item.\_id,
 types: item.tipove,
 cena: item.price,
@@ -235,3 +236,44 @@ section: {
 name: section.nameToDisplay,
 route: section.name
 },
+
+section -
+
+1. name
+2. nameToDisplay
+   subsection -
+3. itemsLen
+4. img[0].originalname
+5. tiput
+6. nameToDisplay
+7. opisanie,
+   item: {
+   itemsLen,
+   tipove: article.items[0].tipove,
+   katNomer: article.items[0].katNomer,
+   route: article.items[0].\_id,
+   types: article.items[0].tipove,
+   cena: article.items[0].cena,
+   isOnPromotion: article.items[0].isOnPromotions,
+   isOnlyNumb: article.items[0].isOnlyNumb,
+   },
+   ---cvetove - \_id, cvqt
+
+----- За промоциите -----
+promotionalPrice
+isOnPromotions
+
+TODO:{
+[x]: Add item on promotion - set isOnPromo to true, promotionalPrice and add to collection promotions,
+[x]: Personal promotion - all sections with custom promo price if needed
+[]: Firm with workers - if worker make a delivery, first admin must confirm it to be valid
+}
+
+<!-- Ideas for workers -->
+
+"fullName": "Ivan2",
+"email": "ivan1@abv.bg",
+"password": "$2a$12$UiToecENWKhC49JZnuu54eQ0i0ctaY3M.31WRFuWh074GS2pQQBZe",
+"role":"user",
+"addresses": [],
+"isVerified": true
