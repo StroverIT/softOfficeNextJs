@@ -2,8 +2,11 @@
 import React from "react";
 
 import Pricing from "./Pricing";
+import OldPrice from "./OldPrice";
 
-const PricePromo = ({ isPromo, price, priceDec }) => {
+const PricePromo = ({ price, promoPrice }) => {
+  const oldPrice = price.toFixed(2).split(".");
+  const promoPriceDec = parseFloat(promoPrice).toFixed(2).split(".");
   return (
     <div className="w-full border-t border-gray">
       <div className="flex justify-between ">
@@ -11,17 +14,26 @@ const PricePromo = ({ isPromo, price, priceDec }) => {
           Цената е без ДДС
         </div>
         <div
-          className={` inline-flex items-center justify-center   text-white  px-2 ${
-            !isPromo ? "bg-primary" : " bg-secondary"
-          }`}
+          className={`flex  items-center  px-2 text-white bg-gray-400 justify-between gap-x-5 gap-y-5`}
         >
-          <Pricing
-            price={price}
-            priceDec={priceDec}
-            size="xl"
-            textColor="text-white"
-            NoDDSText={true}
-          />
+          <div className="text-gray-500 ">
+            <OldPrice
+              price={oldPrice[0]}
+              priceDec={oldPrice[1]}
+              size="xl"
+              textColor="text-white"
+              NoDDSText={true}
+            />
+          </div>
+          <div className="text-primary-100">
+            <Pricing
+              price={promoPriceDec[0]}
+              priceDec={promoPriceDec[1]}
+              size="2xl"
+              textColor="text-white"
+              NoDDSText={true}
+            />
+          </div>
         </div>
       </div>
     </div>

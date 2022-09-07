@@ -55,54 +55,11 @@ const swiperPag = [
     pageUrl: "/products/product",
   },
 ];
-const swiperFreeImages = [
-  {
-    src: "/images/testCarousel.jpg",
-    title: "Боя за коса",
-    price: 123,
-    isPromo: false,
-    pageUrl: "/products/product1",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "ШКАФ ЗА БАНЯ С ОГЛЕДАЛО SYNCHRO Т2108-80К",
-    price: 123,
-    isPromo: false,
-    pageUrl: "/products/product2",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "СМЕСИТЕЛ ЗА КУХНЯ FORMA VITA КРИСТАЛ",
-    price: 23.94,
-    isPromo: true,
-    pageUrl: "/products/product3",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "СМЕСИТЕЛ ЗА КУХНЯ FORMA VITA Диамант",
-    price: 1000.94,
-    isPromo: false,
-    pageUrl: "/products/product4",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "Шкаф за обувки",
-    price: 10,
-    isPromo: false,
-    pageUrl: "/products/product5",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "Шкаф за дрехи",
-    price: 15,
-    isPromo: false,
-    pageUrl: "/products/product6",
-  },
-];
+
 import { FaShieldAlt } from "react-icons/fa";
 import { TiStopwatch } from "react-icons/ti";
 
-export default function Home() {
+export default function Home({ promotions }) {
   return (
     <>
       <Head>
@@ -178,7 +135,7 @@ export default function Home() {
         </section>
 
         <section className="container mt-10 mb-10">
-          <SwiperFreeMode images={swiperFreeImages} navSize="3xl" />
+          <SwiperFreeMode data={promotions} navSize="3xl" />
         </section>
         <section className=" bg-color">
           <div className="container">
@@ -255,7 +212,7 @@ export default function Home() {
                         <BtnOutlined
                           text="изпрати"
                           type="submit"
-                          custom="lg:hover:bg-primary-lighter lg:hover:text-white"
+                          custom="lg:hover:bg-primary-100 lg:hover:text-white"
                         />
                       </div>
                     </div>
@@ -268,4 +225,15 @@ export default function Home() {
       </main>
     </>
   );
+}
+
+export async function getServerSideProps(context) {
+  const promotionsRes = await fetch(
+    `${process.env.NEXTAUTH_URL}/api/promotions/getAll`
+  );
+  const data = await promotionsRes.json();
+
+  return {
+    props: { promotions: data }, // will be passed to the page component as props
+  };
 }

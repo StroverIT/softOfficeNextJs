@@ -1,4 +1,10 @@
 import React, { useRef, useState, useEffect } from "react";
+import { getSession } from "next-auth/react";
+
+// Mongodb
+import { connectMongo } from "../../../db/connectDb";
+import PersonalPromotion from "../../../db/models/PersonalPromotion";
+import User from "../../../db/models/User";
 
 // Icons
 import { HiX } from "react-icons/hi";
@@ -25,7 +31,12 @@ import { addToCart } from "../../../redux/actions/productActions";
 // Notifications
 import { toastProduct } from "../../../components/notificataions/Toast";
 
-export default function Section({ products, types, sectionRoute }) {
+export default function Section({
+  products,
+  types,
+  sectionRoute,
+  personalPromotions,
+}) {
   const dispatch = useDispatch();
 
   const addProduct = (product) => {
@@ -196,6 +207,7 @@ export default function Section({ products, types, sectionRoute }) {
                       }}
                       article={article}
                       addProduct={addProduct}
+                      personalPromotions={personalPromotions}
                     />
                   );
                 })}
@@ -216,6 +228,23 @@ export default function Section({ products, types, sectionRoute }) {
 export async function getServerSideProps(context) {
   let { section } = context.params;
   const products = await getAllProducts(section);
+
+  let personalPromotions = {};
+  const session = await getSession({ req: context.req });
+  if (session) {
+    await connectMongo();
+    const user = await User.findOne({ email: session.user.email });
+    if (user) {
+      const promo = await PersonalPromotion.findOne({ ownerId: user._id });
+      if (promo) {
+        let found = promo.sectionPromo.find((item) => item.name == section);
+        if (!found.customPromo) {
+          found.customPromo = promo.generalPromo;
+        }
+        personalPromotions.found = found;
+      }
+    }
+  }
   // Must add total qty on every types how much is qty of the every filter
   // let typesObj = new Set();
   // products?.subsection?.forEach((article) => {
@@ -228,6 +257,7 @@ export async function getServerSideProps(context) {
     props: {
       products: JSON.parse(JSON.stringify(products)),
       sectionRoute: section,
+      personalPromotions: JSON.parse(JSON.stringify(personalPromotions)),
       // types: typesObj,
     },
   };

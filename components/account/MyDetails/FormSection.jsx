@@ -30,7 +30,7 @@ export default function SectionForm({ inputs }) {
       })}
       <button
         type="submit"
-        className="px-5 py-2 text-white bg-primary-lighter hover:bg-primary-trans"
+        className="px-5 py-2 text-white bg-primary-100 hover:bg-primary-trans"
       >
         Запази
       </button>

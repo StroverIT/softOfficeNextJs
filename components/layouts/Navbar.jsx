@@ -90,7 +90,7 @@ const Navbar = ({ cartTotalQty }) => {
         <div className="container relative flex items-center justify-between ">
           <div className="flex items-center justify-center h-full">
             <Link href="/">
-              <div className="items-center justify-between hidden text-4xl font-black cursor-pointer lg:flex text-primary-lighter lg:ml-1">
+              <div className="items-center justify-between hidden text-4xl font-black cursor-pointer lg:flex text-primary-100 lg:ml-1">
                 <span className="text-primary-100">Soft</span>
                 <span className="text-white">Office.bg</span>
               </div>
@@ -118,7 +118,7 @@ const Navbar = ({ cartTotalQty }) => {
           </div>
           <div className="lg:hidden">
             <Link href="/">
-              <div className="flex items-center justify-between text-sm font-bold cursor-pointer lg:block text-primary-lighter lg:ml-1">
+              <div className="flex items-center justify-between text-sm font-bold cursor-pointer lg:block text-primary-100 lg:ml-1">
                 <span className="text-primary-100">Soft</span>
                 <span className="text-white">Office.bg</span>
               </div>
@@ -134,7 +134,7 @@ const Navbar = ({ cartTotalQty }) => {
               <div className="font-bold text-white group-hover:text-primary-100">
                 <AiOutlineSearch className="icon" />
               </div>
-              <div className="pl-1 font-sans text-lg font-medium text-white group-hover:text-primary-100">
+              <div className="pl-1 font-sans text-sm font-medium text-white group-hover:text-primary-100">
                 Търси
               </div>
             </li>
@@ -196,12 +196,11 @@ const Navbar = ({ cartTotalQty }) => {
             <div className="container overflow-auto shadow-lg h-96">
               {searchTabInputs.katNomera?.length > 0 && (
                 <div className="w-full py-1 bg-white ">
-                  <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-lighter">
+                  <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-100">
                     КатНомера
                   </h3>
                   <ul>
                     {searchTabInputs.katNomera.map((item) => {
-                      console.log(item);
                       return (
                         <Link key={item._id} href={`/products/${item.route}`}>
                           <li className="px-2 py-1 transition-transform border-b cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white border-primary">
@@ -233,7 +232,7 @@ const Navbar = ({ cartTotalQty }) => {
               )}
               {searchTabInputs.articleNames?.length > 0 && (
                 <div className="w-full bg-white ">
-                  <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-lighter">
+                  <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-100">
                     Артикули
                   </h3>
                   <ul>
@@ -268,7 +267,7 @@ const Navbar = ({ cartTotalQty }) => {
               )}
               {searchTabInputs.sections?.length > 0 && (
                 <div className="w-full bg-white">
-                  <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-lighter">
+                  <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-100">
                     Секции
                   </h3>
                   <ul>

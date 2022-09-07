@@ -44,7 +44,7 @@ const Hamburger = ({ headRef }) => {
           <div className="block w-3 h-[1px] md:w-3 md:h-[2px] lg:bg-primary-100 bg-white"></div>
         </div>
         <div className="hidden pl-2 -mt-1 text-lg font-medium text-white lg:flex">
-          Меню
+          Каталог
         </div>
       </div>
 

@@ -6,6 +6,9 @@ import { ImExit } from "react-icons/im";
 // NextJs
 import Head from "next/head";
 import { useRouter } from "next/router";
+// Mongodb
+import PersonalPromotion from "../../db/models/PersonalPromotion";
+import { connectMongo } from "../../db/connectDb";
 
 // Account components
 import MyDetails from "../../components/account/MyDetails/index";
@@ -15,7 +18,12 @@ import MyFavourites from "../../components/account/MyFavourites";
 // Auth
 import { getSession, signOut } from "next-auth/react";
 
-export default function Index({ userData, deliveriesData, favData }) {
+export default function Index({
+  userData,
+  deliveriesData,
+  favData,
+  personalPromotions,
+}) {
   const router = useRouter();
   const [categoryData, setCategoryData] = useState(null);
   const myDetails = useRef(null);
@@ -33,11 +41,19 @@ export default function Index({ userData, deliveriesData, favData }) {
         myDetails,
       ],
       "#my-orders": [
-        <MyOrders key="MyOrders" deliveriesData={deliveriesData} />,
+        <MyOrders
+          key="MyOrders"
+          deliveriesData={deliveriesData}
+          personalPromotions={personalPromotions}
+        />,
         myOrders,
       ],
       "#my-favourites": [
-        <MyFavourites key="MyFavourites" favData={favData.data} />,
+        <MyFavourites
+          key="MyFavourites"
+          favData={favData.data}
+          personalPromotions={personalPromotions}
+        />,
         myFavourites,
       ],
     };
@@ -109,6 +125,16 @@ export default function Index({ userData, deliveriesData, favData }) {
                       </button>
                     </li>
                   )}
+                  {userData?.role == "boss" && (
+                    <li className="pt-2 pb-5 my-1 sm:pt-0 sm:pb-1 lg:pt-10 ">
+                      <button
+                        onClick={() => router.push("/workersDeliveries")}
+                        className="px-2 py-2 text-sm font-semibold text-white border rounded-lg bg-primary-100 hover:bg-transparent border-primary-100 hover:text-primary-100"
+                      >
+                        Доставки на работниците
+                      </button>
+                    </li>
+                  )}
                   <li
                     className={`pt-10 pb-5 my-1 sm:pt-0 sm:pb-0 ${
                       userData?.role != "admin" ? "lg:pt-10" : "lg:pt-2"
@@ -142,6 +168,8 @@ export default function Index({ userData, deliveriesData, favData }) {
 export async function getServerSideProps(context) {
   const method = "POST";
   const headers = { "Content-Type": "application/json" };
+
+  let personalPromotions = {};
   // Session
   const session = await getSession({ req: context.req });
   if (!session) {
@@ -162,6 +190,11 @@ export async function getServerSideProps(context) {
   });
   const data = await res.json();
 
+  if (data) {
+    await connectMongo();
+    const promo = await PersonalPromotion.findOne({ ownerId: data._id });
+    if (promo) personalPromotions = promo;
+  }
   const deliveriesRes = await fetch(
     `${process.env.NEXTAUTH_URL}/api/account/deliveries/getAll`,
     {
@@ -188,6 +221,7 @@ export async function getServerSideProps(context) {
       userData: JSON.parse(JSON.stringify(data)),
       deliveriesData,
       favData,
+      personalPromotions: JSON.parse(JSON.stringify(personalPromotions)),
     },
   };
 }

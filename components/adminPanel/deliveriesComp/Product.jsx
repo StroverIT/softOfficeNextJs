@@ -6,7 +6,7 @@ import { changeStatus } from "../../../services/deliveryServiceFetch";
 
 import { Status } from "../../account/MyOrders/Status";
 
-export default function Product({ delivery }) {
+export default function Product({ delivery, personalPromotions }) {
   const [status, setStatus] = useState(delivery.status);
 
   const changeStatusHand = async (status, deliveryId) => {
@@ -31,7 +31,7 @@ export default function Product({ delivery }) {
               <li>Адрес за доставка: {address.address}</li>
               <li>Име: {address.name}</li>
               <li>Телефон: {address.telephone}</li>
-              {address.comment && <li>Коментар: {address.comment}</li>}
+              {delivery.comment && <li>Коментар: {delivery.comment}</li>}
             </ul>
           </div>
         )}
@@ -40,6 +40,31 @@ export default function Product({ delivery }) {
           {cart &&
             cart.map((product) => {
               const name = `${product.item.section.name} ${product.item.article.name}`;
+
+              let price = product.item.item.cena;
+              if (product.item.item.isOnPromotions) {
+                price = product.item.item.promotionalPrice;
+              }
+
+              if (personalPromotions?.sectionPromo) {
+                const find = personalPromotions.sectionPromo.find(
+                  (item) => item.name == product.item.section.route
+                );
+                if (find) {
+                  const promoPerc =
+                    find.customPromo || personalPromotions.generalPromo;
+                  const promoPrice =
+                    (product.item.item.cena * (100 - promoPerc)) / 100;
+                  if (product.item.item.isOnPromotions) {
+                    price =
+                      promoPrice < product.item.item.promotionalPrice
+                        ? promoPrice
+                        : product.item.item.promotionalPrice;
+                  } else {
+                    price = promoPrice;
+                  }
+                }
+              }
               return (
                 <ul
                   key={product.item._id}
@@ -55,10 +80,9 @@ export default function Product({ delivery }) {
                     </ul>
                   </li>
                   <li>Бройки: {product.qty}</li>
-                  <li>Ед. цена: {product.item.item.cena}</li>
+                  <li>Ед. цена: {price.toFixed(2)}</li>
                   <li>
-                    Обща. цена за продуктите:{" "}
-                    {(product.qty * product.item.item.cena).toFixed(2)}
+                    Обща. цена за продуктите: {(product.qty * price).toFixed(2)}
                   </li>
                   <div className="flex items-center justify-center">
                     <div className="relative w-28 h-28">
@@ -77,6 +101,13 @@ export default function Product({ delivery }) {
       <div className="absolute top-0 left-0 flex justify-between w-full text-primary-100">
         <div className="ml-2">
           Обща Сума: {delivery.totalPrice.toFixed(2)} лв.
+        </div>
+        <div>
+          {delivery.isVerified ? (
+            <div className="text-green text-lg">Потвърдена</div>
+          ) : (
+            <div className="text-secondary text-lg">Трябва да се потвърди</div>
+          )}
         </div>
         <div className="ml-2">
           <Status type={status} isDiv={true} />

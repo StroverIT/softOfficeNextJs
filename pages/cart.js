@@ -4,7 +4,9 @@ import { useState } from "react";
 import Head from "next/head";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
-
+// Mongodb
+import PersonalPromotion from "../db/models/PersonalPromotion";
+import { connectMongo } from "../db/connectDb";
 // Components
 import Price from "../components/priceStyling/Pricing";
 import BtnOutlined from "../components/buttons/Outlined";
@@ -14,7 +16,13 @@ import CartItem from "../components/cart/CartItem";
 import { connect } from "react-redux";
 import { adjustQty, removeFromCart } from "../redux/actions/productActions";
 
-function Cart({ cart, adjustQty, removeFromCart, userData }) {
+function Cart({
+  cart,
+  adjustQty,
+  removeFromCart,
+  userData,
+  personalPromotions,
+}) {
   const router = useRouter();
 
   const [isLoading, setLoading] = useState(false);
@@ -23,14 +31,54 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
     setLoading(true);
     router.push("/delivery");
   };
+  let totalPromotion = 0;
   let subtotal = cart
     .map((item) => {
-      return item.item.item.cena * item.qty;
+      let cena = item.item.item.cena;
+
+      // Item Promo
+
+      if (item.item.item.isOnPromotions) {
+        totalPromotion +=
+          (item.item.item.cena - item.item.item.promotionalPrice) * item.qty;
+        cena = item.item.item.promotionalPrice;
+      }
+      // Personal promotions
+
+      if (personalPromotions?.sectionPromo) {
+        const found = personalPromotions.sectionPromo.find((promo) => {
+          return (promo.name = item.item.section.name);
+        });
+        if (found) {
+          const promoPerc =
+            found.customPromo || personalPromotions.generalPromo;
+          const realPrice = item.item.item.cena;
+
+          const personalPromoToPrice = (100 - promoPerc) / 100;
+
+          const personalPromo = realPrice * personalPromoToPrice;
+
+          if (item.item.item.isOnPromotions) {
+            const promotionalPrice = item.item.item.promotionalPrice;
+
+            const whichIsBetter =
+              personalPromo < promotionalPrice
+                ? personalPromo
+                : promotionalPrice;
+            totalPromotion += (realPrice - whichIsBetter) * item.qty;
+            cena = whichIsBetter;
+          } else {
+            totalPromotion += (realPrice - personalPromo) * item.qty;
+
+            cena = personalPromo;
+          }
+        }
+      }
+      return cena * item.qty;
     })
     .reduce((a, b) => a + b, 0)
     .toFixed(2)
     .split(".");
-
   return (
     <>
       <Head>
@@ -76,13 +124,14 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
                           removeFromCart(cartItem.item.item.route)
                         }
                         changeQty={adjustQty.bind({}, cartItem.item.item.route)}
+                        personalPromotions={personalPromotions}
                       />
                     );
                   })}
                 </tbody>
               </table>
 
-              <aside className="border-[4px] border-gray-100 p-5 relative h-48 md:sticky sm:top-24">
+              <aside className="border-[4px] border-gray-100 p-5 relative h-72 md:sticky sm:top-24">
                 <section className="flex items-center justify-between border-b b-[#e4e7e6] py-2">
                   <div className="font-semibold uppercase ">Междинна сума:</div>
 
@@ -94,7 +143,21 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
                     />
                   </div>
                 </section>
+                {totalPromotion > 0 && (
+                  <section className="flex items-center justify-between border-b b-[#e4e7e6] py-2">
+                    <div className="font-semibold uppercase ">
+                      Спестени пари:
+                    </div>
 
+                    <div>
+                      <Price
+                        size="2xl"
+                        price={totalPromotion.toFixed(2).split(".")[0]}
+                        priceDec={totalPromotion.toFixed(2).split(".")[1]}
+                      />
+                    </div>
+                  </section>
+                )}
                 <section className="mt-2">
                   <BtnOutlined
                     isLoading={isLoading}
@@ -119,6 +182,7 @@ export async function getServerSideProps(context) {
   // Session
   const session = await getSession({ req: context.req });
   let data = {};
+  let personalPromotions = {};
   // Mongodb
   if (session) {
     const res = await fetch(`${process.env.NEXTAUTH_URL}/api/getUser`, {
@@ -129,10 +193,21 @@ export async function getServerSideProps(context) {
       }),
     });
     data = await res.json();
+
+    if (data) {
+      await connectMongo();
+      const promo = await PersonalPromotion.findOne({ ownerId: data._id });
+      if (promo) {
+        personalPromotions = promo;
+      }
+    }
   }
 
   return {
-    props: { userData: JSON.parse(JSON.stringify(data)) },
+    props: {
+      userData: JSON.parse(JSON.stringify(data)),
+      personalPromotions: JSON.parse(JSON.stringify(personalPromotions)),
+    },
   };
 }
 export default connect(

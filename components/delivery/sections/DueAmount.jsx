@@ -3,10 +3,10 @@ import { FaRegMoneyBillAlt } from "react-icons/fa";
 
 import BtnOutlined from "../../buttons/Outlined";
 
-export default function DueAmount({ priceState, createDelivery }) {
+export default function DueAmount({ priceState, createDelivery, savedMoney }) {
   return (
-    <section className=" font-semibold y sticky top-20 h-72 flex flex-col">
-      <section className="flex flex-col justify-between border border-gray shadow-lg">
+    <section className="sticky flex flex-col font-semibold y top-20 h-72">
+      <section className="flex flex-col justify-between border shadow-lg border-gray">
         <section className="flex items-center py-4 pl-3 bg-gray-300 border-b border-gray-150">
           <div>
             <FaRegMoneyBillAlt />
@@ -36,11 +36,19 @@ export default function DueAmount({ priceState, createDelivery }) {
               ) : (
                 <>
                   <span>{priceState.delivery.toFixed(2)}</span>
-                  <span className="font-light ml-1">лв.</span>
+                  <span className="ml-1 font-light">лв.</span>
                 </>
               )}
             </div>
           </section>
+          {savedMoney && savedMoney > 0 && (
+            <section className="flex justify-between pb-1 text-sm">
+              <div className="font-light">Спестени пари</div>
+              <div>
+                {savedMoney.toFixed(2)} <span className="font-light">лв.</span>
+              </div>
+            </section>
+          )}
         </section>
         <section className="flex items-center justify-between px-3 py-4 bg-gray-300 border-b border-gray-150 ">
           <div>ОБЩО: </div>

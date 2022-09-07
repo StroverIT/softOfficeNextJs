@@ -16,7 +16,7 @@ function NavLinkSubMenu({ subMenuData }) {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={`${
-          isOpen ? "text-primary-lighter" : ""
+          isOpen ? "text-primary-100" : ""
         } transition-colors text-left text-[1rem] hover:text-primary pr-3`}
       >
         <div className="relative flex items-center justify-center">

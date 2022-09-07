@@ -2,21 +2,26 @@ import React, { useEffect, useState } from "react";
 // Nextjs
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Image from "next/image";
+// Mongodb
+import { connectMongo } from "../../../../db/connectDb";
+import User from "../../../../db/models/User";
+import PersonalPromotion from "../../../../db/models/PersonalPromotion";
+// Components
+import OldPrice from "../../../../components/priceStyling/OldPrice";
+import Pricing from "../../../../components/priceStyling/Pricing";
 
 // Icons
 import { AiOutlineHeart } from "react-icons/ai";
 import { IoArrowUndo } from "react-icons/io5";
 // Styling
-import Pricing from "../../../../components/priceStyling/Pricing";
+
 import { productByItemId } from "../../../../services/productService";
 import AddProductInput from "../../../../components/products/AddProductInput";
 
 // Redux
 import { useDispatch } from "react-redux";
 import { addToCart } from "../../../../redux/actions/productActions";
-
-// Utils
-import productFormater from "../../../../utils/productFormater";
 
 // Notifications
 import {
@@ -30,15 +35,14 @@ import Card from "../../../../components/products/Card";
 // Service
 import { isFav } from "../../../../services/favouriteService";
 import { getUser } from "../../../../services/userServicejs";
-import Image from "next/image";
 import SwiperProductSelect from "../../../../components/swiperJs/SwiperProductSelect";
 
-export default function Index({ data, userData, isInFav }) {
+export default function Index({ data, userData, isInFav, personalPromotions }) {
   const router = useRouter();
   const routerHash = router?.asPath?.split("#");
 
   const [product, setProduct] = useState({ ...data.foundItem });
-  const alternatives = data?.alternatives;
+  // const alternatives = data?.alternatives;
 
   const [currQty, setQty] = useState(1);
   const [price, setPrice] = useState(null);
@@ -48,20 +52,65 @@ export default function Index({ data, userData, isInFav }) {
   const dispatch = useDispatch();
 
   const addProduct = (product, productName) => {
-    const newObj = productFormater(product);
-    // ${productName} Беше успешно добавен в количката
-    toastProduct(newObj.articleName);
+    const section = product.section;
+    const article = product.article;
+    const item = article.items[0];
+    const newObj = {
+      item: {
+        route: item._id,
+        tipove: item.tipove,
+        cena: item.cena,
+        promotionalPrice: item.promotionalPrice,
+        isOnPromotions: item.isOnPromotions,
+        isOnlyNumb: item.isOnlyNumb,
+        katNomer: item.katNomer,
+      },
+      article: {
+        imgUrl: article.img[0].originalname,
+        name: article.nameToDisplay,
+        route: article._id,
+      },
+      section: {
+        name: section.nameToDisplay,
+        route: section.name,
+      },
+    };
+
+    toastProduct(
+      `${section.nameToDisplay} ${article.tiput} успешно беше добавен в количката`
+    );
     dispatch(addToCart(newObj, currQty));
   };
   const addFavourites = async (product) => {
     toastPromise("Изпраща се...");
-    const newObj = productFormater(product);
+    const section = product.section;
+    const article = product.article;
+    const item = article.items[0];
+    const newObj = {
+      item: {
+        route: item._id,
+        types: item.tipove,
+        cena: item.cena,
+        promoPrice: item.promotionalPrice,
+        isOnPromotions: item.isOnPromotions,
+        isOnlyNumb: item.isOnlyNumb,
+      },
+      article: {
+        imgUrl: article.img[0].originalname,
+        name: article.nameToDisplay,
+        route: article._id,
+      },
+      section: {
+        name: section.nameToDisplay,
+        route: section.name,
+      },
+    };
+
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ product: newObj }),
     };
-
     const res = await fetch("/api/account/favourites/adding", options);
     const data = await res.json();
 
@@ -106,7 +155,31 @@ export default function Index({ data, userData, isInFav }) {
 
   useEffect(() => {
     if (product?.article?.items?.length == 1) {
-      setPrice(product?.article?.items[0]?.cena);
+      let priceObjInit = { forItem: product?.article?.items[0]?.cena };
+      if (product.article.items[0].isOnPromotions) {
+        priceObjInit.promoPrice = product?.article?.items[0]?.promotionalPrice;
+      }
+      if (personalPromotions?.found) {
+        const promoPerc =
+          personalPromotions?.found.customPromo ||
+          personalPromotions.generalPromo;
+        const realPrice = priceObjInit.forItem;
+
+        const personalPromoToPrice = (100 - promoPerc) / 100; // This is in percentage
+
+        const personalPromo = realPrice * personalPromoToPrice;
+
+        if (product.article.items[0].isOnPromotions) {
+          const promotionalPrice = product.article.items[0].promotionalPrice;
+          const whichIsBetter =
+            personalPromo < promotionalPrice ? personalPromo : promotionalPrice;
+
+          priceObjInit.promoPrice = whichIsBetter;
+        } else {
+          priceObjInit.promoPrice = personalPromo;
+        }
+      }
+      setPrice(priceObjInit);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -122,7 +195,37 @@ export default function Index({ data, userData, isInFav }) {
       }
       if (newData?.article?.items?.length >= 1) {
         setProduct(newData);
-        setPrice(newData.article.items[0].cena);
+
+        const priceInit = { forItem: newData.article.items[0].cena };
+        if (newData.article.items[0].isOnPromotions) {
+          priceInit.promoPrice = newData.article.items[0].promotionalPrice;
+        }
+
+        if (personalPromotions?.found) {
+          const promoPerc =
+            personalPromotions?.found.customPromo ||
+            personalPromotions.generalPromo;
+
+          const realPrice = priceInit.forItem;
+
+          const personalPromoToPrice = (100 - promoPerc) / 100; // This is in percentage
+
+          const personalPromo = realPrice * personalPromoToPrice;
+
+          if (newData.article.items[0].isOnPromotions) {
+            const promotionalPrice = newData.article.items[0].promotionalPrice;
+            const whichIsBetter =
+              personalPromo < promotionalPrice
+                ? personalPromo
+                : promotionalPrice;
+
+            priceInit.promoPrice = whichIsBetter;
+          } else {
+            priceInit.promoPrice = personalPromo;
+          }
+        }
+
+        setPrice(priceInit);
         setSelected(true);
       }
     } else {
@@ -137,7 +240,7 @@ export default function Index({ data, userData, isInFav }) {
           <div className="text-2xl font-semibold">
             {isSelected && (
               <div
-                className="cursor-pointer mb-5 flex items-center text-secondary hover:text-primary-100"
+                className="flex items-center mb-5 cursor-pointer text-secondary hover:text-primary-100"
                 onClick={() =>
                   router.push(
                     `/products/hartiq/61eb119d7815ce846f1745b7`,
@@ -149,7 +252,7 @@ export default function Index({ data, userData, isInFav }) {
                 <div>
                   <IoArrowUndo />
                 </div>
-                <div className="text-sm mt-1 ml-1">Назад</div>
+                <div className="mt-1 ml-1 text-sm">Назад</div>
               </div>
             )}
             <span className="ml-1 ">{itemName}</span>
@@ -167,7 +270,7 @@ export default function Index({ data, userData, isInFav }) {
               <div className="py-20 border border-gray-bord">
                 <div className="relative w-full h-96">
                   <Image
-                    src={`/uploads/${product.article.img.originalname}`}
+                    src={`/uploads/${product.article.img[0].originalname}`}
                     layout="fill"
                     alt="Img"
                     className="object-contain"
@@ -181,16 +284,32 @@ export default function Index({ data, userData, isInFav }) {
               <section className="flex flex-col p-5 space-y-10">
                 <section className="flex items-center justify-between border-b border-gray-bord ">
                   <div className="text-lg font-bold">Цена:</div>
-                  {price && (
-                    <div>
+                  {price?.forItem && !price.promoPrice && (
+                    <Pricing
+                      price={price.forItem.toFixed(2).split(".")[0]}
+                      priceDec={price.forItem.toFixed(2).split(".")[1]}
+                      size="3xl"
+                    />
+                  )}
+                  {price?.promoPrice && (
+                    <div className="flex gap-x-5">
+                      <div className="text-gray-200">
+                        <OldPrice
+                          price={price.forItem.toFixed(2).split(".")[0]}
+                          priceDec={price.forItem.toFixed(2).split(".")[1]}
+                          size="3xl"
+                          NoDDSText={true}
+                        />
+                      </div>
                       <Pricing
-                        price={price.split(".")[0]}
-                        priceDec={price.split(".")[1]}
+                        price={price.promoPrice.toFixed(2).split(".")[0]}
+                        priceDec={price.promoPrice.toFixed(2).split(".")[1]}
                         size="3xl"
                       />
                     </div>
                   )}
                 </section>
+
                 <section className="flex flex-col justify-center w-full h-full px-20">
                   <div className="mb-1">
                     <label
@@ -238,18 +357,33 @@ export default function Index({ data, userData, isInFav }) {
                 </section>
               </section>
             </div>
-            <section className="pt-5 pb-10 my-16 border border-gray-150">
-              <h3 className="py-5 text-2xl font-semibold text-center text-primary">
+            <section className="pt-2 mt-16 mb-5 border border-gray-150">
+              <h3 className="py-2 text-2xl font-semibold text-center text-primary">
                 Описание
               </h3>
-              <div className="flex px-3 ml-4 sm:ml-10">
-                <ul className="list-disc ">
+              <div className="flex px-3 pb-6 ml-4 sm:ml-10">
+                <ul className="mb-1 list-disc">
+                  {product?.article?.items[0].tipove
+                    .split(";")
+                    .splice(0, 5)
+                    .map((type) => {
+                      return <li key={type}>{type}</li>;
+                    })}
                   {product.article.opisanie.split(";").map((description) => {
                     return <li key={description}>{description}</li>;
                   })}
-                </ul>
+                </ul>{" "}
               </div>
             </section>
+
+            {/* <section className="pb-10 mb-16 border-b border-x border-gray-150">
+              <h3 className="pt-1 pb-2 text-2xl font-semibold text-center text-primary">
+                Допълнителна информация
+              </h3>
+              <div className="flex px-3 ml-4 sm:ml-10">
+                <ul className="list-disc "></ul>
+              </div>
+            </section> */}
             {/* <section className="flex flex-wrap justify-center my-20 gap-x-16 gap-y-10 ">
               {alternatives &&
                 alternatives.map((alt) => {
@@ -268,10 +402,12 @@ export default function Index({ data, userData, isInFav }) {
         {product?.article?.items?.length > 1 && !isSelected && (
           <>
             <SwiperProductSelect
+              name={itemName}
               articleItems={product?.article?.items}
-              article={{ img: product?.article?.img?.originalname }}
+              article={{ img: product?.article?.img[0]?.originalname }}
               navSize="3xl"
               onClick={selectedProductHandler}
+              personalPromotions={personalPromotions}
             />
           </>
         )}
@@ -282,7 +418,7 @@ export default function Index({ data, userData, isInFav }) {
 
 // Getting specific item product
 export async function getServerSideProps(context) {
-  const { itemId } = context.params;
+  const { itemId, section } = context.params;
 
   const product = await productByItemId(itemId);
   const session = await getSession({ req: context.req });
@@ -292,11 +428,29 @@ export async function getServerSideProps(context) {
     const user = await getUser(session.user.email);
     isInFav = await isFav(itemId, user._id);
   }
+  let personalPromotions = {};
+  if (session) {
+    await connectMongo();
+    const user = await User.findOne({ email: session.user.email });
+    if (user) {
+      const promo = await PersonalPromotion.findOne({ ownerId: user._id });
+      if (promo) {
+        let found = promo.sectionPromo.find((item) => item.name == section);
+        if (found) {
+          if (!found.customPromo) {
+            found.customPromo = promo.generalPromo;
+          }
+          personalPromotions.found = found;
+        }
+      }
+    }
+  }
   return {
     props: {
       data: JSON.parse(JSON.stringify(product)),
       userData: JSON.parse(JSON.stringify(session)),
       isInFav,
+      personalPromotions: JSON.parse(JSON.stringify(personalPromotions)),
     },
   };
 }

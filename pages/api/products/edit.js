@@ -27,7 +27,7 @@ async function handler(req, res) {
 
     const { data, productId } = req.body;
 
-    await Product.updateOne({ _id: productId }, { $set: { ...data } });
+    await Product.updateOne({ _id: productId }, { $set: data });
     res.json({ message: "Успешно променихте продукта" });
   } catch (e) {
     res.json({ error: e?.error });

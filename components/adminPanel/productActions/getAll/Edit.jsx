@@ -14,7 +14,7 @@ function Edit({
 
   // Switch statement
   if (theme == "blueLight") {
-    typeOfTheme += genTheme("primary-lighter");
+    typeOfTheme += genTheme("primary-100");
   }
   if (theme == "green") {
     typeOfTheme += genTheme("green");

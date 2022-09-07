@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 // NextJs
 import Head from "next/head";
 import { getSession } from "next-auth/react";
+// Mongodb
+import { connectMongo } from "../db/connectDb";
+import PersonalPromotion from "../db/models/PersonalPromotion";
 // Components
 import RadioButton from "../components/cart/RadioButton";
 import DueAmount from "../components/delivery/sections/DueAmount";
@@ -35,7 +38,7 @@ const CARD_PAYMENT = "cardPayment";
 // Context
 import { InputContext } from "../components/delivery/Context";
 
-function Delivery({ cart, userData, cities }) {
+function Delivery({ cart, userData, cities, personalPromotions }) {
   const [selected, setSelected] = useState(cities[21]);
   const [officeSelected, setOfficeSelected] = useState({
     name: "Избери офис",
@@ -54,6 +57,7 @@ function Delivery({ cart, userData, cities }) {
     delivery: 0,
     dds: 0,
   });
+  const [savedMoney, setSavedMoney] = useState(null);
   const [inputs, setInputs] = useState({
     email: userData.email,
     address: {},
@@ -103,16 +107,49 @@ function Delivery({ cart, userData, cities }) {
   };
   const changeOrderHandler = (e) => {
     const name = e.target.name;
-    console.log(name);
     setTypeOfOrder(name);
   };
 
   useEffect(() => {
+    let savedMoney = 0;
     let subTotal = parseFloat(
       cart
         .map((item) => {
-          console.log(item);
-          return item.item.item.cena * item.qty;
+          let cena = item.item.item.cena;
+          if (item.item.item.isOnPromotions) {
+            savedMoney += item.item.item.cena - item.item.item.promotionalPrice;
+            cena = item.item.item.promotionalPrice;
+          }
+          if (personalPromotions?.sectionPromo) {
+            const found = personalPromotions.sectionPromo.find((promo) => {
+              return (promo.name = item.item.section.name);
+            });
+            if (found) {
+              const promoPerc =
+                found.customPromo || personalPromotions.generalPromo;
+              const realPrice = item.item.item.cena;
+
+              const personalPromoToPrice = (100 - promoPerc) / 100;
+
+              const personalPromo = realPrice * personalPromoToPrice;
+
+              if (item.item.item.isOnPromotions) {
+                const promotionalPrice = item.item.item.promotionalPrice;
+
+                const whichIsBetter =
+                  personalPromo < promotionalPrice
+                    ? personalPromo
+                    : promotionalPrice;
+                savedMoney += (realPrice - whichIsBetter) * item.qty;
+                cena = whichIsBetter;
+              } else {
+                savedMoney += (realPrice - personalPromo) * item.qty;
+
+                cena = personalPromo;
+              }
+            }
+          }
+          return cena * item.qty;
         })
         .reduce((a, b) => a + b, 0)
         .toFixed(2)
@@ -132,6 +169,10 @@ function Delivery({ cart, userData, cities }) {
     }
     state.totalPrice = subTotal + dds + state.delivery;
     setPriceState(() => state);
+    if (savedMoney > 0) {
+      console.log(savedMoney);
+      setSavedMoney(savedMoney);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
 
@@ -230,6 +271,7 @@ function Delivery({ cart, userData, cities }) {
             <DueAmount
               priceState={priceState}
               createDelivery={createDelivery}
+              savedMoney={savedMoney}
             />
           </InputContext.Provider>
         </section>
@@ -242,6 +284,7 @@ export async function getServerSideProps(context) {
   // Session
   const session = await getSession({ req: context.req });
   let data = {};
+  let personalPromotions = {};
   // Must add if cart is empty and if is not logged in
   if (!session) {
     return {
@@ -257,11 +300,22 @@ export async function getServerSideProps(context) {
 
     res.addresses.push({ name: "Нов адрес" });
     data = res;
+    if (data) {
+      await connectMongo();
+      const promo = await PersonalPromotion.findOne({ ownerId: data._id });
+      if (promo) {
+        personalPromotions = promo;
+      }
+    }
   }
   const getCities = await getBgCities();
 
   return {
-    props: { userData: JSON.parse(JSON.stringify(data)), cities: getCities },
+    props: {
+      userData: JSON.parse(JSON.stringify(data)),
+      cities: getCities,
+      personalPromotions: JSON.parse(JSON.stringify(personalPromotions)),
+    },
   };
 }
 export default connect(

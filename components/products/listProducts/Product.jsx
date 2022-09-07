@@ -10,7 +10,12 @@ import BuyBtn from "../../base/BuyBtn";
 import ListItem from "./ListItem";
 import { HiX } from "react-icons/hi";
 
-export default function Product({ section, article, addProduct }) {
+export default function Product({
+  section,
+  article,
+  addProduct,
+  personalPromotions,
+}) {
   const router = useRouter();
   const routerHash = router?.asPath?.split("#");
   const itemsLen = article.items.length;
@@ -80,6 +85,8 @@ export default function Product({ section, article, addProduct }) {
                         route: article.items[0]._id,
                         types: article.items[0].tipove,
                         cena: article.items[0].cena,
+                        promotionalPrice: article.items[0].promotionalPrice,
+
                         isOnPromotion: article.items[0].isOnPromotions,
                         isOnlyNumb: article.items[0].isOnlyNumb,
                       },
@@ -124,6 +131,7 @@ export default function Product({ section, article, addProduct }) {
                         articleData={articleData}
                         section={section}
                         addProduct={addProduct}
+                        personalPromotions={personalPromotions}
                       />
                     );
                   })}

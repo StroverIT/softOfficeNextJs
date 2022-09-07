@@ -18,14 +18,19 @@ import navStyle from "../../styles/swiperJs/SwiperNav.module.css";
 import { FreeMode, Pagination, Navigation } from "swiper";
 
 // Components
-import PricingPromo from "../priceStyling/PricingPromo";
+import Pricing from "../priceStyling/Pricing";
+import OldPrice from "../priceStyling/OldPrice";
+
 import SwiperNav from "./SwiperNav";
+import SwiperProductSelectSwiperSlide from "./SwiperProductSelectSwiperSlide";
 
 export default function SwiperProductSelect({
   articleItems,
   article,
   navSize,
   onClick,
+  name,
+  personalPromotions,
 }) {
   return (
     <>
@@ -46,10 +51,10 @@ export default function SwiperProductSelect({
           breakpoints={{
             // when window width is >= 640px
             0: {
-              slidesPerView: 1.25,
+              slidesPerView: articleItems.length > 1 ? 1 : 1.25,
             },
             640: {
-              slidesPerView: 2,
+              slidesPerView: articleItems.length > 1 ? 1 : 2,
             },
             // when window width is >= 768px
             768: {
@@ -60,33 +65,17 @@ export default function SwiperProductSelect({
           className={`mySwiper relative freeModeSwiper`}
         >
           {articleItems.map((item) => {
-            let price = item.cena.split(".");
             return (
               <SwiperSlide
                 className="flex flex-col bg-white shadow-lg cursor-pointer hover:shadow-xl"
                 key={item._id}
                 onClick={() => onClick({ item })}
               >
-                <div className="flex flex-col justify-between w-full h-full">
-                  <div>
-                    <div className="relative w-full h-96">
-                      <Image
-                        src={`/uploads/${article.img}`}
-                        layout="fill"
-                        alt={article.img}
-                        className="object-contain"
-                      />
-                    </div>
-                    <div className="container font-medium text-center border-t border-gray">
-                      Gosho
-                    </div>
-                  </div>
-                  <PricingPromo
-                    // isPromo={image.isPromo}
-                    price={price[0]}
-                    priceDec={price[1]}
-                  />
-                </div>
+                <SwiperProductSelectSwiperSlide
+                  article={article}
+                  personalPromotions={personalPromotions}
+                  item={item}
+                />
               </SwiperSlide>
             );
           })}

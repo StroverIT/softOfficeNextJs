@@ -22,7 +22,7 @@ import { FreeMode, Pagination, Navigation } from "swiper";
 import PricingPromo from "../priceStyling/PricingPromo";
 import SwiperNav from "./SwiperNav";
 
-export default function SwiperFreeMode({ images, navSize }) {
+export default function SwiperPromo({ data, navSize }) {
   const router = useRouter();
 
   return (
@@ -47,46 +47,67 @@ export default function SwiperFreeMode({ images, navSize }) {
               slidesPerView: 1,
             },
             640: {
-              slidesPerView: 2.25,
+              slidesPerView: 2,
             },
             // when window width is >= 768px
             768: {
-              slidesPerView: 4,
+              slidesPerView: 2,
             },
           }}
           modules={[FreeMode, Pagination, Navigation]}
-          className={`mySwiper relative freeModeSwiper`}
+          className={`mySwiper relative freeModeSwiper w-full `}
         >
-          {images.map((image) => {
-            let [price, priceDec] = image.price.toFixed(2).split(".");
+          {data.map((promo) => {
+            const product = promo.product;
+            let [price, priceDec] = product.item.cena.toFixed(2).split(".");
+            const sum =
+              (product.item.promotionalPrice / product.item.cena) * 100;
+            const percentageRate = (100 - sum).toFixed(2).split(".");
+            let pageUrl =
+              product.itemLen > 1
+                ? `${product.section.name}/${product.subsection._id}#${product.item._id}`
+                : `${product.section.name}/${product.subsection._id}`;
+
+            const name = `${product.section.nameToDisplay} ${product.subsection.nameToDisplay}`;
             return (
               <SwiperSlide
-                className="flex flex-col bg-white shadow-lg cursor-pointer hover:shadow-xl"
-                key={image.title}
+                className="flex flex-col bg-white shadow-lg cursor-pointer hover:shadow-xl relative my-2 "
+                key={promo._id}
               >
                 <div
-                  onClick={() => router.push(image.pageUrl)}
-                  className="flex flex-col justify-between h-full"
+                  onClick={() => router.push(`/products/${pageUrl}`)}
+                  className="flex flex-col justify-between h-full  "
                 >
-                  <div>
-                    <div>
-                      <Image
-                        src={image.src}
-                        //  layout="fill"
-                        height={700}
-                        width={1000}
-                        alt={image.title}
-                      />
+                  <div className="">
+                    <div className="flex items-center justify-center flex-col py-10">
+                      <div className="relative h-60 w-60 ">
+                        <Image
+                          src={`/uploads/${product.subsection.imgUrl}`}
+                          layout="fill"
+                          alt={"test"}
+                          className="object-contain"
+                        />
+                      </div>
                     </div>
-                    <div className="container font-medium text-center border-t border-gray">
-                      {image.title}
+                    <div className="container font-medium text-center border-t border-gray py-2">
+                      <div className="text-xl">{name}</div>
+                      <ul className="text-sm font-normal ">
+                        {product.item.tipove
+                          .split(";")
+                          .splice(0, 5)
+                          .map((type) => {
+                            return <li key={type}>{type}</li>;
+                          })}
+                      </ul>
                     </div>
                   </div>
                   <PricingPromo
-                    isPromo={image.isPromo}
-                    price={price}
-                    priceDec={priceDec}
+                    price={product.item.cena}
+                    promoPrice={product.item.promotionalPrice}
                   />
+                </div>
+                <div className="absolute  z-50 -top-2 -right-2 bg-primary-100 text-white rounded-full p-2 text-sm">
+                  -{percentageRate[0]}%
                 </div>
               </SwiperSlide>
             );

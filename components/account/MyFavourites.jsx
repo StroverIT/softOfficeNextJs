@@ -6,15 +6,15 @@ import style from "../../styles/account/myFavourites.module.css";
 // Components
 import { Card } from "./Card";
 
-export default function MyFavourites({ favData }) {
+export default function MyFavourites({ favData, personalPromotions }) {
   const [favState, setFavState] = useState(favData);
   return (
     <section className="pb-2">
-      <h2 className="mb-2 text-3xl font-semibold text-center mt-5">
+      <h2 className="mt-5 mb-2 text-3xl font-semibold text-center">
         Любими продукти
       </h2>
       {favState.length == 0 && (
-        <div className="text-center text-secondary pb-10">
+        <div className="pb-10 text-center text-secondary">
           Нямате сложени любими продукти
         </div>
       )}
@@ -23,7 +23,12 @@ export default function MyFavourites({ favData }) {
       >
         {favState.map((data) => {
           return (
-            <Card key={data._id} itemData={data} setFavState={setFavState} />
+            <Card
+              key={data._id}
+              itemData={data}
+              setFavState={setFavState}
+              personalPromotions={personalPromotions}
+            />
           );
         })}
       </section>

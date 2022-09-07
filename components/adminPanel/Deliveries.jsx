@@ -8,14 +8,24 @@ import Section from "./deliveriesComp/Section";
 import Main from "./deliveriesComp/Main";
 // Constants
 
-export default function Deliveries({ forHome, forMagazine }) {
+export default function Deliveries({
+  forHome,
+  forMagazine,
+  personalPromotions,
+}) {
   const router = useRouter();
   const [action, setAction] = useState();
 
   useEffect(() => {
     const categoryComp = {
       "#dostavki": [<Main key="dostavki" />],
-      "#delivery": [<Section key="forHome" delivery={forMagazine} />],
+      "#delivery": [
+        <Section
+          key="forHome"
+          delivery={forMagazine}
+          personalPromotions={personalPromotions}
+        />,
+      ],
       "#magazine": [<Section key="forMagazine" delivery={forHome} />],
     };
     const hash = window.location.hash.split("#");

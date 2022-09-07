@@ -65,7 +65,7 @@ const Login = ({ query }) => {
               <p className="mt-1">
                 Все още нямате профил?
                 <Link href="/account/register">
-                  <span className="ml-1 cursor-pointer text-primary-lighter hover:font-bold">
+                  <span className="ml-1 cursor-pointer text-primary-100 hover:font-bold">
                     Регистрация
                   </span>
                 </Link>
@@ -114,7 +114,7 @@ const Login = ({ query }) => {
               <div className={` `}>
                 <Link href="/account/resetPassword">
                   <a
-                    className="inline-block text-sm align-baseline hover:font-bold text-primary-lighter"
+                    className="inline-block text-sm align-baseline hover:font-bold text-primary-100"
                     href="#"
                   >
                     Забравена парола
@@ -124,7 +124,7 @@ const Login = ({ query }) => {
               <div>
                 <Link href="/account/resendVerification">
                   <a
-                    className="inline-block text-sm align-baseline hover:font-bold text-primary-lighter"
+                    className="inline-block text-sm align-baseline hover:font-bold text-primary-100"
                     href="#"
                   >
                     Потвърждаване на акаунт

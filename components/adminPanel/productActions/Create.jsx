@@ -85,7 +85,7 @@ export default function Create() {
     <div className="mt-5">
       <div>
         <button
-          className="my-5 text-2xl text-primary-lighter"
+          className="my-5 text-2xl text-primary-100"
           onClick={() => router.push("/adminPanel#prodykti")}
         >
           <BsArrowReturnLeft />

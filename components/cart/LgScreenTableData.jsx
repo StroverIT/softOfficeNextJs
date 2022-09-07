@@ -3,6 +3,8 @@ import React from "react";
 import { HiX } from "react-icons/hi";
 // Components
 import Price from "../priceStyling/Pricing";
+import OldPrice from "../priceStyling/OldPrice";
+
 import QunityInput from "../base/QuanityInput";
 import TableData from "./TableData";
 export default function LgScreenTableData({
@@ -11,13 +13,31 @@ export default function LgScreenTableData({
   removeProduct,
   changeQty,
 }) {
-  let totalPrice = (price * qty).toFixed(2).split(".");
-  price = price.toFixed(2).split(".");
+  let totalPrice = (price.fixedPrice * qty).toFixed(2).split(".");
 
   return (
     <>
       <TableData classes="lg:px-3 hidden lg:table-cell">
-        <Price price={price[0]} priceDec={price[1]} size="2xl" />
+        {!price.promotionalPrice && (
+          <Price price={totalPrice[0]} priceDec={totalPrice[1]} size="2xl" />
+        )}
+        {price.promotionalPrice && (
+          <div>
+            <div className="text-gray-200">
+              <OldPrice
+                price={price.fixedPrice.toFixed(2).split(".")[0]}
+                priceDec={price.fixedPrice.toFixed(2).split(".")[1]}
+                size="xl"
+                NoDDSText={true}
+              />
+            </div>
+            <Price
+              price={price.promotionalPrice.toFixed(2).split(".")[0]}
+              priceDec={price.promotionalPrice.toFixed(2).split(".")[1]}
+              size="2xl"
+            />
+          </div>
+        )}
       </TableData>
       <TableData classes="hidden lg:table-cell">
         <QunityInput
@@ -40,7 +60,26 @@ export default function LgScreenTableData({
         </div>
       </TableData>
       <TableData classes=" lg:px-3 hidden lg:table-cell">
-        <Price price={totalPrice[0]} priceDec={totalPrice[1]} size="2xl" />
+        {!price.promotionalPrice && (
+          <Price price={totalPrice[0]} priceDec={totalPrice[1]} size="2xl" />
+        )}
+        {price.promotionalPrice && (
+          <div>
+            <div className="text-gray-200">
+              <OldPrice
+                price={totalPrice[0]}
+                priceDec={totalPrice[1]}
+                size="xl"
+                NoDDSText={true}
+              />
+            </div>
+            <Price
+              price={(price.promotionalPrice * qty).toFixed(2).split(".")[0]}
+              priceDec={(price.promotionalPrice * qty).toFixed(2).split(".")[1]}
+              size="2xl"
+            />
+          </div>
+        )}
       </TableData>
     </>
   );

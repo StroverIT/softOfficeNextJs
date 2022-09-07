@@ -45,7 +45,6 @@ export const productByItemId = async (itemId) => {
       break inner;
     }
   }
-  console.log(filteredData.foundItem);
   for (let i = 0; i < 5; i++) {
     const article = data.subsection[i];
     if (!article) break;

@@ -19,15 +19,37 @@ function ListProduct({ text }) {
     </li>
   );
 }
-function CartItem({ data }) {
-  console.log(data);
+function CartItem({ data, personalPromotions }) {
   const productName = `${data.section.name} ${data.article.name}`;
+  let price = data.item.cena;
+  if (data.item.isOnPromotions) {
+    price = data.item.promotionalPrice;
+  }
+  if (personalPromotions?.sectionPromo) {
+    const find = personalPromotions.sectionPromo.find(
+      (item) => item.name == data.section.route
+    );
+    if (find) {
+      const promPerc = find.customPromo || personalPromotions.generalPromo;
+      const promoPrice = (data.item.cena * (100 - promPerc)) / 100;
+
+      if (data.item.isOnPromotions) {
+        const whichIsBetter =
+          promoPrice < data.item.promotionalPrice
+            ? promoPrice
+            : data.item.promotionalPrice;
+        price = whichIsBetter;
+      } else {
+        price = promoPrice;
+      }
+    }
+  }
   return (
     <>
       <ListProduct text={["Име на продукта", productName]} />
 
-      <ListProduct text={["Ед. цена", data.item.cena]} />
-      <div className="absolute right-0 -translate-y-1/2 top-1/2">
+      <ListProduct text={["Ед. цена", price.toFixed(2)]} />
+      <div className="absolute right-0 hidden -translate-y-1/2 sm:block top-1/2">
         <div className="relative w-20 h-20">
           <Image
             layout="fill"
@@ -39,7 +61,15 @@ function CartItem({ data }) {
     </>
   );
 }
-export function TableRow({ id, date, total, status, isOld, fullData }) {
+export function TableRow({
+  id,
+  date,
+  total,
+  status,
+  isOld,
+  fullData,
+  personalPromotions,
+}) {
   const [menu, setMenu] = useState(false);
   useEffect(() => {
     if (menu) {
@@ -59,7 +89,7 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
         <Status type={status} />
         {isOld && (
           <td className="flex justify-center h-full items-cemter">
-            <button className="flex items-center justify-center h-full p-4 text-2xl font-semibold rounded-full cursor-pointer text-primary-lighter ">
+            <button className="flex items-center justify-center h-full p-4 text-2xl font-semibold rounded-full cursor-pointer text-primary-100 ">
               <AiOutlineSearch />
             </button>
           </td>
@@ -84,15 +114,15 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
               className="relative z-10 w-full h-screen cursor-pointer blury-noProps"
               onClick={() => setMenu(false)}
             ></div>
-            <section className="absolute z-20 w-full overflow-auto -translate-x-1/2 -translate-y-1/2 h-2/3 md:h-1/2 md:w-3/4 top-1/2 bg-gray left-1/2 ">
-              <div className="relative h-full">
+            <section className="absolute z-20 w-full overflow-auto -translate-x-1/2 -translate-y-1/2 bg-gray-100 h-2/3 md:h-2/3 md:w-11/12 top-1/2 left-1/2 ">
+              <div className="container relative h-full py-5">
                 <div
                   className="sticky z-50 flex justify-end mr-2 text-3xl cursor-pointer right-1 top-2"
                   onClick={() => setMenu(false)}
                 >
                   <HiX />
                 </div>
-                <div className="flex flex-col flex-wrap mx-1 pt-7 text-primary-lighter ">
+                <div className="flex flex-col flex-wrap mx-1 pt-7 ">
                   <section className="w-full my-2 text-left md:ml-2">
                     <h3 className="text-lg font-semibold text-center uppercase text-green lg:text-left">
                       За адреса
@@ -121,7 +151,7 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                     </ul>
                   </section>
 
-                  <section className="font-semibold md:ml-2 ">
+                  <section className="pt-2 font-semibold border-t border-gray-200 md:ml-2">
                     <h3 className="flex items-center justify-center text-lg font-semibold uppercase text-green lg:justify-start">
                       продукти
                     </h3>
@@ -131,7 +161,7 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                         return (
                           <ul
                             key={cart.item._id}
-                            className="relative w-full py-5 mt-2 text-left"
+                            className="relative w-full pb-5 mt-1 text-left"
                           >
                             <li>
                               <span className="text-secondary">
@@ -139,7 +169,10 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                               </span>{" "}
                               - Бройки: {cart.qty}
                             </li>
-                            <CartItem data={cart.item} />
+                            <CartItem
+                              data={cart.item}
+                              personalPromotions={personalPromotions}
+                            />
                           </ul>
                         );
                       })}
@@ -147,17 +180,9 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                   </section>
                 </div>
                 {/* Absolute category (you know :D) */}
-                <div className="absolute flex font-semibold top-1 left-1 ">
+                <div className="absolute flex font-semibold -translate-x-1/2 top-5 left-1/2 ">
                   <Status type={fullData.status} isDiv={true} /> -{" "}
                   <span className="ml-1">{fullData.createdAt}</span>
-                </div>
-                <div className="absolute flex font-semibold -translate-x-1/2 top-1 left-1/2 ">
-                  {fullData.isVerified && <div>Потвърдена</div>}
-                  {!fullData.isVerified && (
-                    <div className="text-secondary">
-                      Моля потвърдете поръчката
-                    </div>
-                  )}
                 </div>
               </div>
             </section>

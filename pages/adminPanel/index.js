@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
+// DB
+import { connectMongo } from "../../db/connectDb";
+import User from "../../db/models/User";
+import PersonalPromotions from "../../db/models/PersonalPromotion";
 
+// components
 import Navigation from "../../components/adminPanel/Navigation";
 import Deliveries from "../../components/adminPanel/Deliveries";
 import Products from "../../components/adminPanel/Products";
@@ -18,11 +23,22 @@ export default function Index({
   products,
   forDelivery,
   forMagazine,
+  promotions,
+  allUsers,
+  personalPromotions,
 }) {
   const router = useRouter();
 
   const [categoryData, setCategoryData] = useState(null);
-
+  const filteredProducts = products.map((product) => {
+    return {
+      _id: product._id,
+      name: product.name,
+      nameToDisplay: product.nameToDisplay,
+      isSelected: false,
+      customPromo: "",
+    };
+  });
   useEffect(() => {
     const categoryComp = {
       "#dostavki": [
@@ -30,11 +46,14 @@ export default function Index({
           key="Deliveries"
           forHome={forDelivery}
           forMagazine={forMagazine}
+          personalPromotions={personalPromotions}
         />,
       ],
       "#prodykti": [<Products key="MyOrders" products={products} />],
-      "#promocii": [<Promotions key="MyFavourites" />],
-      "#potrebiteli": [<Users key="Users" />],
+      "#promocii": [<Promotions key="MyFavourites" promotions={promotions} />],
+      "#potrebiteli": [
+        <Users key="Users" usersData={allUsers} products={filteredProducts} />,
+      ],
     };
     const hash = window.location.hash?.split("#");
     const someData = categoryComp[`#${hash[1]}`] ?? categoryComp["#prodykti"]; // Retrieve data based on URL fragment
@@ -53,6 +72,7 @@ export default function Index({
 export async function getServerSideProps(context) {
   // Session
   const session = await getSession({ req: context.req });
+  let personalPromotions = {};
   if (!session) {
     return {
       redirect: {
@@ -62,6 +82,8 @@ export async function getServerSideProps(context) {
     };
   }
   // Mongodb
+  await connectMongo();
+
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/getUser`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -80,6 +102,7 @@ export async function getServerSideProps(context) {
       },
     };
   }
+
   const products = await getAll();
   const deliveries = await getAllDeliveries();
   const forDelivery = deliveries.filter((type) => {
@@ -89,12 +112,26 @@ export async function getServerSideProps(context) {
     return type.typeOfDelivery != "magazine";
   });
 
+  const promotionsRes = await fetch(
+    `${process.env.NEXTAUTH_URL}/api/promotions/getAll`
+  );
+  const promoData = await promotionsRes.json();
+
+  const users = await User.find({});
+  const find = await PersonalPromotions.findOne({ ownerId: data._id });
+
+  if (find) {
+    personalPromotions = find;
+  }
   return {
     props: {
       userData: JSON.parse(JSON.stringify(data)),
       products: JSON.parse(JSON.stringify(products)),
       forDelivery: JSON.parse(JSON.stringify(forDelivery)),
       forMagazine: JSON.parse(JSON.stringify(forMagazine)),
+      promotions: promoData,
+      allUsers: JSON.parse(JSON.stringify(users)),
+      personalPromotions: JSON.parse(JSON.stringify(personalPromotions)),
     },
   };
 }

@@ -99,7 +99,7 @@ const Register = () => {
               <p className="mt-1">
                 Вече имате профил?
                 <Link href="/account/login">
-                  <span className="ml-1 cursor-pointer text-primary-lighter hover:font-bold">
+                  <span className="ml-1 cursor-pointer text-primary-100 hover:font-bold">
                     Вход
                   </span>
                 </Link>
@@ -167,7 +167,7 @@ const Register = () => {
                   >
                     Приемам
                     <Link href="/rulesAndPrivacy">
-                      <span className="mx-1 cursor-pointer text-primary-lighter hover:underline">
+                      <span className="mx-1 cursor-pointer text-primary-100 hover:underline">
                         правилата и условията
                       </span>
                     </Link>
@@ -189,7 +189,7 @@ const Register = () => {
                   >
                     Приемам
                     <Link href="/rulesAndPrivacy">
-                      <span className="mx-1 cursor-pointer text-primary-lighter hover:underline">
+                      <span className="mx-1 cursor-pointer text-primary-100 hover:underline">
                         условията за поверителност на лични данни
                       </span>
                     </Link>

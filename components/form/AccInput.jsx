@@ -30,7 +30,6 @@ const AccInput = ({
             type={type}
             placeholder={placeholder}
             value={value}
-            defaultValue={defValue}
             onChange={onChange}
           />
         </div>

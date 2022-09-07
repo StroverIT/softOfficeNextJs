@@ -578,7 +578,7 @@ export default function GeneralTerms() {
             алтернативно решаване на спорове (АРС), да използвате сайта за
             <a
               href="https://ec.europa.eu/consumers/odr/main/index.cfm?event=main.home.chooseLanguage"
-              className="px-1 text-primary-lighter"
+              className="px-1 text-primary-100"
             >
               онлайн решаване на спорове (ОРС).
             </a>

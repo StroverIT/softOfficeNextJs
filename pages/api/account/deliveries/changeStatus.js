@@ -16,6 +16,7 @@ async function handler(req, res) {
         error: "Невалиден токън",
       };
     }
+
     const user = await User.findOne({ email: token.email });
     if (!user) {
       throw {
