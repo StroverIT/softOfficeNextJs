@@ -10,12 +10,7 @@ import BuyBtn from "../../base/BuyBtn";
 import ListItem from "./ListItem";
 import { HiX } from "react-icons/hi";
 
-export default function Product({
-  section,
-  article,
-  addProduct,
-  personalPromotions,
-}) {
+export default function Product({ section, article, addProduct }) {
   const router = useRouter();
   const routerHash = router?.asPath?.split("#");
   const itemsLen = article.items.length;
@@ -131,7 +126,6 @@ export default function Product({
                         articleData={articleData}
                         section={section}
                         addProduct={addProduct}
-                        personalPromotions={personalPromotions}
                       />
                     );
                   })}

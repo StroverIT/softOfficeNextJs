@@ -2,14 +2,32 @@ import { connectMongo } from "../db/connectDb";
 import mongoose from "mongoose";
 
 import Product from "../db/models/Product";
+import User from "../db/models/User";
+import PersonalPromotion from "../db/models/PersonalPromotion";
 
-export const getAllProducts = async (route, filter) => {
+export const getAllProducts = async (route, session) => {
   await connectMongo();
-  // for case insensitive
-
-  const data = await Product.findOne({
+  let data = await Product.findOne({
     name: route,
-  });
+  }).lean();
+
+  // if (session) {
+  //   const email = session.user.email;
+  //   const user = await User.findOne({ email });
+  //   if (user) {
+  //     const promotion = await PersonalPromotion.findOne({
+  //       ownerId: user._id,
+  //     }).lean();
+  //     if (promotion) {
+  //       const isFound = promotion.sectionPromo.find(
+  //         (item) => item.name == route
+  //       );
+  //         if(isFound){
+
+  //         }
+  //     }
+  //   }
+  // }
 
   mongoose.connection.close();
   return data;

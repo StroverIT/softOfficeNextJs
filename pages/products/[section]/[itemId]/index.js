@@ -4,9 +4,7 @@ import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Image from "next/image";
 // Mongodb
-import { connectMongo } from "../../../../db/connectDb";
-import User from "../../../../db/models/User";
-import PersonalPromotion from "../../../../db/models/PersonalPromotion";
+
 // Components
 import OldPrice from "../../../../components/priceStyling/OldPrice";
 import Pricing from "../../../../components/priceStyling/Pricing";
@@ -37,7 +35,7 @@ import { isFav } from "../../../../services/favouriteService";
 import { getUser } from "../../../../services/userServicejs";
 import SwiperProductSelect from "../../../../components/swiperJs/SwiperProductSelect";
 
-export default function Index({ data, userData, isInFav, personalPromotions }) {
+export default function Index({ data, userData, isInFav }) {
   const router = useRouter();
   const routerHash = router?.asPath?.split("#");
 
@@ -159,26 +157,7 @@ export default function Index({ data, userData, isInFav, personalPromotions }) {
       if (product.article.items[0].isOnPromotions) {
         priceObjInit.promoPrice = product?.article?.items[0]?.promotionalPrice;
       }
-      if (personalPromotions?.found) {
-        const promoPerc =
-          personalPromotions?.found.customPromo ||
-          personalPromotions.generalPromo;
-        const realPrice = priceObjInit.forItem;
 
-        const personalPromoToPrice = (100 - promoPerc) / 100; // This is in percentage
-
-        const personalPromo = realPrice * personalPromoToPrice;
-
-        if (product.article.items[0].isOnPromotions) {
-          const promotionalPrice = product.article.items[0].promotionalPrice;
-          const whichIsBetter =
-            personalPromo < promotionalPrice ? personalPromo : promotionalPrice;
-
-          priceObjInit.promoPrice = whichIsBetter;
-        } else {
-          priceObjInit.promoPrice = personalPromo;
-        }
-      }
       setPrice(priceObjInit);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -199,30 +178,6 @@ export default function Index({ data, userData, isInFav, personalPromotions }) {
         const priceInit = { forItem: newData.article.items[0].cena };
         if (newData.article.items[0].isOnPromotions) {
           priceInit.promoPrice = newData.article.items[0].promotionalPrice;
-        }
-
-        if (personalPromotions?.found) {
-          const promoPerc =
-            personalPromotions?.found.customPromo ||
-            personalPromotions.generalPromo;
-
-          const realPrice = priceInit.forItem;
-
-          const personalPromoToPrice = (100 - promoPerc) / 100; // This is in percentage
-
-          const personalPromo = realPrice * personalPromoToPrice;
-
-          if (newData.article.items[0].isOnPromotions) {
-            const promotionalPrice = newData.article.items[0].promotionalPrice;
-            const whichIsBetter =
-              personalPromo < promotionalPrice
-                ? personalPromo
-                : promotionalPrice;
-
-            priceInit.promoPrice = whichIsBetter;
-          } else {
-            priceInit.promoPrice = personalPromo;
-          }
         }
 
         setPrice(priceInit);
@@ -407,7 +362,6 @@ export default function Index({ data, userData, isInFav, personalPromotions }) {
               article={{ img: product?.article?.img[0]?.originalname }}
               navSize="3xl"
               onClick={selectedProductHandler}
-              personalPromotions={personalPromotions}
             />
           </>
         )}
@@ -428,29 +382,12 @@ export async function getServerSideProps(context) {
     const user = await getUser(session.user.email);
     isInFav = await isFav(itemId, user._id);
   }
-  let personalPromotions = {};
-  if (session) {
-    await connectMongo();
-    const user = await User.findOne({ email: session.user.email });
-    if (user) {
-      const promo = await PersonalPromotion.findOne({ ownerId: user._id });
-      if (promo) {
-        let found = promo.sectionPromo.find((item) => item.name == section);
-        if (found) {
-          if (!found.customPromo) {
-            found.customPromo = promo.generalPromo;
-          }
-          personalPromotions.found = found;
-        }
-      }
-    }
-  }
+
   return {
     props: {
       data: JSON.parse(JSON.stringify(product)),
       userData: JSON.parse(JSON.stringify(session)),
       isInFav,
-      personalPromotions: JSON.parse(JSON.stringify(personalPromotions)),
     },
   };
 }

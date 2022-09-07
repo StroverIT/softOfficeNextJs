@@ -9,13 +9,7 @@ import BuyBtn from "../../base/BuyBtn";
 import OldPrice from "../../priceStyling/OldPrice";
 import Pricing from "../../priceStyling/Pricing";
 
-export default function ListItem({
-  section,
-  articleData,
-  item,
-  addProduct,
-  personalPromotions,
-}) {
+export default function ListItem({ section, articleData, item, addProduct }) {
   const name = `${section.name} ${articleData.name}`;
   const types = item.tipove.split(";");
   const [price, setPrice] = useState(null);
@@ -27,27 +21,6 @@ export default function ListItem({
       priceObjInit.promoPrice = item.promotionalPrice;
     }
 
-    if (personalPromotions?.found) {
-      const promoPerc =
-        personalPromotions?.found.customPromo ||
-        personalPromotions.generalPromo;
-
-      const realPrice = priceObjInit.forItem;
-
-      const personalPromoToPrice = (100 - promoPerc) / 100; // This is in percentage
-
-      const personalPromo = realPrice * personalPromoToPrice;
-
-      if (item.isOnPromotions) {
-        const promotionalPrice = item.promotionalPrice;
-        const whichIsBetter =
-          personalPromo < promotionalPrice ? personalPromo : promotionalPrice;
-
-        priceObjInit.promoPrice = whichIsBetter;
-      } else {
-        priceObjInit.promoPrice = personalPromo;
-      }
-    }
     setPrice(priceObjInit);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

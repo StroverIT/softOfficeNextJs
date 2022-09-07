@@ -8,37 +8,14 @@ import { SwiperSlide } from "swiper/react";
 import Pricing from "../priceStyling/Pricing";
 import OldPrice from "../priceStyling/OldPrice";
 
-const SwiperProductSelectSwiperSlide = ({
-  article,
-  personalPromotions,
-  item,
-}) => {
+const SwiperProductSelectSwiperSlide = ({ article, item }) => {
   const [price, setPrice] = useState(null);
   useEffect(() => {
     let priceObjInit = { forItem: item.cena };
     if (item.isOnPromotions) {
       priceObjInit.promoPrice = item.promotionalPrice;
     }
-    if (personalPromotions?.found) {
-      const promoPerc =
-        personalPromotions?.found.customPromo ||
-        personalPromotions.generalPromo;
-      const realPrice = priceObjInit.forItem;
 
-      const personalPromoToPrice = (100 - promoPerc) / 100; // This is in percentage
-
-      const personalPromo = realPrice * personalPromoToPrice;
-
-      if (item.isOnPromotions) {
-        const promotionalPrice = item.promotionalPrice;
-        const whichIsBetter =
-          personalPromo < promotionalPrice ? personalPromo : promotionalPrice;
-
-        priceObjInit.promoPrice = whichIsBetter;
-      } else {
-        priceObjInit.promoPrice = personalPromo;
-      }
-    }
     setPrice(priceObjInit);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -70,14 +47,14 @@ const SwiperProductSelectSwiperSlide = ({
       </div>
       {/* This can be potential bug!!!! */}
       <div className="py-2 -mt-10">
-        {!item.isOnPromotions && !personalPromotions?.found && (
+        {!item.isOnPromotions && (
           <Pricing
             price={price?.forItem?.toFixed(2).split(".")[0]}
             priceDec={price?.forItem?.toFixed(2).split(".")[1]}
             size="2xl"
           />
         )}
-        {(item.isOnPromotions || personalPromotions?.found) && (
+        {item.isOnPromotions && (
           <div className="flex items-center justify-center gap-x-5">
             <div className="text-gray-200">
               <OldPrice

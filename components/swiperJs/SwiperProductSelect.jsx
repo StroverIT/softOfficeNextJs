@@ -30,7 +30,6 @@ export default function SwiperProductSelect({
   navSize,
   onClick,
   name,
-  personalPromotions,
 }) {
   return (
     <>
@@ -71,11 +70,7 @@ export default function SwiperProductSelect({
                 key={item._id}
                 onClick={() => onClick({ item })}
               >
-                <SwiperProductSelectSwiperSlide
-                  article={article}
-                  personalPromotions={personalPromotions}
-                  item={item}
-                />
+                <SwiperProductSelectSwiperSlide article={article} item={item} />
               </SwiperSlide>
             );
           })}

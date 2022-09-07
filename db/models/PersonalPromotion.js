@@ -10,6 +10,13 @@ const personalPromotion = new Schema({
       nameToDisplay: String,
     },
   ],
+  wholeSection: Boolean,
+  wholeSubsection: {
+    sections: [{ type: Schema.Types.ObjectId }],
+  },
+  onlyItems: {
+    items: [{ type: Schema.Types.ObjectId }],
+  },
   generalPromo: Number,
   ownerId: { type: Schema.Types.ObjectId, ref: "user" },
 });
