@@ -31,9 +31,11 @@ const userScheme = new Schema({
   addresses: [addressSchema],
   role: {
     type: String,
-    enum: ["user", "admin"],
+    enum: ["user", "admin", "worker", "boss"],
     default: "user",
   },
+  bossId: { type: Schema.Types.ObjectId, ref: "User" },
+  workers: [{ type: Schema.Types.ObjectId, ref: "User" }],
   isVerified: {
     type: Boolean,
     default: false,

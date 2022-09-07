@@ -2,12 +2,14 @@ import { Schema, model, models } from "mongoose";
 
 // Item
 const imageSchema = new Schema({
-  name: String,
-  desc: String,
-  img: {
-    data: Buffer,
-    contentType: String,
-  },
+  fieldname: String,
+  originalname: String,
+  encoding: String,
+  mimetype: String,
+  destination: String,
+  filename: String,
+  path: String,
+  size: Number,
 });
 const itemsSchema = new Schema({
   cvetove: {
@@ -29,6 +31,10 @@ const itemsSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  promotionalPrice: {
+    type: Number,
+  },
+
   isOnlyNumb: {
     type: Boolean,
     default: false,
