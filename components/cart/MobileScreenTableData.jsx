@@ -21,15 +21,19 @@ export default function MobileScreenTableData({
 
           {!price.promotionalPrice && (
             <Price
-              price={price.fixedPrice.toFixed(2).split(".")[0]}
-              priceDec={price.fixedPrice.toFixed(2).split(".")[1]}
+              price={parseFloat(price.fixedPrice).toFixed(2).split(".")[0]}
+              priceDec={parseFloat(price.fixedPrice).toFixed(2).split(".")[1]}
               size="2xl"
             />
           )}
           {price.promotionalPrice && (
             <Price
-              price={price.promotionalPrice.toFixed(2).split(".")[0]}
-              priceDec={price.promotionalPrice.toFixed(2).split(".")[1]}
+              price={
+                parseFloat(price.promotionalPrice).toFixed(2).split(".")[0]
+              }
+              priceDec={
+                parseFloat(price.promotionalPrice).toFixed(2).split(".")[1]
+              }
               size="2xl"
             />
           )}

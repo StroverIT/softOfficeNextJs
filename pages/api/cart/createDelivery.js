@@ -122,6 +122,16 @@ export default async function handler(req, res) {
       "Поръчка в SoftOffice",
       message
     );
+    if (user.role != "worker") {
+      const adminMesage = `<h3>Имате нова поръчка в softOffice</h3>`;
+      sendEmail(
+        process.env.EMAIL_SEND,
+        "office@softofficebg.com",
+        "Поръчка в SoftOffice",
+        adminMesage
+      );
+    }
+
     await Delivery.create(data);
 
     res.json({ message: "Поръчката беше направена успешно!" });

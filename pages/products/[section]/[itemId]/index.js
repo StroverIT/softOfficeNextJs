@@ -225,7 +225,7 @@ export default function Index({ data, userData, isInFav }) {
               <div className="py-20 border border-gray-bord">
                 <div className="relative w-full h-96">
                   <Image
-                    src={`/uploads/${product.article.img[0].originalname}`}
+                    src={`/uploads/${product.article.img.originalname}`}
                     layout="fill"
                     alt="Img"
                     className="object-contain"
@@ -241,8 +241,10 @@ export default function Index({ data, userData, isInFav }) {
                   <div className="text-lg font-bold">Цена:</div>
                   {price?.forItem && !price.promoPrice && (
                     <Pricing
-                      price={price.forItem.toFixed(2).split(".")[0]}
-                      priceDec={price.forItem.toFixed(2).split(".")[1]}
+                      price={parseFloat(price.forItem).toFixed(2).split(".")[0]}
+                      priceDec={
+                        parseFloat(price.forItem).toFixed(2).split(".")[1]
+                      }
                       size="3xl"
                     />
                   )}
@@ -250,8 +252,12 @@ export default function Index({ data, userData, isInFav }) {
                     <div className="flex gap-x-5">
                       <div className="text-gray-200">
                         <OldPrice
-                          price={price.forItem.toFixed(2).split(".")[0]}
-                          priceDec={price.forItem.toFixed(2).split(".")[1]}
+                          price={
+                            parseFloat(price.forItem).toFixed(2).split(".")[0]
+                          }
+                          priceDec={
+                            parseFloat(price.forItem).toFixed(2).split(".")[1]
+                          }
                           size="3xl"
                           NoDDSText={true}
                         />
@@ -359,7 +365,7 @@ export default function Index({ data, userData, isInFav }) {
             <SwiperProductSelect
               name={itemName}
               articleItems={product?.article?.items}
-              article={{ img: product?.article?.img[0]?.originalname }}
+              article={{ img: product?.article?.img?.originalname }}
               navSize="3xl"
               onClick={selectedProductHandler}
             />

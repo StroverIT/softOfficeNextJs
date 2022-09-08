@@ -78,8 +78,8 @@ export default function ListItem({ section, articleData, item, addProduct }) {
         <div className="flex items-center justify-center py-2">
           {price?.forItem && !price.promoPrice && (
             <Pricing
-              price={price.forItem.toFixed(2).split(".")[0]}
-              priceDec={price.forItem.toFixed(2).split(".")[1]}
+              price={parseFloat(price.forItem).toFixed(2).split(".")[0]}
+              priceDec={parseFloat(price.forItem).toFixed(2).split(".")[1]}
               size="3xl"
             />
           )}
@@ -87,15 +87,15 @@ export default function ListItem({ section, articleData, item, addProduct }) {
             <div className="flex gap-x-5">
               <div className="text-gray-200">
                 <OldPrice
-                  price={price.forItem.toFixed(2).split(".")[0]}
-                  priceDec={price.forItem.toFixed(2).split(".")[1]}
+                  price={parseFloat(price.forItem).toFixed(2).split(".")[0]}
+                  priceDec={parseFloat(price.forItem).toFixed(2).split(".")[1]}
                   size="3xl"
                   NoDDSText={true}
                 />
               </div>
               <Pricing
-                price={price.promoPrice.toFixed(2).split(".")[0]}
-                priceDec={price.promoPrice.toFixed(2).split(".")[1]}
+                price={parseFloat(price.promoPrice).toFixed(2).split(".")[0]}
+                priceDec={parseFloat(price.promoPrice).toFixed(2).split(".")[1]}
                 size="3xl"
               />
             </div>

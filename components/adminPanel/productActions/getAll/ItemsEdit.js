@@ -81,7 +81,7 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
                           tiput: subsec.tiput,
                           nameToDisplay: subsec.nameToDisplay,
                           opisanie: subsec.opisanie,
-                          imgUrl: subsec.img[0].originalname,
+                          imgUrl: subsec.img.originalname,
                         },
                         item: {
                           _id: item._id,
