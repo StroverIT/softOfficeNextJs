@@ -34,7 +34,7 @@ const Login = ({ query }) => {
       setLoader(false);
     }
     if (status.url) {
-      if (query) {
+      if (query?.redirect == "delivery") {
         router.push("/delivery");
         return;
       }
@@ -138,6 +138,7 @@ export default Login;
 
 export async function getServerSideProps(context) {
   const { query } = context;
+  console.log(query);
   const session = await getSession({ req: context.req });
 
   if (session) {

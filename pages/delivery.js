@@ -257,7 +257,7 @@ export async function getServerSideProps(context) {
   if (!session) {
     return {
       redirect: {
-        destination: "/account/login?delivery",
+        destination: "/account/login?redirect=delivery",
         permanent: false,
       },
     };
