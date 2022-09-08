@@ -17,11 +17,7 @@ export default function Product({ section, article, addProduct }) {
 
   const [openItemsMenu, setOpenItemsMenu] = useState(false);
   const name = `${section.name} ${article.nameToDisplay} `;
-<<<<<<< HEAD
-  const imgUrl = article?.img?.originalname;
-=======
   const imgUrl = article?.img[0]?.originalname;
->>>>>>> f48c014d4c18ad48d19a66feb57b4b458bf44696
   const articleData = {
     name: article.nameToDisplay,
     route: article._id,
