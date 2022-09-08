@@ -1,0 +1,33 @@
+.hamburger > div {
+  transition: all 0.2s ease-in-out;
+  margin-bottom: 0.25rem;
+}
+.open div:first-child {
+  width: 25px;
+  transform: rotate(407deg) translate(5px, 3px);
+}
+.open div:nth-child(2) {
+  transform: translateX(-50px);
+  background: transparent;
+  box-shadow: none;
+}
+.open div:last-child {
+  width: 25px;
+  transform: rotate(-407deg) translate(5px, -2px);
+}
+@media (min-width: 768px) {
+  .open div:first-child {
+    transform: rotate(407deg) translate(6px, 3px);
+  }
+  .open div:last-child {
+    transform: rotate(-407deg) translate(6px, -2px);
+  }
+}
+.menuOpen {
+  transform: translateY(0) !important;
+}
+.navLinks {
+  transform: translateY(-550px);
+  transition: transform 0.2s ease-in-out;
+  left: 0;
+}
