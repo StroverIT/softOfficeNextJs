@@ -50,6 +50,7 @@ const Login = ({ query }) => {
       </Head>
 
       <main className="container">
+<<<<<<< HEAD
         <div className=" justify-center my-24 xl:grid xl:grid-cols-[70%30%] w-full">
           <div className="relative hidden w-full h-[500px] ml-2 xl:block">
             <Image
@@ -60,6 +61,11 @@ const Login = ({ query }) => {
             />
           </div>
           <div className="w-full bg-white rounded shadow-xl xl:p-2">
+=======
+        <div className="justify-center w-full my-24 xl:px-96">
+          <div className="w-full bg-white rounded shadow-xl xl:p-2">
+            {/* States :D */}
+>>>>>>> f48c014d4c18ad48d19a66feb57b4b458bf44696
             <div className="my-5 ml-8">
               <h3 className="text-2xl">Влезте във вашият акаунт</h3>
               <p className="mt-1">
