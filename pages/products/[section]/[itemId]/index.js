@@ -370,11 +370,7 @@ export default function Index({ data, userData, isInFav }) {
             <SwiperProductSelect
               name={itemName}
               articleItems={product?.article?.items}
-<<<<<<< HEAD
-              article={{ img: product?.article?.img?.originalname }}
-=======
               article={{ img: product?.article?.img[0]?.originalname }}
->>>>>>> f48c014d4c18ad48d19a66feb57b4b458bf44696
               navSize="3xl"
               onClick={selectedProductHandler}
             />
