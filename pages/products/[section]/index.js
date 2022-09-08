@@ -93,54 +93,7 @@ export default function Section({ products, types, sectionRoute }) {
   return (
     <main className="mb-auto">
       {articles && (
-        <div className="lg:grid grid-cols-[20%80%] lg:space-x-10 container">
-          {products && (
-            <aside
-              className={` w-full h-full lg:block  max-lg:overflow-auto pb-10 ${
-                styles.asideContainer
-              } lg:relative pt-4 px-5 ${
-                filterMenu
-                  ? "fixed top-0 z-20 left-0 bg-[#f5f5f5] pt-20"
-                  : "hidden"
-              }`}
-            >
-              <div className="">
-                <div className="flex items-center justify-between">
-                  <h3 className="mb-3 text-2xl text-bold">Филтри</h3>
-
-                  <div
-                    className={`text-lg cursor-pointer text-primary lg:hidden`}
-                    onClick={() => setFilterMenu(false)}
-                  >
-                    <HiX />
-                  </div>
-                </div>
-                {/* Button to clear all the filters */}
-                <button
-                  className="flex items-center px-6 py-1 mt-2 font-bold border rounded-full cursor-pointer text-primary border-primary"
-                  onClick={clearAllFiilters}
-                >
-                  Изчисти
-                </button>
-                {/* <AsideHeader text="Цена" /> */}
-                <div></div>
-              </div>
-              <AsideHeader text="Количество" />
-              {types &&
-                types.map((type, index) => {
-                  return (
-                    <Checkbox
-                      key={type}
-                      text={type}
-                      id={`${type}`}
-                      // quantity={2}
-                      filters={filters}
-                      setFilters={setFilters}
-                    />
-                  );
-                })}
-            </aside>
-          )}
+        <div className="container lg:space-x-10">
           <section className="mt-10">
             {/* Filters for mobile */}
             {products && (
