@@ -29,8 +29,8 @@ export default function ImageAndListTableData({
           <h3 className="cursor-pointer">{cartName} </h3>
         </Link>
         <ul>
-          {moreInfo?.tipove?
-            .split(";")
+          {moreInfo?.tipove
+            ?.split(";")
             .splice(0, 5)
             .map((type) => {
               return (

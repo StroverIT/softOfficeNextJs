@@ -187,6 +187,7 @@ export default function Index({ data, userData, isInFav }) {
       setProduct({ ...data.foundItem });
       setSelected(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.asPath]);
   return (
     <main className="mb-auto">
