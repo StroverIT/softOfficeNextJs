@@ -25,15 +25,19 @@ export default function LgScreenTableData({
           <div>
             <div className="text-gray-200">
               <OldPrice
-                price={price.fixedPrice.toFixed(2).split(".")[0]}
-                priceDec={price.fixedPrice.toFixed(2).split(".")[1]}
+                price={parseFloat(price.fixedPrice).toFixed(2).split(".")[0]}
+                priceDec={parseFloat(price.fixedPrice).toFixed(2).split(".")[1]}
                 size="xl"
                 NoDDSText={true}
               />
             </div>
             <Price
-              price={price.promotionalPrice.toFixed(2).split(".")[0]}
-              priceDec={price.promotionalPrice.toFixed(2).split(".")[1]}
+              price={
+                parseFloat(price.promotionalPrice).toFixed(2).split(".")[0]
+              }
+              priceDec={
+                parseFloat(price.promotionalPrice).toFixed(2).split(".")[1]
+              }
               size="2xl"
             />
           </div>

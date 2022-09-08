@@ -49,8 +49,8 @@ const SwiperProductSelectSwiperSlide = ({ article, item }) => {
       <div className="py-2 -mt-10">
         {!item.isOnPromotions && (
           <Pricing
-            price={price?.forItem?.toFixed(2).split(".")[0]}
-            priceDec={price?.forItem?.toFixed(2).split(".")[1]}
+            price={parseFloat(price?.forItem)?.toFixed(2).split(".")[0]}
+            priceDec={parseFloat(price?.forItem)?.toFixed(2).split(".")[1]}
             size="2xl"
           />
         )}
@@ -58,15 +58,17 @@ const SwiperProductSelectSwiperSlide = ({ article, item }) => {
           <div className="flex items-center justify-center gap-x-5">
             <div className="text-gray-200">
               <OldPrice
-                price={price?.forItem?.toFixed(2).split(".")[0]}
-                priceDec={price?.forItem?.toFixed(2).split(".")[1]}
+                price={parseFloat(price?.forItem)?.toFixed(2).split(".")[0]}
+                priceDec={parseFloat(price?.forItem)?.toFixed(2).split(".")[1]}
                 size="2xl"
               />
             </div>
             <div className="">
               <Pricing
-                price={price?.promoPrice?.toFixed(2).split(".")[0]}
-                priceDec={price?.promoPrice?.toFixed(2).split(".")[1]}
+                price={parseFloat(price?.promoPrice)?.toFixed(2).split(".")[0]}
+                priceDec={
+                  parseFloat(price?.promoPrice)?.toFixed(2).split(".")[1]
+                }
                 size="2xl"
               />
             </div>
