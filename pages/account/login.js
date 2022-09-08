@@ -52,6 +52,7 @@ const Login = ({ query }) => {
       <main className="container">
         <div className="justify-center w-full my-24 xl:px-96">
           <div className="w-full bg-white rounded shadow-xl xl:p-2">
+            {/* States :D */}
             <div className="my-5 ml-8">
               <h3 className="text-2xl">Влезте във вашият акаунт</h3>
               <p className="mt-1">
