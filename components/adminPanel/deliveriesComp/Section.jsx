@@ -4,7 +4,7 @@ import { BsArrowReturnLeft } from "react-icons/bs";
 
 import Product from "./Product";
 
-export default function Section({ delivery, personalPromotions }) {
+export default function Section({ delivery }) {
   const router = useRouter();
 
   return (
@@ -20,13 +20,7 @@ export default function Section({ delivery, personalPromotions }) {
       {delivery &&
         delivery.map((delivery) => {
           console.log(delivery.isVerified);
-          let renderer = (
-            <Product
-              delivery={delivery}
-              key={delivery._id}
-              personalPromotions={personalPromotions}
-            />
-          );
+          let renderer = <Product delivery={delivery} key={delivery._id} />;
           if (!delivery.isVerified)
             renderer = (
               <div className="text-3xl text-secondary">

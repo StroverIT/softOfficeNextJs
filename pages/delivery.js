@@ -3,9 +3,6 @@ import { useState, useEffect } from "react";
 // NextJs
 import Head from "next/head";
 import { getSession } from "next-auth/react";
-// Mongodb
-import { connectMongo } from "../db/connectDb";
-import PersonalPromotion from "../db/models/PersonalPromotion";
 // Components
 import RadioButton from "../components/cart/RadioButton";
 import DueAmount from "../components/delivery/sections/DueAmount";
@@ -38,7 +35,7 @@ const CARD_PAYMENT = "cardPayment";
 // Context
 import { InputContext } from "../components/delivery/Context";
 
-function Delivery({ cart, userData, cities, personalPromotions }) {
+function Delivery({ cart, userData, cities }) {
   const [selected, setSelected] = useState(cities[21]);
   const [officeSelected, setOfficeSelected] = useState({
     name: "Избери офис",
@@ -120,35 +117,7 @@ function Delivery({ cart, userData, cities, personalPromotions }) {
             savedMoney += item.item.item.cena - item.item.item.promotionalPrice;
             cena = item.item.item.promotionalPrice;
           }
-          if (personalPromotions?.sectionPromo) {
-            const found = personalPromotions.sectionPromo.find((promo) => {
-              return (promo.name = item.item.section.name);
-            });
-            if (found) {
-              const promoPerc =
-                found.customPromo || personalPromotions.generalPromo;
-              const realPrice = item.item.item.cena;
 
-              const personalPromoToPrice = (100 - promoPerc) / 100;
-
-              const personalPromo = realPrice * personalPromoToPrice;
-
-              if (item.item.item.isOnPromotions) {
-                const promotionalPrice = item.item.item.promotionalPrice;
-
-                const whichIsBetter =
-                  personalPromo < promotionalPrice
-                    ? personalPromo
-                    : promotionalPrice;
-                savedMoney += (realPrice - whichIsBetter) * item.qty;
-                cena = whichIsBetter;
-              } else {
-                savedMoney += (realPrice - personalPromo) * item.qty;
-
-                cena = personalPromo;
-              }
-            }
-          }
           return cena * item.qty;
         })
         .reduce((a, b) => a + b, 0)
@@ -284,7 +253,6 @@ export async function getServerSideProps(context) {
   // Session
   const session = await getSession({ req: context.req });
   let data = {};
-  let personalPromotions = {};
   // Must add if cart is empty and if is not logged in
   if (!session) {
     return {
@@ -300,13 +268,6 @@ export async function getServerSideProps(context) {
 
     res.addresses.push({ name: "Нов адрес" });
     data = res;
-    if (data) {
-      await connectMongo();
-      const promo = await PersonalPromotion.findOne({ ownerId: data._id });
-      if (promo) {
-        personalPromotions = promo;
-      }
-    }
   }
   const getCities = await getBgCities();
 
@@ -314,7 +275,6 @@ export async function getServerSideProps(context) {
     props: {
       userData: JSON.parse(JSON.stringify(data)),
       cities: getCities,
-      personalPromotions: JSON.parse(JSON.stringify(personalPromotions)),
     },
   };
 }

@@ -10,6 +10,8 @@ const PersonalPromoMenu = ({
   setGeneralPromo,
   checkedProducts,
   setCheckedProducts,
+  subMenu,
+  setSubMenu,
 }) => {
   const generalPromoHandler = (e) => {
     setGeneralPromo(e.target.value);
@@ -28,7 +30,7 @@ const PersonalPromoMenu = ({
   };
 
   return (
-    <section>
+    <section className="">
       {/* Buttons */}
       <section className="flex items-center justify-between ">
         <div className="flex gap-x-5 ">
@@ -53,7 +55,7 @@ const PersonalPromoMenu = ({
         <div className="">
           <Input
             placeholder="Обща промоция"
-            id="generalPromo"
+            id="section"
             type="text"
             isReq={false}
             value={generalPromo}
@@ -69,7 +71,7 @@ const PersonalPromoMenu = ({
             <th className="text-left">Промоция за секцията</th>
             <th className="text-left">Име на секцията</th>
           </thead>
-          <tbody>
+          <tbody className="">
             {checkedProducts &&
               checkedProducts.map((product, index) => {
                 return (
@@ -79,6 +81,8 @@ const PersonalPromoMenu = ({
                     index={index}
                     checkedProducts={checkedProducts}
                     setCheckedProducts={setCheckedProducts}
+                    subMenu={subMenu}
+                    setSubMenu={setSubMenu}
                   />
                 );
               })}

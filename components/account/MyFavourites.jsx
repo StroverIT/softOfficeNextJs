@@ -6,7 +6,7 @@ import style from "../../styles/account/myFavourites.module.css";
 // Components
 import { Card } from "./Card";
 
-export default function MyFavourites({ favData, personalPromotions }) {
+export default function MyFavourites({ favData }) {
   const [favState, setFavState] = useState(favData);
   return (
     <section className="pb-2">
@@ -23,12 +23,7 @@ export default function MyFavourites({ favData, personalPromotions }) {
       >
         {favState.map((data) => {
           return (
-            <Card
-              key={data._id}
-              itemData={data}
-              setFavState={setFavState}
-              personalPromotions={personalPromotions}
-            />
+            <Card key={data._id} itemData={data} setFavState={setFavState} />
           );
         })}
       </section>

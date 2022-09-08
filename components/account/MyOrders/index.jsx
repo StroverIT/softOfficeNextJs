@@ -3,7 +3,7 @@ import React from "react";
 // Components
 import { TableRow } from "./TableRow";
 
-export default function MyOrders({ deliveriesData, personalPromotions }) {
+export default function MyOrders({ deliveriesData }) {
   return (
     <section className="">
       <h2 className="mt-5 mb-2 text-3xl font-semibold text-center">
@@ -36,7 +36,6 @@ export default function MyOrders({ deliveriesData, personalPromotions }) {
                   total={delivery.totalPrice}
                   status={delivery.status}
                   fullData={delivery}
-                  personalPromotions={personalPromotions}
                 />
               );
             })}

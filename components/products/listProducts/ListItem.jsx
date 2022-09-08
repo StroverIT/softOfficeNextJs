@@ -27,7 +27,6 @@ export default function ListItem({ section, articleData, item, addProduct }) {
   }, []);
   useEffect(() => {
     if (price) {
-      console.log(price);
       const test = {
         item: {
           tipove: item.tipove,
@@ -36,7 +35,8 @@ export default function ListItem({ section, articleData, item, addProduct }) {
           route: item._id,
           types: item.tipove,
           cena: price.forItem,
-          isOnPromotion: price.promoPrice,
+          isOnPromotions: item.isOnPromotions,
+          promotionalPrice: price.promoPrice,
           isOnlyNumb: item.isOnlyNumb,
         },
         article: {
@@ -48,6 +48,7 @@ export default function ListItem({ section, articleData, item, addProduct }) {
       };
       setSanitizedData(test);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [price, setPrice]);
 
   return (

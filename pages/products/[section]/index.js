@@ -45,40 +45,40 @@ export default function Section({ products, types, sectionRoute }) {
   const [articles, setArticles] = useState(products?.subsection);
 
   // total filters
-  const [filters, setFilters] = useState([]);
+  // const [filters, setFilters] = useState([]);
 
-  useEffect(() => {
-    const newProdArt = products?.articles?.slice();
+  // useEffect(() => {
+  //   const newProdArt = products?.articles?.slice();
 
-    const filteredArticles = [];
-    if (newProdArt) {
-      for (let article of newProdArt) {
-        const newArt = Object.assign({}, article);
+  //   const filteredArticles = [];
+  //   if (newProdArt) {
+  //     for (let article of newProdArt) {
+  //       const newArt = Object.assign({}, article);
 
-        let items = [];
-        for (let item of article.items) {
-          const type = item.weight;
-          let isFound = true;
-          if (filters.length == 0) {
-            items.push(item);
-          } else {
-            inner: for (let filter of filters) {
-              if (!type.includes(filter)) {
-                isFound = false;
-                break inner;
-              }
-            }
-            if (isFound) items.push(item);
-          }
-        }
-        if (items.length > 0) {
-          newArt.items = items;
-          filteredArticles.push(newArt);
-        }
-      }
-      setArticles(filteredArticles);
-    }
-  }, [filters, products?.articles]);
+  //       let items = [];
+  //       for (let item of article.items) {
+  //         const type = item.weight;
+  //         let isFound = true;
+  //         if (filters.length == 0) {
+  //           items.push(item);
+  //         } else {
+  //           inner: for (let filter of filters) {
+  //             if (!type.includes(filter)) {
+  //               isFound = false;
+  //               break inner;
+  //             }
+  //           }
+  //           if (isFound) items.push(item);
+  //         }
+  //       }
+  //       if (items.length > 0) {
+  //         newArt.items = items;
+  //         filteredArticles.push(newArt);
+  //       }
+  //     }
+  //     setArticles(filteredArticles);
+  //   }
+  // }, [filters, products?.articles]);
 
   useEffect(() => {
     if (filterMenu) {

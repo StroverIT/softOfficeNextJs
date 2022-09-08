@@ -11,23 +11,58 @@ export const getAllProducts = async (route, session) => {
     name: route,
   }).lean();
 
-  // if (session) {
-  //   const email = session.user.email;
-  //   const user = await User.findOne({ email });
-  //   if (user) {
-  //     const promotion = await PersonalPromotion.findOne({
-  //       ownerId: user._id,
-  //     }).lean();
-  //     if (promotion) {
-  //       const isFound = promotion.sectionPromo.find(
-  //         (item) => item.name == route
-  //       );
-  //         if(isFound){
+  if (session) {
+    const email = session.user.email;
+    const user = await User.findOne({ email });
 
-  //         }
-  //     }
-  //   }
-  // }
+    if (user) {
+      const promotion = await PersonalPromotion.findOne({
+        ownerId: user._id,
+      }).lean();
+      if (promotion) {
+        // If is found
+        const sectionFound = promotion.sections.find(
+          (promoItem) => promoItem._id.toString() == data._id.toString()
+        );
+
+        if (sectionFound) {
+          data.subsection = data.subsection.map((sub) => {
+            const subFound = promotion.subsections.find(
+              (promoItem) => promoItem._id.toString() == sub._id.toString()
+            );
+            if (subFound) {
+              sub.items = sub.items.map((item) => {
+                const itemFound = promotion.items.find(
+                  (promoItem) => promoItem._id.toString() == item._id.toString()
+                );
+
+                if (itemFound) {
+                  const prec =
+                    itemFound.customPromo ||
+                    subFound.customPromo ||
+                    sectionFound.customPromo ||
+                    promotion.generalPromo;
+
+                  let price = (item.cena * (100 - prec)) / 100;
+
+                  if (item.isOnPromotions) {
+                    price < item.promotionalPrice
+                      ? price
+                      : item.promotionalPrice;
+                  }
+                  item.isOnPromotions = true;
+                  item.promotionalPrice = price;
+                }
+
+                return item;
+              });
+            }
+            return sub;
+          });
+        }
+      }
+    }
+  }
 
   mongoose.connection.close();
   return data;
@@ -41,30 +76,30 @@ export const getAll = async () => {
   const data = await res.json();
   return data;
 };
-export const productByItemId = async (itemId) => {
+export const productByItemId = async (itemId, session) => {
   await connectMongo();
-  let data = await Product.findOne({ "subsection._id": itemId }).lean();
+  let productFound = await Product.findOne({ "subsection._id": itemId }).lean();
 
   const filteredData = {
     foundItem: {},
     alternatives: [],
   };
 
-  const foundItem = filteredData.foundItem;
+  const data = filteredData.foundItem;
 
-  inner: for (let article of data.subsection) {
+  inner: for (let article of productFound.subsection) {
     if (article._id == itemId) {
-      foundItem.article = article;
-      foundItem.section = {
-        name: data.name,
-        nameToDisplay: data.nameToDisplay,
-        _id: data._id,
+      data.article = article;
+      data.section = {
+        name: productFound.name,
+        nameToDisplay: productFound.nameToDisplay,
+        _id: productFound._id,
       };
       break inner;
     }
   }
   for (let i = 0; i < 5; i++) {
-    const article = data.subsection[i];
+    const article = productFound.subsection[i];
     if (!article) break;
 
     const item = article.items[0];
@@ -75,6 +110,59 @@ export const productByItemId = async (itemId) => {
     });
   }
 
+  if (session) {
+    const email = session.user.email;
+    const user = await User.findOne({ email });
+
+    if (user) {
+      const promotion = await PersonalPromotion.findOne({
+        ownerId: user._id,
+      }).lean();
+
+      if (promotion) {
+        // If is found
+        const sectionFound = promotion.sections.find(
+          (promoItem) => promoItem._id.toString() == data.section._id.toString()
+        );
+
+        if (sectionFound) {
+          const subFound = promotion.subsections.find(
+            (promoItem) => promoItem._id.toString() == data.article._id
+          );
+          if (subFound) {
+            if (subFound) {
+              data.article.items = data.article.items.map((item) => {
+                const itemFound = promotion.items.find(
+                  (promoItem) => promoItem._id.toString() == item._id.toString()
+                );
+
+                if (itemFound) {
+                  const prec =
+                    itemFound.customPromo ||
+                    subFound.customPromo ||
+                    sectionFound.customPromo ||
+                    promotion.generalPromo;
+
+                  let price = (item.cena * (100 - prec)) / 100;
+
+                  if (item.isOnPromotions) {
+                    price < item.promotionalPrice
+                      ? price
+                      : item.promotionalPrice;
+                  }
+                  item.isOnPromotions = true;
+                  item.promotionalPrice = price;
+                }
+
+                return item;
+              });
+            }
+          }
+        }
+      }
+    }
+  }
+  console.log(filteredData.foundItem);
   return filteredData;
 };
 

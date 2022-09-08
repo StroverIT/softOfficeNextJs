@@ -6,7 +6,7 @@ import { changeStatus } from "../../../services/deliveryServiceFetch";
 
 import { Status } from "../../account/MyOrders/Status";
 
-export default function Product({ delivery, personalPromotions }) {
+export default function Product({ delivery }) {
   const [status, setStatus] = useState(delivery.status);
 
   const changeStatusHand = async (status, deliveryId) => {
@@ -46,25 +46,6 @@ export default function Product({ delivery, personalPromotions }) {
                 price = product.item.item.promotionalPrice;
               }
 
-              if (personalPromotions?.sectionPromo) {
-                const find = personalPromotions.sectionPromo.find(
-                  (item) => item.name == product.item.section.route
-                );
-                if (find) {
-                  const promoPerc =
-                    find.customPromo || personalPromotions.generalPromo;
-                  const promoPrice =
-                    (product.item.item.cena * (100 - promoPerc)) / 100;
-                  if (product.item.item.isOnPromotions) {
-                    price =
-                      promoPrice < product.item.item.promotionalPrice
-                        ? promoPrice
-                        : product.item.item.promotionalPrice;
-                  } else {
-                    price = promoPrice;
-                  }
-                }
-              }
               return (
                 <ul
                   key={product.item._id}
@@ -104,9 +85,9 @@ export default function Product({ delivery, personalPromotions }) {
         </div>
         <div>
           {delivery.isVerified ? (
-            <div className="text-green text-lg">Потвърдена</div>
+            <div className="text-lg text-green">Потвърдена</div>
           ) : (
-            <div className="text-secondary text-lg">Трябва да се потвърди</div>
+            <div className="text-lg text-secondary">Трябва да се потвърди</div>
           )}
         </div>
         <div className="ml-2">

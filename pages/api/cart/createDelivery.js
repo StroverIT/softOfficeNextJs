@@ -1,7 +1,6 @@
 import Delivery from "../../../db/models/Delivery";
 import User from "../../../db/models/User";
 import Token from "../../../db/models/Token";
-import PersonalPromotions from "../../../db/models/PersonalPromotion";
 
 import { connectMongo } from "../../../db/connectDb";
 
@@ -67,9 +66,7 @@ export default async function handler(req, res) {
       };
     }
     // Check if is promotion
-    const personalPromotions = await PersonalPromotions.findOne({
-      ownerId: user._id,
-    });
+
     let subTotal = parseFloat(
       cart
         .map((product) => {
@@ -78,26 +75,7 @@ export default async function handler(req, res) {
           if (item.isOnPromotions) {
             cena = item.promotionalPrice;
           }
-          if (personalPromotions) {
-            const find = personalPromotions.sectionPromo.find(
-              (item) => item.name == product.item.section.route
-            );
-            if (find) {
-              let promoPerc =
-                find.customPromo || personalPromotions.generalPromo;
-              const promoPrice = (item.cena * (100 - promoPerc)) / 100;
 
-              if (item.isOnPromotions) {
-                let whichIsBetter =
-                  promoPrice < item.promotionalPrice
-                    ? promoPrice
-                    : item.promotionalPrice;
-                cena = whichIsBetter;
-              } else {
-                cena = promoPrice;
-              }
-            }
-          }
           return cena * product.qty;
         })
         .reduce((a, b) => a + b, 0)

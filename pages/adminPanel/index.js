@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 // DB
 import { connectMongo } from "../../db/connectDb";
 import User from "../../db/models/User";
-import PersonalPromotions from "../../db/models/PersonalPromotion";
 
 // components
 import Navigation from "../../components/adminPanel/Navigation";
@@ -25,7 +24,6 @@ export default function Index({
   forMagazine,
   promotions,
   allUsers,
-  personalPromotions,
 }) {
   const router = useRouter();
 
@@ -37,8 +35,31 @@ export default function Index({
       nameToDisplay: product.nameToDisplay,
       isSelected: false,
       customPromo: "",
+      subsection: product.subsection.map((subsection) => {
+        console.log(subsection);
+        return {
+          _id: subsection._id,
+          tiput: subsection.tiput,
+          nameToDisplay: subsection.nameToDisplay,
+          isSelected: false,
+          customPromo: "",
+          items:
+            subsection.items &&
+            subsection?.items?.map((item) => {
+              return {
+                _id: item?._id,
+                katNomer: item?.katNomer,
+                tipove: item?.tipove,
+                cena: item?.cena,
+                isSelected: false,
+                customPromo: "",
+              };
+            }),
+        };
+      }),
     };
   });
+  console.log(filteredProducts);
   useEffect(() => {
     const categoryComp = {
       "#dostavki": [
@@ -46,7 +67,6 @@ export default function Index({
           key="Deliveries"
           forHome={forDelivery}
           forMagazine={forMagazine}
-          personalPromotions={personalPromotions}
         />,
       ],
       "#prodykti": [<Products key="MyOrders" products={products} />],
@@ -72,7 +92,6 @@ export default function Index({
 export async function getServerSideProps(context) {
   // Session
   const session = await getSession({ req: context.req });
-  let personalPromotions = {};
   if (!session) {
     return {
       redirect: {
@@ -118,11 +137,7 @@ export async function getServerSideProps(context) {
   const promoData = await promotionsRes.json();
 
   const users = await User.find({});
-  const find = await PersonalPromotions.findOne({ ownerId: data._id });
 
-  if (find) {
-    personalPromotions = find;
-  }
   return {
     props: {
       userData: JSON.parse(JSON.stringify(data)),
@@ -131,7 +146,6 @@ export async function getServerSideProps(context) {
       forMagazine: JSON.parse(JSON.stringify(forMagazine)),
       promotions: promoData,
       allUsers: JSON.parse(JSON.stringify(users)),
-      personalPromotions: JSON.parse(JSON.stringify(personalPromotions)),
     },
   };
 }

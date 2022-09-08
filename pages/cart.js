@@ -4,9 +4,7 @@ import { useState } from "react";
 import Head from "next/head";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
-// Mongodb
-import PersonalPromotion from "../db/models/PersonalPromotion";
-import { connectMongo } from "../db/connectDb";
+
 // Components
 import Price from "../components/priceStyling/Pricing";
 import BtnOutlined from "../components/buttons/Outlined";
@@ -16,13 +14,7 @@ import CartItem from "../components/cart/CartItem";
 import { connect } from "react-redux";
 import { adjustQty, removeFromCart } from "../redux/actions/productActions";
 
-function Cart({
-  cart,
-  adjustQty,
-  removeFromCart,
-  userData,
-  personalPromotions,
-}) {
+function Cart({ cart, adjustQty, removeFromCart, userData }) {
   const router = useRouter();
 
   const [isLoading, setLoading] = useState(false);
@@ -43,42 +35,13 @@ function Cart({
           (item.item.item.cena - item.item.item.promotionalPrice) * item.qty;
         cena = item.item.item.promotionalPrice;
       }
-      // Personal promotions
 
-      if (personalPromotions?.sectionPromo) {
-        const found = personalPromotions.sectionPromo.find((promo) => {
-          return (promo.name = item.item.section.name);
-        });
-        if (found) {
-          const promoPerc =
-            found.customPromo || personalPromotions.generalPromo;
-          const realPrice = item.item.item.cena;
-
-          const personalPromoToPrice = (100 - promoPerc) / 100;
-
-          const personalPromo = realPrice * personalPromoToPrice;
-
-          if (item.item.item.isOnPromotions) {
-            const promotionalPrice = item.item.item.promotionalPrice;
-
-            const whichIsBetter =
-              personalPromo < promotionalPrice
-                ? personalPromo
-                : promotionalPrice;
-            totalPromotion += (realPrice - whichIsBetter) * item.qty;
-            cena = whichIsBetter;
-          } else {
-            totalPromotion += (realPrice - personalPromo) * item.qty;
-
-            cena = personalPromo;
-          }
-        }
-      }
       return cena * item.qty;
     })
     .reduce((a, b) => a + b, 0)
     .toFixed(2)
     .split(".");
+  console.log(subtotal);
   return (
     <>
       <Head>
@@ -124,7 +87,6 @@ function Cart({
                           removeFromCart(cartItem.item.item.route)
                         }
                         changeQty={adjustQty.bind({}, cartItem.item.item.route)}
-                        personalPromotions={personalPromotions}
                       />
                     );
                   })}
@@ -182,7 +144,7 @@ export async function getServerSideProps(context) {
   // Session
   const session = await getSession({ req: context.req });
   let data = {};
-  let personalPromotions = {};
+
   // Mongodb
   if (session) {
     const res = await fetch(`${process.env.NEXTAUTH_URL}/api/getUser`, {
@@ -193,20 +155,11 @@ export async function getServerSideProps(context) {
       }),
     });
     data = await res.json();
-
-    if (data) {
-      await connectMongo();
-      const promo = await PersonalPromotion.findOne({ ownerId: data._id });
-      if (promo) {
-        personalPromotions = promo;
-      }
-    }
   }
 
   return {
     props: {
       userData: JSON.parse(JSON.stringify(data)),
-      personalPromotions: JSON.parse(JSON.stringify(personalPromotions)),
     },
   };
 }

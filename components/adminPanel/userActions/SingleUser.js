@@ -17,6 +17,8 @@ import {
   toastError,
 } from "../../../components/notificataions/Toast";
 const SingleUser = ({ data, products }) => {
+  const [subMenu, setSubMenu] = useState(null);
+
   const verified = data.isVerified ? "Да" : "Не";
   const [generalPromo, setGeneralPromo] = useState("");
   const [checkedProducts, setCheckedProducts] = useState(products);
@@ -31,14 +33,13 @@ const SingleUser = ({ data, products }) => {
     if (menuType == "promo") {
       resData = await PersonalPromotionFetch(checkedProducts, generalPromo);
     }
-    if ((menuType = "boss")) {
-      console.log(resData);
+    if (menuType == "boss") {
       resData = await BossFetch({ workers, bossId: data._id });
     }
     toastHideAll();
-    if (resData.error) toastError(resData.error);
+    if (resData?.error) toastError(resData.error);
 
-    if (resData.message) toastSuccess(resData.message);
+    if (resData?.message) toastSuccess(resData.message);
   };
 
   const menuHandler = (e) => {
@@ -104,13 +105,17 @@ const SingleUser = ({ data, products }) => {
         </section>
       </section>
       {menu && (
-        <section className="fixed top-0 left-0 z-20 w-screen h-screen">
+        <section className="fixed top-0 left-0 z-20 w-screen h-screen ">
           <div className="relative">
             <div
               className="relative z-10 w-full h-screen cursor-pointer blury-noProps"
               onClick={menuHandler}
             ></div>
-            <section className="absolute z-20 w-full overflow-auto -translate-x-1/2 -translate-y-1/2 bg-gray-100 h-2/3 md:h-2/3 md:w-11/12 top-1/2 left-1/2 ">
+            <section
+              className={`absolute z-20 w-full overflow-auto -translate-x-1/2 -translate-y-1/2 bg-gray-100 h-2/3 md:h-2/3 md:w-11/12 top-1/2 left-1/2 ${
+                subMenu && "overflow-hidden"
+              }`}
+            >
               <div className="container ">
                 <div className="sticky z-50 flex mb-10 top-5">
                   <div className="flex items-end justify-end w-full cursor-pointer">
@@ -140,6 +145,8 @@ const SingleUser = ({ data, products }) => {
                     setGeneralPromo={setGeneralPromo}
                     checkedProducts={checkedProducts}
                     setCheckedProducts={setCheckedProducts}
+                    subMenu={subMenu}
+                    setSubMenu={setSubMenu}
                   />
                 )}
                 {menuType == "boss" && (

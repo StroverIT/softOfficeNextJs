@@ -373,9 +373,9 @@ export default function Index({ data, userData, isInFav }) {
 // Getting specific item product
 export async function getServerSideProps(context) {
   const { itemId, section } = context.params;
-
-  const product = await productByItemId(itemId);
   const session = await getSession({ req: context.req });
+
+  const product = await productByItemId(itemId, session);
   let isInFav = false;
 
   if (session) {

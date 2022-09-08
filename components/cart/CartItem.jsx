@@ -5,12 +5,7 @@ import ImageAndListTableData from "./ImageAndListTableData";
 import LgScreenTableData from "./LgScreenTableData";
 import MobileScreenTableData from "./MobileScreenTableData";
 
-export default function CartItem({
-  cartData,
-  removeProduct,
-  changeQty,
-  personalPromotions,
-}) {
+export default function CartItem({ cartData, removeProduct, changeQty }) {
   let route;
   if (cartData.item.item.itemsLen == 1) {
     route = `/products/${cartData.item.section.route}/${cartData.item.article.route}`;
@@ -25,30 +20,6 @@ export default function CartItem({
 
   if (cartData.item.item.isOnPromotions) {
     price.promotionalPrice = cartData?.item?.item?.promotionalPrice;
-  }
-  if (personalPromotions?.sectionPromo) {
-    const found = personalPromotions.sectionPromo.find((promo) => {
-      return (promo.name = cartData.item.section.name);
-    });
-    if (found) {
-      const promoPerc = found.customPromo || personalPromotions.generalPromo;
-      const realPrice = cartData.item.item.cena;
-
-      const personalPromoToPrice = (100 - promoPerc) / 100;
-
-      const personalPromo = realPrice * personalPromoToPrice;
-
-      if (cartData.item.item.isOnPromotions) {
-        const promotionalPrice = cartData.item.item.promotionalPrice;
-
-        const whichIsBetter =
-          personalPromo < promotionalPrice ? personalPromo : promotionalPrice;
-
-        price.promotionalPrice = whichIsBetter;
-      } else {
-        price.promotionalPrice = personalPromo;
-      }
-    }
   }
 
   return (

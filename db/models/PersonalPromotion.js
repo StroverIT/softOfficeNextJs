@@ -1,23 +1,25 @@
 import { Schema, model, models } from "mongoose";
 
 const personalPromotion = new Schema({
-  sectionPromo: [
+  sections: [
     {
-      sectionId: { type: Schema.Types.ObjectId, ref: "product" },
-
+      _id: { type: Schema.Types.ObjectId },
+      isWhole: Boolean,
       customPromo: Number,
-      name: String,
-      nameToDisplay: String,
     },
   ],
-  wholeSection: Boolean,
-  wholeSubsection: {
-    sections: [{ type: Schema.Types.ObjectId }],
-  },
-  onlyItems: {
-    items: [{ type: Schema.Types.ObjectId }],
-  },
-  generalPromo: Number,
+  subsections: [
+    {
+      _id: { type: Schema.Types.ObjectId },
+      isWhole: Boolean,
+      customPromo: Number,
+    },
+  ],
+
+  items: [{ itemId: { type: Schema.Types.ObjectId }, customPromo: Number }],
+
+  generalPromotion: Number,
+
   ownerId: { type: Schema.Types.ObjectId, ref: "user" },
 });
 

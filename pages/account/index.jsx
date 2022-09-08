@@ -7,8 +7,6 @@ import { ImExit } from "react-icons/im";
 import Head from "next/head";
 import { useRouter } from "next/router";
 // Mongodb
-import PersonalPromotion from "../../db/models/PersonalPromotion";
-import { connectMongo } from "../../db/connectDb";
 
 // Account components
 import MyDetails from "../../components/account/MyDetails/index";
@@ -18,12 +16,7 @@ import MyFavourites from "../../components/account/MyFavourites";
 // Auth
 import { getSession, signOut } from "next-auth/react";
 
-export default function Index({
-  userData,
-  deliveriesData,
-  favData,
-  personalPromotions,
-}) {
+export default function Index({ userData, deliveriesData, favData }) {
   const router = useRouter();
   const [categoryData, setCategoryData] = useState(null);
   const myDetails = useRef(null);
@@ -41,19 +34,11 @@ export default function Index({
         myDetails,
       ],
       "#my-orders": [
-        <MyOrders
-          key="MyOrders"
-          deliveriesData={deliveriesData}
-          personalPromotions={personalPromotions}
-        />,
+        <MyOrders key="MyOrders" deliveriesData={deliveriesData} />,
         myOrders,
       ],
       "#my-favourites": [
-        <MyFavourites
-          key="MyFavourites"
-          favData={favData.data}
-          personalPromotions={personalPromotions}
-        />,
+        <MyFavourites key="MyFavourites" favData={favData.data} />,
         myFavourites,
       ],
     };
@@ -169,7 +154,6 @@ export async function getServerSideProps(context) {
   const method = "POST";
   const headers = { "Content-Type": "application/json" };
 
-  let personalPromotions = {};
   // Session
   const session = await getSession({ req: context.req });
   if (!session) {
@@ -190,11 +174,6 @@ export async function getServerSideProps(context) {
   });
   const data = await res.json();
 
-  if (data) {
-    await connectMongo();
-    const promo = await PersonalPromotion.findOne({ ownerId: data._id });
-    if (promo) personalPromotions = promo;
-  }
   const deliveriesRes = await fetch(
     `${process.env.NEXTAUTH_URL}/api/account/deliveries/getAll`,
     {
@@ -221,7 +200,6 @@ export async function getServerSideProps(context) {
       userData: JSON.parse(JSON.stringify(data)),
       deliveriesData,
       favData,
-      personalPromotions: JSON.parse(JSON.stringify(personalPromotions)),
     },
   };
 }

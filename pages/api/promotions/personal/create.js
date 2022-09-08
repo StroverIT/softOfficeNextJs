@@ -9,7 +9,6 @@ const secret = process.env.NEXTAUTH_SECRET;
 async function handler(req, res) {
   try {
     const token = await getToken({ req, secret });
-
     if (!token) {
       throw {
         error: "Невалиден токън",
@@ -19,7 +18,6 @@ async function handler(req, res) {
     await connectMongo();
 
     const user = await User.findOne({ email: token.email });
-
     if (!user || user.role != "admin") {
       throw {
         error: "Нямате такива права",

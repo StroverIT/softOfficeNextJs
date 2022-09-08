@@ -34,6 +34,7 @@ export default function Product({ section, article, addProduct }) {
   };
   useEffect(() => {
     if (article._id == routerHash[1]) setOpenItemsMenu(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [article._id]);
   useEffect(() => {
     if (openItemsMenu) {
@@ -82,7 +83,7 @@ export default function Product({ section, article, addProduct }) {
                         cena: article.items[0].cena,
                         promotionalPrice: article.items[0].promotionalPrice,
 
-                        isOnPromotion: article.items[0].isOnPromotions,
+                        isOnPromotions: article.items[0].isOnPromotions,
                         isOnlyNumb: article.items[0].isOnlyNumb,
                       },
 

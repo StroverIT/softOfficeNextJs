@@ -19,7 +19,7 @@ import {
   toastSuccess,
 } from "../notificataions/Toast";
 
-export function Card({ itemData, setFavState, personalPromotions }) {
+export function Card({ itemData, setFavState }) {
   const removeFavourites = async (productId) => {
     toastPromise("Изпраща се...");
 
@@ -46,25 +46,7 @@ export function Card({ itemData, setFavState, personalPromotions }) {
   };
   const product = itemData.product;
   const price = product.item.cena.toFixed(2).split(".");
-  if (personalPromotions?.sectionPromo) {
-    const find = personalPromotions.sectionPromo.find(
-      (item) => item.name == product.section.route
-    );
 
-    if (find) {
-      const promoPerc = find.customPromo || personalPromotions.generalPromo;
-      const promoPrice = (product.item.cena * (100 - promoPerc)) / 100;
-      if (product.item.isOnPromotions) {
-        product.item.promoPrice =
-          promoPrice < product.item.promoPrice
-            ? promoPrice
-            : product.item.promoPrice;
-        console.log(product.item.promoPrice);
-      } else {
-        product.item.promoPrice = promoPrice;
-      }
-    }
-  }
   return (
     <div className="w-full">
       <Link

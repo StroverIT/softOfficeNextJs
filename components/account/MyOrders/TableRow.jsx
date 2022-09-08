@@ -19,31 +19,13 @@ function ListProduct({ text }) {
     </li>
   );
 }
-function CartItem({ data, personalPromotions }) {
+function CartItem({ data }) {
   const productName = `${data.section.name} ${data.article.name}`;
   let price = data.item.cena;
   if (data.item.isOnPromotions) {
     price = data.item.promotionalPrice;
   }
-  if (personalPromotions?.sectionPromo) {
-    const find = personalPromotions.sectionPromo.find(
-      (item) => item.name == data.section.route
-    );
-    if (find) {
-      const promPerc = find.customPromo || personalPromotions.generalPromo;
-      const promoPrice = (data.item.cena * (100 - promPerc)) / 100;
 
-      if (data.item.isOnPromotions) {
-        const whichIsBetter =
-          promoPrice < data.item.promotionalPrice
-            ? promoPrice
-            : data.item.promotionalPrice;
-        price = whichIsBetter;
-      } else {
-        price = promoPrice;
-      }
-    }
-  }
   return (
     <>
       <ListProduct text={["Име на продукта", productName]} />
@@ -61,15 +43,7 @@ function CartItem({ data, personalPromotions }) {
     </>
   );
 }
-export function TableRow({
-  id,
-  date,
-  total,
-  status,
-  isOld,
-  fullData,
-  personalPromotions,
-}) {
+export function TableRow({ id, date, total, status, isOld, fullData }) {
   const [menu, setMenu] = useState(false);
   useEffect(() => {
     if (menu) {
@@ -169,10 +143,7 @@ export function TableRow({
                               </span>{" "}
                               - Бройки: {cart.qty}
                             </li>
-                            <CartItem
-                              data={cart.item}
-                              personalPromotions={personalPromotions}
-                            />
+                            <CartItem data={cart.item} />
                           </ul>
                         );
                       })}
