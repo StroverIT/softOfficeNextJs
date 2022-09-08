@@ -64,7 +64,7 @@ export default function Index({ data, userData, isInFav }) {
         katNomer: item.katNomer,
       },
       article: {
-        imgUrl: article.img[0].originalname,
+        imgUrl: article.img[0].originalname || article.img.originalname,
         name: article.nameToDisplay,
         route: article._id,
       },
@@ -94,7 +94,7 @@ export default function Index({ data, userData, isInFav }) {
         isOnlyNumb: item.isOnlyNumb,
       },
       article: {
-        imgUrl: article.img[0].originalname,
+        imgUrl: article.img[0].originalname || article.img.originalname,
         name: article.nameToDisplay,
         route: article._id,
       },
@@ -226,7 +226,10 @@ export default function Index({ data, userData, isInFav }) {
               <div className="py-20 border border-gray-bord">
                 <div className="relative w-full h-96">
                   <Image
-                    src={`/uploads/${product.article.img[0].originalname}`}
+                    src={`/uploads/${
+                      product.article.img[0].originalname ||
+                      product.aritcle.img.originalname
+                    }`}
                     layout="fill"
                     alt="Img"
                     className="object-contain"
@@ -366,7 +369,11 @@ export default function Index({ data, userData, isInFav }) {
             <SwiperProductSelect
               name={itemName}
               articleItems={product?.article?.items}
-              article={{ img: product?.article?.img[0]?.originalname }}
+              article={{
+                img:
+                  product?.article?.img[0]?.originalname ||
+                  product.article.img.originalname,
+              }}
               navSize="3xl"
               onClick={selectedProductHandler}
             />
