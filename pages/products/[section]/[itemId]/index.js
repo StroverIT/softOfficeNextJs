@@ -226,11 +226,7 @@ export default function Index({ data, userData, isInFav }) {
               <div className="py-20 border border-gray-bord">
                 <div className="relative w-full h-96">
                   <Image
-<<<<<<< HEAD
-                    src={`/uploads/${product.article.img.originalname}`}
-=======
                     src={`/uploads/${product.article.img[0].originalname}`}
->>>>>>> f48c014d4c18ad48d19a66feb57b4b458bf44696
                     layout="fill"
                     alt="Img"
                     className="object-contain"
