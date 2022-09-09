@@ -42,7 +42,7 @@ export default function Section({ products, types, sectionRoute }) {
   const [filterMenu, setFilterMenu] = useState(false);
 
   //Product state
-  const [articles, setArticles] = useState(products?.subsection);
+  const [articles, setArticles] = useState(null);
 
   // total filters
   // const [filters, setFilters] = useState([]);
@@ -90,6 +90,9 @@ export default function Section({ products, types, sectionRoute }) {
   const clearAllFiilters = () => {
     setFilters([]);
   };
+  useEffect(() => {
+    setArticles(products.subsection);
+  }, [products]);
   return (
     <main className="mb-auto">
       {articles && (
