@@ -40,6 +40,9 @@ export default function Index({ data, userData, isInFav }) {
   const routerHash = router?.asPath?.split("#");
 
   const [product, setProduct] = useState({ ...data.foundItem });
+  const imgUrl =
+    product?.aritcle?.img.originalname || product.article?.img[0]?.originalname;
+
   // const alternatives = data?.alternatives;
 
   const [currQty, setQty] = useState(1);
@@ -226,10 +229,7 @@ export default function Index({ data, userData, isInFav }) {
               <div className="py-20 border border-gray-bord">
                 <div className="relative w-full h-96">
                   <Image
-                    src={`/uploads/${
-                      product.article.img[0].originalname ||
-                      product.aritcle.img.originalname
-                    }`}
+                    src={`/uploads/${imgUrl}`}
                     layout="fill"
                     alt="Img"
                     className="object-contain"
@@ -242,35 +242,51 @@ export default function Index({ data, userData, isInFav }) {
               </div>
               <section className="flex flex-col p-5 space-y-10">
                 <section className="flex items-center justify-between border-b border-gray-bord ">
-                  <div className="text-lg font-bold">Цена:</div>
-                  {price?.forItem && !price.promoPrice && (
-                    <Pricing
-                      price={parseFloat(price.forItem).toFixed(2).split(".")[0]}
-                      priceDec={
-                        parseFloat(price.forItem).toFixed(2).split(".")[1]
-                      }
-                      size="3xl"
-                    />
+                  {product.section.nameToDisplay != "Обадете се" && (
+                    <div className="text-lg font-bold">Цена:</div>
                   )}
-                  {price?.promoPrice && (
-                    <div className="flex gap-x-5">
-                      <div className="text-gray-200">
-                        <OldPrice
-                          price={
-                            parseFloat(price.forItem).toFixed(2).split(".")[0]
-                          }
-                          priceDec={
-                            parseFloat(price.forItem).toFixed(2).split(".")[1]
-                          }
-                          size="3xl"
-                          NoDDSText={true}
-                        />
-                      </div>
+                  {price?.forItem &&
+                    !price.promoPrice &&
+                    product.section.nameToDisplay != "Обадете се" && (
                       <Pricing
-                        price={price.promoPrice.toFixed(2).split(".")[0]}
-                        priceDec={price.promoPrice.toFixed(2).split(".")[1]}
+                        price={
+                          parseFloat(price.forItem).toFixed(2).split(".")[0]
+                        }
+                        priceDec={
+                          parseFloat(price.forItem).toFixed(2).split(".")[1]
+                        }
                         size="3xl"
                       />
+                    )}
+                  {price?.promoPrice &&
+                    product.section.nameToDisplay != "Обадете се" && (
+                      <div className="flex gap-x-5">
+                        <div className="text-gray-200">
+                          <OldPrice
+                            price={
+                              parseFloat(price.forItem).toFixed(2).split(".")[0]
+                            }
+                            priceDec={
+                              parseFloat(price.forItem).toFixed(2).split(".")[1]
+                            }
+                            size="3xl"
+                            NoDDSText={true}
+                          />
+                        </div>
+                        <Pricing
+                          price={price.promoPrice.toFixed(2).split(".")[0]}
+                          priceDec={price.promoPrice.toFixed(2).split(".")[1]}
+                          size="3xl"
+                        />
+                      </div>
+                    )}
+                  {product.section.nameToDisplay == "Обадете се" && (
+                    <div className="text-xl font-bold  w-full py-4 flex justify-center items-center flex-col">
+                      <div className="font-normal text-[0.95rem]">
+                        Обадете се за цена!
+                      </div>
+
+                      <div>088 888 4687</div>
                     </div>
                   )}
                 </section>
@@ -326,7 +342,7 @@ export default function Index({ data, userData, isInFav }) {
               <h3 className="py-2 text-2xl font-semibold text-center text-primary">
                 Описание
               </h3>
-              <div className="flex px-3 pb-6 ml-4 sm:ml-10">
+              <div className="flex px-3 pb-6 ml-4 sm:ml-10 container">
                 <ul className="mb-1 list-disc">
                   {product?.article?.items[0].tipove
                     .split(";")
@@ -371,11 +387,12 @@ export default function Index({ data, userData, isInFav }) {
               articleItems={product?.article?.items}
               article={{
                 img:
-                  product?.article?.img[0]?.originalname ||
-                  product.article.img.originalname,
+                  product.article.img.originalname ||
+                  product?.article?.img[0]?.originalname,
               }}
               navSize="3xl"
               onClick={selectedProductHandler}
+              sectionName={product.section.nameToDisplay}
             />
           </>
         )}

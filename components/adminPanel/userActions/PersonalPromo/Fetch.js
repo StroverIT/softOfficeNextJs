@@ -68,7 +68,6 @@ async function Fetch(checkedProducts, generalPromo) {
     }
   });
 
-  console.log(foundItems);
   const sendObject = {
     ...foundItems,
     generalPromo,

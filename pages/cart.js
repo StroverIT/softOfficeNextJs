@@ -41,7 +41,6 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
     .reduce((a, b) => a + b, 0)
     .toFixed(2)
     .split(".");
-  console.log(subtotal);
   return (
     <>
       <Head>

@@ -10,7 +10,9 @@ import OldPrice from "../../priceStyling/OldPrice";
 import Pricing from "../../priceStyling/Pricing";
 
 export default function ListItem({ section, articleData, item, addProduct }) {
-  const name = `${section.name} ${articleData.name}`;
+  const name = `${section.name != "Обадете се" && section.name} ${
+    articleData.name
+  }`;
   const types = item.tipove.split(";");
   const [price, setPrice] = useState(null);
   const [sanitizedData, setSanitizedData] = useState({});
@@ -76,14 +78,16 @@ export default function ListItem({ section, articleData, item, addProduct }) {
           </ul>
         </div>
         <div className="flex items-center justify-center py-2">
-          {price?.forItem && !price.promoPrice && (
-            <Pricing
-              price={parseFloat(price.forItem).toFixed(2).split(".")[0]}
-              priceDec={parseFloat(price.forItem).toFixed(2).split(".")[1]}
-              size="3xl"
-            />
-          )}
-          {price?.promoPrice && (
+          {price?.forItem &&
+            !price.promoPrice &&
+            section.name != "Обадете се" && (
+              <Pricing
+                price={parseFloat(price.forItem).toFixed(2).split(".")[0]}
+                priceDec={parseFloat(price.forItem).toFixed(2).split(".")[1]}
+                size="3xl"
+              />
+            )}
+          {price?.promoPrice && section.name != "Обадете се" && (
             <div className="flex gap-x-5">
               <div className="text-gray-200">
                 <OldPrice
@@ -102,7 +106,17 @@ export default function ListItem({ section, articleData, item, addProduct }) {
           )}
         </div>
       </section>
-      <div className="w-full bg-gray-300 rounded-3xl">
+
+      <div className="w-full bg-gray-300 rounded-3xl mt-auto">
+        {section.name == "Обадете се" && (
+          <div className="text-xl font-bold bg-gray w-full py-4 flex justify-center items-center flex-col">
+            <div className="font-normal text-[0.95rem]">
+              Обадете се за цена!
+            </div>
+
+            <div>088 888 4687</div>
+          </div>
+        )}
         <section className="container py-5">
           <div className="mb-3">
             <BuyBtn onClick={() => addProduct(sanitizedData)} />

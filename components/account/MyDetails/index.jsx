@@ -115,9 +115,15 @@ export default function MyDetails({ userData }) {
   return (
     <>
       <section>
-        <h2 className="mt-5 mb-5 text-3xl font-semibold text-center">
-          Детайли на акаунта
-        </h2>
+        <section className="my-8">
+          <h2 className="font-semibold   text-3xl text-center">
+            Здравей,{" "}
+            <span className="text-primary-100">{userData.fullName} </span>!
+          </h2>
+          <h2 className=" font-semibold text-center text-2xl text-gray-200 ">
+            Тука може да промените вашите данни
+          </h2>
+        </section>
 
         <section className="">
           <h4 className="py-1 text-xl font-semibold border-b border-gray">
@@ -159,9 +165,11 @@ export default function MyDetails({ userData }) {
               </p>
             </InnerSection>
             <InnerSection>
+              <div className="pb-2 text-gray-200">
+                Сегашен и-мейл: {userData.email}
+              </div>
               {/* Message */}
               {email[0] && <Message text={email[0]} err={email[1]} />}
-
               <form onSubmit={(e) => submitHandler(e, urlFetch.email)}>
                 <SectionInputs inputs={inputDataEmail} />
               </form>

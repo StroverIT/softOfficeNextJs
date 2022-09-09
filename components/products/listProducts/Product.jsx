@@ -16,7 +16,9 @@ export default function Product({ section, article, addProduct }) {
   const itemsLen = article.items.length;
 
   const [openItemsMenu, setOpenItemsMenu] = useState(false);
-  const name = `${section.name} ${article.nameToDisplay} `;
+  const name = `${section.name != "Обадете се" && section.name} ${
+    article.nameToDisplay
+  } `;
   const imgUrl = article?.img?.originalname || article?.img[0]?.originalname;
   const articleData = {
     name: article.nameToDisplay,

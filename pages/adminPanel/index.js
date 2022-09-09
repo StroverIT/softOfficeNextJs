@@ -36,7 +36,6 @@ export default function Index({
       isSelected: false,
       customPromo: "",
       subsection: product.subsection.map((subsection) => {
-        console.log(subsection);
         return {
           _id: subsection._id,
           tiput: subsection.tiput,
@@ -59,7 +58,6 @@ export default function Index({
       }),
     };
   });
-  console.log(filteredProducts);
   useEffect(() => {
     const categoryComp = {
       "#dostavki": [

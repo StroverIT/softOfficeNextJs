@@ -64,7 +64,7 @@ export const getAllProducts = async (route, session) => {
     }
   }
 
-  mongoose.connection.close();
+  // mongoose.connection.close();
   return data;
 };
 export const getAll = async () => {
@@ -162,7 +162,6 @@ export const productByItemId = async (itemId, session) => {
       }
     }
   }
-  console.log(filteredData.foundItem);
   return filteredData;
 };
 

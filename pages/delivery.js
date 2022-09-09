@@ -139,7 +139,6 @@ function Delivery({ cart, userData, cities }) {
     state.totalPrice = subTotal + dds + state.delivery;
     setPriceState(() => state);
     if (savedMoney > 0) {
-      console.log(savedMoney);
       setSavedMoney(savedMoney);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

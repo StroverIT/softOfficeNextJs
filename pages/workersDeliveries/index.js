@@ -56,7 +56,6 @@ export default function Index({ user }) {
           </section>
           {delivery &&
             delivery.map((delivery) => {
-              console.log(delivery);
               return <Product delivery={delivery} key={delivery._id} />;
             })}
         </section>

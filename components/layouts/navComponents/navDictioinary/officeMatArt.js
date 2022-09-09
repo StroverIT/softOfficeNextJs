@@ -6,7 +6,7 @@ const articles = [
       [
         { displayName: "Бяла копирна хартия и картон", name: "hartiq" },
         { displayName: "Картон", name: "karton" },
-        { displayName: "folio", name: "Фолио" },
+        { displayName: "Фолио", name: "folio" },
 
         { displayName: "Фотохартия", name: "fotohartiq" },
 

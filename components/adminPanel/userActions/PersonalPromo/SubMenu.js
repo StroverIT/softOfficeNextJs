@@ -26,7 +26,6 @@ const SubMenu = ({
       if (productIdx == index) {
         product.subsection = product.subsection.map(
           (subsection, subsectionIdx) => {
-            console.log(subsection);
             if (subIdx == subsectionIdx) {
               return { ...subsection, isSelected: !subsection.isSelected };
             }

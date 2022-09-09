@@ -23,7 +23,6 @@ const Index = ({ workers, setWorkers }) => {
   };
   const workerInputsHandler = (workerIndx, e) => {
     const newData = workers.map((worker, index) => {
-      console.log(worker, index, workerIndx);
       if (index == workerIndx) {
         return { ...worker, [e.target.name]: e.target.value };
       }

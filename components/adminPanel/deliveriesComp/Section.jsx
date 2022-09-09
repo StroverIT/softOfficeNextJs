@@ -19,7 +19,6 @@ export default function Section({ delivery }) {
       </div>
       {delivery &&
         delivery.map((delivery) => {
-          console.log(delivery.isVerified);
           let renderer = <Product delivery={delivery} key={delivery._id} />;
           if (!delivery.isVerified)
             renderer = (

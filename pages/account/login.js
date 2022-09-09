@@ -138,7 +138,6 @@ export default Login;
 
 export async function getServerSideProps(context) {
   const { query } = context;
-  console.log(query);
   const session = await getSession({ req: context.req });
 
   if (session) {

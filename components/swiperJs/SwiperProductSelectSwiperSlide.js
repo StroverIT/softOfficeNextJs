@@ -8,7 +8,7 @@ import { SwiperSlide } from "swiper/react";
 import Pricing from "../priceStyling/Pricing";
 import OldPrice from "../priceStyling/OldPrice";
 
-const SwiperProductSelectSwiperSlide = ({ article, item }) => {
+const SwiperProductSelectSwiperSlide = ({ article, item, sectionName }) => {
   const [price, setPrice] = useState(null);
   useEffect(() => {
     let priceObjInit = { forItem: item.cena };
@@ -32,7 +32,7 @@ const SwiperProductSelectSwiperSlide = ({ article, item }) => {
           />
         </div>
 
-        <ul className="flex flex-col justify-center py-2 border-y border-gray">
+        <ul className="flex flex-col justify-center py-4 border-y border-gray px-10 text-center">
           {item.tipove
             .split(";")
             .splice(0, 5)
@@ -47,14 +47,14 @@ const SwiperProductSelectSwiperSlide = ({ article, item }) => {
       </div>
       {/* This can be potential bug!!!! */}
       <div className="py-2 -mt-10">
-        {!item.isOnPromotions && (
+        {!item.isOnPromotions && sectionName != "Обадете се" && (
           <Pricing
             price={parseFloat(price?.forItem)?.toFixed(2).split(".")[0]}
             priceDec={parseFloat(price?.forItem)?.toFixed(2).split(".")[1]}
             size="2xl"
           />
         )}
-        {item.isOnPromotions && (
+        {item.isOnPromotions && sectionName != "Обадете се" && (
           <div className="flex items-center justify-center gap-x-5">
             <div className="text-gray-200">
               <OldPrice
@@ -72,6 +72,15 @@ const SwiperProductSelectSwiperSlide = ({ article, item }) => {
                 size="2xl"
               />
             </div>
+          </div>
+        )}
+        {sectionName == "Обадете се" && (
+          <div className="text-xl font-bold bg-gray w-full py-4 flex justify-center items-center flex-col">
+            <div className="font-normal text-[0.95rem]">
+              Обадете се за цена!
+            </div>
+
+            <div>088 888 4687</div>
           </div>
         )}
       </div>
