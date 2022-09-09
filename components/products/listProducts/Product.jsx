@@ -24,8 +24,8 @@ export default function Product({ section, article, addProduct }) {
   if (article.img) {
     imgUrl = article.img.originalname;
 
-    if (article.img?.length) {
-      article.img[0]?.originalname;
+    if (article.img?.length >= 1) {
+      imgUrl = article.img[0]?.originalname;
     }
   }
 

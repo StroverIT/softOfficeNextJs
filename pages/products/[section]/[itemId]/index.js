@@ -169,8 +169,8 @@ export default function Index({ data, userData, isInFav }) {
   if (product.article.img) {
     imgUrl = product.article.img.originalname;
 
-    if (product.article.img?.length) {
-      article.img[0]?.originalname;
+    if (product.article.img?.length >= 0) {
+      imgUrl = article.img[0]?.originalname;
     }
   }
 
