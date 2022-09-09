@@ -21,9 +21,10 @@ export default function Product({ section, article, addProduct }) {
   } `;
 
   let imgUrl;
-
-  if (article.img.originalname) imgUrl = article.img.originalname;
-  else if (article.img[0].originalname) imgUrl = article.img[0].originalname;
+  if (article.img) {
+    if (Array.isArray(article.img)) imgUrl = article?.img[0]?.originalname;
+    else imgUrl = article?.img.originalname;
+  }
 
   const articleData = {
     name: article.nameToDisplay,
