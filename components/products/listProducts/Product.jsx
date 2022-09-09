@@ -22,8 +22,7 @@ export default function Product({ section, article, addProduct }) {
 
   let imgUrl;
   if (article.img) {
-    if (Array.isArray(article.img)) imgUrl = article?.img[0]?.originalname;
-    else imgUrl = article?.img.originalname;
+    imgUrl = article.img[0]?.originalname || article.img.originalname;
   }
 
   const articleData = {

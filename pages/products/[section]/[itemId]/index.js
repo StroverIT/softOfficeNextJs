@@ -166,10 +166,9 @@ export default function Index({ data, userData, isInFav }) {
   // const imgUrl =
 
   let imgUrl;
-  if (article.img) {
-    if (Array.isArray(article.img))
-      imgUrl = product.article?.img[0]?.originalname;
-    else imgUrl = product.article?.img.originalname;
+  if (product.article.img) {
+    imgUrl =
+      product.article.img[0]?.originalname || product.article.img.originalname;
   }
 
   useEffect(() => {
