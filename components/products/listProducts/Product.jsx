@@ -22,7 +22,11 @@ export default function Product({ section, article, addProduct }) {
 
   let imgUrl;
   if (article.img) {
-    imgUrl = article.img.originalname || article.img[0]?.originalname;
+    imgUrl = article.img.originalname;
+
+    if (article.img?.length) {
+      article.img[0]?.originalname;
+    }
   }
 
   const articleData = {

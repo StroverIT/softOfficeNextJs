@@ -167,8 +167,11 @@ export default function Index({ data, userData, isInFav }) {
 
   let imgUrl;
   if (product.article.img) {
-    imgUrl =
-      product.article.img.originalname || product.article.img[0]?.originalname;
+    imgUrl = product.article.img.originalname;
+
+    if (product.article.img?.length) {
+      article.img[0]?.originalname;
+    }
   }
 
   useEffect(() => {
