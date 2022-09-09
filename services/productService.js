@@ -64,7 +64,6 @@ export const getAllProducts = async (route, session) => {
     }
   }
 
-  // mongoose.connection.close();
   return data;
 };
 export const getAll = async () => {
