@@ -1,7 +1,7 @@
 // NextJS
 import Head from "next/head";
 import Image from "next/image";
-
+import Link from "next/link";
 // Components
 
 import BtnOutlined from "../components/buttons/Outlined";
@@ -15,32 +15,33 @@ import SwiperFreeMode from "../components/swiperJs/SwiperFreeMode";
 const swiperPag = [
   {
     src: "/carousel/hero_slides_1.png",
-    key: "test carousel for my monday 1",
-    pageUrl: "/products/product",
+    key: "Xerox Performer",
+    pageUrl: "/products/hartiq/61eb119d7815ce846f1745b3",
   },
   {
     src: "/carousel/hero_slides_2.png",
 
-    key: "test carousel for my monday version 2",
-    pageUrl: "/products/product",
+    key: "Symbio Copy",
+    pageUrl: "/products/hartiq/62262f3ae02d2a7dd0edc147",
   },
   {
     src: "/carousel/hero_slides_3.png",
 
-    key: "test carousel for my monday version 3",
-    pageUrl: "/products/product",
+    key: "Тонер Касета",
+    pageUrl: "/products/skeneri/61f4128f031938ea821770f3",
   },
   {
     src: "/carousel/hero_slides_4.png",
 
-    key: "test carousel for my monday version 4",
-    pageUrl: "/products/product",
+    key: "Xerox Business A4",
+    pageUrl:
+      "/products/hartiq/61eb119d7815ce846f1745bd#61eb119d7815ce846f1745be",
   },
   {
     src: "/carousel/hero_slides_5.png",
 
-    key: "test carousel for my monday version 5",
-    pageUrl: "/products/product",
+    key: "Navigator A4",
+    pageUrl: "/products/hartiq/61eb119d7815ce846f1745d2",
   },
   {
     src: "/carousel/ferero.png",
@@ -93,35 +94,41 @@ export default function Home({ promotions }) {
         {/* Images for edi kakvo si */}
 
         <section className="container flex flex-wrap items-center justify-center gap-6 py-10 cursor-pointer mb-14">
-          <div className="relative w-full sm:h-96 md:w-[600px] md:h-[300px] h-[200px] shadow-lg border-gray-300 border">
-            <Image
-              src="/homeImages/chairForOffices.jpg"
-              alt="ivan"
-              layout="fill"
-            />
-            <div className="absolute px-5 py-1 text-white bottom-2 right-2 bg-primary-100">
-              Виж повече
-            </div>
-          </div>
-          <div className="relative w-full sm:h-96 md:w-[600px] md:h-[300px] h-[200px] cursor-pointer shadow-lg border-gray-300 border">
-            <Image
-              src="/homeImages/lazerenPrinter.jpg"
-              alt="ivan"
-              layout="fill"
-            />
-            <div className="absolute px-5 py-1 text-white bottom-2 right-2 bg-primary-100">
-              Виж повече
-            </div>
-          </div>
-          <div className="relative w-full sm:h-96 md:w-[600px] md:h-[300px] h-[200px] cursor-pointer shadow-lg border-gray-300 border">
-            <Image src="/homeImages/office.jpg" alt="ivan" layout="fill" />
-            <div className="h-full backdrop-blur-[2px]"></div>
-            <div className="absolute w-3/4 text-white -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-              <div className="w-full py-6 font-sans text-2xl font-semibold text-center border border-gray-150 bg-dark-transparent">
-                Обзаведи твоят офис
+          <Link href="/products/stolove">
+            <div className="relative w-full sm:h-96 md:w-[600px] md:h-[300px] h-[200px] shadow-lg border-gray-300 border">
+              <Image
+                src="/homeImages/chairForOffices.jpg"
+                alt="ivan"
+                layout="fill"
+              />
+              <div className="absolute px-5 py-1 text-white bottom-2 right-2 bg-primary-100">
+                Виж повече
               </div>
             </div>
-          </div>
+          </Link>
+          <Link href="/products/skeneri">
+            <div className="relative w-full sm:h-96 md:w-[600px] md:h-[300px] h-[200px] cursor-pointer shadow-lg border-gray-300 border">
+              <Image
+                src="/homeImages/lazerenPrinter.jpg"
+                alt="ivan"
+                layout="fill"
+              />
+              <div className="absolute px-5 py-1 text-white bottom-2 right-2 bg-primary-100">
+                Виж повече
+              </div>
+            </div>
+          </Link>
+          <Link href="/products/sofas">
+            <div className="relative w-full sm:h-96 md:w-[600px] md:h-[300px] h-[200px] cursor-pointer shadow-lg border-gray-300 border">
+              <Image src="/homeImages/office.jpg" alt="ivan" layout="fill" />
+              <div className="h-full backdrop-blur-[2px]"></div>
+              <div className="absolute w-3/4 text-white -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                <div className="w-full py-6 font-sans text-2xl font-semibold text-center border border-gray-150 bg-dark-transparent">
+                  Обзаведи твоят офис
+                </div>
+              </div>
+            </div>
+          </Link>
         </section>
 
         {/* Promotion header */}
