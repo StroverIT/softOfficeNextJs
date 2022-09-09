@@ -19,7 +19,12 @@ export default function Product({ section, article, addProduct }) {
   const name = `${section.name != "Обадете се" && section.name} ${
     article.nameToDisplay
   } `;
-  const imgUrl = article?.img?.originalname || article?.img[0]?.originalname;
+
+  let imgUrl;
+  if (article?.img?.originalname) imgUrl = article.img.originalname;
+  else if (article?.img[0]?.originalname)
+    imgUrl = article?.img[0]?.originalname;
+
   const articleData = {
     name: article.nameToDisplay,
     route: article._id,

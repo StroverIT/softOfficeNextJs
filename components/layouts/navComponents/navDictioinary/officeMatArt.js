@@ -68,7 +68,7 @@ const articles = [
   {
     menu: "Пишещи и коригиращи пособия",
     subMenu: [
-      { displayName: "Химикалки", name: "himilaki" },
+      { displayName: "Химикалки", name: "himikalki" },
       { displayName: "Ролери", name: "roleri" },
       { displayName: "Тънкописци", name: "tankopisci" },
       { displayName: "Маркери", name: "markeri" },

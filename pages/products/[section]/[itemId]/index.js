@@ -40,8 +40,6 @@ export default function Index({ data, userData, isInFav }) {
   const routerHash = router?.asPath?.split("#");
 
   const [product, setProduct] = useState({ ...data.foundItem });
-  const imgUrl =
-    product?.aritcle?.img.originalname || product.article?.img[0]?.originalname;
 
   // const alternatives = data?.alternatives;
 
@@ -165,6 +163,13 @@ export default function Index({ data, userData, isInFav }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  // const imgUrl =
+
+  let imgUrl;
+  if (product?.article?.img?.originalname)
+    imgUrl = product.article.img.originalname;
+  else if (product?.article?.img[0]?.originalname)
+    imgUrl = product.article?.img[0]?.originalname;
 
   useEffect(() => {
     if (routerHash[1]) {
@@ -386,9 +391,7 @@ export default function Index({ data, userData, isInFav }) {
               name={itemName}
               articleItems={product?.article?.items}
               article={{
-                img:
-                  product.article.img.originalname ||
-                  product?.article?.img[0]?.originalname,
+                img: imgUrl,
               }}
               navSize="3xl"
               onClick={selectedProductHandler}
