@@ -88,16 +88,18 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
           className={`px-5  mt-2  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-2`}
         >
           {articles.map((article, index) => {
-            const isObject = typeof article === "object";
-            if (isObject) article = JSON.stringify(article);
-            return isObject ? (
-              <NavLinkSubMenu subMenuData={article} key={index} />
+            console.log(article?.name, article);
+            return article?.menu ? (
+              <NavLinkSubMenu
+                subMenuData={JSON.stringify(article.subMenu)}
+                menu={article.menu}
+                key={index}
+              />
             ) : (
               <LinkComp
-                route={article}
-                mainRoute={title}
-                isHome={isHome}
-                key={article}
+                route={article.name}
+                name={article.displayName}
+                key={index}
               />
             );
           })}

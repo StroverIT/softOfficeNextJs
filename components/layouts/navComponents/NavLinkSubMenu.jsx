@@ -5,11 +5,10 @@ import { IoIosArrowDropright, IoIosArrowDropdown } from "react-icons/io";
 
 import LinkComp from "./LinkComp";
 
-function NavLinkSubMenu({ subMenuData }) {
+function NavLinkSubMenu({ subMenuData, menu }) {
   const [isOpen, setIsOpen] = useState(false);
 
-  const data = JSON.parse(subMenuData);
-  const subMenu = data.subMenu;
+  const subMenu = JSON.parse(subMenuData);
   return (
     <li className="list-none ">
       <button
@@ -20,7 +19,7 @@ function NavLinkSubMenu({ subMenuData }) {
         } transition-colors text-left text-[1rem] hover:text-primary pr-3`}
       >
         <div className="relative flex items-center justify-center">
-          {data.menu}
+          {menu}
           <div className="absolute -translate-y-1/2 top-1/2 -right-5 text-primary">
             {isOpen ? <IoIosArrowDropdown /> : <IoIosArrowDropright />}
           </div>
