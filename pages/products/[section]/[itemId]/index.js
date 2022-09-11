@@ -147,7 +147,8 @@ export default function Index({ data, userData, isInFav }) {
   };
 
   const itemName = `${
-    product?.section?.nameToDisplay != "Обадете се"
+    product?.section?.nameToDisplay != "Обадете се" &&
+    product?.section?.nameToDisplay
       ? product?.section?.nameToDiplay
       : ""
   } ${product?.article?.nameToDisplay} `;
