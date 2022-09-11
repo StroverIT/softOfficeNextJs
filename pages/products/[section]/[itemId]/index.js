@@ -146,7 +146,11 @@ export default function Index({ data, userData, isInFav }) {
     }
   };
 
-  const itemName = `${product?.section?.nameToDisplay} ${product?.article?.nameToDisplay} `;
+  const itemName = `${
+    product?.section?.nameToDisplay != "Обадете се"
+      ? product?.section?.nameToDiplay
+      : ""
+  } ${product?.article?.nameToDisplay} `;
 
   const selectedProductHandler = (data) => {
     router.push(`#${data.item._id}`, undefined, { shallow: true });

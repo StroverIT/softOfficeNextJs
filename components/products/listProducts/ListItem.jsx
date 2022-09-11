@@ -10,7 +10,7 @@ import OldPrice from "../../priceStyling/OldPrice";
 import Pricing from "../../priceStyling/Pricing";
 
 export default function ListItem({ section, articleData, item, addProduct }) {
-  const name = `${section.name != "Обадете се" && section.name} ${
+  const name = `${section.name != "Обадете се" ? section.name : ""} ${
     articleData.name
   }`;
   const types = item.tipove.split(";");
