@@ -164,6 +164,7 @@ export default function Index({ data, userData, isInFav }) {
   // const imgUrl =
 
   let imgUrl;
+
   if (product?.article?.img) {
     imgUrl = product?.article?.img?.originalname;
 
