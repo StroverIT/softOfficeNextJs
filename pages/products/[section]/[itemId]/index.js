@@ -65,7 +65,7 @@ export default function Index({ data, userData, isInFav }) {
         katNomer: item.katNomer,
       },
       article: {
-        imgUrl: article.img[0].originalname || article.img.originalname,
+        imgUrl: article.img.originalname || article.img[0].originalname,
         name: article.nameToDisplay,
         route: article._id,
       },
@@ -95,7 +95,7 @@ export default function Index({ data, userData, isInFav }) {
         isOnlyNumb: item.isOnlyNumb,
       },
       article: {
-        imgUrl: article.img[0].originalname || article.img.originalname,
+        imgUrl: article?.img?.originalname || article.img[0].originalname,
         name: article.nameToDisplay,
         route: article._id,
       },
