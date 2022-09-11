@@ -8,10 +8,10 @@ const sredstvaZaPrezentaciqArt = [
     displayName: "Прожекционни екрани и дъски",
     name: "projekcionniEkraniIDuski",
   },
-  // {
-  //   displayName: "Фолио за презентация",
-  //   name: "cdDvd",
-  // },
+  {
+    displayName: "Фолио за презентация",
+    name: "folioZaPrezentaciq",
+  },
   {
     displayName: "Флипчарти, листа за флипчарт",
     name: "flipcharti",
@@ -20,10 +20,10 @@ const sredstvaZaPrezentaciqArt = [
     displayName: "Информационни системи",
     name: "informacionniSistemi",
   },
-  // {
-  //   displayName: "Информационни табла",
-  //   name: "cdDvd",
-  // },
+  {
+    displayName: "Информационни табла",
+    name: "informacionniTabla",
+  },
   {
     displayName: "Магнитен джоб",
     name: "magnitenJob",

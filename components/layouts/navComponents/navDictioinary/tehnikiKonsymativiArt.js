@@ -15,10 +15,10 @@ const tehnikiKonsymativiArt = [
         displayName: "Ролкови ножове",
         name: "rolkovNoj",
       },
-      // {
-      //   displayName: "Гилотини",
-      //   name: "",
-      // },
+      {
+        displayName: "Гилотини",
+        name: "gilotina",
+      },
       {
         displayName: "Подвързващи машини",
         name: "podvurzvashtaMashina",
@@ -27,10 +27,10 @@ const tehnikiKonsymativiArt = [
       //   displayName: "Ламинаторир, ламинати",
       //   name: "",
       // },
-      // {
-      //   displayName: "Флуид за шредери",
-      //   name: "",
-      // },
+      {
+        displayName: "Флуид за шредери",
+        name: "fluidZaShrederi",
+      },
       // {
       //   displayName: "Листа за шердери",
       //   name: "",

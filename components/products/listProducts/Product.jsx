@@ -28,7 +28,6 @@ export default function Product({ section, article, addProduct }) {
       imgUrl = article.img[0]?.originalname;
     }
   }
-
   const articleData = {
     name: article.nameToDisplay,
     route: article._id,

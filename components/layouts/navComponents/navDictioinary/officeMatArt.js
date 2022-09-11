@@ -10,8 +10,11 @@ const articles = [
 
         { displayName: "Фотохартия", name: "fotohartiq" },
 
-        // { displayName: "Цветна хартия", name: "naza" },
-        // { displayName: "Дизанерска хартия и картон", name: "naza" },
+        { displayName: "Цветна хартия и картон", name: "cvetnaHartiq" },
+        {
+          displayName: "Дизанерска хартия и картон",
+          name: "dizainerskaHartiqIKarton",
+        },
 
         { displayName: "Карирана и линирана хартия", name: "kariranaHartiq" },
         { displayName: "Паус", name: "paus" },
@@ -31,12 +34,13 @@ const articles = [
 
         { displayName: "Етикети", name: "etiketi" },
 
-        // "Самозалепващ знак",
+        { displayName: "Замозалеващи знаци", name: "zamoZalepvashtiZnaci" },
+
         { displayName: "Маркиращи клещи", name: "markirashtiKleshti" },
         { displayName: "Бели пликове", name: "beliPlikove" },
         { displayName: "Кафяви пликове", name: "kafqviPlikove" },
+        { displayName: "Цветни пликове", name: "cvetniPlikove" },
 
-        // "Пликове цветни",
         { displayName: "Формуляри", name: "formylqri" },
         { displayName: "Бележници", name: "belejnici" },
         { displayName: "Тетрадки", name: "tetradki" },
@@ -61,7 +65,7 @@ const articles = [
 
         { displayName: "Тубус", name: "tubus" },
         { displayName: "Клипборд", name: "clipBoard" },
-        // { displayName: "Визитник", name: "Тетрадки" },
+        { displayName: "Визитник", name: "vizitnik" },
         { displayName: "Раници, чанти, сакове, куфари", name: "raniciChanti" },
       ],
   },
@@ -98,7 +102,7 @@ const articles = [
       { displayName: "Метално кошче", name: "postavkaZabjuroIliStena" },
       { displayName: "Поставки", name: "postavkaMolivnikOrganaizerZaBjuro" },
 
-      // { displayName: "Монетник", name: "vodniBoi" },
+      { displayName: "Монетник", name: "monetnik" },
     ],
   },
   {
@@ -133,7 +137,7 @@ const articles = [
         name: "shipki",
       },
       { displayName: "Кламери", name: "klameri" },
-      // { displayName: "Линии", name: "postavkaMolivnikOrganaizerZaBjuro" },
+      { displayName: "Линии", name: "linii" },
       { displayName: "Карфици", name: "karfici" },
       {
         displayName: "Кабари",
@@ -152,10 +156,10 @@ const articles = [
         displayName: "Тампон",
         name: "tampon",
       },
-      // {
-      //   displayName: "Мастило, тампон и поставка за печати",
-      //   name: "postavkaMolivnikOrganaizerZaBjuro",
-      // },
+      {
+        displayName: "Мастило, тампон и поставка за печати",
+        name: "mastiloTamponIPostavkaZaPechati",
+      },
       // {
       //   displayName: "Печати и изработка на печати и клишета",
       //   name: "postavkaMolivnikOrganaizerZaBjuro",

@@ -56,24 +56,24 @@ const handler = async (
       };
     }
     const sectionImg = files.media || null;
+
     let articleImg = [];
     let itemImg = [];
 
-    if (sectionImg) {
-      fields.imageUrl = sectionImg.newFilename;
-    }
+    // if (sectionImg) {
+    //   fields.imageUrl = sectionImg.newFilename;
+    // }
     if (files.article) {
       articleImg = imageGetSanitizer(files.article);
     }
-    if (files.item) {
-      itemImg = imageGetSanitizer(files.item);
-    }
+    // if (files.item) {
+    //   itemImg = imageGetSanitizer(files.item);
+    // }
 
     // Articles set image
-    let formatedFields = articlesFormater(fields, articleImg, itemImg);
+    let formatedFields = articlesFormater(fields, articleImg);
 
     await Product.create(formatedFields);
-    // const product = new Product(formatedFields).save();
     let data: { message: string; error: any; data: any } = {
       message: "Успешно създадена секция",
       error: null,

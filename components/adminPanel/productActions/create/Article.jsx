@@ -2,32 +2,36 @@ import React, { useState, useEffect, useContext } from "react";
 
 import Input from "../../../form/AccInput";
 import { ProductContext } from "../ProductContext";
+import { v4 as uuidv4 } from "uuid";
 
 import Item from "./Item";
 import { HiX } from "react-icons/hi";
 
+import IsComponent from "./IsComponent";
+
 function Article({ articleLen, articleData }) {
   const { sectionState, setSectionState } = useContext(ProductContext);
+  const [isImage, setIsImage] = useState(false);
 
-  const articleCons = sectionState.articles[articleLen];
+  const articleCons = sectionState.subsection[articleLen];
   const itemsCons = articleCons?.items;
 
   const addItem = (e) => {
-    const addItemArticle = sectionState.articles.map((article, index) => {
+    const addItemArticle = sectionState.subsection.map((article, index) => {
       if (articleLen == index) {
-        article.items.push({ weight: "", price: "" });
+        article.items.push({ katNomer: "", cena: "", tipove: "" });
       }
       return article;
     });
     setSectionState((prevState) => ({
       ...prevState,
-      articles: addItemArticle,
+      subsection: addItemArticle,
     }));
   };
   const removeArticle = (e) => {
     setSectionState((prevState) => ({
       ...prevState,
-      articles: sectionState.articles.filter((item, index) => {
+      subsection: sectionState.subsection.filter((item, index) => {
         return index != articleLen;
       }),
     }));
@@ -39,12 +43,10 @@ function Article({ articleLen, articleData }) {
     if (name.includes("image")) {
       value = e.target.files[0];
     }
-    if (name == "commonName") {
-      value = !e.target.checked;
-    }
+
     setSectionState((prevState) => ({
       ...prevState,
-      articles: sectionState.articles.map((article, index) => {
+      subsection: sectionState.subsection.map((article, index) => {
         if (articleLen == index) {
           return { ...article, [name]: value };
         }
@@ -67,15 +69,56 @@ function Article({ articleLen, articleData }) {
           </button>
         </div>
       </div>
+      {/* <div className="flex justify-center">
+        <IsComponent
+          state={isImage}
+          setState={setIsImage}
+          onText="Добави Снимка"
+          offText="Премахни снимка"
+          sectionState={sectionState}
+          setSectionState={setSectionState}
+        />
+      </div> */}
 
+      {/* <div>
+        <input
+          type="checkbox"
+          id="commonName"
+          name="commonName"
+          onChange={changeHandler}
+        />
+        <label htmlFor="commonName">Премахни общото име</label>
+      </div> */}
       <Input
         type="text"
-        placeholder="Име на артикула"
-        id="articleName"
-        value={articleData?.articleName}
+        placeholder="nameToDisplay"
+        id="nameToDisplay"
+        value={articleData?.nameToDisplay}
         onChange={changeHandler}
       />
+      <Input
+        type="text"
+        placeholder="tiput"
+        id="tiput"
+        value={articleData?.tiput}
+        onChange={changeHandler}
+      />
+      <div>
+        <label htmlFor="colors">Описание</label>
+        <textarea
+          name="opisanie"
+          id="opisanie"
+          className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
+          onChange={changeHandler}
+        ></textarea>
+      </div>
 
+      <Input
+        type="file"
+        placeholder="Снимка"
+        id="imageUrl"
+        onChange={changeHandler}
+      />
       {itemsCons &&
         itemsCons.map((item, index) => {
           return (

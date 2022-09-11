@@ -91,7 +91,9 @@ export default function Section({ products, types, sectionRoute }) {
     setFilters([]);
   };
   useEffect(() => {
-    setArticles(products.subsection);
+    if (products?.subsection) {
+      setArticles(products.subsection);
+    }
   }, [products]);
   return (
     <main className="mb-auto">

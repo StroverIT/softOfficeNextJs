@@ -25,6 +25,8 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 /public/uploads
+/public/imagesForUploading
+
 # local env files
 .env*.local
 .env

@@ -16,13 +16,18 @@ export default function Create() {
   const router = useRouter();
 
   const [sectionState, setSectionState] = useState({
-    articles: [],
+    name: "",
+    nameToDisplay: "",
+    subsection: [],
   });
 
   const addArticle = (e) => {
     setSectionState((prevState) => ({
       ...prevState,
-      articles: [...prevState.articles, { items: [], articleName: "" }],
+      subsection: [
+        ...prevState.subsection,
+        { items: [], tiput: "", opisanie: "", nameToDisplay: "" },
+      ],
     }));
   };
 
@@ -39,13 +44,14 @@ export default function Create() {
         let article = value.map((article) => {
           // If image append to formData as file
           if (article.imageUrl) {
+            console.log(article.imageUrl);
             formData.append("article", article.imageUrl);
             article.imageUrl = article.imageUrl?.name;
           }
           article.items = article.items.map((item) => {
-            if (item.imageUrl) {
-              formData.append("item", item.imageUrl);
-              item.imageUrl = item.imageUrl?.name;
+            if (item.img) {
+              formData.append("item", item.img);
+              item.img = item.img?.originalname;
             }
             return item;
           });
@@ -61,7 +67,6 @@ export default function Create() {
 
       formData.append(key, value);
     });
-
     const res = await create(formData);
     const data = await res.json();
     console.log(res, data);
@@ -85,7 +90,7 @@ export default function Create() {
     <div className="mt-5">
       <div>
         <button
-          className="my-5 text-2xl text-primary-100"
+          className="my-5 text-2xl text-primary-lighter"
           onClick={() => router.push("/adminPanel#prodykti")}
         >
           <BsArrowReturnLeft />
@@ -101,34 +106,25 @@ export default function Create() {
           <form onSubmit={submitHandler}>
             <Input
               type="text"
-              placeholder="Секция"
-              id="sectionName"
-              value={sectionState.section}
-              onChange={changeHandler}
-            />
-            <label htmlFor="types">Описание</label>
-            <textarea
-              name="description"
-              id="description"
-              value={sectionState?.description}
-              className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
-              onChange={changeHandler}
-            ></textarea>
-            <Input
-              type="file"
-              placeholder="Снимка"
-              id="imageUrl"
+              placeholder="name - за намирането на продукта"
+              id="name"
+              value={sectionState.name}
               onChange={changeHandler}
             />
             <Input
               type="text"
-              placeholder="Мерна единица"
-              id="itemUnit"
-              value={sectionState?.articleName}
+              placeholder="nameToDisplay - името което ще се показва"
+              id="nameToDisplay"
               onChange={changeHandler}
             />
-            {sectionState.articles &&
-              sectionState.articles.map((article, index) => {
+            {/* <Input
+              type="file"
+              placeholder="Снимка"
+              id="imageUrl"
+              onChange={changeHandler}
+            /> */}
+            {sectionState.subsection &&
+              sectionState.subsection.map((article, index) => {
                 return (
                   <Article
                     key={index}
