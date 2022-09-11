@@ -146,13 +146,6 @@ export default function Index({ data, userData, isInFav }) {
     }
   };
 
-  const itemName = `${
-    product?.section?.nameToDisplay != "Обадете се" &&
-    product?.section?.nameToDisplay
-      ? product?.section?.nameToDiplay
-      : ""
-  } ${product?.article?.nameToDisplay} `;
-
   const selectedProductHandler = (data) => {
     router.push(`#${data.item._id}`, undefined, { shallow: true });
   };
@@ -175,9 +168,14 @@ export default function Index({ data, userData, isInFav }) {
     imgUrl = product?.article?.img?.originalname;
 
     if (product.article.img?.length >= 0) {
-      imgUrl = article?.img[0]?.originalname;
+      imgUrl = product?.article?.img[0]?.originalname;
     }
   }
+  const itemName = `${
+    product?.section?.nameToDisplay != "Обадете се"
+      ? product?.section?.nameToDisplay
+      : ""
+  } ${product?.article?.nameToDisplay} `;
 
   useEffect(() => {
     if (routerHash[1]) {
