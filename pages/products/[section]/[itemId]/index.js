@@ -171,10 +171,10 @@ export default function Index({ data, userData, isInFav }) {
 
   let imgUrl;
   if (product?.article?.img) {
-    imgUrl = product.article.img.originalname;
+    imgUrl = product?.article?.img?.originalname;
 
     if (product.article.img?.length >= 0) {
-      imgUrl = article.img[0]?.originalname;
+      imgUrl = article?.img[0]?.originalname;
     }
   }
 
@@ -190,9 +190,9 @@ export default function Index({ data, userData, isInFav }) {
       if (newData?.article?.items?.length >= 1) {
         setProduct(newData);
 
-        const priceInit = { forItem: newData.article.items[0].cena };
+        const priceInit = { forItem: newData?.article?.items[0].cena };
         if (newData.article.items[0].isOnPromotions) {
-          priceInit.promoPrice = newData.article.items[0].promotionalPrice;
+          priceInit.promoPrice = newData?.article?.items[0].promotionalPrice;
         }
 
         setPrice(priceInit);
@@ -362,7 +362,7 @@ export default function Index({ data, userData, isInFav }) {
                     .map((type) => {
                       return <li key={type}>{type}</li>;
                     })}
-                  {product.article.opisanie.split(";").map((description) => {
+                  {product?.article?.opisanie.split(";").map((description) => {
                     return <li key={description}>{description}</li>;
                   })}
                 </ul>{" "}
