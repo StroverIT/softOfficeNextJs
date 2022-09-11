@@ -39,7 +39,7 @@ export default function Index({ data, userData, isInFav }) {
   const router = useRouter();
   const routerHash = router?.asPath?.split("#");
 
-  const [product, setProduct] = useState({ ...data.foundItem });
+  const [product, setProduct] = useState({ ...data?.foundItem });
 
   // const alternatives = data?.alternatives;
 
@@ -170,7 +170,7 @@ export default function Index({ data, userData, isInFav }) {
   // const imgUrl =
 
   let imgUrl;
-  if (product.article.img) {
+  if (product?.article?.img) {
     imgUrl = product.article.img.originalname;
 
     if (product.article.img?.length >= 0) {
