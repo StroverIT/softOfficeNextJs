@@ -1,7 +1,9 @@
 import { connectMongo } from "../../../db/connectDb";
+// Models
 import User from "../../../db/models/User";
 import Product from "../../../db/models/Product";
 import Promotion from "../../../db/models/Promotion";
+
 import { ObjectId } from "mongodb";
 import { getToken } from "next-auth/jwt";
 const secret = process.env.NEXTAUTH_SECRET;
@@ -26,31 +28,28 @@ async function handler(req, res) {
       };
     }
 
-    const { data, indexes } = req.body;
-    const itemId = data.item._id;
+    const data = req.body;
 
-    const isCreated = await Promotion.findOne({ "product.item._id": itemId });
-    if (isCreated) {
-      throw {
-        error: "Вече има такава промоция",
-      };
-    }
-
-    const productEdit = await Product.updateOne(
-      { "subsection.items._id": ObjectId(data.item._id) },
-      {
-        $set: {
-          [`subsection.$[i].items.${indexes.itemIdx}.isOnPromotions`]: true,
-          [`subsection.$[i].items.${indexes.itemIdx}.promotionalPrice`]:
-            data.item.promotionalPrice,
-        },
-      },
-      {
-        arrayFilters: [{ "i.items._id": { $eq: ObjectId(data.item._id) } }],
+    const product = await Product.findOne({ name: data.sectionName }).lean();
+    let newData = product.subsection.map((subsection) => {
+      if (subsection._id == data.subsectionId) {
+        subsection.items = subsection.items.map((item) => {
+          if (item._id == data.itemId) {
+            delete item.promotionalPrice;
+            return { ...item, isOnPromotions: false };
+          }
+          return item;
+        });
       }
+      return subsection;
+    });
+    const result = await Product.updateOne(
+      { name: data.sectionName },
+      { $set: { subsection: newData } }
     );
 
-    const promo = await Promotion.create({ product: data });
+    await Promotion.deleteOne({ "product.item._id": data.itemId });
+
     res.json({ message: "Успешно променихте продукта" });
   } catch (e) {
     console.log(e);
