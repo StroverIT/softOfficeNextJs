@@ -13,7 +13,7 @@ export const parseForm = async (
   return await new Promise(async (resolve, reject) => {
     const uploadDir = join(
       process.env.ROOT_DIR || process.cwd(),
-      `/public/imagesForUploading/`
+      `/public/uploads/`
     );
 
     try {
