@@ -41,6 +41,11 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
     const res = await fetch(`/api/promotions/create`, options);
     const data = await res.json();
   };
+
+  const subsec = inputs.subsection[index];
+  const item = subsec.items[itemIdx];
+  const imgUrl = subsec.img.originalname || subsec.img[0].originalname;
+
   return (
     <section key={itemIdx} className="p-5 mb-2 border border-primary-500">
       <div className="flex justify-end ">
@@ -66,9 +71,7 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
                   type="button "
                   className="w-20 px-2 py-1 mt-2 text-white border border-green bg-green hover:bg-transparent hover:text-green"
                   onClick={() => {
-                    const subsec = inputs.subsection[index];
-                    const item = subsec.items[itemIdx];
-
+                    console.log(subsec.img);
                     apiPromoHandler(
                       {
                         itemLen: subsec.items.length,
@@ -81,7 +84,7 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
                           tiput: subsec.tiput,
                           nameToDisplay: subsec.nameToDisplay,
                           opisanie: subsec.opisanie,
-                          imgUrl: subsec.img.originalname,
+                          imgUrl,
                         },
                         item: {
                           _id: item._id,

@@ -5,7 +5,7 @@ import Pricing from "./Pricing";
 import OldPrice from "./OldPrice";
 
 const PricePromo = ({ price, promoPrice }) => {
-  const oldPrice = price.toFixed(2).split(".");
+  const oldPrice = parseFloat(price).toFixed(2).split(".");
   const promoPriceDec = parseFloat(promoPrice).toFixed(2).split(".");
   return (
     <div className="w-full border-t border-gray">

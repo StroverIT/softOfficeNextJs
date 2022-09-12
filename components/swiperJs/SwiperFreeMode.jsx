@@ -59,7 +59,6 @@ export default function SwiperPromo({ data, navSize }) {
         >
           {data.map((promo) => {
             const product = promo.product;
-            let [price, priceDec] = product.item.cena.toFixed(2).split(".");
             const sum =
               (product.item.promotionalPrice / product.item.cena) * 100;
             const percentageRate = (100 - sum).toFixed(2).split(".");
@@ -84,7 +83,7 @@ export default function SwiperPromo({ data, navSize }) {
                         <Image
                           src={`/uploads/${product.subsection.imgUrl}`}
                           layout="fill"
-                          alt={"test"}
+                          alt={product.subsection.imgUrl}
                           className="object-contain"
                         />
                       </div>
