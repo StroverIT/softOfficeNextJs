@@ -27,6 +27,11 @@ const deliveryScheme = new Schema({
   },
   invoice: { type: Object },
   typeOfDelivery: { type: String, required: true },
+  typeOfPayment: {
+    type: String,
+    required: true,
+    enum: ["в брой", "банков превод"],
+  },
 });
 
 const Delivery = models.Delivery || model("Delivery", deliveryScheme);

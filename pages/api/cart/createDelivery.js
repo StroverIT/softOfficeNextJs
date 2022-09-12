@@ -13,7 +13,7 @@ import sendEmail from "../sendEmail";
 const secret = process.env.NEXTAUTH_SECRET;
 
 export default async function handler(req, res) {
-  const { cart, inputs, deliveryInfo } = req.body;
+  const { cart, inputs, deliveryInfo, typeOfPayment } = req.body;
 
   try {
     await connectMongo();
@@ -93,6 +93,7 @@ export default async function handler(req, res) {
       ownerId: user._id,
       typeOfDelivery: inputs.typeOfDelivery,
       comment: inputs.comment,
+      typeOfPayment,
     };
 
     if (inputs.typeOfDelivery == DELIVERY) {

@@ -1,5 +1,8 @@
-import Image from "next/image";
 import React, { useState } from "react";
+
+// NextJs
+import Image from "next/image";
+import { useRouter } from "next/router";
 
 // Components
 import { changeStatus } from "../../../services/deliveryServiceFetch";
@@ -7,6 +10,7 @@ import { changeStatus } from "../../../services/deliveryServiceFetch";
 import { Status } from "../../account/MyOrders/Status";
 
 export default function Product({ delivery }) {
+  const router = useRouter();
   const [status, setStatus] = useState(delivery.status);
 
   const changeStatusHand = async (status, deliveryId) => {
@@ -16,7 +20,18 @@ export default function Product({ delivery }) {
 
   const address = delivery.addressInfo;
   const cart = delivery.cart;
-
+  const deleteHandler = async (deliveryId) => {
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ deliveryId }),
+    };
+    const res = await fetch("/api/cart/deleteDelivery", options);
+    const data = await res.json();
+    if (data?.message) {
+      router.reload(window.location.pathname);
+    }
+  };
   return (
     <section
       key={delivery._id}
@@ -33,6 +48,12 @@ export default function Product({ delivery }) {
               <li>Телефон: {address.telephone}</li>
               {delivery.comment && <li>Коментар: {delivery.comment}</li>}
             </ul>
+          </div>
+        )}
+        {delivery.typeOfPayment && (
+          <div>
+            <h3 className="font-semibold uppercase">Начин на плащане:</h3>
+            <h5>{delivery.typeOfPayment}</h5>
           </div>
         )}
         <div className="relative ">
@@ -130,7 +151,10 @@ export default function Product({ delivery }) {
               Откажи
             </button>
           )}
-          <button className="px-10 py-1 text-white border bg-secondary hover:bg-transparent hover:text-secondary border-secondary">
+          <button
+            className="px-10 py-1 text-white border bg-secondary hover:bg-transparent hover:text-secondary border-secondary"
+            onClick={() => deleteHandler(delivery._id)}
+          >
             ИЗТРИЙ
           </button>
         </div>

@@ -31,7 +31,7 @@ import PopulatedPlace from "../components/delivery/sections/PopulatedPlace";
 import MethodOfDeliv from "../components/delivery/sections/MethodOfDeliv";
 
 // Inline constants
-const CARD_PAYMENT = "cardPayment";
+const BANK_PAYMENT = "банков превод";
 // Context
 import { InputContext } from "../components/delivery/Context";
 
@@ -47,7 +47,7 @@ function Delivery({ cart, userData, cities }) {
 
   const [orderState, setTypeOfOrder] = useState(DELIVERY);
 
-  const [paymentState, setTypePayment] = useState("cashOnDelivery");
+  const [paymentState, setTypePayment] = useState("в брой");
   const [priceState, setPriceState] = useState({
     subTotal: 0,
     totalPrice: 0,
@@ -80,6 +80,7 @@ function Delivery({ cart, userData, cities }) {
           office: officeSelected,
           quarter: quarterSelected,
         },
+        typeOfPayment: paymentState,
       }),
     };
     const res = await fetch("/api/cart/createDelivery", options);
@@ -190,26 +191,20 @@ function Delivery({ cart, userData, cities }) {
                   <h3 className="pl-1">Начин на плащане</h3>
                 </div>
                 <section>
-                  {paymentState == CARD_PAYMENT && (
-                    <div className="px-2 pt-6 font-semibold text-center text-secondary">
-                      Очаквайте скоро!
-                    </div>
-                  )}
                   <section className="py-4 pl-6">
                     <RadioButton
                       radioState={paymentState}
                       changeHandler={changePaymentHandler}
-                      name="cashOnDelivery"
-                      id="cashOnDelivery"
-                      text="Наложен платеж"
+                      name="в брой"
+                      id="в брой"
+                      text="В брой"
                     />
                     <RadioButton
                       radioState={paymentState}
                       changeHandler={changePaymentHandler}
-                      name={CARD_PAYMENT}
-                      id={CARD_PAYMENT}
-                      text="Плащане с карта"
-                      customLabelClass="line-through"
+                      name={BANK_PAYMENT}
+                      id={BANK_PAYMENT}
+                      text="Банков превод"
                     />
                   </section>
                 </section>
