@@ -14,6 +14,9 @@
 
 # production
 /build
+/public/uploadsBackUp
+/public/uploads
+/public/imagesForUploading
 
 # misc
 .DS_Store
@@ -24,7 +27,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
-/public/uploads
+
 
 # local env files
 .env*.local
