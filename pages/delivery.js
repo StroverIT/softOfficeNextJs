@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 // NextJs
 import Head from "next/head";
 import { getSession } from "next-auth/react";
+import { useRouter } from "next/router";
+
 // Components
 import RadioButton from "../components/cart/RadioButton";
 import DueAmount from "../components/delivery/sections/DueAmount";
@@ -36,6 +38,8 @@ const BANK_PAYMENT = "банков превод";
 import { InputContext } from "../components/delivery/Context";
 
 function Delivery({ cart, userData, cities }) {
+  const router = useRouter();
+
   const [selected, setSelected] = useState(cities[21]);
   const [officeSelected, setOfficeSelected] = useState({
     name: "Избери офис",
@@ -92,6 +96,8 @@ function Delivery({ cart, userData, cities }) {
     }
     if (message.message) {
       toastSuccess(message.message);
+      window.localStorage.clear();
+      router.push("/account#my-orders");
     }
   };
   const changeHandler = (e) => {
