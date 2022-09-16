@@ -30,7 +30,7 @@ function CartItem({ data }) {
     <>
       <ListProduct text={["Име на продукта", productName]} />
 
-      <ListProduct text={["Ед. цена", price.toFixed(2)]} />
+      <ListProduct text={["Ед. цена", parseFloat(price).toFixed(2)]} />
       <div className="absolute right-0 hidden -translate-y-1/2 sm:block top-1/2">
         <div className="relative w-20 h-20">
           <Image
@@ -59,7 +59,9 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
         {/* Mongodb */}
         <td className="py-4">{id}</td>
         <td className="hidden sm:table-cell">{date}</td>
-        <td className="hidden sm:table-cell">{total.toFixed(2)} лв.</td>
+        <td className="hidden sm:table-cell">
+          {parseFloat(total).toFixed(2)} лв.
+        </td>
         <Status type={status} />
         {isOld && (
           <td className="flex justify-center h-full items-cemter">
