@@ -70,25 +70,27 @@ export default function SwiperPromo({ data, navSize }) {
             const name = `${product.section.nameToDisplay} ${product.subsection.nameToDisplay}`;
             return (
               <SwiperSlide
-                className="flex flex-col bg-white shadow-lg cursor-pointer hover:shadow-xl relative my-2 "
+                className="relative flex flex-col my-2 bg-white shadow-lg cursor-pointer hover:shadow-xl "
                 key={promo._id}
               >
                 <div
                   onClick={() => router.push(`/products/${pageUrl}`)}
-                  className="flex flex-col justify-between h-full  "
+                  className="flex flex-col justify-between h-full "
                 >
                   <div className="">
-                    <div className="flex items-center justify-center flex-col py-10">
+                    <div className="flex flex-col items-center justify-center py-10">
                       <div className="relative h-60 w-60 ">
                         <Image
-                          src={`/uploads/${product.subsection.imgUrl}`}
+                          src={`/uploads/${
+                            product.subsection && product?.subsection?.imgUrl
+                          }`}
                           layout="fill"
                           alt={product.subsection.imgUrl}
                           className="object-contain"
                         />
                       </div>
                     </div>
-                    <div className="container font-medium text-center border-t border-gray py-2">
+                    <div className="container py-2 font-medium text-center border-t border-gray">
                       <div className="text-xl">{name}</div>
                       <ul className="text-sm font-normal ">
                         {product.item.tipove
@@ -105,7 +107,7 @@ export default function SwiperPromo({ data, navSize }) {
                     promoPrice={product.item.promotionalPrice}
                   />
                 </div>
-                <div className="absolute  z-50 -top-2 -right-2 bg-primary-100 text-white rounded-full p-2 text-sm">
+                <div className="absolute z-50 p-2 text-sm text-white rounded-full -top-2 -right-2 bg-primary-100">
                   -{percentageRate[0]}%
                 </div>
               </SwiperSlide>
