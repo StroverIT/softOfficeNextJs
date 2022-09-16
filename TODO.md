@@ -278,4 +278,8 @@ TODO:{
 "addresses": [],
 "isVerified": true
 
-брой", "банков превод"
+https://www.softoffice.bg/products/etiketi - products is not working front-end
+https://www.softoffice.bg/products/arhivnaKytiqIKashon - продукти is not working front-end
+Самозалеппащи знаци
+Хигиенни средства - Дезифенктанти
+accoutn admin is not working the image
