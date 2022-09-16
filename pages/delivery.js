@@ -95,9 +95,11 @@ function Delivery({ cart, userData, cities }) {
       toastError(message.error);
     }
     if (message.message) {
+      window?.localStorage?.clear();
+      localStorage?.clear();
+      sessionStorage?.clear();
+      window.location.href = "/account#my-orders";
       toastSuccess(message.message);
-      window.localStorage.clear();
-      router.push("/account#my-orders");
     }
   };
   const changeHandler = (e) => {
