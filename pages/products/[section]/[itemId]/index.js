@@ -54,6 +54,10 @@ export default function Index({ data, userData, isInFav }) {
     const section = product.section;
     const article = product.article;
     const item = article.items[0];
+    let imgUrl;
+    if (article.img) {
+      imgUrl = article?.img?.originalname || article?.img[0]?.originalname;
+    }
     const newObj = {
       item: {
         route: item._id,
@@ -65,7 +69,7 @@ export default function Index({ data, userData, isInFav }) {
         katNomer: item.katNomer,
       },
       article: {
-        imgUrl: article.img.originalname || article.img[0].originalname,
+        imgUrl: imgUrl,
         name: article.nameToDisplay,
         route: article._id,
       },
@@ -85,6 +89,10 @@ export default function Index({ data, userData, isInFav }) {
     const section = product.section;
     const article = product.article;
     const item = article.items[0];
+    let imgUrl;
+    if (article.img) {
+      imgUrl = article?.img?.originalname || article?.img[0]?.originalname;
+    }
     const newObj = {
       item: {
         route: item._id,
@@ -95,7 +103,7 @@ export default function Index({ data, userData, isInFav }) {
         isOnlyNumb: item.isOnlyNumb,
       },
       article: {
-        imgUrl: article?.img?.originalname || article.img[0].originalname,
+        imgUrl: imgUrl,
         name: article.nameToDisplay,
         route: article._id,
       },
@@ -293,7 +301,7 @@ export default function Index({ data, userData, isInFav }) {
                       </div>
                     )}
                   {product.section.nameToDisplay == "Обадете се" && (
-                    <div className="text-xl font-bold  w-full py-4 flex justify-center items-center flex-col">
+                    <div className="flex flex-col items-center justify-center w-full py-4 text-xl font-bold">
                       <div className="font-normal text-[0.95rem]">
                         Обадете се за цена!
                       </div>
@@ -354,7 +362,7 @@ export default function Index({ data, userData, isInFav }) {
               <h3 className="py-2 text-2xl font-semibold text-center text-primary">
                 Описание
               </h3>
-              <div className="flex px-3 pb-6 ml-4 sm:ml-10 container">
+              <div className="container flex px-3 pb-6 ml-4 sm:ml-10">
                 <ul className="mb-1 list-disc">
                   {product?.article?.items[0].tipove
                     .split(";")

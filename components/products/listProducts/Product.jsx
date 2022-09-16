@@ -20,8 +20,10 @@ export default function Product({ section, article, addProduct }) {
     section.name != "Обадете се" && section.name ? section.name : ""
   } ${article.nameToDisplay} `;
 
-  let imgUrl = article?.img?.originalname || article?.img[0]?.originalname;
-
+  let imgUrl;
+  if (article.img) {
+    imgUrl = article?.img?.originalname || article?.img[0]?.originalname;
+  }
   const articleData = {
     name: article.nameToDisplay,
     route: article._id,
