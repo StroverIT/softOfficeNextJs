@@ -45,7 +45,7 @@ const higienniSredstvaArt = [
     name: "salfetki",
   },
   {
-    displayName: "Дефинфектанти",
+    displayName: "Дезинфектанти",
     name: "dezinfektanti",
   },
   // {

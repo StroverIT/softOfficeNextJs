@@ -34,7 +34,7 @@ const articles = [
 
         { displayName: "Етикети", name: "etiketi" },
 
-        { displayName: "Замозалеващи знаци", name: "zamoZalepvashtiZnaci" },
+        { displayName: "Самозалепващи знаци", name: "zamoZalepvashtiZnaci" },
 
         { displayName: "Маркиращи клещи", name: "markirashtiKleshti" },
         { displayName: "Бели пликове", name: "beliPlikove" },
