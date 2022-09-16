@@ -82,9 +82,10 @@ export default function Product({ delivery }) {
                     </ul>
                   </li>
                   <li>Бройки: {product.qty}</li>
-                  <li>Ед. цена: {price.toFixed(2)}</li>
+                  <li>Ед. цена: {parseFloat(price).toFixed(2)}</li>
                   <li>
-                    Обща. цена за продуктите: {(product.qty * price).toFixed(2)}
+                    Обща. цена за продуктите:{" "}
+                    {parseFloat(product.qty * price).toFixed(2)}
                   </li>
                   <div className="flex items-center justify-center">
                     <div className="relative w-28 h-28">
@@ -102,7 +103,7 @@ export default function Product({ delivery }) {
       </div>
       <div className="absolute top-0 left-0 flex justify-between w-full text-primary-100">
         <div className="ml-2">
-          Обща Сума: {delivery.totalPrice.toFixed(2)} лв.
+          Обща Сума: {parseFloat(delivery.totalPrice).toFixed(2)} лв.
         </div>
         <div>
           {delivery.isVerified ? (
