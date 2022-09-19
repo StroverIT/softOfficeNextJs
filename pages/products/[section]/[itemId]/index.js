@@ -222,7 +222,7 @@ export default function Index({ data, userData, isInFav }) {
                 className="flex items-center mb-5 cursor-pointer text-secondary hover:text-primary-100"
                 onClick={() =>
                   router.push(
-                    `/products/hartiq/61eb119d7815ce846f1745b7`,
+                    `/products/${product.section.name}/${product.article._id}`,
                     undefined,
                     { shallow: true }
                   )
