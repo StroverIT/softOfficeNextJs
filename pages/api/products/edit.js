@@ -43,7 +43,7 @@ async function handler(req, res) {
         }
       });
     });
-    // await Product.updateOne({ _id: productId }, { $set: data });
+    await Product.updateOne({ _id: productId }, { $set: data });
     res.json({ message: "Успешно променихте продукта" });
   } catch (e) {
     res.json({ error: e?.error });
