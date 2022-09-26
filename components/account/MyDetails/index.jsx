@@ -90,7 +90,11 @@ export default function MyDetails({ userData }) {
     const data = {};
     // Body data
     for (const pair of formData.entries()) {
-      data[pair[0]] = pair[1];
+      let input = pair[1];
+      if (pair[0] == "phoneNumber") {
+        input = pair[1].split(" ").join("");
+      }
+      data[pair[0]] = input;
     }
 
     const res = await fetch(`/api/account/${url}`, {
@@ -116,11 +120,11 @@ export default function MyDetails({ userData }) {
     <>
       <section>
         <section className="my-8">
-          <h2 className="font-semibold   text-3xl text-center">
+          <h2 className="text-3xl font-semibold text-center">
             Здравей,{" "}
             <span className="text-primary-100">{userData.fullName} </span>!
           </h2>
-          <h2 className=" font-semibold text-center text-2xl text-gray-200 ">
+          <h2 className="text-2xl font-semibold text-center text-gray-200 ">
             Тука може да промените вашите данни
           </h2>
         </section>
