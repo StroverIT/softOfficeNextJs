@@ -3,11 +3,16 @@ import { HiX } from "react-icons/hi";
 
 // Components
 import Outlined from "../../buttons/Outlined";
+import Input from "../../form/AccInput";
+
+// Menu components
 import PersonalPromoMenu from "./PersonalPromo/Menu";
 import BossMenu from "./bossMenu/Menu";
+import AddWorkersMenu from "./AddWorkersMenu/Menu";
+
 // Fetches
 import PersonalPromotionFetch from "./PersonalPromo/Fetch";
-import BossFetch from "./bossMenu/Fetch";
+import { BossFetch, BossActions } from "./bossMenu/Fetch";
 
 // Notifications
 import {
@@ -19,8 +24,12 @@ import {
 const SingleUser = ({ data, products }) => {
   const [subMenu, setSubMenu] = useState(null);
 
-  const verified = data.isVerified ? "Да" : "Не";
   const [generalPromo, setGeneralPromo] = useState("");
+  const [newBossEmail, setNewBossEmail] = useState("");
+
+  const [userState, setUserState] = useState(data);
+  const verified = userState.isVerified ? "Да" : "Не";
+
   const [checkedProducts, setCheckedProducts] = useState(products);
 
   const [menu, setMenu] = useState(false);
@@ -28,7 +37,24 @@ const SingleUser = ({ data, products }) => {
   const [menuType, setMenuType] = useState(null);
   const [workers, setWorkers] = useState([]);
   const addPromotionsHandler = async () => {
+    if (menuType == "addWorkers") {
+      await bossHandlerActions({
+        target: {
+          id: "addWorkers",
+        },
+      });
+      return;
+    }
+    if (menuType == "removeWorkers") {
+      await bossHandlerActions({
+        target: {
+          id: "removeWorkers",
+        },
+      });
+      return;
+    }
     toastPromise("Изпраща се...");
+
     let resData = {};
     if (menuType == "promo") {
       resData = await PersonalPromotionFetch(checkedProducts, generalPromo);
@@ -36,6 +62,7 @@ const SingleUser = ({ data, products }) => {
     if (menuType == "boss") {
       resData = await BossFetch({ workers, bossId: data._id });
     }
+
     toastHideAll();
     if (resData?.error) toastError(resData.error);
 
@@ -49,6 +76,61 @@ const SingleUser = ({ data, products }) => {
 
     setMenu(!menu);
   };
+  const bossHandlerActions = async (e) => {
+    if (userState) {
+      toastPromise("Изпраща се...");
+
+      const action = e.target.id;
+      const options = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+      };
+
+      if (action == "remove") {
+        options.body = JSON.stringify({
+          workers: userState.workers,
+          bossId: userState._id,
+
+          action,
+        });
+        setUserState((prevState) => ({ ...prevState, role: "user" }));
+      }
+      if (action == "addWorkers") {
+        options.body = JSON.stringify({
+          workers,
+          action,
+          bossId: userState._id,
+        });
+      }
+      if (action == "removeWorkers") {
+        options.body = JSON.stringify({
+          workers,
+          action,
+          bossId: userState._id,
+        });
+      }
+      if (action == "changeBoss") {
+        options.body = JSON.stringify({
+          action,
+          bossId: userState._id,
+          newBossEmail: newBossEmail.trim(),
+        });
+      }
+      const data = await BossActions(options);
+
+      toastHideAll();
+      if (data?.error) toastError(data.error);
+
+      if (data?.message) toastSuccess(data.message);
+    }
+  };
+
+  const toggleBossEmailHand = () => {
+    console.log(newBossEmail);
+
+    if (newBossEmail) setNewBossEmail("");
+    else setNewBossEmail(" ");
+  };
   return (
     <>
       <section
@@ -56,22 +138,22 @@ const SingleUser = ({ data, products }) => {
         className="relative p-5 mb-5 border rounded-lg border-primary-100"
       >
         <div>
-          Име : <span className="pl-1">{data.fullName}</span>{" "}
+          Име : <span className="pl-1">{userState.fullName}</span>{" "}
         </div>
         <div>
-          И-мейл : <span className="pl-1">{data.email}</span>{" "}
+          И-мейл : <span className="pl-1">{userState.email}</span>{" "}
         </div>
         <div>
-          Телефон : <span className="pl-1">{data.phoneNumber}</span>{" "}
+          Телефон : <span className="pl-1">{userState.phoneNumber}</span>{" "}
         </div>
         <div>
           Потвърден ли е ? <span className="pl-1">{verified}</span>{" "}
         </div>
         <div>
-          Роля : <span className="pl-1">{data.role}</span>{" "}
+          Роля : <span className="pl-1">{userState.role}</span>{" "}
         </div>
         <div>
-          Създаден на : <span>{data.createdAt}</span>{" "}
+          Създаден на : <span>{userState.createdAt}</span>{" "}
         </div>
         <section className="flex items-center justify-end mt-4 text-xs gap-x-2">
           <div>
@@ -82,12 +164,12 @@ const SingleUser = ({ data, products }) => {
               id="promo"
             />
           </div>
-          {data.role != "admin" && (
+          {userState.role != "admin" && (
             <div>
               <Outlined type="button" text="Направи админ" id="admin" />
             </div>
           )}
-          {data.role != "boss" && (
+          {userState.role != "boss" && (
             <div>
               <Outlined
                 type="button"
@@ -97,7 +179,67 @@ const SingleUser = ({ data, products }) => {
               />
             </div>
           )}
-          {data.role == "admin" && (
+          {userState.role == "boss" && (
+            <div className="flex flex-col items-end">
+              <div className="py-2">
+                <button
+                  className="px-10 py-2 text-sm text-white border shadow-lg bg-secondary border-secondary hover:bg-transparent hover:text-secondary "
+                  onClick={bossHandlerActions}
+                  id="remove"
+                >
+                  Премахни шеф
+                </button>
+              </div>
+
+              <div className="py-2">
+                <button
+                  onClick={menuHandler}
+                  id="addWorkers"
+                  className="px-10 py-2 text-sm text-white border shadow-lg bg-green border-green hover:bg-transparent hover:text-green"
+                >
+                  Добави работници
+                </button>
+              </div>
+              <div className="py-2">
+                <button
+                  onClick={menuHandler}
+                  id="removeWorkers"
+                  className="px-10 py-2 text-sm text-white border shadow-lg bg-secondary border-secondary hover:bg-transparent hover:text-secondary"
+                >
+                  Премахни работници
+                </button>
+              </div>
+              <div className="py-2">
+                {newBossEmail && (
+                  <div className="flex items-center justify-center mb-2">
+                    <div>
+                      <Input
+                        placeholder="Новият и-мейл на шефа"
+                        value={newBossEmail}
+                        onChange={(e) => setNewBossEmail(e.target.value)}
+                      />
+                    </div>
+                    <div className="mt-2">
+                      <button
+                        className="px-10 py-1 text-sm text-white border shadow-lg bg-green border-green hover:bg-transparent hover:text-green"
+                        id="changeBoss"
+                        onClick={bossHandlerActions}
+                      >
+                        Изпрати
+                      </button>
+                    </div>
+                  </div>
+                )}
+                <button
+                  className="px-10 py-2 text-sm text-white border shadow-lg bg-orange border-orange hover:bg-transparent hover:text-orange"
+                  onClick={toggleBossEmailHand}
+                >
+                  Смени шеф - имейла
+                </button>
+              </div>
+            </div>
+          )}
+          {userState.role == "admin" && (
             <div>
               <Outlined type="button" text="Направи user" />
             </div>
@@ -138,6 +280,7 @@ const SingleUser = ({ data, products }) => {
                     </div>
                   </div>
                 </div>
+
                 {menuType == "promo" && (
                   <PersonalPromoMenu
                     products={products}
@@ -149,6 +292,10 @@ const SingleUser = ({ data, products }) => {
                     setSubMenu={setSubMenu}
                   />
                 )}
+                {menuType == "addWorkers" ||
+                  (menuType == "removeWorkers" && (
+                    <AddWorkersMenu workers={workers} setWorkers={setWorkers} />
+                  ))}
                 {menuType == "boss" && (
                   <BossMenu workers={workers} setWorkers={setWorkers} />
                 )}
