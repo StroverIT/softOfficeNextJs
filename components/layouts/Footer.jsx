@@ -7,31 +7,6 @@ const Footer = () => {
       <div className="container">
         <div className="grid justify-between gap-4 py-8 sm:grid-cols-2 md:flex">
           <div>
-            <h2 className="mb-2 font-semibold uppercase text-md">SoftOffice</h2>
-            <ul className="text-gray-300">
-              <li className="mb-1">
-                <Link href="/aboutUs">
-                  <a className="hover:underline">За нас</a>
-                </Link>
-              </li>
-
-              <li className="mb-1">
-                <Link href="/terms-and-conditions">
-                  <a href="#" className="hover:underline">
-                    Общи условия
-                  </a>
-                </Link>
-              </li>
-              <li className="mb-1">
-                <Link href="/privacy-and-policy">
-                  <a href="#" className="hover:underline">
-                    Политика за личните данни
-                  </a>
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
             <h2 className="mb-2 font-semibold text-gray-400 uppercase text-md">
               Контакти
             </h2>
@@ -187,8 +162,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center py-6 bg-primary-second ">
-        <div className="text-sm text-center text-gray-500">
+      <div className="flex items-center justify-center py-6 text-white bg-primary-150 ">
+        <div className="text-sm text-center text-primary-50">
           © 2022 <a href="/contact">SoftOffice™</a>. Всички права запазени.
         </div>
       </div>

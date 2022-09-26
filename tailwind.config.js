@@ -1,6 +1,8 @@
 const customColors = {
   "bg-color": "#f3f3f3",
   primary: { DEFAULT: "#0D6EFD", 500: "hsl(215, 80%, 33%)" },
+  "primary-150": "hsl(215, 80%, 20%)",
+
   "primary-50": "hsl(190, 90%, 40%)",
 
   "primary-100": "hsl(190, 90%, 50%)",
