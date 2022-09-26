@@ -58,9 +58,7 @@ export default function MagazinePanel({ userData }) {
           id="address"
           type="text"
           isReq={true}
-          defValue="гр.София ПК-1582
-        Дружба 2
-        РУМ Дружба 2 срещу блок 205"
+          defValue="гр. София, Ул. Обиколна Бл. 275"
           readOnly={true}
         />
       </section>

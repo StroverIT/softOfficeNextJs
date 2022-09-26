@@ -230,18 +230,18 @@ const Navbar = ({ cartTotalQty }) => {
                   </ul>
                 </div>
               )}
-              {searchTabInputs.articleNames?.length > 0 && (
+              {searchTabInputs.subSections?.length > 0 && (
                 <div className="w-full bg-white ">
                   <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-100">
                     Артикули
                   </h3>
                   <ul>
-                    {searchTabInputs.articleNames?.map((item) => {
+                    {searchTabInputs.subSections?.map((item) => {
                       return (
                         <Link key={item._id} href={`/products/${item.route}`}>
                           <li className="px-2 py-1 transition-transform border-b cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white border-primary">
                             <span className="text-lg text-green">
-                              {item.commonName} {item.articleName}
+                              {item.name}
                             </span>
                             <ul className="flex flex-wrap text-sm">
                               {item.types[0]
@@ -273,9 +273,9 @@ const Navbar = ({ cartTotalQty }) => {
                   <ul>
                     {searchTabInputs.sections.map((item) => {
                       return (
-                        <Link key={item._id} href={`/products/${item.route}`}>
+                        <Link key={item._id} href={`/products/${item.name}`}>
                           <li className="px-2 py-1 transition-transform cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white">
-                            {item.sectionName}
+                            {item.nameToDisplay}
                           </li>
                         </Link>
                       );

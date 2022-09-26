@@ -123,10 +123,10 @@ export async function getServerSideProps(context) {
   const products = await getAll();
   const deliveries = await getAllDeliveries();
   const forDelivery = deliveries.filter((type) => {
-    return type.typeOfDelivery != "delivery";
+    return type.typeOfDelivery == "delivery";
   });
   const forMagazine = deliveries.filter((type) => {
-    return type.typeOfDelivery != "magazine";
+    return type.typeOfDelivery == "magazine";
   });
 
   const promotionsRes = await fetch(

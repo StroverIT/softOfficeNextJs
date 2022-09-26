@@ -1,4 +1,4 @@
-async function Fetch(data) {
+export async function BossFetch(data) {
   const options = {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -8,4 +8,8 @@ async function Fetch(data) {
 
   return res.json();
 }
-export default Fetch;
+
+export async function BossActions(options) {
+  const res = await fetch("/api/boss/actions", options);
+  return res.json();
+}

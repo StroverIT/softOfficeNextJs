@@ -17,13 +17,14 @@ export default async function handler(req, res) {
       subsections: [],
       katNomera: [],
     };
-
-    let section = await Product.findOne({ sectionName: options }).select(
-      "sectionName imageUrl"
+    let section = await Product.findOne({ nameToDisplay: options }).select(
+      "nameToDisplay name"
     );
     let subsections = await Product.findOne({
-      "subsection.nameToDisplay": options,
+      "subsection.$": { $match: options },
     });
+    console.log(subsections);
+
     let katNomera = await Product.findOne({
       "subsection.items.katNomer": options,
     });
@@ -32,7 +33,11 @@ export default async function handler(req, res) {
     // name for displaying i
     // Katnomer
     // types
-
+    if (section) {
+      search.sections.push(section);
+    }
+    if (subsections) {
+    }
     if (katNomera) {
       katNomeraLoop: for (let subSection of katNomera?.subsection) {
         for (let items of subSection.items) {

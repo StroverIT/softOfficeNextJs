@@ -7,7 +7,7 @@ import { connectMongo } from "../../../db/connectDb";
 import { ObjectId } from "mongodb";
 
 import { getToken } from "next-auth/jwt";
-import { DELIVERY } from "../../../components/cart/cartCostants";
+import { DELIVERY, MAGAZINE } from "../../../components/cart/cartCostants";
 import sendEmail from "../sendEmail";
 
 const secret = process.env.NEXTAUTH_SECRET;
@@ -60,7 +60,12 @@ export default async function handler(req, res) {
           error: "Моля изберете квартал",
         };
       }
-    } else {
+    }
+    console.log(inputs.typeOfDelivery);
+    if (
+      inputs.typeOfDelivery != DELIVERY &&
+      inputs.typeOfDelivery != MAGAZINE
+    ) {
       throw {
         error: "Метода на доставка не е правилна!",
       };
@@ -83,8 +88,12 @@ export default async function handler(req, res) {
     );
     // Check if user have promootion on section
     let dds = subTotal * 0.2;
-    let dostavka = dds > 50 ? 0 : 10;
 
+    let dostavka = 0;
+
+    if (inputs.typeOfDelivery != MAGAZINE) {
+      dostavka = dds > 50 ? 0 : 10;
+    }
     let totalPrice = subTotal + dds + dostavka;
 
     let data = {

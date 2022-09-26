@@ -18,7 +18,10 @@ const AccInput = ({
 
     if (val.replace(/\W/gi, "").length > 9) return;
     setTelephone(replaceVal(val));
-    getOuterVal(e);
+    if (getOuterVal) {
+      console.log(getOuterVal);
+      getOuterVal(e);
+    }
   };
 
   const [telephone, setTelephone] = useState(replaceVal(defValue?.toString()));

@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 // NextJs
 import Head from "next/head";
 import { getSession } from "next-auth/react";
-import { useRouter } from "next/router";
 
 // Components
 import RadioButton from "../components/cart/RadioButton";
@@ -38,8 +37,6 @@ const BANK_PAYMENT = "банков превод";
 import { InputContext } from "../components/delivery/Context";
 
 function Delivery({ cart, userData, cities }) {
-  const router = useRouter();
-
   const [selected, setSelected] = useState(cities[21]);
   const [officeSelected, setOfficeSelected] = useState({
     name: "Избери офис",
@@ -49,7 +46,7 @@ function Delivery({ cart, userData, cities }) {
   });
   const [invoice, setInvoice] = useState({ isInvoice: false, data: {} });
 
-  const [orderState, setTypeOfOrder] = useState(DELIVERY);
+  const [orderState, setTypeOfOrder] = useState(null);
 
   const [paymentState, setTypePayment] = useState("в брой");
   const [priceState, setPriceState] = useState({
@@ -150,6 +147,7 @@ function Delivery({ cart, userData, cities }) {
     if (savedMoney > 0) {
       setSavedMoney(savedMoney);
     }
+    setTypeOfOrder(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
 
@@ -169,6 +167,8 @@ function Delivery({ cart, userData, cities }) {
               setQuarterSelected,
               invoice,
               setInvoice,
+              orderState,
+              setTypeOfOrder,
             }}
           >
             <section className="">
@@ -181,7 +181,6 @@ function Delivery({ cart, userData, cities }) {
                 <MethodOfDeliv
                   selected={selected}
                   setSelected={setSelected}
-                  orderState={orderState}
                   changeOrderHandler={changeOrderHandler}
                   priceState={priceState}
                   userData={userData}
