@@ -19,27 +19,24 @@ function ListProduct({ text }) {
     </li>
   );
 }
-function CartItem({ data }) {
+function CartItem({ data, itemQty }) {
   const productName = `${data.section.name} ${data.article.name}`;
   let price = data.item.cena;
   if (data.item.isOnPromotions) {
     price = data.item.promotionalPrice;
   }
-
+  console.log(data);
   return (
     <>
       <ListProduct text={["Име на продукта", productName]} />
 
       <ListProduct text={["Ед. цена", parseFloat(price).toFixed(2)]} />
-      <div className="absolute right-0 hidden -translate-y-1/2 sm:block top-1/2">
-        <div className="relative w-20 h-20">
-          <Image
-            layout="fill"
-            alt={data.article.imgUrl}
-            src={`/uploads/${data.article.imgUrl}`}
-          />
-        </div>
-      </div>
+      <ListProduct
+        text={["Обща цена", parseFloat(price * itemQty).toFixed(2)]}
+      />
+      <ListProduct
+        text={["Обща цена с ДДС", parseFloat(price * itemQty * 1.2).toFixed(2)]}
+      />
     </>
   );
 }
@@ -98,32 +95,34 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                 >
                   <HiX />
                 </div>
+
                 <div className="flex flex-col flex-wrap mx-1 pt-7 ">
                   <section className="w-full my-2 text-left md:ml-2">
                     <h3 className="text-lg font-semibold text-center uppercase text-green lg:text-left">
                       За адреса
                     </h3>
                     <ul>
-                      <ListAddress
-                        text="Име: "
-                        value={fullData.addressInfo.name}
-                      />
-                      <ListAddress
-                        text="Телефон:"
-                        value={fullData.addressInfo.telephone}
-                      />
-                      <ListAddress
-                        text="Град:"
-                        value={fullData.addressInfo.telephone}
-                      />
-                      <ListAddress
-                        text="Пощенски код:"
-                        value={fullData.addressInfo.telephone}
-                      />
-                      <ListAddress
-                        text="Коментар:"
-                        value={fullData.addressInfo.telephone}
-                      />
+                      {fullData?.addressInfo && (
+                        <>
+                          <ListAddress
+                            text="Име: "
+                            value={fullData.addressInfo.name}
+                          />
+                          <ListAddress
+                            text="Телефон:"
+                            value={fullData.addressInfo.telephone}
+                          />
+                          <ListAddress
+                            text="Град:"
+                            value={fullData.addressInfo.city}
+                          />
+                          <ListAddress
+                            text="Адрес:"
+                            value={fullData.addressInfo.address}
+                          />
+                        </>
+                      )}
+                      <ListAddress text="Коментар:" value={fullData.comment} />
                     </ul>
                   </section>
 
@@ -145,7 +144,7 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                               </span>{" "}
                               - Бройки: {cart.qty}
                             </li>
-                            <CartItem data={cart.item} />
+                            <CartItem data={cart.item} itemQty={cart.qty} />
                           </ul>
                         );
                       })}

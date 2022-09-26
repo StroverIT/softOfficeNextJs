@@ -37,7 +37,7 @@ export default function Product({ delivery }) {
       key={delivery._id}
       className="relative pt-4 pl-2 mb-10 border-l-4 border-primary"
     >
-      <div className="flex flex-col flex-wrap pt-4 gap-y-5">
+      <div className="flex flex-col flex-wrap pt-4 mt-4 gap-y-5">
         {delivery.addressInfo && (
           <div>
             <h3 className="font-semibold uppercase">За адреса:</h3>
@@ -83,11 +83,13 @@ export default function Product({ delivery }) {
                   </li>
                   <li>Бройки: {product.qty}</li>
                   <li>Ед. цена: {parseFloat(price).toFixed(2)}</li>
+                  <li>Общо: {parseFloat(price).toFixed(2) * product.qty}</li>
                   <li>
-                    Обща. цена за продуктите:{" "}
-                    {parseFloat(product.qty * price).toFixed(2)}
+                    Общо с ддс:{" "}
+                    {parseFloat(price * product.qty * 1.2).toFixed(2)}
                   </li>
-                  <div className="flex items-center justify-center">
+
+                  {/* <div className="flex items-center justify-center">
                     <div className="relative w-28 h-28">
                       <Image
                         src={`/uploads/${product.item.article.imgUrl}`}
@@ -95,13 +97,13 @@ export default function Product({ delivery }) {
                         alt={product.item.imageUrl}
                       />
                     </div>
-                  </div>
+                  </div> */}
                 </ul>
               );
             })}
         </div>
       </div>
-      <div className="absolute top-0 left-0 flex justify-between w-full text-primary-100">
+      <div className="absolute top-0 left-0 flex flex-wrap justify-between w-full text-primary-100">
         <div className="ml-2">
           Обща Сума: {parseFloat(delivery.totalPrice).toFixed(2)} лв.
         </div>
