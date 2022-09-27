@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 // NextJs
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -24,7 +24,30 @@ import SwiperNav from "./SwiperNav";
 
 export default function SwiperPromo({ data, navSize }) {
   const router = useRouter();
+  const [stateData, setStateData] = useState([]);
+  useEffect(() => {
+    const existed = [];
+    const newData = [];
+    data.forEach((item) => {
+      const sectionName = item.product.section.nameToDisplay;
+      const subSectionName = item.product.subsection.nameToDisplay;
 
+      const name = `${sectionName} ${subSectionName}`;
+      if (existed.includes(name)) {
+        const indexOfFound = newData.findIndex(
+          (index) =>
+            index.product.section.nameToDisplay == sectionName &&
+            index.product.subsection.nameToDisplay == subSectionName
+        );
+        if (indexOfFound != -1) newData[indexOfFound].moreThanOne = true;
+
+        return;
+      } else existed.push(name);
+      newData.push({ ...item, moreThanOne: false });
+    });
+    setStateData(newData);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   return (
     <>
       <div className="flex flex-row items-stretch swipebody">
@@ -57,7 +80,7 @@ export default function SwiperPromo({ data, navSize }) {
           modules={[FreeMode, Pagination, Navigation]}
           className={`mySwiper relative freeModeSwiper w-full `}
         >
-          {data.map((promo) => {
+          {stateData.map((promo) => {
             const product = promo.product;
             const sum =
               (product.item.promotionalPrice / product.item.cena) * 100;
@@ -90,26 +113,41 @@ export default function SwiperPromo({ data, navSize }) {
                         />
                       </div>
                     </div>
-                    <div className="container py-2 font-medium text-center border-t border-gray">
+                    <div
+                      className={`container py-2 font-medium text-center border-t border-gray `}
+                    >
                       <div className="text-xl">{name}</div>
-                      <ul className="text-sm font-normal ">
-                        {product.item.tipove
-                          .split(";")
-                          .splice(0, 5)
-                          .map((type) => {
-                            return <li key={type}>{type}</li>;
-                          })}
-                      </ul>
+                      {!promo.moreThanOne && (
+                        <ul className="text-sm font-normal ">
+                          {product.item.tipove
+                            .split(";")
+                            .splice(0, 5)
+                            .map((type) => {
+                              return <li key={type}>{type}</li>;
+                            })}
+                        </ul>
+                      )}
+                      {promo.moreThanOne && (
+                        <div className="flex items-center justify-center mt-10 text-xl text-primary-100 ">
+                          <div className="w-1/2">
+                            Вижте всички промоционални продукти на тази серия
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
-                  <PricingPromo
-                    price={product.item.cena}
-                    promoPrice={product.item.promotionalPrice}
-                  />
+                  {!promo.moreThanOne && (
+                    <PricingPromo
+                      price={product.item.cena}
+                      promoPrice={product.item.promotionalPrice}
+                    />
+                  )}
                 </div>
-                <div className="absolute z-50 p-2 text-sm text-white rounded-full -top-2 -right-2 bg-primary-100">
-                  -{percentageRate[0]}%
-                </div>
+                {!promo.moreThanOne && (
+                  <div className="absolute z-50 p-2 text-sm text-white rounded-full -top-2 -right-2 bg-primary-100">
+                    -{percentageRate[0]}%
+                  </div>
+                )}
               </SwiperSlide>
             );
           })}
