@@ -137,7 +137,7 @@ export default function Home({ promotions }) {
             Промоции
           </h3>
           <div className="text-xs uppercase cursor-pointer text-primary-100">
-            виж всички
+            <Link href="/promotions">виж всички</Link>
           </div>
         </section>
 
