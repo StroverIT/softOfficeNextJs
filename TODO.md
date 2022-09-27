@@ -312,3 +312,6 @@ Image is not showing when is uploaded - must restart the server [FIXED]
 7. Вместо за вкъщи да е за адрес (това не ти е e-commerce за храни) ! [x]
 8. Footera виж линковете и най-долу при "© 2022 SoftOffice™. Всички права запазени.", оправи цветовете ! [x]
    Засега е това xD
+9. Оправи промоциите да се вижда само по една, а ако е само една да показва всички специвикации [x]
+10. List all promotions EVER xD
+11. Custom qty with custom price on product. Search the products!
