@@ -7,10 +7,10 @@ const tehnikiKonsymativiArt = [
         displayName: "Калкулатори",
         name: "kalkylatori",
       },
-      // {
-      //   displayName: "Унищожители на документи",
-      //   name: "",
-      // },
+      {
+        displayName: "Унищожители на документи",
+        name: "ynishtojiteliNaDokumenti",
+      },
       {
         displayName: "Ролкови ножове",
         name: "rolkovNoj",
