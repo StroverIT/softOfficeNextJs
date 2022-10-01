@@ -37,7 +37,7 @@ export default function Item({ item, itemLen, articleLen }) {
         </>
       )}
       {isForm && (
-        <div className="flex flex-wrap flex-col ">
+        <div className="flex flex-col flex-wrap ">
           <Input
             id="weight"
             text="Тежест"
@@ -54,7 +54,7 @@ export default function Item({ item, itemLen, articleLen }) {
           />
         </div>
       )}
-      <div className="absolute top-1/2 right-5 -translate-y-1/2">
+      <div className="absolute -translate-y-1/2 top-1/2 right-5">
         <Edit
           clickHandler={() => setIsForm(!isForm)}
           theme={!isForm ? "green" : "red"}

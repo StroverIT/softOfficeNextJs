@@ -1,25 +1,35 @@
-import Image from "next/image";
+// React things
 import React, { useState, useEffect } from "react";
+import { InputContext } from "./getAll/Context";
 
+// NextJs
+import Image from "next/image";
+
+// Components
 import Edit from "./getAll/Edit";
 import Article from "./getAll/Article";
 import ItemsEdit from "./getAll/ItemsEdit";
-import { InputContext } from "./getAll/Context";
 import Input from "./getAll/Input";
 import Outlined from "../../buttons/Outlined";
 
+// Notifications
 import {
   toastPromise,
   toastSuccess,
   toastError,
   toastHideAll,
 } from "../../notificataions/Toast";
+
+// Fetches
 import { edit } from "../../../services/productServiceFetch";
+
+// Icons
 
 export default function GetAll({ product, setMenuImgData }) {
   const [inputs, setInputs] = useState(product);
   const [isForm, setIsForm] = useState(false);
   const [openImgMenu, setOpenImgMenu] = useState(false);
+
   const changeHandler = (e) => {
     const name = e.target.name;
     let value = e.target.value;
@@ -79,7 +89,7 @@ export default function GetAll({ product, setMenuImgData }) {
   };
 
   return (
-    <InputContext.Provider value={{ inputs, setInputs }}>
+    <InputContext.Provider value={{ inputs, setInputs, setMenuImgData }}>
       <section className="p-2 mb-10 border border-primary md:p-5">
         <section className="relative mb-5">
           {!isForm && (
@@ -101,79 +111,13 @@ export default function GetAll({ product, setMenuImgData }) {
                           subsection?.img[0]?.originalname;
                       }
                       return (
-                        <section
-                          className="p-5 my-2 border border-primary-300"
+                        <Article
                           key={subsection._id}
-                        >
-                          <div className="flex items-center">
-                            Снимка:
-                            <div className="relative ml-2 w-28 h-28">
-                              <Image
-                                layout="fill"
-                                src={`/uploads/${img}`}
-                                alt={img}
-                              />
-                            </div>
-                            <button
-                              onClick={() => {
-                                setMenuImgData({
-                                  articleId: subsection._id,
-                                  imgUrl: img,
-                                  sectionId: product._id,
-                                });
-                              }}
-                              className="cursor-pointer bg-primary-100 text-sm text-white py-1 px-5 ml-auto hover:bg-transparent hover:text-primary-100 border border-primary-100"
-                            >
-                              Редактирай/Сложи
-                              <span className="font-bold uppercase pl-1">
-                                снимка
-                              </span>
-                            </button>
-                          </div>
-                          <div>Типът: {subsection.tiput}</div>
-                          <div>
-                            Името което се показва: {subsection.nameToDisplay}
-                          </div>
-                          <div>Описание: {subsection.opisanie}</div>
-                          <div>
-                            {subsection.items.map((item, index) => {
-                              return (
-                                <section
-                                  key={item?._id ? item._id : index}
-                                  className="p-5 border border-green"
-                                >
-                                  <div>
-                                    Цена:
-                                    <span className="pl-1">
-                                      {item?.cena && item.cena}
-                                    </span>
-                                  </div>
-                                  <div>
-                                    Катномер:
-                                    <span className="pl-1">
-                                      {item?.katNomer && item.katNomer}
-                                    </span>
-                                  </div>
-                                  <div>
-                                    Типове:
-                                    <span className="pl-1">
-                                      {item?.tipove && item.tipove}
-                                    </span>
-                                  </div>
-                                  {item?.promotionalPrice && (
-                                    <div>
-                                      Промоционална цена:
-                                      <span className="pl-1">
-                                        {item?.promotionalPrice &&
-                                          item.promotionalPrice}
-                                      </span>
-                                    </div>
-                                  )}
-                                </section>
-                              );
-                            })}
-                          </div>
-                        </section>
+                          sectionName={product.name}
+                          sectionId={product._id}
+                          subsection={subsection}
+                          img={img}
+                        />
                       );
                     })}
                   </div>
@@ -258,17 +202,6 @@ export default function GetAll({ product, setMenuImgData }) {
             />
           </div>
         </section>
-
-        {product?.articles &&
-          product?.articles.map((article, index) => {
-            return (
-              <Article
-                key={article._id}
-                article={inputs.articles[index]}
-                articleLen={index}
-              />
-            );
-          })}
       </section>
     </InputContext.Provider>
   );
