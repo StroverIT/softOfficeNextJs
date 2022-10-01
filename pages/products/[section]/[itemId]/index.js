@@ -49,15 +49,13 @@ export default function Index({ data, userData, isInFav }) {
   const [isSelected, setSelected] = useState(false);
 
   const dispatch = useDispatch();
+  let imgUrl;
 
   const addProduct = (product, productName) => {
     const section = product.section;
     const article = product.article;
     const item = article.items[0];
-    let imgUrl;
-    if (article.img) {
-      imgUrl = article?.img?.originalname || article?.img[0]?.originalname;
-    }
+
     const newObj = {
       item: {
         route: item._id,
@@ -69,7 +67,7 @@ export default function Index({ data, userData, isInFav }) {
         katNomer: item.katNomer,
       },
       article: {
-        imgUrl: imgUrl,
+        imgUrl,
         name: article.nameToDisplay,
         route: article._id,
       },
@@ -171,13 +169,17 @@ export default function Index({ data, userData, isInFav }) {
   }, []);
   // const imgUrl =
 
-  let imgUrl;
-
   if (product?.article?.img) {
     imgUrl = product?.article?.img?.originalname;
 
     if (product.article.img?.length >= 0) {
       imgUrl = product?.article?.img[0]?.originalname;
+    }
+  }
+  if (product?.article?.items?.length == 1) {
+    if (product?.article?.items[0].imageUrl) {
+      console.log(product?.article?.items[0]);
+      imgUrl = product?.article?.items[0].imageUrl;
     }
   }
   const itemName = `${

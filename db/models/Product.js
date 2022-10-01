@@ -34,7 +34,7 @@ const itemsSchema = new Schema({
   promotionalPrice: {
     type: Number,
   },
-
+  imageUrl: String,
   isOnlyNumb: {
     type: Boolean,
     default: false,

@@ -1,67 +1,48 @@
 import React, { useContext, useState } from "react";
-import Input from "./Input";
-import Edit from "./Edit";
+
 import { InputContext } from "./Context";
 
-export default function Item({ item, itemLen, articleLen }) {
-  const { inputs, setInputs } = useContext(InputContext);
-
-  const [isForm, setIsForm] = useState(false);
-
-  const changeHandler = (e) => {
-    const name = e.target.name;
-    let value = e.target.value;
-
-    setInputs((prevState) => ({
-      ...prevState,
-      articles: inputs.articles.map((article, index) => {
-        if (articleLen == index) {
-          article.items = article.items.map((item, itemIndex) => {
-            if (itemIndex == itemLen) {
-              item[name] = value;
-            }
-            return item;
-          });
-        }
-        return article;
-      }),
-    }));
-  };
+export default function Item({ item, articleId, sectionId, img }) {
+  const { setMenuImgData } = useContext(InputContext);
 
   return (
-    <div key={item._id} className="relative border border-gray-200 md:p-5">
-      {!isForm && (
-        <>
-          <div>Тежест: {item.weight}</div>
-          <div>Цена: {item.price}</div>
-        </>
-      )}
-      {isForm && (
-        <div className="flex flex-col flex-wrap ">
-          <Input
-            id="weight"
-            text="Тежест"
-            holder="Тежест"
-            value={item.weight}
-            handler={changeHandler}
-          />
-          <Input
-            id="price"
-            text="Цена"
-            holder="Цена"
-            value={item.price}
-            handler={changeHandler}
-          />
+    <section className="p-5 border border-green">
+      <div>
+        Цена:
+        <span className="pl-1">{item?.cena && item.cena}</span>
+      </div>
+      <div>
+        Катномер:
+        <span className="pl-1">{item?.katNomer && item.katNomer}</span>
+      </div>
+      <div>
+        Типове:
+        <span className="pl-1">{item?.tipove && item.tipove}</span>
+      </div>
+      {item?.promotionalPrice && (
+        <div>
+          Промоционална цена:
+          <span className="pl-1">
+            {item?.promotionalPrice && item.promotionalPrice}
+          </span>
         </div>
       )}
-      <div className="absolute -translate-y-1/2 top-1/2 right-5">
-        <Edit
-          clickHandler={() => setIsForm(!isForm)}
-          theme={!isForm ? "green" : "red"}
-          text={!isForm ? "Редактирай" : "Откажи"}
-          size="xs"
-        />
+      <div>
+        <button
+          onClick={() => {
+            setMenuImgData({
+              articleId: articleId,
+              imgUrl: img,
+              sectionId: sectionId,
+              itemId: item._id,
+            });
+          }}
+          className="px-5 py-1 ml-auto text-sm text-white border cursor-pointer bg-primary-100 hover:bg-transparent hover:text-primary-100 border-primary-100"
+        >
+          Редактирай/Сложи
+          <span className="pl-1 font-bold uppercase">снимка</span>
+        </button>
       </div>
-    </div>
+    </section>
   );
 }

@@ -64,7 +64,8 @@ const handler = async (
     const uploadedImgData = files.article.newFilename;
     console.log(uploadedImgData);
 
-    const { articleId, sectionId, imgUrl } = fields;
+    const { articleId, sectionId, imgUrl, itemId } = fields;
+    console.log(articleId, imgUrl, itemId);
 
     const filePath = path.resolve(`public/uploads/${imgUrl}`);
 
@@ -79,16 +80,35 @@ const handler = async (
     }
     const newData = [{ originalname: uploadedImgData }];
 
-    await Product.updateOne(
-      { "subsection._id": articleId },
-      { $set: { [`subsection.$[i].img`]: newData } },
-      { arrayFilters: [{ "i._id": { $eq: articleId } }] }
-    );
+    if (itemId) {
+      const res = await Product.updateOne(
+        { "subsection.items._id": itemId },
+        {
+          $set: {
+            [`subsection.$[subSec].items.$[item].imageUrl`]: uploadedImgData,
+          },
+        },
+        {
+          arrayFilters: [
+            { "subSec._id": { $eq: articleId } },
+            { "item._id": { $eq: itemId } },
+          ],
+        }
+      );
+      console.log(res);
+    }
+    if (!itemId) {
+      await Product.updateOne(
+        { "subsection._id": articleId },
+        { $set: { [`subsection.$[i].img`]: newData } },
+        { arrayFilters: [{ "i._id": { $eq: articleId } }] }
+      );
 
-    await Promotion.updateOne(
-      { "product.subsection._id": articleId },
-      { $set: { "product.subsection.imgUrl": uploadedImgData } }
-    );
+      await Promotion.updateOne(
+        { "product.subsection._id": articleId },
+        { $set: { "product.subsection.imgUrl": uploadedImgData } }
+      );
+    }
 
     let data: { message: string; error: any; data: any } = {
       message: "Успешно променихте снимката, рестарирайте страницата!",

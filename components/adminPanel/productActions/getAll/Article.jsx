@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 
 // Components
 import Input from "../getAll/Input";
+import Item from "./Item";
 
 // NextJs
 import Image from "next/image";
@@ -14,7 +15,7 @@ import { HiX } from "react-icons/hi";
 import { InputContext } from "./Context";
 
 export default function Article({ sectionName, sectionId, subsection, img }) {
-  const { inputs, setInputs, setMenuImgData } = useContext(InputContext);
+  const { setMenuImgData } = useContext(InputContext);
 
   const [isForm, setIsForm] = useState(false);
   const [itemsToAdd, setItemsToAdd] = useState([]);
@@ -82,31 +83,13 @@ export default function Article({ sectionName, sectionId, subsection, img }) {
       <div>
         {subsection.items.map((item, index) => {
           return (
-            <section
-              key={item?._id ? item._id : index}
-              className="p-5 border border-green"
-            >
-              <div>
-                Цена:
-                <span className="pl-1">{item?.cena && item.cena}</span>
-              </div>
-              <div>
-                Катномер:
-                <span className="pl-1">{item?.katNomer && item.katNomer}</span>
-              </div>
-              <div>
-                Типове:
-                <span className="pl-1">{item?.tipove && item.tipove}</span>
-              </div>
-              {item?.promotionalPrice && (
-                <div>
-                  Промоционална цена:
-                  <span className="pl-1">
-                    {item?.promotionalPrice && item.promotionalPrice}
-                  </span>
-                </div>
-              )}
-            </section>
+            <Item
+              key={item?._id + index}
+              item={item}
+              articleId={subsection._id}
+              sectionId={sectionId}
+              img={img}
+            />
           );
         })}
         {itemsToAdd.map((item, index) => {

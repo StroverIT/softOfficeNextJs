@@ -10,6 +10,9 @@ import OldPrice from "../../priceStyling/OldPrice";
 import Pricing from "../../priceStyling/Pricing";
 
 export default function ListItem({ section, articleData, item, addProduct }) {
+  let imgUrl = articleData?.imgUrl;
+  if (item.imageUrl) imgUrl = item.imageUrl;
+
   const name = `${section.name != "Обадете се" ? section.name : ""} ${
     articleData.name
   }`;
@@ -43,6 +46,7 @@ export default function ListItem({ section, articleData, item, addProduct }) {
         },
         article: {
           ...articleData,
+          imgUrl,
         },
         section: {
           ...section,
@@ -60,7 +64,7 @@ export default function ListItem({ section, articleData, item, addProduct }) {
           <Link href={`/products/${section.route}`}>
             <div className="relative w-full cursor-pointer h-96 sm:h-80">
               <Image
-                src={`/uploads/${articleData?.imgUrl}`}
+                src={`/uploads/${imgUrl}`}
                 layout="fill"
                 alt={articleData?.imgUrl}
               />

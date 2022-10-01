@@ -10,6 +10,10 @@ import OldPrice from "../priceStyling/OldPrice";
 
 const SwiperProductSelectSwiperSlide = ({ article, item, sectionName }) => {
   const [price, setPrice] = useState(null);
+  let imageUrl = article?.img;
+
+  if (item.imageUrl) imageUrl = item.imageUrl;
+
   useEffect(() => {
     let priceObjInit = { forItem: item.cena };
     if (item.isOnPromotions) {
@@ -25,9 +29,9 @@ const SwiperProductSelectSwiperSlide = ({ article, item, sectionName }) => {
       <div>
         <div className="relative w-full h-96">
           <Image
-            src={`/uploads/${article.img}`}
+            src={`/uploads/${imageUrl}`}
             layout="fill"
-            alt={article.img}
+            alt={imageUrl}
             className="object-contain"
           />
         </div>
