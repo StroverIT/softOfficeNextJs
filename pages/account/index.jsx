@@ -15,6 +15,7 @@ import MyFavourites from "../../components/account/MyFavourites";
 
 // Auth
 import { getSession, signOut } from "next-auth/react";
+import { HiX } from "react-icons/hi";
 
 export default function Index({ userData, deliveriesData, favData }) {
   const router = useRouter();
@@ -22,6 +23,7 @@ export default function Index({ userData, deliveriesData, favData }) {
   const myDetails = useRef(null);
   const myOrders = useRef(null);
   const myFavourites = useRef(null);
+  const [isShowed, setIsShowed] = useState(null);
 
   const changeCategory = (category) => {
     // Trigger fragment change to fetch the new data
@@ -58,6 +60,14 @@ export default function Index({ userData, deliveriesData, favData }) {
       "hover:text-primary"
     );
   }, [router, userData]);
+  useEffect(() => {
+    const isFound = localStorage.getItem("iknowyou");
+
+    if (!isFound) {
+      setIsShowed(true);
+      localStorage.setItem("iknowyou", "true");
+    }
+  }, []);
   return (
     <>
       <Head>
@@ -146,6 +156,47 @@ export default function Index({ userData, deliveriesData, favData }) {
             </div>
           </div>
         </div>
+        {isShowed && (
+          <div className="fixed top-0 left-0 z-20 w-screen h-screen">
+            <div
+              className="relative z-10 w-full h-screen cursor-pointer blury-noProps"
+              onClick={() => setIsShowed(false)}
+            ></div>
+
+            <div className="absolute z-20 w-full overflow-auto -translate-x-1/2 -translate-y-1/2 bg-gray-100 h-2/3 md:h-2/3 md:w-11/12 top-1/2 left-1/2 ">
+              <div className="relative ">
+                <div
+                  className="sticky top-0 z-50 flex justify-end mr-2 text-3xl cursor-pointer right-1"
+                  onClick={() => setIsShowed(false)}
+                >
+                  <HiX />
+                </div>
+                <div className="max-w-4xl p-5 overflow-auto text-lg">
+                  <div className="mb-1 text-xl text-primary">
+                    Уважаеми клиенти!
+                  </div>
+                  <div className="mb-1">
+                    В Резултат на динамиката на пазара и постоянното повишаване
+                    на цените на суровините и транспортните услуги, се налага да
+                    актуализираме цените на голяма част от предлаганите от нас
+                    продукти поради което цените в настоящия ни продуктов
+                    каталог вече не са валидни!
+                  </div>
+                  <div className="mb-2">
+                    Актуална информация за цени, промоции, условия за доставка,
+                    монтаж и гаранция може да откриете на нашия сайт след като
+                    си влезете в профила, на телефон +359 2 961 99 88 или от
+                    обслужващите ви търговски предтавител.
+                  </div>
+                  <div className="font-semibold">
+                    За артикули, които не поддържаме на склад, моля да ни
+                    обадите за актуална информация!
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </>
   );

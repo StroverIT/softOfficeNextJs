@@ -27,6 +27,7 @@ import { edit } from "../../../services/productServiceFetch";
 
 export default function GetAll({ product, setMenuImgData }) {
   const [inputs, setInputs] = useState(product);
+  const [productMenu, setProductMenu] = useState(false);
   const [isForm, setIsForm] = useState(false);
   const [openImgMenu, setOpenImgMenu] = useState(false);
 
@@ -98,30 +99,32 @@ export default function GetAll({ product, setMenuImgData }) {
                 <div>Име: {product.name}</div>
                 <div>Името което се показва: {product.nameToDisplay}</div>
 
-                <div className="p-5 my-2 border border-primary-50">
-                  <h1 className="text-lg font-bold text-center text-primary-500">
-                    Продукти:
-                  </h1>
-                  <div className="flex flex-wrap items-center p-2 my-2 border border-primary-200">
-                    {product.subsection.map((subsection) => {
-                      let img = "nqma";
-                      if (subsection.img) {
-                        img =
-                          subsection?.img.originalname ||
-                          subsection?.img[0]?.originalname;
-                      }
-                      return (
-                        <Article
-                          key={subsection._id}
-                          sectionName={product.name}
-                          sectionId={product._id}
-                          subsection={subsection}
-                          img={img}
-                        />
-                      );
-                    })}
+                {productMenu && (
+                  <div className="p-5 mt-10 mb-2 border border-primary-50">
+                    <h1 className="text-lg font-bold text-center text-primary-500">
+                      Продукти:
+                    </h1>
+                    <div className="flex flex-wrap items-center p-2 my-2 border border-primary-200">
+                      {product.subsection.map((subsection) => {
+                        let img = "nqma";
+                        if (subsection.img) {
+                          img =
+                            subsection?.img.originalname ||
+                            subsection?.img[0]?.originalname;
+                        }
+                        return (
+                          <Article
+                            key={subsection._id}
+                            sectionName={product.name}
+                            sectionId={product._id}
+                            subsection={subsection}
+                            img={img}
+                          />
+                        );
+                      })}
+                    </div>
                   </div>
-                </div>
+                )}
               </div>
             </>
           )}
@@ -194,12 +197,21 @@ export default function GetAll({ product, setMenuImgData }) {
               })}
             </div>
           )}
-          <div className="absolute top-0 right-0">
-            <Edit
-              clickHandler={() => setIsForm(!isForm)}
-              theme={!isForm ? "blueLight" : "red"}
-              text={!isForm ? "Редактирай" : "Откажи"}
-            />
+          <div className="absolute top-0 right-0 flex flex-col items-end justify-end space-y-2">
+            <div>
+              <Edit
+                clickHandler={() => setIsForm(!isForm)}
+                theme={!isForm ? "blueLight" : "red"}
+                text={!isForm ? "Редактирай" : "Откажи"}
+              />
+            </div>
+            <div>
+              <Edit
+                clickHandler={() => setProductMenu(!productMenu)}
+                theme={!productMenu ? "green" : "red"}
+                text={!productMenu ? "Покажи продуктите" : "Скрий продуктите"}
+              />
+            </div>
           </div>
         </section>
       </section>
