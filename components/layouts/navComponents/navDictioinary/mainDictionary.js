@@ -4,6 +4,7 @@ import sredstvaZaPrezentaciqArt from "./sredstvaZaPrezentaciqArt";
 import hraniINapitkiArt from "./hraniINapitkiArt";
 import higienniSredstvaArt from "./higienniSredstvaArt";
 import obzavejdaneZaOfisArt from "./obzavejdaneZaOfisArt";
+import yslygi from "./yslygi";
 /*
 mainRoute: "Main route"
 articles: {
@@ -45,6 +46,11 @@ const dictionary = [
   {
     title: "Обзавеждане за офис",
     articles: obzavejdaneZaOfisArt,
+    icon: "",
+  },
+  {
+    title: "Услуги",
+    articles: yslygi,
     icon: "",
   },
 ];
