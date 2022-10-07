@@ -69,11 +69,7 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
         className={`fixed  lg:absolute py-2 overflow-auto  ${
           mobSubmenu ? "translate-x-0" : "translate-x-full"
         } transition-transform lg:transition-none lg:translate-x-0 lg:scale-0 h-full w-full  top-0  bg-color  ${
-<<<<<<< HEAD
           isHome ? "right-0" : "lg:right-[0px] xl:right-[0] pb-28"
-=======
-          isHome ? "right-0" : "lg:right-[0px] xl:right-[0]"
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         } lg:hover:scale-100 text-dark peer-hover:lg:scale-100 lg:max-w-[780px]  xl:max-w-[1050px]  ${isXAnim} `}
         ref={subMenu}
       >
@@ -92,7 +88,6 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
           className={`px-5  mt-2  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-2`}
         >
           {articles.map((article, index) => {
-<<<<<<< HEAD
             return article?.menu ? (
               <NavLinkSubMenu
                 subMenuData={JSON.stringify(article.subMenu)}
@@ -104,18 +99,6 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
                 route={article.name}
                 name={article.displayName}
                 key={index}
-=======
-            const isObject = typeof article === "object";
-            if (isObject) article = JSON.stringify(article);
-            return isObject ? (
-              <NavLinkSubMenu subMenuData={article} key={index} />
-            ) : (
-              <LinkComp
-                route={article}
-                mainRoute={title}
-                isHome={isHome}
-                key={article}
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
               />
             );
           })}

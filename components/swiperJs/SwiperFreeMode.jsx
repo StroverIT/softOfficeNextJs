@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from "react";
-=======
-import React, { useRef, useState } from "react";
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 // NextJs
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -26,7 +22,6 @@ import { FreeMode, Pagination, Navigation } from "swiper";
 import PricingPromo from "../priceStyling/PricingPromo";
 import SwiperNav from "./SwiperNav";
 
-<<<<<<< HEAD
 export default function SwiperPromo({ data, navSize }) {
   const router = useRouter();
   const [stateData, setStateData] = useState([]);
@@ -53,11 +48,6 @@ export default function SwiperPromo({ data, navSize }) {
     setStateData(newData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-=======
-export default function SwiperFreeMode({ images, navSize }) {
-  const router = useRouter();
-
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   return (
     <>
       <div className="flex flex-row items-stretch swipebody">
@@ -80,7 +70,6 @@ export default function SwiperFreeMode({ images, navSize }) {
               slidesPerView: 1,
             },
             640: {
-<<<<<<< HEAD
               slidesPerView: 2,
             },
             // when window width is >= 768px
@@ -159,49 +148,6 @@ export default function SwiperFreeMode({ images, navSize }) {
                     -{percentageRate[0]}%
                   </div>
                 )}
-=======
-              slidesPerView: 2.25,
-            },
-            // when window width is >= 768px
-            768: {
-              slidesPerView: 4,
-            },
-          }}
-          modules={[FreeMode, Pagination, Navigation]}
-          className={`mySwiper relative freeModeSwiper`}
-        >
-          {images.map((image) => {
-            let [price, priceDec] = image.price.toFixed(2).split(".");
-            return (
-              <SwiperSlide
-                className="flex flex-col bg-white shadow-lg cursor-pointer hover:shadow-xl"
-                key={image.title}
-              >
-                <div
-                  onClick={() => router.push(image.pageUrl)}
-                  className="flex flex-col justify-between h-full"
-                >
-                  <div>
-                    <div>
-                      <Image
-                        src={image.src}
-                        //  layout="fill"
-                        height={700}
-                        width={1000}
-                        alt={image.title}
-                      />
-                    </div>
-                    <div className="container font-medium text-center border-t border-gray">
-                      {image.title}
-                    </div>
-                  </div>
-                  <PricingPromo
-                    isPromo={image.isPromo}
-                    price={price}
-                    priceDec={priceDec}
-                  />
-                </div>
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
               </SwiperSlide>
             );
           })}

@@ -1,14 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-<<<<<<< HEAD
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Roboto:wght@500;700&display=swap");
 
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Roboto+Condensed:wght@700&family=Roboto:wght@500;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap");
-=======
-
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 @layer components {
   .acc-active {
     @apply text-white bg-primary;
@@ -27,12 +23,7 @@ html,
 body {
   padding: 0;
   margin: 0;
-<<<<<<< HEAD
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-=======
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   /* font-family: Helvetica, Arial, sans-serif; */
 }
 
@@ -176,7 +167,6 @@ input[type="range"]::-webkit-slider-thumb {
 
   /* @apply w-6 h-6 appearance-none pointer-events-auto; */
 }
-<<<<<<< HEAD
 .gray-line {
   width: 1.25px;
   height: 5rem;
@@ -237,5 +227,3 @@ input[type="range"]::-webkit-slider-thumb {
 .colros {
   background-color: hsl(190, 90%, 50%);
 }
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e

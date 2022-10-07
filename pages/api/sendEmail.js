@@ -15,11 +15,7 @@ const sendEmail = async (fromEmail, email, subject, text) => {
       service: "gmail",
       auth: {
         type: "OAuth2",
-<<<<<<< HEAD
         user: process.env.EMAIL_SEND,
-=======
-        user: "emilzlatinov123@gmail.com",
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         clientId: process.env.CLIENT_ID,
         clientSecret: process.env.CLIENT_SECRET,
         refreshToken: process.env.REFRESH_TOKEN,
@@ -32,13 +28,9 @@ const sendEmail = async (fromEmail, email, subject, text) => {
       subject: subject,
       html: text,
     });
-<<<<<<< HEAD
   } catch (error) {
     console.log(error);
   }
-=======
-  } catch (error) {}
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 };
 
 export default sendEmail;

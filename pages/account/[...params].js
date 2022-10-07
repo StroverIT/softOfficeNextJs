@@ -15,10 +15,7 @@ import { useRouter } from "next/router";
 const innerRoutes = {
   verifyAccount: "verifyAccountToken",
   changePassword: "changePassword",
-<<<<<<< HEAD
   verifyDelivery: "verifyDelivery",
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 };
 export default function Index({ data }) {
   const router = useRouter();
@@ -28,16 +25,10 @@ export default function Index({ data }) {
     confPassword: "",
   };
   const [inputs, setInputs] = useState(passData);
-<<<<<<< HEAD
   const [errors, setErrors] = useState(null);
   const [disabled, setDisabled] = useState(true);
   const [dataState, setDataState] = useState(data);
   const [isLoading, setLoading] = useState(false);
-=======
-  const [errors, setErrors] = useState([]);
-  const [disabled, setDisabled] = useState(true);
-  const [dataState, setDataState] = useState(data);
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 
   function passStateHandler(e) {
     const { name, value } = e.target;
@@ -66,7 +57,6 @@ export default function Index({ data }) {
       message: resData.message,
     }));
   }
-<<<<<<< HEAD
 
   useEffect(() => {
     if (inputs.password.length > 0 || inputs.confPassword.length > 0) {
@@ -87,21 +77,6 @@ export default function Index({ data }) {
       localStorage.clear();
     }
   }, [dataState]);
-=======
-  useEffect(() => {
-    const errors = [];
-    if (inputs.password != inputs.confPassword || inputs.password.length <= 0) {
-      errors.push("Паролите трябва да съвпадат");
-    }
-    if (errors.length > 0) {
-      setErrors([...errors]);
-      setDisabled(true);
-    } else {
-      setErrors([]);
-      setDisabled(false);
-    }
-  }, [inputs]);
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 
   return (
     <>
@@ -127,21 +102,12 @@ export default function Index({ data }) {
               </div>
             </>
           )}
-<<<<<<< HEAD
           {dataState?.route == innerRoutes.changePassword && !dataState?.error && (
             <div className="container flex flex-col items-center justify-center">
               <h1 className="mb-5 text-lg font-medium text-primary">
                 Смяна на паролата
               </h1>
               {errors && <div className="mb-4 text-secondary">{errors}</div>}
-=======
-          {dataState?.route == "changePassword" && !dataState?.error && (
-            <div className="container flex justify-center flex-col items-center">
-              <h1 className="text-lg text-primary mb-5 font-medium">
-                Смяна на паролата
-              </h1>
-              {errors && <div className="text-secondary mb-4">{errors}</div>}
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
               <form
                 className="w-1/2"
                 onSubmit={passFormHandler}
@@ -168,11 +134,8 @@ export default function Index({ data }) {
                     disabled && "cursor-not-allowed opacity-50"
                   }`}
                   isDisabled={disabled}
-<<<<<<< HEAD
                   isLoading={isLoading}
                   onClick={() => setLoading(true)}
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                 />
               </form>
             </div>
@@ -219,7 +182,6 @@ export async function getServerSideProps(context) {
         data.userId = userId;
       }
     }
-<<<<<<< HEAD
     if (url == innerRoutes.verifyDelivery) {
       if (!data.error) {
         const res = await fetch(
@@ -235,8 +197,6 @@ export async function getServerSideProps(context) {
         data.message = resData.message;
       }
     }
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   } catch (e) {
     data.error = e.message;
   }

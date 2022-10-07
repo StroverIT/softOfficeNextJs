@@ -2,15 +2,11 @@ import React, { useState, useEffect } from "react";
 
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
-<<<<<<< HEAD
 // DB
 import { connectMongo } from "../../db/connectDb";
 import User from "../../db/models/User";
 
 // components
-=======
-
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 import Navigation from "../../components/adminPanel/Navigation";
 import Deliveries from "../../components/adminPanel/Deliveries";
 import Products from "../../components/adminPanel/Products";
@@ -21,7 +17,6 @@ import Users from "../../components/adminPanel/Users";
 import { getAll } from "../../services/productService";
 import { getAll as getAllDeliveries } from "../../services/deliveryService";
 
-<<<<<<< HEAD
 export default function Index({
   userData,
   products,
@@ -77,19 +72,6 @@ export default function Index({
       "#potrebiteli": [
         <Users key="Users" usersData={allUsers} products={filteredProducts} />,
       ],
-=======
-export default function Index({ userData, products, deliveries }) {
-  const router = useRouter();
-
-  const [categoryData, setCategoryData] = useState(null);
-
-  useEffect(() => {
-    const categoryComp = {
-      "#dostavki": [<Deliveries key="Deliveries" deliveries={deliveries} />],
-      "#prodykti": [<Products key="MyOrders" products={products} />],
-      "#promocii": [<Promotions key="MyFavourites" />],
-      "#potrebiteli": [<Users key="Users" />],
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     };
     const hash = window.location.hash?.split("#");
     const someData = categoryComp[`#${hash[1]}`] ?? categoryComp["#prodykti"]; // Retrieve data based on URL fragment
@@ -117,11 +99,8 @@ export async function getServerSideProps(context) {
     };
   }
   // Mongodb
-<<<<<<< HEAD
   await connectMongo();
 
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   const res = await fetch(`${process.env.NEXTAUTH_URL}/api/getUser`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -140,7 +119,6 @@ export async function getServerSideProps(context) {
       },
     };
   }
-<<<<<<< HEAD
 
   const products = await getAll();
   const deliveries = await getAllDeliveries();
@@ -157,23 +135,15 @@ export async function getServerSideProps(context) {
   const promoData = await promotionsRes.json();
 
   const users = await User.find({});
-=======
-  const products = await getAll();
-  const deliveries = await getAllDeliveries();
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 
   return {
     props: {
       userData: JSON.parse(JSON.stringify(data)),
       products: JSON.parse(JSON.stringify(products)),
-<<<<<<< HEAD
       forDelivery: JSON.parse(JSON.stringify(forDelivery)),
       forMagazine: JSON.parse(JSON.stringify(forMagazine)),
       promotions: promoData,
       allUsers: JSON.parse(JSON.stringify(users)),
-=======
-      deliveries: JSON.parse(JSON.stringify(deliveries)),
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     },
   };
 }

@@ -22,11 +22,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0,user-scalable=0"
         />
-<<<<<<< HEAD
         <link rel="icon" href="images/titleLogo32x32.png" type="image/png" />
         <title>Офис материали - SoftOffice</title>
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
       </Head>
       <SessionProvider session={pageProps.session}>
         <Provider store={store}>

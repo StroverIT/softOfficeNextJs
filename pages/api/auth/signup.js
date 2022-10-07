@@ -1,18 +1,12 @@
 import { connectMongo } from "../../../db/connectDb";
 import mongoose from "mongoose";
-<<<<<<< HEAD
 import { ObjectId } from "mongodb";
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 import User from "../../../db/models/User";
 
 import { fullNameVal, emailVal } from "../../../utils/validationHandler";
 import { hash } from "bcryptjs";
-<<<<<<< HEAD
 import Token from "../../../db/models/Token";
 import sendEmail from "../sendEmail";
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 
 async function handler(req, res) {
   //Only POST mothod is accepted
@@ -23,10 +17,6 @@ async function handler(req, res) {
     //Validate
     if (!email || !password) {
       errors.push("Всички полета трябва да бъдат попълнени");
-<<<<<<< HEAD
-=======
-      return;
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     }
 
     const fullNameCheck = fullNameVal(fullName);
@@ -40,10 +30,6 @@ async function handler(req, res) {
     //Check existing
     const checkExisting = await User.findOne({ email });
     //Send error response if duplicate user is found
-<<<<<<< HEAD
-
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     if (checkExisting) {
       errors.push("Вече съществува такъв и-мейл");
     }
@@ -53,16 +39,11 @@ async function handler(req, res) {
       return res.status(406).json(errors);
     }
 
-<<<<<<< HEAD
     const user = await User.create({
-=======
-    const status = await User.create({
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
       email,
       password: await hash(password, 12),
       fullName,
     });
-<<<<<<< HEAD
 
     let token = await Token.findOne({ userId: ObjectId(user._id) });
     if (!token) {
@@ -86,10 +67,6 @@ async function handler(req, res) {
       .status(201)
       .json({ message: "Успешно изпратена заявка", isErr: false });
     //Send success response
-=======
-    //Send success response
-    res.status(201).json({ message: "success", ...status });
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     //Close DB connection
     mongoose.connection.close();
   } else {

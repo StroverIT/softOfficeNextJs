@@ -19,11 +19,7 @@ import { Pagination, Navigation, Autoplay, EffectFade } from "swiper";
 // Components
 import SwiperNav from "./SwiperNav";
 
-<<<<<<< HEAD
 export default function SwiperPag({ images, navSize, imgHeight }) {
-=======
-export default function SwiperPag({ images, navSize }) {
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   return (
     <>
       <Swiper
@@ -58,21 +54,13 @@ export default function SwiperPag({ images, navSize }) {
             <SwiperSlide key={image.key}>
               <Link href={image.pageUrl ? image.pageUrl : ""}>
                 <div>
-<<<<<<< HEAD
                   <div className="relative h-96 w-full md:h-[85vh]">
-=======
-                  <div className="relative h-96 w-full">
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                     <Image
                       src={image.src}
                       //  layout="fill"
                       layout="fill"
                       alt={image.key}
-<<<<<<< HEAD
                       className={`${style.swiperSlideImg} cursor-pointer object-contain md:object-cover`}
-=======
-                      className={`${style.swiperSlideImg} cursor-pointer`}
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                     />
                   </div>
                 </div>

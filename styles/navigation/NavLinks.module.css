@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 /* .submenu{
-=======
-/* 
-.submenu{
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     height: 100%;
     width: 100%;
     left:0;
@@ -12,16 +7,9 @@
     color: theme('colors.dark');
     transform: translateX(100vw);
     transition: transform 0.2s ease-in-out;
-<<<<<<< HEAD
 } */
 /* .subOpen {
   transform: translateX(0);
-=======
-}
-.subOpen{
-    transform: translateX(0);
-
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 } */
 .icon {
   border-right: 1px solid black;

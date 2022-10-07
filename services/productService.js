@@ -2,7 +2,6 @@ import { connectMongo } from "../db/connectDb";
 import mongoose from "mongoose";
 
 import Product from "../db/models/Product";
-<<<<<<< HEAD
 import User from "../db/models/User";
 import PersonalPromotion from "../db/models/PersonalPromotion";
 
@@ -67,18 +66,6 @@ export const getAllProducts = async (route, session) => {
 
   mongoose.connection.close();
   return data;
-=======
-
-export const getAllProducts = async (sectionName, filter) => {
-  await connectMongo();
-  // for case insensitive
-
-  return Product.findOne({
-    sectionName: {
-      $regex: new RegExp(sectionName, "i"),
-    },
-  });
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 };
 export const getAll = async () => {
   const options = { method: "GET" };
@@ -87,7 +74,6 @@ export const getAll = async () => {
     options
   );
   const data = await res.json();
-<<<<<<< HEAD
   return data;
 };
 export const productByItemId = async (itemId, session) => {
@@ -197,31 +183,4 @@ export const getBySection = async (sectionName, filter) => {
   return Product.find({
     sectionName: { $regex: new RegExp(sectionName, "i") },
   });
-=======
-
-  return data;
-};
-export const productByItemId = async (itemId) => {
-  await connectMongo();
-
-  let obj = await Product.findOne({ "articles.items._id": itemId });
-
-  let formatedObj = {};
-
-  formatedObj.sectionName = obj.sectionName;
-  formatedObj.commonName = obj.commonName;
-  let imageUrl = "";
-
-  outer: for (let article of obj.articles) {
-    formatedObj.description = article.description;
-    formatedObj.articleName = article.articleName;
-    for (let item of article.items) {
-      if (item._id == itemId) {
-        formatedObj.item = item;
-        break outer;
-      }
-    }
-  }
-  return formatedObj;
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 };

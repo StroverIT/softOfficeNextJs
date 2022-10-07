@@ -16,27 +16,17 @@ export default function Create() {
   const router = useRouter();
 
   const [sectionState, setSectionState] = useState({
-<<<<<<< HEAD
     name: "",
     nameToDisplay: "",
     subsection: [],
-=======
-    articles: [],
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   });
 
   const addArticle = (e) => {
     setSectionState((prevState) => ({
       ...prevState,
-<<<<<<< HEAD
       subsection: [
         ...prevState.subsection,
         { items: [], tiput: "", opisanie: "", nameToDisplay: "" },
-=======
-      articles: [
-        ...prevState.articles,
-        { items: [], articleName: "", description: "" },
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
       ],
     }));
   };
@@ -54,23 +44,14 @@ export default function Create() {
         let article = value.map((article) => {
           // If image append to formData as file
           if (article.imageUrl) {
-<<<<<<< HEAD
             console.log(article.imageUrl);
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
             formData.append("article", article.imageUrl);
             article.imageUrl = article.imageUrl?.name;
           }
           article.items = article.items.map((item) => {
-<<<<<<< HEAD
             if (item.img) {
               formData.append("item", item.img);
               item.img = item.img?.originalname;
-=======
-            if (item.imageUrl) {
-              formData.append("item", item.imageUrl);
-              item.imageUrl = item.imageUrl?.name;
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
             }
             return item;
           });
@@ -86,10 +67,6 @@ export default function Create() {
 
       formData.append(key, value);
     });
-<<<<<<< HEAD
-=======
-
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     const res = await create(formData);
     const data = await res.json();
     console.log(res, data);
@@ -129,45 +106,25 @@ export default function Create() {
           <form onSubmit={submitHandler}>
             <Input
               type="text"
-<<<<<<< HEAD
               placeholder="name - за намирането на продукта"
               id="name"
               value={sectionState.name}
-=======
-              placeholder="Секция"
-              id="sectionName"
-              value={sectionState.section}
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
               onChange={changeHandler}
             />
             <Input
               type="text"
-<<<<<<< HEAD
               placeholder="nameToDisplay - името което ще се показва"
               id="nameToDisplay"
               onChange={changeHandler}
             />
             {/* <Input
-=======
-              placeholder="Общо име"
-              id="commonName"
-              onChange={changeHandler}
-            />
-            <Input
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
               type="file"
               placeholder="Снимка"
               id="imageUrl"
               onChange={changeHandler}
-<<<<<<< HEAD
             /> */}
             {sectionState.subsection &&
               sectionState.subsection.map((article, index) => {
-=======
-            />
-            {sectionState.articles &&
-              sectionState.articles.map((article, index) => {
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                 return (
                   <Article
                     key={index}

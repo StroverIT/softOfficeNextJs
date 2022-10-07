@@ -35,10 +35,7 @@ export default function ResetPassword() {
     });
     const data = await res.json();
     setMessage([data.message, data.isErr]);
-<<<<<<< HEAD
     setLoader(false);
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   }
 
   return (
@@ -52,11 +49,7 @@ export default function ResetPassword() {
           <div className="w-full bg-white rounded shadow-xl lg:w-1/2">
             <div className="mt-5 ml-8">
               <h3 className="text-3xl text-center ">Верификация на акаунта</h3>
-<<<<<<< HEAD
               <p className="mt-5 text-sm">
-=======
-              <p className="mt-5 font-thin">
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                 За да имате възможността да си влезете в акаунта, трябва да си
                 потвърдите акаунта. След като си напишете и-мейла, ще ви се
                 пратят инструкции
@@ -83,17 +76,10 @@ export default function ResetPassword() {
 
               <div className="flex items-center justify-center ">
                 <button
-<<<<<<< HEAD
                   className="flex items-center justify-center w-full px-4 py-2 font-bold text-white rounded shadow-md disabled:opacity-25 bg-primary hover:bg-primary focus:outline-none focus:shadow-outline"
                   type="submit"
                 >
                   {isLoading ? <div className="loader "></div> : "Изпрати"}
-=======
-                  className="w-full px-4 py-2 font-bold text-white rounded shadow-md disabled:opacity-25 bg-primary hover:bg-primary focus:outline-none focus:shadow-outline"
-                  type="submit"
-                >
-                  Изпрати
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                 </button>
               </div>
             </form>

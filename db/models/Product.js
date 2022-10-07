@@ -1,6 +1,5 @@
 import { Schema, model, models } from "mongoose";
 
-<<<<<<< HEAD
 // Item
 const imageSchema = new Schema({
   fieldname: String,
@@ -20,14 +19,10 @@ const itemsSchema = new Schema({
     type: Number,
     required: true,
   },
-=======
-const itemScheme = new Schema({
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   katNomer: {
     type: String,
     required: true,
   },
-<<<<<<< HEAD
   tipove: {
     type: String,
     required: true,
@@ -70,43 +65,5 @@ const ProductsSchema = new Schema({
   subsection: [subsectionSchema],
 });
 const Product = models.Product || model("Product", ProductsSchema);
-=======
-  price: {
-    type: Number,
-  },
-  types: [{ type: String }],
-  colors: [[{ type: String }]],
-  imageUrl: {
-    type: String,
-  },
-});
-const articlesScheme = new Schema({
-  articleName: {
-    type: String,
-  },
-  description: {
-    type: [{ type: String }],
-  },
-  imageUrl: {
-    type: String,
-  },
-  items: [itemScheme],
-});
-
-const productScheme = new Schema({
-  sectionName: {
-    type: String,
-  },
-  imageUrl: {
-    type: String,
-  },
-  commonName: {
-    type: String,
-  },
-  articles: [articlesScheme],
-});
-
-const Product = models.Product || model("Product", productScheme);
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 
 export default Product;

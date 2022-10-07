@@ -13,7 +13,6 @@ function Article({ articleLen, articleData }) {
   const { sectionState, setSectionState } = useContext(ProductContext);
   const [isImage, setIsImage] = useState(false);
 
-<<<<<<< HEAD
   const articleCons = sectionState.subsection[articleLen];
   const itemsCons = articleCons?.items;
 
@@ -21,35 +20,18 @@ function Article({ articleLen, articleData }) {
     const addItemArticle = sectionState.subsection.map((article, index) => {
       if (articleLen == index) {
         article.items.push({ katNomer: "", cena: "", tipove: "" });
-=======
-  const articleCons = sectionState.articles[articleLen];
-  const itemsCons = articleCons?.items;
-
-  const addItem = (e) => {
-    const addItemArticle = sectionState.articles.map((article, index) => {
-      if (articleLen == index) {
-        article.items.push({ katNomer: "", price: "", types: "" });
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
       }
       return article;
     });
     setSectionState((prevState) => ({
       ...prevState,
-<<<<<<< HEAD
       subsection: addItemArticle,
-=======
-      articles: addItemArticle,
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     }));
   };
   const removeArticle = (e) => {
     setSectionState((prevState) => ({
       ...prevState,
-<<<<<<< HEAD
       subsection: sectionState.subsection.filter((item, index) => {
-=======
-      articles: sectionState.articles.filter((item, index) => {
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         return index != articleLen;
       }),
     }));
@@ -61,19 +43,10 @@ function Article({ articleLen, articleData }) {
     if (name.includes("image")) {
       value = e.target.files[0];
     }
-<<<<<<< HEAD
 
     setSectionState((prevState) => ({
       ...prevState,
       subsection: sectionState.subsection.map((article, index) => {
-=======
-    if (name == "commonName") {
-      value = !e.target.checked;
-    }
-    setSectionState((prevState) => ({
-      ...prevState,
-      articles: sectionState.articles.map((article, index) => {
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         if (articleLen == index) {
           return { ...article, [name]: value };
         }
@@ -96,11 +69,7 @@ function Article({ articleLen, articleData }) {
           </button>
         </div>
       </div>
-<<<<<<< HEAD
       {/* <div className="flex justify-center">
-=======
-      <div className="flex justify-center">
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         <IsComponent
           state={isImage}
           setState={setIsImage}
@@ -109,15 +78,9 @@ function Article({ articleLen, articleData }) {
           sectionState={sectionState}
           setSectionState={setSectionState}
         />
-<<<<<<< HEAD
       </div> */}
 
       {/* <div>
-=======
-      </div>
-
-      <div>
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         <input
           type="checkbox"
           id="commonName"
@@ -125,7 +88,6 @@ function Article({ articleLen, articleData }) {
           onChange={changeHandler}
         />
         <label htmlFor="commonName">Премахни общото име</label>
-<<<<<<< HEAD
       </div> */}
       <Input
         type="text"
@@ -157,31 +119,6 @@ function Article({ articleLen, articleData }) {
         id="imageUrl"
         onChange={changeHandler}
       />
-=======
-      </div>
-      <Input
-        type="text"
-        placeholder="Име на артикула"
-        id="articleName"
-        value={articleData?.articleName}
-        onChange={changeHandler}
-      />
-      <Input
-        type="text"
-        placeholder="Описание"
-        id="description"
-        value={articleData?.description}
-        onChange={changeHandler}
-      />
-      {isImage && (
-        <Input
-          type="file"
-          placeholder="Снимка"
-          id="imageUrl"
-          onChange={changeHandler}
-        />
-      )}
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
       {itemsCons &&
         itemsCons.map((item, index) => {
           return (
@@ -196,11 +133,7 @@ function Article({ articleLen, articleData }) {
       <button
         type="button"
         onClick={() => addItem()}
-<<<<<<< HEAD
         className="flex justify-end px-10 py-2 ml-auto text-sm font-medium text-white rounded-md bg-primary-100"
-=======
-        className="flex justify-end px-10 py-2 ml-auto text-sm font-medium text-white rounded-md bg-primary-lighter"
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
       >
         Добави тип
       </button>

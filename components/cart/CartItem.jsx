@@ -4,7 +4,6 @@ import React from "react";
 import ImageAndListTableData from "./ImageAndListTableData";
 import LgScreenTableData from "./LgScreenTableData";
 import MobileScreenTableData from "./MobileScreenTableData";
-<<<<<<< HEAD
 
 export default function CartItem({ cartData, removeProduct, changeQty }) {
   let route;
@@ -23,20 +22,10 @@ export default function CartItem({ cartData, removeProduct, changeQty }) {
     price.promotionalPrice = cartData?.item?.item?.promotionalPrice;
   }
 
-=======
-// Translator
-import { translationToRoute } from "../../utils/translationToRoute";
-
-export default function CartItem({ cartData, removeProduct, changeQty }) {
-  const route = `/products/${translationToRoute(cartData.item.sectionName)}/${
-    cartData.item._id
-  }`;
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   return (
     <tr className="border-b border-gray-[#e4e7e6] flex flex-wrap lg:table-row justify-between items-center py-10 mb-10 gap-10 ">
       {/* Image plus list */}
       <ImageAndListTableData
-<<<<<<< HEAD
         cartName={name}
         route={route}
         imageUrl={cartData?.item?.article?.imgUrl}
@@ -48,26 +37,13 @@ export default function CartItem({ cartData, removeProduct, changeQty }) {
       {/* MObile version */}
       <MobileScreenTableData
         price={price}
-=======
-        listData={cartData?.item.types[0].split("\n")}
-        cartName={cartData?.item.articleName}
-        route={route}
-      />
-      {/* MObile version */}
-      <MobileScreenTableData
-        price={cartData?.item.price}
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         qty={cartData?.qty}
         removeProduct={removeProduct}
         changeQty={changeQty}
       />
       {/* Large screen version */}
       <LgScreenTableData
-<<<<<<< HEAD
         price={price}
-=======
-        price={cartData?.item.price}
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         qty={cartData?.qty}
         removeProduct={removeProduct}
         changeQty={changeQty}

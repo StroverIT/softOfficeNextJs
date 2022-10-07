@@ -2,7 +2,6 @@ const obzavejdaneZaOfisArt = [
   {
     menu: "Столове за аксесоари",
     subMenu: [
-<<<<<<< HEAD
       {
         displayName: "Столове",
         name: "stolove",
@@ -11,18 +10,11 @@ const obzavejdaneZaOfisArt = [
       // "Работни столове",
       // "Посетителски столове",
       // "Мека мебел",
-=======
-      "Мениджърски столове",
-      "Работни столове",
-      "Посетителски столове",
-      "Мека мебел",
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     ],
   },
   {
     menu: "Офис оборудване",
     subMenu: [
-<<<<<<< HEAD
       {
         displayName: "Метални шкафове и гардероби",
         name: "metalniShkafoveIGarderobi",
@@ -39,18 +31,11 @@ const obzavejdaneZaOfisArt = [
         displayName: "Стелажи и закачалки",
         name: "stelajIZakachalki",
       },
-=======
-      "Метални шкафове и гардероби",
-      "Сейфове и каси",
-      "Табло за ключове",
-      "Стелажии и закачалки",
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     ],
   },
   {
     menu: "Мебели",
     subMenu: [
-<<<<<<< HEAD
       {
         displayName: "Мека мебел",
         name: "sofas",
@@ -115,12 +100,6 @@ const obzavejdaneZaOfisArt = [
         displayName: "Серия Рикард",
         name: "seriqRikard",
       },
-=======
-      "Модулни мебели",
-      "Бюра с регулиране",
-      "Заседателни маси",
-      "Рецепции",
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     ],
   },
 ];

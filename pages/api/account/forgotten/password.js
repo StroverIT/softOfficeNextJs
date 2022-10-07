@@ -43,11 +43,7 @@ async function handler(req, res) {
     // MUST SEND A PASSWORD page to change password with token URL
     const message = `
       <h3>За сменяне на паролата в SoftOffice.bg.
-<<<<<<< HEAD
       </h2><a href="${process.env.HOST_URL}/account/changePassword/${user._id}/${token.token}">Цъкнете тук</a>
-=======
-      </h2><a href="${process.env.NEXTAUTH_URL}/account/changePassword/${user._id}/${token.token}">Цъкнете тук</a>
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
       `;
     // Sending email
     await sendEmail(
@@ -57,13 +53,9 @@ async function handler(req, res) {
       message
     );
     mongoose.connection.close();
-<<<<<<< HEAD
     return res
       .status(201)
       .json({ message: "Успешно изпратена заявка. Вижте си и-мейла" });
-=======
-    return res.status(201);
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   }
 }
 export default handler;

@@ -23,17 +23,11 @@ const Register = () => {
   const [inputs, setInputs] = useState(initialValues);
   const [errorMessages, setErrorMessages] = useState([]);
   const [disabled, setDisabled] = useState(true);
-<<<<<<< HEAD
   const [isLoading, setLoading] = useState(false);
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-=======
-
-  const onFormSubmit = async (e) => {
-    e.preventDefault();
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     if (errorMessages.length > 0) return;
     //POST form values
     const res = await fetch("/api/auth/signup", {
@@ -47,27 +41,12 @@ const Register = () => {
     //Await for data for any desirable next steps
     if (res.status != 201) {
       const data = await res.json();
-<<<<<<< HEAD
       setErrorMessages([...data.map((e) => e)]);
       setLoading(false);
       return;
     }
     // MUST SEND A EMAIL FOR VERIFICATION
 
-=======
-
-      setErrorMessages([...data.map((e) => e)]);
-      return;
-    }
-    // MUST SEND A EMAIL FOR VERIFICATION
-    await fetch("/api/account/forgotten/verifyingAcc", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email: inputs.email }),
-    });
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     // Redirect
     router.push("/account/verifyRegistration");
   };
@@ -120,11 +99,7 @@ const Register = () => {
               <p className="mt-1">
                 Вече имате профил?
                 <Link href="/account/login">
-<<<<<<< HEAD
                   <span className="ml-1 cursor-pointer text-primary-100 hover:font-bold">
-=======
-                  <span className="ml-1 cursor-pointer text-primary-lighter hover:font-bold">
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                     Вход
                   </span>
                 </Link>
@@ -192,11 +167,7 @@ const Register = () => {
                   >
                     Приемам
                     <Link href="/rulesAndPrivacy">
-<<<<<<< HEAD
                       <span className="mx-1 cursor-pointer text-primary-100 hover:underline">
-=======
-                      <span className="mx-1 cursor-pointer text-primary-lighter hover:underline">
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                         правилата и условията
                       </span>
                     </Link>
@@ -218,11 +189,7 @@ const Register = () => {
                   >
                     Приемам
                     <Link href="/rulesAndPrivacy">
-<<<<<<< HEAD
                       <span className="mx-1 cursor-pointer text-primary-100 hover:underline">
-=======
-                      <span className="mx-1 cursor-pointer text-primary-lighter hover:underline">
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                         условията за поверителност на лични данни
                       </span>
                     </Link>
@@ -232,20 +199,12 @@ const Register = () => {
               </div> */}
               <div className="flex items-center justify-center ">
                 <button
-<<<<<<< HEAD
                   className={`w-full px-4 py-2 font-bold text-white rounded shadow-md disabled:opacity-25 bg-primary hover:bg-primary focus:outline-none focus:shadow-outline flex items-center justify-center`}
                   type="submit"
                   disabled={disabled}
                 >
-                  {isLoading && <div className="loader text-sm"></div>}
+                  {isLoading && <div className="text-sm loader"></div>}
                   {!isLoading && "Регистрация"}
-=======
-                  className="w-full px-4 py-2 font-bold text-white rounded shadow-md disabled:opacity-25 bg-primary hover:bg-primary focus:outline-none focus:shadow-outline"
-                  type="submit"
-                  disabled={disabled}
-                >
-                  Регистрация
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                 </button>
               </div>
             </form>

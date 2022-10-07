@@ -1,15 +1,9 @@
 // NextJS
 import Head from "next/head";
 import Image from "next/image";
-<<<<<<< HEAD
 import Link from "next/link";
 // Components
 
-=======
-
-// Components
-import NavLinks from "../components/layouts/navComponents/navLinks";
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 import BtnOutlined from "../components/buttons/Outlined";
 import Icons from "../components/Icons/Icons";
 
@@ -20,7 +14,6 @@ import SwiperFreeMode from "../components/swiperJs/SwiperFreeMode";
 // Images
 const swiperPag = [
   {
-<<<<<<< HEAD
     src: "/carousel/hero_slides_1.png",
     key: "Xerox Performer",
     pageUrl: "/products/hartiq/61eb119d7815ce846f1745b3",
@@ -68,84 +61,6 @@ import { FaShieldAlt } from "react-icons/fa";
 import { TiStopwatch } from "react-icons/ti";
 
 export default function Home({ promotions }) {
-=======
-    src: "/images/testCarousel.jpg",
-    key: "test carousel for my monday 1",
-    pageUrl: "/products/product",
-  },
-  {
-    src: "/images/testImage2.png",
-    key: "test carousel for my monday version 2",
-    pageUrl: "/products/product",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    key: "test carousel for my monday version 3",
-    pageUrl: "/products/product",
-  },
-  {
-    src: "/images/testImage2.png",
-    key: "test carousel for my monday version 4",
-    pageUrl: "/products/product",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    key: "test carousel for my monday version 5",
-    pageUrl: "/products/product",
-  },
-  {
-    src: "/images/testImage2.png",
-    key: "test carousel for my monday version 6",
-    pageUrl: "/products/product",
-  },
-];
-const swiperFreeImages = [
-  {
-    src: "/images/testCarousel.jpg",
-    title: "Боя за коса",
-    price: 123,
-    isPromo: false,
-    pageUrl: "/products/product1",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "ШКАФ ЗА БАНЯ С ОГЛЕДАЛО SYNCHRO Т2108-80К",
-    price: 123,
-    isPromo: false,
-    pageUrl: "/products/product2",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "СМЕСИТЕЛ ЗА КУХНЯ FORMA VITA КРИСТАЛ",
-    price: 23.94,
-    isPromo: true,
-    pageUrl: "/products/product3",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "СМЕСИТЕЛ ЗА КУХНЯ FORMA VITA Диамант",
-    price: 1000.94,
-    isPromo: false,
-    pageUrl: "/products/product4",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "Шкаф за обувки",
-    price: 10,
-    isPromo: false,
-    pageUrl: "/products/product5",
-  },
-  {
-    src: "/images/testCarousel.jpg",
-    title: "Шкаф за дрехи",
-    price: 15,
-    isPromo: false,
-    pageUrl: "/products/product6",
-  },
-];
-
-export default function Home() {
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   return (
     <>
       <Head>
@@ -153,32 +68,16 @@ export default function Home() {
         <meta name="description" content="Онлайн магазин SoftOffice" />
       </Head>
 
-<<<<<<< HEAD
       <main className="pb-10 mb-auto bg-color">
         <section>
           <div className="shadow-md ">
             <section className="relative w-full ">
-=======
-      <main className="mb-auto bg-color">
-        <section className="">
-          <div className="container pb-2 mt-10 mb-10 bg-white shadow-lg">
-            <section className="lg:grid lg:space-x-2 lg:grid-cols-[25%75%] w-full relative lg:py-2">
-              <section className="z-10">
-                <h1 className="hidden pl-3 text-lg font-medium xl:block">
-                  Категории продукти
-                </h1>
-                <div className="mt-2">
-                  <NavLinks isHome={true} />
-                </div>
-              </section>
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
               <section className="relative flex items-center justify-center">
                 <SwiperPag images={swiperPag} navSize="3xl" />
               </section>
             </section>
           </div>
         </section>
-<<<<<<< HEAD
         <section className="container items-center justify-center my-10 text-5xl sm:flex sm:gap-x-5">
           <div className="flex flex-col items-center justify-center mb-5 sm:mb-0">
             <FaShieldAlt />
@@ -245,16 +144,16 @@ export default function Home() {
         <section className="container mt-10 mb-10">
           <SwiperFreeMode data={promotions} navSize="3xl" />
         </section>
-        <section className=" bg-color my-16">
+        <section className="my-16  bg-color">
           <div className="container">
             <section className="relative z-10 text-center index-title">
               <h3 className="inline px-4 mt-1 text-3xl font-medium bg-color">
                 Онлайн магазин SoftOffice
               </h3>
             </section>
-            <section className="items-center justify-center  my-5 lg:grid grid-cols-8">
-              <div className="mt-5 text-center sm:mb-5 lg:text-left lg:my-0 lg:w-5/6 py-10 col-span-4 col-start-2">
-                <span className="font-semibold text-gray-darker text-xl">
+            <section className="items-center justify-center grid-cols-8 my-5 lg:grid">
+              <div className="col-span-4 col-start-2 py-10 mt-5 text-center sm:mb-5 lg:text-left lg:my-0 lg:w-5/6">
+                <span className="text-xl font-semibold text-gray-darker">
                   Ние от Softoffice сме убедени, че Вие трябва да се чувствате
                   свободни при избора си, затова наш приоритет е предлагане на
                   услуги и комплексни решения от ново поколение, които да дават
@@ -280,19 +179,12 @@ export default function Home() {
           <h1 className="text-center">Тука ще има нашите партньори</h1>
         </section> */}
         <section className="pb-2 bg-color">
-=======
-        <section className="pt-3 pb-2 bg-color">
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
           <div className="container relative z-20 h-full bg-white shadow-lg">
             <section className="py-5 border custom-border-container border-gray-bord border-l-primary">
               <section className="container grid-cols-2 lg:grid">
                 <div className="">
                   <h2 className="mb-1 text-lg font-semibold">
-<<<<<<< HEAD
                     SoftOffice бюлетин
-=======
-                    СофтОфис бюлетин
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                   </h2>
                   <p className="mb-3 text-sm text-dark-400 lg:max-w-lg">
                     Абонирайте се за нашият онлайн бюлетин, за да получавате
@@ -327,11 +219,7 @@ export default function Home() {
                         <BtnOutlined
                           text="изпрати"
                           type="submit"
-<<<<<<< HEAD
                           custom="lg:hover:bg-primary-100 lg:hover:text-white"
-=======
-                          custom="lg:hover:bg-primary-lighter lg:hover:text-white"
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                         />
                       </div>
                     </div>
@@ -341,54 +229,10 @@ export default function Home() {
             </section>
           </div>
         </section>
-<<<<<<< HEAD
-=======
-        <section className="py-5 ">
-          <div className="container">
-            <h1 className="mb-3 text-xl font-semibold">
-              Месечни топ предложения
-            </h1>
-            <SwiperFreeMode images={swiperFreeImages} navSize="3xl" />
-          </div>
-        </section>
-        <section className=" bg-color">
-          <div className="container">
-            <section className="items-center justify-center grid-cols-2 my-5 lg:grid">
-              <div className="mt-5 text-center sm:mb-5 lg:text-left lg:my-0 lg:w-5/6">
-                <h2 className="py-2 text-2xl font-semibold ">
-                  За нас и нашият магазин
-                </h2>
-                <span className="font-semibold text-center text-gray-darker">
-                  Ние от Softoffice сме убедени, че Вие трябва да се чувствате
-                  свободни при избора си, затова наш приоритет е предлагане на
-                  услуги и комплексни решения от ново поколение, които да дават
-                  възможност Вие да покриете изискванията си максимално и да сте
-                  100% удовлетворени от партньорството с нас.
-                </span>
-              </div>
-
-              <div className="relative flex items-center justify-center w-full h-52 lg:h-96">
-                {/* Image  of the shop*/}
-
-                <Image
-                  src="/images/testCarousel.jpg"
-                  alt="atasda"
-                  layout="fill"
-                  objectFit="contain"
-                />
-              </div>
-            </section>
-          </div>
-        </section>
-        <section className="py-5 bg-color">
-          <h1 className="text-center">Тука ще има нашите партньори</h1>
-        </section>
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
       </main>
     </>
   );
 }
-<<<<<<< HEAD
 
 export async function getServerSideProps(context) {
   const promotionsRes = await fetch(
@@ -400,5 +244,3 @@ export async function getServerSideProps(context) {
     props: { promotions: data }, // will be passed to the page component as props
   };
 }
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e

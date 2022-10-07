@@ -14,12 +14,9 @@
 
 # production
 /build
-<<<<<<< HEAD
 /public/uploadsBackUp
 /public/uploads
 /public/imagesForUploading
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 
 # misc
 .DS_Store
@@ -31,15 +28,9 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-<<<<<<< HEAD
 
 # local env files
 .env*.local
 .env
-=======
-# local env files
-.env*.local
-
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 # vercel
 .vercel

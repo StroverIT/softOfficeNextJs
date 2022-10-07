@@ -6,10 +6,7 @@ import { ImExit } from "react-icons/im";
 // NextJs
 import Head from "next/head";
 import { useRouter } from "next/router";
-<<<<<<< HEAD
 // Mongodb
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 
 // Account components
 import MyDetails from "../../components/account/MyDetails/index";
@@ -71,15 +68,9 @@ export default function Index({ userData, deliveriesData, favData }) {
         <div className="">
           <div className="container items-start justify-center">
             <h3 className="text-3xl pt-7">Моят акаунт</h3>
-<<<<<<< HEAD
             <div className="lg:grid grid-cols-[20%80%] gap-10 my-10  relative ">
               <aside className="mb-4  md:mb-0 bg-[#f5f5f5]  my-2 h-full">
                 <ul className="sticky flex-wrap justify-center py-5 text-sm text-left top-28 sm:space-x-4 sm:flex lg:flex-col lg:space-x-0 lg:space-y-2">
-=======
-            <div className="lg:grid grid-cols-[20%80%] gap-10 my-10  relative">
-              <aside className="mb-4  md:mb-0 bg-[#f5f5f5]  my-2">
-                <ul className="justify-center py-5 text-sm text-left top-28 sm:space-x-4 sm:flex lg:flex-col lg:space-x-0 lg:space-y-2 md:sticky">
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                   <li className="my-1 cursor-pointer " ref={myDetails}>
                     {/*"Icon"*/}
                     <button
@@ -113,17 +104,12 @@ export default function Index({ userData, deliveriesData, favData }) {
                     <li className="pt-2 pb-5 my-1 sm:pt-0 sm:pb-1 lg:pt-10 ">
                       <button
                         onClick={() => router.push("/adminPanel")}
-<<<<<<< HEAD
                         className="px-2 py-2 text-sm font-semibold text-white border rounded-lg bg-primary-100 hover:bg-transparent border-primary-100 hover:text-primary-100"
-=======
-                        className="px-2 py-2 text-sm font-semibold text-white border rounded-lg bg-primary-lighter hover:bg-transparent border-primary-lighter hover:text-primary-lighter"
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                       >
                         Админ панел
                       </button>
                     </li>
                   )}
-<<<<<<< HEAD
                   {userData?.role == "boss" && (
                     <li className="pt-2 pb-5 my-1 sm:pt-0 sm:pb-1 lg:pt-10 ">
                       <button
@@ -134,8 +120,6 @@ export default function Index({ userData, deliveriesData, favData }) {
                       </button>
                     </li>
                   )}
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                   <li
                     className={`pt-10 pb-5 my-1 sm:pt-0 sm:pb-0 ${
                       userData?.role != "admin" ? "lg:pt-10" : "lg:pt-2"
@@ -169,10 +153,6 @@ export default function Index({ userData, deliveriesData, favData }) {
 export async function getServerSideProps(context) {
   const method = "POST";
   const headers = { "Content-Type": "application/json" };
-<<<<<<< HEAD
-
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   // Session
   const session = await getSession({ req: context.req });
   if (!session) {

@@ -17,10 +17,7 @@ const inputDataPersonal = [
     type: "text",
     isReq: true,
     iconType: "phoneNumber",
-<<<<<<< HEAD
     type: "phoneNumber",
-=======
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   },
 ];
 const inputDataEmail = [
@@ -93,15 +90,11 @@ export default function MyDetails({ userData }) {
     const data = {};
     // Body data
     for (const pair of formData.entries()) {
-<<<<<<< HEAD
       let input = pair[1];
       if (pair[0] == "phoneNumber") {
         input = pair[1].split(" ").join("");
       }
       data[pair[0]] = input;
-=======
-      data[pair[0]] = pair[1];
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     }
 
     const res = await fetch(`/api/account/${url}`, {
@@ -126,7 +119,6 @@ export default function MyDetails({ userData }) {
   return (
     <>
       <section>
-<<<<<<< HEAD
         <section className="my-8">
           <h2 className="text-3xl font-semibold text-center">
             Здравей,{" "}
@@ -136,11 +128,6 @@ export default function MyDetails({ userData }) {
             Тука може да промените вашите данни
           </h2>
         </section>
-=======
-        <h2 className="mt-5 mb-5 text-3xl font-semibold text-center">
-          Детайли на акаунта
-        </h2>
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 
         <section className="">
           <h4 className="py-1 text-xl font-semibold border-b border-gray">
@@ -182,17 +169,11 @@ export default function MyDetails({ userData }) {
               </p>
             </InnerSection>
             <InnerSection>
-<<<<<<< HEAD
               <div className="pb-2 text-gray-200">
                 Сегашен и-мейл: {userData.email}
               </div>
               {/* Message */}
               {email[0] && <Message text={email[0]} err={email[1]} />}
-=======
-              {/* Message */}
-              {email[0] && <Message text={email[0]} err={email[1]} />}
-
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
               <form onSubmit={(e) => submitHandler(e, urlFetch.email)}>
                 <SectionInputs inputs={inputDataEmail} />
               </form>
