@@ -133,15 +133,16 @@ function Delivery({ cart, userData, cities }) {
     let dds = subTotal * 0.2;
 
     let state = {
-      delivery: 10,
+      delivery: 0,
       totalPrice: subTotal + dds,
       dds,
       subTotal,
     };
 
-    if (state.totalPrice > 50) {
-      state.delivery = 0;
-    }
+    if (state.totalPrice <= 50 && orderState && orderState != MAGAZINE) {
+      state.delivery = 10;
+    } else state.delivery = 0;
+
     state.totalPrice = subTotal + dds + state.delivery;
     setPriceState(() => state);
     if (savedMoney > 0) {
@@ -150,7 +151,43 @@ function Delivery({ cart, userData, cities }) {
     setTypeOfOrder(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
+  useEffect(() => {
+    let savedMoney = 0;
+    let subTotal = parseFloat(
+      cart
+        .map((item) => {
+          let cena = item.item.item.cena;
+          if (item.item.item.isOnPromotions) {
+            savedMoney += item.item.item.cena - item.item.item.promotionalPrice;
+            cena = item.item.item.promotionalPrice;
+          }
 
+          return cena * item.qty;
+        })
+        .reduce((a, b) => a + b, 0)
+        .toFixed(2)
+    );
+
+    let dds = subTotal * 0.2;
+
+    let state = {
+      delivery: 0,
+      totalPrice: subTotal + dds,
+      dds,
+      subTotal,
+    };
+
+    if (state.totalPrice <= 50 && orderState && orderState != MAGAZINE) {
+      state.delivery = 10;
+    } else state.delivery = 0;
+
+    state.totalPrice = subTotal + dds + state.delivery;
+    setPriceState(() => state);
+    if (savedMoney > 0) {
+      setSavedMoney(savedMoney);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [orderState]);
   return (
     <>
       <Head>
@@ -230,7 +267,7 @@ function Delivery({ cart, userData, cities }) {
                     <textarea
                       placeholder="Напиши коментар..."
                       name="comment"
-                      className="w-full p-3 m-4 border border-gray-200 placeholder:text-gray-450 pb-14"
+                      className="w-full p-3 m-4 border border-gray-200 placeholder:text-gray-200 pb-14"
                       onChange={changeHandler}
                     ></textarea>
                   </section>

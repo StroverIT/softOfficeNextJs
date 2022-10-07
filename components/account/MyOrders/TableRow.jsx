@@ -12,34 +12,7 @@ function ListAddress({ text, value }) {
     </li>
   );
 }
-function ListProduct({ text }) {
-  return (
-    <li>
-      <span>{text[0]}: </span> <span>{text[1]}</span>
-    </li>
-  );
-}
-function CartItem({ data, itemQty }) {
-  const productName = `${data.section.name} ${data.article.name}`;
-  let price = data.item.cena;
-  if (data.item.isOnPromotions) {
-    price = data.item.promotionalPrice;
-  }
-  console.log(data);
-  return (
-    <>
-      <ListProduct text={["Име на продукта", productName]} />
 
-      <ListProduct text={["Ед. цена", parseFloat(price).toFixed(2)]} />
-      <ListProduct
-        text={["Обща цена", parseFloat(price * itemQty).toFixed(2)]}
-      />
-      <ListProduct
-        text={["Обща цена с ДДС", parseFloat(price * itemQty * 1.2).toFixed(2)]}
-      />
-    </>
-  );
-}
 export function TableRow({ id, date, total, status, isOld, fullData }) {
   const [menu, setMenu] = useState(false);
   useEffect(() => {
@@ -102,6 +75,7 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                       За адреса
                     </h3>
                     <ul>
+                      {console.log(fullData)}
                       {fullData?.addressInfo && (
                         <>
                           <ListAddress
@@ -120,6 +94,14 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                             text="Адрес:"
                             value={fullData.addressInfo.address}
                           />
+                          <ListAddress
+                            text="Цена на доставка:"
+                            value={
+                              fullData?.deliveryPrice > 0
+                                ? `${fullData?.deliveryPrice?.toFixed(2)} лв.`
+                                : "Безплатна"
+                            }
+                          />
                         </>
                       )}
                       <ListAddress text="Коментар:" value={fullData.comment} />
@@ -131,24 +113,71 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                       продукти
                     </h3>
 
-                    <section className="relative flex flex-wrap w-full gap-x-10 ">
-                      {fullData.cart.map((cart, index) => {
-                        return (
-                          <ul
-                            key={cart.item._id}
-                            className="relative w-full pb-5 mt-1 text-left"
-                          >
-                            <li>
-                              <span className="text-secondary">
-                                Продукт № {index}
-                              </span>{" "}
-                              - Бройки: {cart.qty}
-                            </li>
-                            <CartItem data={cart.item} itemQty={cart.qty} />
-                          </ul>
-                        );
-                      })}
-                    </section>
+                    <table className="w-full mt-5 table-auto">
+                      <thead>
+                        <th>Катномер</th>
+                        <th>Артикул</th>
+                        <th>Ед. цена</th>
+                        <th>Бройки</th>
+                        <th>Общо</th>
+                        <th>Общо с ДДС</th>
+                      </thead>
+                      <tbody>
+                        {fullData.cart.map((product, index) => {
+                          const name = `${product.item.section.name} ${product.item.article.name}`;
+
+                          let price = product.item.item.cena;
+                          if (product.item.item.isOnPromotions) {
+                            price = product.item.item.promotionalPrice;
+                          }
+                          return (
+                            <tr
+                              key={product.item._id}
+                              className="relative p-5 mb-5 text-center border border-green"
+                            >
+                              <td>{product.item.item.katNomer}</td>
+                              <td className="pl-2 border border-primary-100">
+                                {name}{" "}
+                                {product.item.item.tipove
+                                  .split(";")
+                                  .slice(0, 5)
+                                  .map(
+                                    (item) =>
+                                      `${
+                                        item.split(": ")[1]
+                                          ? item.split(": ")[1]
+                                          : ""
+                                      } `
+                                  )}
+                              </td>
+                              <td>{parseFloat(price).toFixed(2)}</td>
+
+                              <td> {product.qty}</td>
+
+                              <td>
+                                {parseFloat(price * product.qty).toFixed(2)}
+                              </td>
+                              <td>
+                                {" "}
+                                {parseFloat(price * product.qty * 1.2).toFixed(
+                                  2
+                                )}
+                              </td>
+
+                              {/* <div className="flex items-center justify-center">
+                          <div className="relative w-28 h-28">
+                            <Image
+                              src={`/uploads/${product.item.article.imgUrl}`}
+                              layout="fill"
+                              alt={product.item.imageUrl}
+                            />
+                          </div>
+                        </div> */}
+                            </tr>
+                          );
+                        })}
+                      </tbody>
+                    </table>
                   </section>
                 </div>
                 {/* Absolute category (you know :D) */}

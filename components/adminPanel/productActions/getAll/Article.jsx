@@ -55,7 +55,7 @@ export default function Article({ sectionName, sectionId, subsection, img }) {
   };
   return (
     <section
-      className="p-5 my-2 border border-primary-300"
+      className="w-full p-5 my-2 border border-primary-300"
       key={subsection._id}
     >
       <div className="flex items-center">
@@ -100,7 +100,7 @@ export default function Article({ sectionName, sectionId, subsection, img }) {
             >
               <div className="flex justify-end select-none">
                 <div
-                  className="cursor-pointer text-secondary text-xl"
+                  className="text-xl cursor-pointer text-secondary"
                   onClick={itemRemoveHandler.bind({}, index)}
                 >
                   <HiX />
@@ -132,18 +132,18 @@ export default function Article({ sectionName, sectionId, subsection, img }) {
           );
         })}
         <div
-          className="flex items-center justify-center text-3xl text-orange my-5 cursor-pointer select-none"
+          className="flex items-center justify-center my-5 text-3xl cursor-pointer select-none text-orange"
           onClick={addItemsHandler}
         >
           <AiOutlinePlusCircle />
-          <span className="text-sm pl-1">Добави артикули</span>
+          <span className="pl-1 text-sm">Добави артикули</span>
         </div>
         {itemsToAdd.length > 0 && (
           <div
-            className="flex  my-8 cursor-pointer select-none "
+            className="flex my-8 cursor-pointer select-none "
             onClick={itemFetchHandler}
           >
-            <button className="bg-green text-white hover:bg-transparent hover:text-green border-green border py-1 px-5">
+            <button className="px-5 py-1 text-white border bg-green hover:bg-transparent hover:text-green border-green">
               Изпрати заявка за добавяне
             </button>
           </div>

@@ -1,6 +1,7 @@
 // React things
 import React, { useState, useEffect } from "react";
 import { InputContext } from "./getAll/Context";
+import { ArticleContext } from "./adding/Context";
 
 // NextJs
 import Image from "next/image";
@@ -10,7 +11,7 @@ import Edit from "./getAll/Edit";
 import Article from "./getAll/Article";
 import ItemsEdit from "./getAll/ItemsEdit";
 import Input from "./getAll/Input";
-import Outlined from "../../buttons/Outlined";
+import ArticleCreate from "./adding/Article";
 
 // Notifications
 import {
@@ -22,6 +23,7 @@ import {
 
 // Fetches
 import { edit } from "../../../services/productServiceFetch";
+import { AiOutlinePlusCircle } from "react-icons/ai";
 
 // Icons
 
@@ -29,6 +31,8 @@ export default function GetAll({ product, setMenuImgData }) {
   const [inputs, setInputs] = useState(product);
   const [isForm, setIsForm] = useState(false);
   const [openImgMenu, setOpenImgMenu] = useState(false);
+
+  const [articles, setArticles] = useState([]);
 
   const changeHandler = (e) => {
     const name = e.target.name;
@@ -88,6 +92,37 @@ export default function GetAll({ product, setMenuImgData }) {
     }
   };
 
+  const addArticle = () => {
+    setArticles((prevState) => [
+      ...prevState,
+      { items: [], tiput: "", opisanie: "", nameToDisplay: "" },
+    ]);
+  };
+  const submitArticleHandler = async (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("sectionId", product._id);
+    // formData.append("subsection", JSON.stringify(articles));
+
+    const subsection = articles.map((article, index) => {
+      // Object.entries(article).forEach((onlyArt) => {
+      //   console.log(onlyArt);
+      // });
+      formData.append("article", article.imageUrl);
+      article.imageUrl = article.imageUrl.name;
+      console.log(article);
+      return article;
+    });
+    formData.append("subsection", JSON.stringify(subsection));
+
+    const options = {
+      method: "POST",
+      body: formData,
+    };
+    const res = await fetch("/api/products/addArticles", options);
+    const data = await res.json();
+    console.log(data);
+  };
   return (
     <InputContext.Provider value={{ inputs, setInputs, setMenuImgData }}>
       <section className="p-2 mb-10 border border-primary md:p-5">
@@ -120,6 +155,35 @@ export default function GetAll({ product, setMenuImgData }) {
                         />
                       );
                     })}
+                    <ArticleContext.Provider value={{ articles, setArticles }}>
+                      {articles &&
+                        articles.map((article, index) => {
+                          return (
+                            <ArticleCreate
+                              key={index}
+                              articleData={article}
+                              articleLen={index}
+                            />
+                          );
+                        })}
+                    </ArticleContext.Provider>
+                    {articles.length > 0 && (
+                      <button
+                        className="px-10 py-2 text-white border border-green bg-green hover:bg-transparent hover:text-green"
+                        onClick={submitArticleHandler}
+                      >
+                        Изпрати заявка за подсекциите
+                      </button>
+                    )}
+                    <div className="flex items-center justify-center w-full py-5">
+                      <div
+                        className="flex items-center justify-center my-5 font-sans text-4xl cursor-pointer select-none text-primary"
+                        onClick={addArticle}
+                      >
+                        <AiOutlinePlusCircle />
+                        <span className="pl-1 text-lg ">Добави подсекция</span>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

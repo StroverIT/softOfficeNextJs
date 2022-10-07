@@ -107,6 +107,7 @@ export default async function handler(req, res) {
 
     if (inputs.typeOfDelivery == DELIVERY) {
       const address = inputs.address;
+      data.deliveryPrice = dostavka;
       data.addressInfo = {
         name: address.fullName,
         telephone: address.phoneNumber,

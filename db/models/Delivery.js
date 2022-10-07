@@ -14,6 +14,7 @@ const deliveryScheme = new Schema({
   comment: String,
   totalPrice: { type: Number, required: true },
   ownerId: { type: Schema.Types.ObjectId, ref: "User" },
+  deliveryPrice: Number,
   status: {
     type: String,
     default: "progress",

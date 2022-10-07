@@ -58,38 +58,54 @@ export default function Product({ delivery }) {
         )}
         <div className="relative ">
           <h3 className="font-semibold uppercase">Продукти:</h3>
-          {cart &&
-            cart.map((product) => {
-              const name = `${product.item.section.name} ${product.item.article.name}`;
+          <table className="w-full table-auto ">
+            <thead>
+              <th>Катномер</th>
+              <th>Артикул</th>
+              <th>Ед. цена</th>
+              <th>Бройки</th>
+              <th>Общо</th>
+              <th>Общо с ДДС</th>
+            </thead>
+            <tbody>
+              {cart &&
+                cart.map((product) => {
+                  const name = `${product.item.section.name} ${product.item.article.name}`;
 
-              let price = product.item.item.cena;
-              if (product.item.item.isOnPromotions) {
-                price = product.item.item.promotionalPrice;
-              }
+                  let price = product.item.item.cena;
+                  if (product.item.item.isOnPromotions) {
+                    price = product.item.item.promotionalPrice;
+                  }
 
-              return (
-                <ul
-                  key={product.item._id}
-                  className="relative p-5 mb-5 border border-green"
-                >
-                  <li className="pl-2 border border-primary-100">
-                    <div>Име на продукта: {name}</div>
-                    <div>Типът на продукта </div>
-                    <ul className="pl-2 ml-2 border-l border-primary-200">
-                      {product.item.item.tipove.split(";").map((type) => {
-                        return <li key={type}>{type}</li>;
-                      })}
-                    </ul>
-                  </li>
-                  <li>Бройки: {product.qty}</li>
-                  <li>Ед. цена: {parseFloat(price).toFixed(2)}</li>
-                  <li>Общо: {parseFloat(price).toFixed(2) * product.qty}</li>
-                  <li>
-                    Общо с ддс:{" "}
-                    {parseFloat(price * product.qty * 1.2).toFixed(2)}
-                  </li>
+                  return (
+                    <tr
+                      key={product.item._id}
+                      className="relative p-5 mb-5 text-center border border-green"
+                    >
+                      <td>{product.item.item.katNomer}</td>
+                      <td className="pl-2 border border-primary-100">
+                        {name}{" "}
+                        {product.item.item.tipove
+                          .split(";")
+                          .slice(0, 5)
+                          .map(
+                            (item) =>
+                              `${
+                                item.split(": ")[1] ? item.split(": ")[1] : ""
+                              } `
+                          )}
+                      </td>
+                      <td>{parseFloat(price).toFixed(2)}</td>
 
-                  {/* <div className="flex items-center justify-center">
+                      <td> {product.qty}</td>
+
+                      <td>{parseFloat(price * product.qty).toFixed(2)}</td>
+                      <td>
+                        {" "}
+                        {parseFloat(price * product.qty * 1.2).toFixed(2)}
+                      </td>
+
+                      {/* <div className="flex items-center justify-center">
                     <div className="relative w-28 h-28">
                       <Image
                         src={`/uploads/${product.item.article.imgUrl}`}
@@ -98,9 +114,11 @@ export default function Product({ delivery }) {
                       />
                     </div>
                   </div> */}
-                </ul>
-              );
-            })}
+                    </tr>
+                  );
+                })}
+            </tbody>
+          </table>
         </div>
       </div>
       <div className="absolute top-0 left-0 flex flex-wrap justify-between w-full text-primary-100">
