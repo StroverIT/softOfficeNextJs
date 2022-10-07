@@ -23,10 +23,10 @@ const tehnikiKonsymativiArt = [
         displayName: "Подвързващи машини",
         name: "podvurzvashtaMashina",
       },
-      // {
-      //   displayName: "Ламинаторир, ламинати",
-      //   name: "",
-      // },
+      {
+        displayName: "Ламинаторир и консумативи",
+        name: "laminatoriIKonsymativi",
+      },
       {
         displayName: "Флуид за шредери",
         name: "fluidZaShrederi",

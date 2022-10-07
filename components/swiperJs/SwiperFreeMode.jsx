@@ -85,10 +85,7 @@ export default function SwiperPromo({ data, navSize }) {
             const sum =
               (product.item.promotionalPrice / product.item.cena) * 100;
             const percentageRate = (100 - sum).toFixed(2).split(".");
-            let pageUrl =
-              product.itemLen > 1
-                ? `${product.section.name}/${product.subsection._id}#${product.item._id}`
-                : `${product.section.name}/${product.subsection._id}`;
+            let pageUrl = `${product.section.name}/${product.subsection._id}`;
 
             const name = `${product.section.nameToDisplay} ${product.subsection.nameToDisplay}`;
             return (

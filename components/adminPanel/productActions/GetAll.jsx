@@ -29,6 +29,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 
 export default function GetAll({ product, setMenuImgData }) {
   const [inputs, setInputs] = useState(product);
+  const [productMenu, setProductMenu] = useState(false);
   const [isForm, setIsForm] = useState(false);
   const [openImgMenu, setOpenImgMenu] = useState(false);
 
@@ -185,7 +186,7 @@ export default function GetAll({ product, setMenuImgData }) {
                       </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
             </>
           )}
@@ -258,12 +259,21 @@ export default function GetAll({ product, setMenuImgData }) {
               })}
             </div>
           )}
-          <div className="absolute top-0 right-0">
-            <Edit
-              clickHandler={() => setIsForm(!isForm)}
-              theme={!isForm ? "blueLight" : "red"}
-              text={!isForm ? "Редактирай" : "Откажи"}
-            />
+          <div className="absolute top-0 right-0 flex flex-col items-end justify-end space-y-2">
+            <div>
+              <Edit
+                clickHandler={() => setIsForm(!isForm)}
+                theme={!isForm ? "blueLight" : "red"}
+                text={!isForm ? "Редактирай" : "Откажи"}
+              />
+            </div>
+            <div>
+              <Edit
+                clickHandler={() => setProductMenu(!productMenu)}
+                theme={!productMenu ? "green" : "red"}
+                text={!productMenu ? "Покажи продуктите" : "Скрий продуктите"}
+              />
+            </div>
           </div>
         </section>
       </section>
