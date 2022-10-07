@@ -157,6 +157,37 @@ export default function GetAll({ product, setMenuImgData }) {
                           />
                         );
                       })}
+                      <ArticleContext.Provider
+                        value={{ articles, setArticles }}
+                      >
+                        {articles.map((article, index) => {
+                          return (
+                            <ArticleCreate
+                              key={index}
+                              articleLen={index}
+                              articleData={article}
+                            />
+                          );
+                        })}
+                      </ArticleContext.Provider>
+                      <div
+                        className="flex items-center justify-center w-full my-5 text-3xl cursor-pointer select-none text-primary-trans"
+                        onClick={addArticle}
+                      >
+                        <AiOutlinePlusCircle />
+                        <span className="pl-1 text-2xl">Добави артикули</span>
+                      </div>
+                      {articles.length > 0 && (
+                        <div className="">
+                          <button
+                            type="button"
+                            onClick={submitArticleHandler}
+                            className="flex justify-center py-2 mx-auto font-medium text-white rounded-md bg-green px-14 "
+                          >
+                            Изпрати заявка
+                          </button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
