@@ -11,41 +11,15 @@ export default function MobileScreenTableData({
   removeProduct,
   changeQty,
 }) {
-<<<<<<< HEAD
-  let totalPrice = (price.fixedPrice * qty).toFixed(2).split(".");
-=======
   let totalPrice = (price * qty).toFixed(2).split(".");
   price = price.toFixed(2).split(".");
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 
   return (
     <td className="flex flex-col justify-center w-full mt-5 lg:hidden">
       <div className="flex items-center justify-center my-1 ">
         <div className="lg:px-3 flex flex-col sm:items-start sm:-mb-[3rem] sm:mx-auto sm:ml-2 w-full">
           <div className="text-sm text-center text-gray-250 ">Ед. цена</div>
-<<<<<<< HEAD
-
-          {!price.promotionalPrice && (
-            <Price
-              price={parseFloat(price.fixedPrice).toFixed(2).split(".")[0]}
-              priceDec={parseFloat(price.fixedPrice).toFixed(2).split(".")[1]}
-              size="2xl"
-            />
-          )}
-          {price.promotionalPrice && (
-            <Price
-              price={
-                parseFloat(price.promotionalPrice).toFixed(2).split(".")[0]
-              }
-              priceDec={
-                parseFloat(price.promotionalPrice).toFixed(2).split(".")[1]
-              }
-              size="2xl"
-            />
-          )}
-=======
           <Price price={price[0]} priceDec={price[1]} size="2xl" />
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         </div>
 
         <div className="lg:px-3 flex flex-col sm:items-end sm:-mb-[3rem] sm:mx-auto sm:mr-2 w-full">
@@ -55,11 +29,7 @@ export default function MobileScreenTableData({
       </div>
       <div>
         <QunityInput
-<<<<<<< HEAD
-          contClass="w-1/2 mx-auto mt-2 "
-=======
           contClass="w-1/2 mx-auto mt-2 lg:mt-10"
->>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
           cartQty={qty}
           changeQty={changeQty}
         />

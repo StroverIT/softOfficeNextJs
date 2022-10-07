@@ -134,56 +134,29 @@ export default function GetAll({ product, setMenuImgData }) {
                 <div>Име: {product.name}</div>
                 <div>Името което се показва: {product.nameToDisplay}</div>
 
-                <div className="p-5 my-2 border border-primary-50">
-                  <h1 className="text-lg font-bold text-center text-primary-500">
-                    Продукти:
-                  </h1>
-                  <div className="flex flex-wrap items-center p-2 my-2 border border-primary-200">
-                    {product.subsection.map((subsection) => {
-                      let img = "nqma";
-                      if (subsection.img) {
-                        img =
-                          subsection?.img.originalname ||
-                          subsection?.img[0]?.originalname;
-                      }
-                      return (
-                        <Article
-                          key={subsection._id}
-                          sectionName={product.name}
-                          sectionId={product._id}
-                          subsection={subsection}
-                          img={img}
-                        />
-                      );
-                    })}
-                    <ArticleContext.Provider value={{ articles, setArticles }}>
-                      {articles &&
-                        articles.map((article, index) => {
-                          return (
-                            <ArticleCreate
-                              key={index}
-                              articleData={article}
-                              articleLen={index}
-                            />
-                          );
-                        })}
-                    </ArticleContext.Provider>
-                    {articles.length > 0 && (
-                      <button
-                        className="px-10 py-2 text-white border border-green bg-green hover:bg-transparent hover:text-green"
-                        onClick={submitArticleHandler}
-                      >
-                        Изпрати заявка за подсекциите
-                      </button>
-                    )}
-                    <div className="flex items-center justify-center w-full py-5">
-                      <div
-                        className="flex items-center justify-center my-5 font-sans text-4xl cursor-pointer select-none text-primary"
-                        onClick={addArticle}
-                      >
-                        <AiOutlinePlusCircle />
-                        <span className="pl-1 text-lg ">Добави подсекция</span>
-                      </div>
+                {productMenu && (
+                  <div className="p-5 mt-10 mb-2 border border-primary-50">
+                    <h1 className="text-lg font-bold text-center text-primary-500">
+                      Продукти:
+                    </h1>
+                    <div className="flex flex-wrap items-center p-2 my-2 border border-primary-200">
+                      {product.subsection.map((subsection) => {
+                        let img = "nqma";
+                        if (subsection.img) {
+                          img =
+                            subsection?.img.originalname ||
+                            subsection?.img[0]?.originalname;
+                        }
+                        return (
+                          <Article
+                            key={subsection._id}
+                            sectionName={product.name}
+                            sectionId={product._id}
+                            subsection={subsection}
+                            img={img}
+                          />
+                        );
+                      })}
                     </div>
                   </div>
                 )}
