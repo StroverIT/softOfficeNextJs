@@ -30,6 +30,10 @@ const AccInput = ({
             type={type}
             placeholder={placeholder}
             value={value}
+<<<<<<< HEAD
+=======
+            defaultValue={defValue}
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
             onChange={onChange}
           />
         </div>

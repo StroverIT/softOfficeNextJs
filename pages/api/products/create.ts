@@ -56,6 +56,7 @@ const handler = async (
       };
     }
     const sectionImg = files.media || null;
+<<<<<<< HEAD
 
     let articleImg = [];
     let itemImg = [];
@@ -74,6 +75,26 @@ const handler = async (
     let formatedFields = articlesFormater(fields, articleImg);
 
     await Product.create(formatedFields);
+=======
+    let articleImg = [];
+    let itemImg = [];
+
+    if (sectionImg) {
+      fields.imageUrl = sectionImg.newFilename;
+    }
+    if (files.article) {
+      articleImg = imageGetSanitizer(files.article);
+    }
+    if (files.item) {
+      itemImg = imageGetSanitizer(files.item);
+    }
+
+    // Articles set image
+    let formatedFields = articlesFormater(fields, articleImg, itemImg);
+
+    await Product.create(formatedFields);
+    // const product = new Product(formatedFields).save();
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     let data: { message: string; error: any; data: any } = {
       message: "Успешно създадена секция",
       error: null,

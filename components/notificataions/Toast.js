@@ -1,9 +1,16 @@
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+<<<<<<< HEAD
 import ProductNotif from "./ProductNotif";
 const options = {
   autoClose: 4000,
   className: "text-sm text-dark",
+=======
+
+const options = {
+  autoClose: 4000,
+  className: "text-sm text-gray",
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   position: toast.POSITION.TOP_RIGHT,
 };
 const promiseOptions = {
@@ -11,6 +18,7 @@ const promiseOptions = {
   className: "",
   position: toast.POSITION.TOP_CENTER,
 };
+<<<<<<< HEAD
 const optionsTest = {
   position: "top-right",
   autoClose: -1,
@@ -29,6 +37,8 @@ export const toastProduct = (productName) => {
   toast.success(`${productName} беше добавен успешно в количката`, options);
 };
 
+=======
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 export const toastPromise = (message) => {
   toast.loading(message, promiseOptions);
 };

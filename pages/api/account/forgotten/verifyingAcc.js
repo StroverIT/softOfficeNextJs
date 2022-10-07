@@ -45,7 +45,11 @@ async function handler(req, res) {
     }
     const message = `
       <h3>За потвърждаване на имейла в SoftOffice.bg.
+<<<<<<< HEAD
       </h2><a href="${process.env.HOST_URL}/account/verifyAccountToken/${user._id}/${token.token}">Цъкнете тук</a>
+=======
+      </h2><a href="${process.env.NEXTAUTH_URL}/account/verifyAccountToken/${user._id}/${token.token}">Цъкнете тук</a>
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
       `;
     // Sending email
     await sendEmail(

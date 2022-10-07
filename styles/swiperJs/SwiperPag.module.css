@@ -28,6 +28,10 @@
   display: block;
   width: 100%;
   height: 100%;
+<<<<<<< HEAD
+=======
+  object-fit: cover;
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 }
 .paginationCont {
   z-index: 10;
@@ -41,7 +45,11 @@
   justify-content: center;
   align-items: center;
   padding: 0.5rem 0.5rem;
+<<<<<<< HEAD
   background-color: theme("colors.primary.500");
+=======
+  background-color: theme("colors.primary");
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 }
 .pagination {
   display: flex;

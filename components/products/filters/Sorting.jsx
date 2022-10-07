@@ -5,7 +5,11 @@ function Option({ value, text }) {
 }
 
 function Quantity({ qty }) {
+<<<<<<< HEAD
   return <span className="pl-1 text-sm text-primary-100">{qty}</span>;
+=======
+  return <span className="pl-1 text-sm text-primary-lighter">{qty}</span>;
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 }
 export default function Sorting({ title, name, data, qty, setFilters }) {
   const changeHandler = (e) => {

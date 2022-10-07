@@ -86,6 +86,7 @@ const Navbar = ({ cartTotalQty }) => {
       className={`z-50 animate sticky top-0  ${show ? "animateUp" : ""}`}
       ref={headerRef}
     >
+<<<<<<< HEAD
       <nav className={`flex bg-[#0D6EFD] ${style.cShadow}`}>
         <div className="container relative flex items-center justify-between ">
           <div className="flex items-center justify-center h-full">
@@ -105,6 +106,23 @@ const Navbar = ({ cartTotalQty }) => {
                 type="button"
                 className="w-full h-full text-white group-hover:text-primary-100"
               >
+=======
+      <nav className={`flex bg-color ${style.cShadow}`}>
+        <div className="container relative flex items-center justify-between ">
+          <div className="flex items-center justify-center logo">
+            <Hamburger headRef={headerRef} />
+            <Link href="/">
+              <div className="items-center justify-between hidden text-3xl font-bold cursor-pointer lg:flex text-primary-lighter lg:ml-1">
+                <span className="">Soft</span>
+                <span>Office.bg</span>
+              </div>
+            </Link>
+            <li
+              className="flex items-center justify-center px-2 cursor-pointer lg:hidden hover:text-white hover:bg-gray h-14"
+              onClick={() => setShowSearch(!showSearch)}
+            >
+              <button type="button" className="w-full h-full">
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                 <svg
                   className="w-5 h-5"
                   fill="currentColor"
@@ -118,9 +136,15 @@ const Navbar = ({ cartTotalQty }) => {
           </div>
           <div className="lg:hidden">
             <Link href="/">
+<<<<<<< HEAD
               <div className="flex items-center justify-between text-sm font-bold cursor-pointer lg:block text-primary-100 lg:ml-1">
                 <span className="text-primary-100">Soft</span>
                 <span className="text-white">Office.bg</span>
+=======
+              <div className="flex items-center justify-between text-sm font-bold cursor-pointer lg:block text-primary-lighter lg:ml-1">
+                <span className="">Soft</span>
+                <span>Office.bg</span>
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
               </div>
             </Link>
           </div>
@@ -128,6 +152,7 @@ const Navbar = ({ cartTotalQty }) => {
           <ul className={`${style.list} flex items-center justify-center `}>
             {/* Search icon */}
             <li
+<<<<<<< HEAD
               className="items-center justify-center hidden px-4 text-2xl transition-colors lg:flex h-14 lg:h-20 hover:bg-white group"
               onClick={() => setShowSearch(!showSearch)}
             >
@@ -135,31 +160,57 @@ const Navbar = ({ cartTotalQty }) => {
                 <AiOutlineSearch className="icon" />
               </div>
               <div className="pl-1 font-sans text-sm font-medium text-white group-hover:text-primary-100">
+=======
+              className="items-center justify-center hidden px-4 lg:flex h-14 lg:h-20 hover:bg-gray "
+              onClick={() => setShowSearch(!showSearch)}
+            >
+              <div className="text-xl">
+                <AiOutlineSearch className="icon" />
+              </div>
+              <div className="pl-1 font-sans text-sm font-extralight">
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                 Търси
               </div>
             </li>
             {/* Favourite items */}
             <Link href="/account#my-favourites">
+<<<<<<< HEAD
               <li className="flex-col items-center justify-center hidden px-4 transition-colors lg:flex h-14 lg:h-20 group hover:bg-white">
                 <div className="text-3xl text-white group-hover:text-primary-100">
+=======
+              <li className="flex-col items-center justify-center hidden px-4 lg:flex h-14 lg:h-20 hover:text-white hover:bg-gray">
+                <div className="text-3xl">
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                   <AiOutlineHeart className="icon" />
                 </div>
               </li>
             </Link>
             {/* Account */}
             <Link href="/account">
+<<<<<<< HEAD
               <li className="flex flex-col items-center justify-center px-4 transition-colors h-14 lg:h-20 group hover:bg-white ">
                 <div className="text-2xl text-white md:text-3xl group-hover:text-primary-100">
+=======
+              <li className="flex flex-col items-center justify-center px-4 h-14 lg:h-20 hover:text-white hover:bg-gray">
+                <div className="text-2xl md:text-3xl">
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                   <AiOutlineUser className="icon" />
                 </div>
               </li>
             </Link>
             {/* Cart */}
             <Link href="/cart">
+<<<<<<< HEAD
               <li className="relative flex flex-col items-center justify-center px-4 transition-colors h-14 lg:h-20 group hover:bg-white">
                 <div className="relative text-2xl text-white md:text-3xl group-hover:text-primary-100">
                   <BsCart3 className="icon" />
                   <div className="absolute md:px-2 md:py-1 px-[0.50rem] md:text-sm h-7 flex items-center justify-center text-[0.65rem] font-bold text-white border-2 border-white rounded-full -right-3 -top-3 bg-primary-100">
+=======
+              <li className="relative flex flex-col items-center justify-center px-4 h-14 lg:h-20 hover:text-white hover:bg-gray">
+                <div className="relative text-2xl md:text-3xl">
+                  <BsCart3 className="icon" />
+                  <div className="absolute md:px-2 md:py-1 px-[0.50rem] md:text-sm h-7 flex items-center justify-center text-[0.65rem] font-bold text-white border-2 border-white rounded-full -right-3 -top-3 bg-primary">
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                     {cartNum}
                   </div>
                 </div>
@@ -190,13 +241,21 @@ const Navbar = ({ cartTotalQty }) => {
           </div>
         </div>
         {searchTabInputs?.katNomera?.length > 0 ||
+<<<<<<< HEAD
         searchTabInputs?.subSections?.length > 0 ||
+=======
+        searchTabInputs?.articleNames?.length > 0 ||
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         searchTabInputs?.sections?.length > 0 ? (
           <div className="">
             <div className="container overflow-auto shadow-lg h-96">
               {searchTabInputs.katNomera?.length > 0 && (
                 <div className="w-full py-1 bg-white ">
+<<<<<<< HEAD
                   <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-100">
+=======
+                  <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-lighter">
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                     КатНомера
                   </h3>
                   <ul>
@@ -207,10 +266,19 @@ const Navbar = ({ cartTotalQty }) => {
                             <span className="text-lg text-green">
                               {item.katNomer} -
                             </span>
+<<<<<<< HEAD
                             <span>{item.name}</span>
                             <ul className="flex flex-wrap text-sm">
                               {item.types
                                 .split(";")
+=======
+                            <span>
+                              {item.commonName} {item.articleName}
+                            </span>
+                            <ul className="flex flex-wrap text-sm">
+                              {item.types[0]
+                                .split("\n")
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                                 .slice(0, 5)
                                 .map((type, index) => {
                                   return (
@@ -230,6 +298,7 @@ const Navbar = ({ cartTotalQty }) => {
                   </ul>
                 </div>
               )}
+<<<<<<< HEAD
               {searchTabInputs.subSections?.length > 0 && (
                 <div className="w-full bg-white ">
                   <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-100">
@@ -237,11 +306,24 @@ const Navbar = ({ cartTotalQty }) => {
                   </h3>
                   <ul>
                     {searchTabInputs.subSections?.map((item) => {
+=======
+              {searchTabInputs.articleNames?.length > 0 && (
+                <div className="w-full bg-white ">
+                  <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-lighter">
+                    Артикули
+                  </h3>
+                  <ul>
+                    {searchTabInputs.articleNames?.map((item) => {
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                       return (
                         <Link key={item._id} href={`/products/${item.route}`}>
                           <li className="px-2 py-1 transition-transform border-b cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white border-primary">
                             <span className="text-lg text-green">
+<<<<<<< HEAD
                               {item.name}
+=======
+                              {item.commonName} {item.articleName}
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                             </span>
                             <ul className="flex flex-wrap text-sm">
                               {item.types[0]
@@ -267,15 +349,25 @@ const Navbar = ({ cartTotalQty }) => {
               )}
               {searchTabInputs.sections?.length > 0 && (
                 <div className="w-full bg-white">
+<<<<<<< HEAD
                   <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-100">
+=======
+                  <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-lighter">
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                     Секции
                   </h3>
                   <ul>
                     {searchTabInputs.sections.map((item) => {
                       return (
+<<<<<<< HEAD
                         <Link key={item._id} href={`/products/${item.name}`}>
                           <li className="px-2 py-1 transition-transform cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white">
                             {item.nameToDisplay}
+=======
+                        <Link key={item._id} href={`/products/${item.route}`}>
+                          <li className="px-2 py-1 transition-transform cursor-pointer hover:-translate-y-1 hover:bg-primary hover:text-white">
+                            {item.sectionName}
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                           </li>
                         </Link>
                       );

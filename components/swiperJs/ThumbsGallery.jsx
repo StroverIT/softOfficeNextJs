@@ -19,9 +19,15 @@ import SwiperNav from "./SwiperNav";
 import { FreeMode, Navigation, Thumbs, Zoom } from "swiper";
 
 const dictionary = {
+<<<<<<< HEAD
   lg: "lg:h-[35rem]",
 };
 export default function ThumsGallery({ navSize, image }) {
+=======
+  lg: "lg:h-[21rem]",
+};
+export default function ThumsGallery({ navSize }) {
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
 
   return (
@@ -43,6 +49,7 @@ export default function ThumsGallery({ navSize, image }) {
           className="relative mySwiper2"
         >
           <SwiperSlide>
+<<<<<<< HEAD
             <section className="sm:px-24">
               <div
                 className={`relative  h-96 sm:h-[30rem] md:h-[20rem] ${dictionary.lg} flex items-center justify-center`}
@@ -52,6 +59,52 @@ export default function ThumsGallery({ navSize, image }) {
             </section>
           </SwiperSlide>
 
+=======
+            <div className={`relative w-full h-52 ${dictionary.lg}`}>
+              <Image
+                src="/images/testCarousel.jpg"
+                layout="fill"
+                alt="This is test image"
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className={`relative w-full h-52 ${dictionary.lg}`}>
+              <Image
+                src="/images/testCarousel.jpg"
+                layout="fill"
+                alt="This is test image"
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className={`relative w-full h-52 ${dictionary.lg}`}>
+              <Image
+                src="/images/testCarousel.jpg"
+                layout="fill"
+                alt="This is test image"
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className={`relative w-full h-52 ${dictionary.lg}`}>
+              <Image
+                src="/images/testCarousel.jpg"
+                layout="fill"
+                alt="This is test image"
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className={`relative w-full h-52 ${dictionary.lg}`}>
+              <Image
+                src="/images/testCarousel.jpg"
+                layout="fill"
+                alt="This is test image"
+              />
+            </div>
+          </SwiperSlide>
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
           <SwiperNav size={navSize} />
         </Swiper>
 
@@ -70,15 +123,61 @@ export default function ThumsGallery({ navSize, image }) {
 
             // when window width is >= 768px
           }}
+<<<<<<< HEAD
           className="mt-3 mySwiper"
+=======
+          className="mySwiper mt-3"
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         >
           <SwiperSlide>
             <div className="relative w-full h-24">
               <Image
+<<<<<<< HEAD
                 src={`/uploads/${image}`}
                 layout="fill"
                 alt="Img"
                 className="object-contain"
+=======
+                src="/images/testCarousel.jpg"
+                layout="fill"
+                alt="This is test image"
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="relative w-full h-24">
+              <Image
+                src="/images/testCarousel.jpg"
+                layout="fill"
+                alt="This is test image"
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="relative w-full h-24">
+              <Image
+                src="/images/testCarousel.jpg"
+                layout="fill"
+                alt="This is test image"
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="relative w-full h-24">
+              <Image
+                src="/images/testCarousel.jpg"
+                layout="fill"
+                alt="This is test image"
+              />
+            </div>
+          </SwiperSlide>
+          <SwiperSlide>
+            <div className="relative w-full h-24">
+              <Image
+                src="/images/testCarousel.jpg"
+                layout="fill"
+                alt="This is test image"
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
               />
             </div>
           </SwiperSlide>

@@ -14,7 +14,11 @@ function Item({ itemLen, articleLen, itemData }) {
   const [isImage, setIsImage] = useState(false);
 
   const removeItem = (e) => {
+<<<<<<< HEAD
     const itemRem = sectionState.subsection.map((article, index) => {
+=======
+    const itemRem = sectionState.articles.map((article, index) => {
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
       if (index == articleLen) {
         article.items = article.items.filter((item, itemInd) => {
           return itemInd != itemLen;
@@ -24,7 +28,11 @@ function Item({ itemLen, articleLen, itemData }) {
     });
     setSectionState((prevState) => ({
       ...prevState,
+<<<<<<< HEAD
       subsection: itemRem,
+=======
+      articles: itemRem,
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     }));
   };
   const changeHandler = (e) => {
@@ -37,7 +45,11 @@ function Item({ itemLen, articleLen, itemData }) {
 
     setSectionState((prevState) => ({
       ...prevState,
+<<<<<<< HEAD
       subsection: sectionState.subsection.map((article, index) => {
+=======
+      articles: sectionState.articles.map((article, index) => {
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         if (articleLen == index) {
           article.items = article.items.map((item, itemIndex) => {
             if (itemIndex == itemLen) {
@@ -52,7 +64,11 @@ function Item({ itemLen, articleLen, itemData }) {
   };
 
   return (
+<<<<<<< HEAD
     <div className=" border rounded-sm border-primary-50 my-9 p-10">
+=======
+    <div className="px-2 py-5 border rounded-sm border-gray my-9">
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
       <div className="flex justify-between">
         <div>
           {articleLen}
@@ -69,14 +85,23 @@ function Item({ itemLen, articleLen, itemData }) {
         </div>
       </div>
       <div className="flex flex-col items-center justify-center gap-3 mb-2 sm:flex-row">
+<<<<<<< HEAD
         {/* <div className="flex">
+=======
+        <div className="flex">
+          {/* Button is here */}
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
           <IsComponent
             state={isImage}
             setState={setIsImage}
             onText="Добави снимка"
             offText="Премахни снимката"
           />
+<<<<<<< HEAD
         </div> */}
+=======
+        </div>
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         <div className="flex">
           <IsComponent
             state={isColors}
@@ -97,6 +122,7 @@ function Item({ itemLen, articleLen, itemData }) {
       <Input
         type="text"
         placeholder="Цена"
+<<<<<<< HEAD
         id="cena"
         value={itemData?.cena}
         onChange={changeHandler}
@@ -106,6 +132,18 @@ function Item({ itemLen, articleLen, itemData }) {
         <textarea
           name="tipove"
           id="tipove"
+=======
+        id="price"
+        value={itemData?.price}
+        onChange={changeHandler}
+      />
+      <div>
+        <label htmlFor="types">Типове</label>
+        <textarea
+          name="types"
+          id="types"
+          value={itemData?.types}
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
           className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
           onChange={changeHandler}
         ></textarea>

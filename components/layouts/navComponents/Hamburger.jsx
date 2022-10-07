@@ -5,7 +5,11 @@ import { useRouter } from "next/router";
 // Styles
 import styles from "../../../styles/navigation/Hamburger.module.css";
 // Components
+<<<<<<< HEAD
 import NavLinks from "./NavLinks";
+=======
+import NavLinks from "./navLinks";
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 
 const Hamburger = ({ headRef }) => {
   const router = useRouter();
@@ -35,6 +39,7 @@ const Hamburger = ({ headRef }) => {
   return (
     <>
       <div
+<<<<<<< HEAD
         className={`px-2 lg:pl-10 cursor-pointer h-full  flex  lg:pt-3  justify-center items-center`}
         onClick={() => menuState(!isOpen)}
       >
@@ -50,6 +55,22 @@ const Hamburger = ({ headRef }) => {
 
       <div
         className={`w-full lg:w-auto hover:lg:w-full fixed lg:absolute -z-20 bg-white py-3 ${styles.navLinks}  `}
+=======
+        className={`px-2 cursor-pointer mt-1 lg:mt-1 ${styles.hamburger} ${
+          router.route == "/" ? "lg:hidden" : ""
+        }`}
+        onClick={() => menuState(!isOpen)}
+        ref={hamburger}
+      >
+        <div className="block w-6 h-[1px] md:w-6 md:h-[2px] bg-dark "></div>
+        <div className="block w-6 h-[1px] md:w-6 md:h-[2px] bg-dark"></div>
+        <div className="block w-3 h-[1px] md:w-3 md:h-[2px] bg-dark"></div>
+      </div>
+      <div
+        className={`w-full lg:w-auto hover:lg:w-full fixed lg:absolute -z-20 bg-white py-3 ${
+          styles.navLinks
+        } ${router.route == "/" ? "lg:hidden" : ""} `}
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         ref={navLinks}
       >
         <NavLinks />

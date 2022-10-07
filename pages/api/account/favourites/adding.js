@@ -44,9 +44,16 @@ async function handler(req, res) {
     }
 
     await Favourite.create({ product, ownerId: user._id });
+<<<<<<< HEAD
     res.json({ message: "Успешно добавихте в любими" });
   } catch (e) {
     res.status(400).json(e);
+=======
+    res.json({ message: "Успешно добавихте във фаворити" });
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e.error);
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   }
 }
 

@@ -1,4 +1,5 @@
 const hraniINapitkiArt = [
+<<<<<<< HEAD
   {
     displayName: "Кафе",
     name: "kalkylatori",
@@ -59,6 +60,21 @@ const hraniINapitkiArt = [
     displayName: "Еко прибори и консумативи",
     name: "ekoPriboriIKonsumativi",
   },
+=======
+  "Кафе",
+  "Чай",
+  "Захар, мед",
+  "Сметана, мляко",
+  "Зехтин",
+  "Вода",
+  "Сок, безалкохолни напитки",
+  "Сайдер, бира",
+  "Бисквити, бонбони",
+  "Купа за бонбони",
+  "Ядки, плодове",
+  "Чаши, бъркалки, прибории, съдове",
+  "Еко прибори и консумативи",
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 ];
 
 export default hraniINapitkiArt;

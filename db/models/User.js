@@ -1,5 +1,6 @@
 import { Schema, model, models } from "mongoose";
 
+<<<<<<< HEAD
 const addressSchema = new Schema({
   name: { type: String },
   telephone: { type: String },
@@ -8,6 +9,8 @@ const addressSchema = new Schema({
   address: { type: String },
 });
 
+=======
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 const userScheme = new Schema({
   fullName: {
     type: String,
@@ -28,6 +31,7 @@ const userScheme = new Schema({
       return Date.now();
     },
   },
+<<<<<<< HEAD
   addresses: [addressSchema],
   role: {
     type: String,
@@ -36,6 +40,18 @@ const userScheme = new Schema({
   },
   bossId: { type: Schema.Types.ObjectId, ref: "User" },
   workers: [{ type: Schema.Types.ObjectId, ref: "User" }],
+=======
+  addresses: [
+    {
+      type: String,
+    },
+  ],
+  role: {
+    type: String,
+    enum: ["user", "admin"],
+    default: "user",
+  },
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   isVerified: {
     type: Boolean,
     default: false,

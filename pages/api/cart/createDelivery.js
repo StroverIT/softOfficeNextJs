@@ -1,5 +1,6 @@
 import Delivery from "../../../db/models/Delivery";
 import User from "../../../db/models/User";
+<<<<<<< HEAD
 import Token from "../../../db/models/Token";
 
 import { connectMongo } from "../../../db/connectDb";
@@ -14,29 +15,53 @@ const secret = process.env.NEXTAUTH_SECRET;
 
 export default async function handler(req, res) {
   const { cart, inputs, deliveryInfo, typeOfPayment } = req.body;
+=======
+
+import { connectMongo } from "../../../db/connectDb";
+
+import { getToken } from "next-auth/jwt";
+const secret = process.env.NEXTAUTH_SECRET;
+
+export default async function handler(req, res) {
+  const { cart, formData, totalPrice } = req.body;
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 
   try {
     await connectMongo();
 
+<<<<<<< HEAD
     //  User token
     const userToken = await getToken({ req, secret });
 
     if (!userToken) {
+=======
+    const token = await getToken({ req, secret });
+    if (!token) {
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
       throw {
         error: "Невалиден токен",
       };
     }
+<<<<<<< HEAD
     // User
     const user = await User.findOne({ email: userToken.email });
+=======
+    const user = await User.findOne({ email: token.email });
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     if (!user) {
       throw {
         error: "Невалиден акаунт",
       };
     }
 
+<<<<<<< HEAD
     // Checkers if fields are empty
     for (let [key, value] of Object.entries(inputs)) {
       if (key != "comment" && key != "typeOfPayment") {
+=======
+    for (let [key, value] of Object.entries(formData)) {
+      if (key != "comment") {
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
         if (value == "" || value.length === 0) {
           throw {
             error: "Пратени са невалидни данни",
@@ -44,6 +69,7 @@ export default async function handler(req, res) {
         }
       }
     }
+<<<<<<< HEAD
     if (
       inputs.address.phoneNumber?.length === 0 ||
       inputs.address.phoneNumber == null ||
@@ -148,6 +174,18 @@ export default async function handler(req, res) {
     res.json({ message: "Поръчката беше направена успешно!" });
   } catch (e) {
     console.log(e);
+=======
+    let price = totalPrice.totalPrice.join(".");
+
+    await Delivery.create({
+      cart: [...cart],
+      ...formData,
+      totalPrice: price,
+      ownerId: user._id,
+    });
+    res.json({ message: "Успешно направена поръчка" });
+  } catch (e) {
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     res.status(400).json(e);
   }
 }

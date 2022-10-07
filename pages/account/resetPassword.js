@@ -13,8 +13,11 @@ export default function ResetPassword() {
   const [successMessage, setSuccessMessage] = useState(null);
   const [errorMessages, setErrorMessages] = useState([]);
   const [inputs, setInputs] = useState(initialValues);
+<<<<<<< HEAD
   const [isLoading, setLoader] = useState(false);
 
+=======
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   function formHandlerInputs(e) {
     const { name, value } = e.target;
     setInputs({ ...inputs, [name]: value });
@@ -22,14 +25,22 @@ export default function ResetPassword() {
 
   async function submitHandler(e) {
     e.preventDefault();
+<<<<<<< HEAD
     setLoader(true);
+=======
+
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     const errors = [];
     const emailCheck = emailVal(inputs.email);
     if (!emailCheck.result) errors.push(emailCheck.message);
     if (errors.length > 0) {
       setErrorMessages([...errors]);
       setSuccessMessage(null);
+<<<<<<< HEAD
       setLoader(false);
+=======
+
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
       return;
     }
     const res = await fetch("/api/account/forgotten/password", {
@@ -44,15 +55,21 @@ export default function ResetPassword() {
       const data = await res.json();
       setErrorMessages([...data.map((e) => e)]);
       setSuccessMessage(null);
+<<<<<<< HEAD
       setLoader(false);
 
+=======
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
       return;
     }
 
     // Send message
     setErrorMessages([]);
     setSuccessMessage("Успешно изпратена заявка, вижте си и-мейла!");
+<<<<<<< HEAD
     setLoader(false);
+=======
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   }
   return (
     <>
@@ -66,12 +83,20 @@ export default function ResetPassword() {
             <div className="mt-5 ml-8">
               <h3 className="text-3xl text-center">Забравена парола</h3>
               {successMessage && (
+<<<<<<< HEAD
                 <div className="my-2 text-center text-green">
+=======
+                <div className="my-2 text-green text-center">
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                   {successMessage}
                 </div>
               )}
               {errorMessages && (
+<<<<<<< HEAD
                 <div className="my-2 text-center text-secondary">
+=======
+                <div className="my-2 text-secondary text-center">
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                   <ul>
                     {errorMessages.map((e) => {
                       return <li key={e}>{e}</li>;
@@ -96,10 +121,17 @@ export default function ResetPassword() {
 
               <div className="flex items-center justify-center ">
                 <button
+<<<<<<< HEAD
                   className="w-full px-4 py-2 font-bold text-white rounded shadow-md disabled:opacity-25 bg-primary hover:bg-primary focus:outline-none focus:shadow-outline flex justify-center items-center"
                   type="submit"
                 >
                   {isLoading ? <div className="loader"></div> : "Изпрати"}
+=======
+                  className="w-full px-4 py-2 font-bold text-white rounded shadow-md disabled:opacity-25 bg-primary hover:bg-primary focus:outline-none focus:shadow-outline"
+                  type="submit"
+                >
+                  Изпрати
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
                 </button>
               </div>
             </form>

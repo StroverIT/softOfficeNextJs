@@ -1,6 +1,7 @@
 import { connectMongo } from "../../../../db/connectDb";
 
 import Favourite from "../../../../db/models/Favourite";
+<<<<<<< HEAD
 import User from "../../../../db/models/User";
 
 import { getToken } from "next-auth/jwt";
@@ -30,6 +31,18 @@ async function handler(req, res) {
     res.json({ message: "Успешно премахнахте от любими" });
   } catch (e) {
     res.status(400).json(e);
+=======
+
+async function handler(req, res) {
+  try {
+    const { ownerId, favId } = req.body;
+    await connectMongo();
+
+    res.json({ data });
+  } catch (e) {
+    console.log(e);
+    res.status(400).json(e.error);
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   }
 }
 

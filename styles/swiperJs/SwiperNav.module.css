@@ -2,6 +2,7 @@
   color: theme("colors.bg-color");
 }
 .swiperNav > div {
+<<<<<<< HEAD
   border-radius: 200px;
   top: 50%;
   transform: translateY(-50%);
@@ -13,6 +14,19 @@
 }
 .swiperPrev {
   left: 0%;
+=======
+  background-color: theme("colors.primary");
+  border-radius: 200px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.swiperNext {
+  right: 0;
+  margin-right: 10px;
+}
+.swiperPrev {
+  margin-left: 10px;
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 }
 .swiperDisabled {
   opacity: 0.5;

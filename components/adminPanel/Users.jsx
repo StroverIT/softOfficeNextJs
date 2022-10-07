@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 
 // Components
@@ -16,4 +17,10 @@ export default function Users({ usersData, products }) {
       {!usersData && <div> Няма регистрирани потребители</div>}
     </section>
   );
+=======
+import React from "react";
+
+export default function Users() {
+  return <div>Users</div>;
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
 }

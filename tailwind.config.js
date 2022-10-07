@@ -1,5 +1,6 @@
 const customColors = {
   "bg-color": "#f3f3f3",
+<<<<<<< HEAD
   primary: { DEFAULT: "#0D6EFD", 500: "hsl(215, 80%, 33%)" },
   "primary-150": "hsl(215, 80%, 20%)",
 
@@ -20,6 +21,16 @@ const customColors = {
     400: "#686868",
 
     transparent: "hsl(0, 0%, 8%, 0.5)",
+=======
+  primary: "hsl(215, 80%, 33%)",
+  "primary-lighter": "hsl(215, 80%, 60%)",
+  "primary-trans": "hsl(215, 80%, 60%, 100%)",
+  "primary-0": "hsl(215, 80%, 60%, 15%)",
+  secondary: "hsl(358, 83%, 56%)",
+  dark: {
+    DEFAULT: "hsl(0, 0%, 8%)",
+    400: "#686868",
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
   },
   white: "hsl(0, 0%, 100%)",
   "white-lighter-trans": "hsl(0, 0%, 100%, 30%)",
@@ -33,8 +44,11 @@ const customColors = {
     250: "#5a5a5a",
     300: "#f6f6f6",
     400: "#eee",
+<<<<<<< HEAD
     500: "grey",
 
+=======
+>>>>>>> d26f7cda55573513073816b1ede2bc730122a61e
     bord: "#dfdfdf",
     darker: "hsl(0, 0%, 50%)",
   },
