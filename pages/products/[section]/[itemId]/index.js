@@ -217,7 +217,7 @@ export default function Index({ data, userData, isInFav }) {
   return (
     <main className="mb-auto">
       <div className="container">
-        <div className="flex flex-col justify-between py-5 my-5 text-gray-500 border-b md:flex-row border-gray-bord">
+        <div className="flex flex-col justify-between pt-5 pb-4 my-5 text-gray-500 border-b md:flex-row border-gray-bord">
           <div className="text-2xl font-semibold">
             {isSelected && (
               <div
@@ -238,12 +238,10 @@ export default function Index({ data, userData, isInFav }) {
             )}
             <span className="ml-1 ">{itemName}</span>
           </div>
-          {/* <div className="mt-5 md:mt-1">
-            <ul className="text-sm text-right text-gray-250">
-              <li>Код: 23141412</li> 
-              <li>КатНомер: {product.katNomer}</li>
-            </ul>
-          </div> */}
+          <div className="flex items-center justify-center text-sm text-right text-gray-250">
+            {console.log(product)}
+            Катномер: {product.article.items[0].katNomer}
+          </div>
         </div>
         {(product?.article?.items?.length == 1 || isSelected) && (
           <>
