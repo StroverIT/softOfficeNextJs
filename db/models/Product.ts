@@ -1,7 +1,40 @@
-import { Schema, model, models } from "mongoose";
+import { Schema, model, models, Model } from "mongoose";
 
+interface IImage {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  destination: string;
+  filename: string;
+  path: string;
+  size: number;
+}
+interface IItems {
+  cvetove: Boolean;
+  cena: Number;
+  katNomer: String;
+  tipove: String;
+  isOnPromotions: Boolean;
+  promotionalPrice: Number;
+  imageUrl: String;
+  isOnlyNumb: Boolean;
+  isInStock: Boolean;
+}
+interface ISubsection {
+  opisanie: String;
+  tiput: String;
+  nameToDisplay: String;
+  img: [IImage];
+  items: [IItems];
+}
+interface IProducts {
+  name: String;
+  nameToDisplay: String;
+  subsection: [ISubsection];
+}
 // Item
-const imageSchema = new Schema({
+const imageSchema = new Schema<IImage>({
   fieldname: String,
   originalname: String,
   encoding: String,
@@ -11,7 +44,7 @@ const imageSchema = new Schema({
   path: String,
   size: Number,
 });
-const itemsSchema = new Schema({
+const itemsSchema = new Schema<IItems>({
   cvetove: {
     type: Boolean,
   },
@@ -45,7 +78,7 @@ const itemsSchema = new Schema({
   },
 });
 
-const subsectionSchema = new Schema({
+const subsectionSchema = new Schema<ISubsection>({
   opisanie: {
     type: String,
   },
@@ -59,11 +92,13 @@ const subsectionSchema = new Schema({
   img: [imageSchema],
   items: [itemsSchema],
 });
-const ProductsSchema = new Schema({
+const ProductsSchema = new Schema<IProducts>({
   name: { type: String, required: true },
   nameToDisplay: { type: String, unique: false, required: false },
   subsection: [subsectionSchema],
 });
-const Product = models.Product || model("Product", ProductsSchema);
+const Product =
+  (models.Product as Model<IProducts>) ||
+  model<IProducts>("Product", ProductsSchema);
 
 export default Product;
