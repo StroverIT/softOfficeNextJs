@@ -11,7 +11,7 @@ export default function MobileScreenTableData({
   removeProduct,
   changeQty,
 }) {
-  let newTotalPrice = (price * qty).toFixed(2).split(".");
+  let newTotalPrice = (price.fixedPrice * qty).toFixed(2).split(".");
   let newPrice = price.fixedPrice.toFixed(2).split(".");
 
   if (price.promotionalPrice) {
