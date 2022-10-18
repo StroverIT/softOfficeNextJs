@@ -16,10 +16,10 @@ export default function Main() {
   return (
     <section className="flex flex-wrap items-center justify-around my-20 gap-y-5">
       <div className={`${styling}`} onClick={() => changeCategory(DELIVERY)}>
-        за адрес
+        за склада
       </div>
       <div className={`${styling}`} onClick={() => changeCategory(MAGAZINE)}>
-        за склада
+        за адрес
       </div>
     </section>
   );
