@@ -15,7 +15,7 @@ const Promotions = ({ promotions }) => {
     <>
       <Head></Head>
       <main className="container my-10">
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 space-x-4 space-y-5">
+        <div className="grid space-x-4 space-y-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {promotions?.map((promo) => {
             const product = promo.product;
             const sum =

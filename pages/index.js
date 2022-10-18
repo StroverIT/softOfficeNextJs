@@ -144,7 +144,7 @@ export default function Home({ promotions }) {
         <section className="container mt-10 mb-10">
           <SwiperFreeMode data={promotions} navSize="3xl" />
         </section>
-        <section className="my-16  bg-color">
+        <section className="my-16 bg-color">
           <div className="container">
             <section className="relative z-10 text-center index-title">
               <h3 className="inline px-4 mt-1 text-3xl font-medium bg-color">
@@ -235,11 +235,15 @@ export default function Home({ promotions }) {
 }
 
 export async function getServerSideProps(context) {
-  const promotionsRes = await fetch(
-    `${process.env.NEXTAUTH_URL}/api/promotions/getAll`
-  );
-  const data = await promotionsRes.json();
-
+  let data = [];
+  try {
+    const promotionsRes = await fetch(
+      `${process.env.NEXTAUTH_URL}/api/promotions/getAll`
+    );
+    data = await promotionsRes.json();
+  } catch (e) {
+    console.log(e);
+  }
   return {
     props: { promotions: data }, // will be passed to the page component as props
   };

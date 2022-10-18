@@ -11,13 +11,17 @@ export default function LgScreenTableData({
   removeProduct,
   changeQty,
 }) {
-  let totalPrice = (price * qty).toFixed(2).split(".");
-  price = price.toFixed(2).split(".");
+  let newTotalPrice = (price * qty).toFixed(2).split(".");
+  let newPrice = price.fixedPrice.toFixed(2).split(".");
 
+  if (price.promotionalPrice) {
+    newPrice = price.promotionalPrice.toFixed(2).split(".");
+    newTotalPrice = (price.promotionalPrice * qty).toFixed(2).split(".");
+  }
   return (
     <>
       <TableData classes="lg:px-3 hidden lg:table-cell">
-        <Price price={price[0]} priceDec={price[1]} size="2xl" />
+        <Price price={newPrice[0]} priceDec={newPrice[1]} size="2xl" />
       </TableData>
       <TableData classes="hidden lg:table-cell">
         <QunityInput
@@ -40,7 +44,11 @@ export default function LgScreenTableData({
         </div>
       </TableData>
       <TableData classes=" lg:px-3 hidden lg:table-cell">
-        <Price price={totalPrice[0]} priceDec={totalPrice[1]} size="2xl" />
+        <Price
+          price={newTotalPrice[0]}
+          priceDec={newTotalPrice[1]}
+          size="2xl"
+        />
       </TableData>
     </>
   );

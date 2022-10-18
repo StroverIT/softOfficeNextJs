@@ -11,20 +11,28 @@ export default function MobileScreenTableData({
   removeProduct,
   changeQty,
 }) {
-  let totalPrice = (price * qty).toFixed(2).split(".");
-  price = price.toFixed(2).split(".");
+  let newTotalPrice = (price * qty).toFixed(2).split(".");
+  let newPrice = price.fixedPrice.toFixed(2).split(".");
 
+  if (price.promotionalPrice) {
+    newPrice = price.promotionalPrice.toFixed(2).split(".");
+    newTotalPrice = (price.promotionalPrice * qty).toFixed(2).split(".");
+  }
   return (
     <td className="flex flex-col justify-center w-full mt-5 lg:hidden">
       <div className="flex items-center justify-center my-1 ">
         <div className="lg:px-3 flex flex-col sm:items-start sm:-mb-[3rem] sm:mx-auto sm:ml-2 w-full">
           <div className="text-sm text-center text-gray-250 ">Ед. цена</div>
-          <Price price={price[0]} priceDec={price[1]} size="2xl" />
+          <Price price={newPrice[0]} priceDec={newPrice[1]} size="2xl" />
         </div>
 
         <div className="lg:px-3 flex flex-col sm:items-end sm:-mb-[3rem] sm:mx-auto sm:mr-2 w-full">
           <div className="text-sm text-center text-gray-250 ">Общо</div>
-          <Price price={totalPrice[0]} priceDec={totalPrice[1]} size="2xl" />
+          <Price
+            price={newTotalPrice[0]}
+            priceDec={newTotalPrice[1]}
+            size="2xl"
+          />
         </div>
       </div>
       <div>
