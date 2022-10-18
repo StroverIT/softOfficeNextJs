@@ -11,12 +11,18 @@ export default function LgScreenTableData({
   removeProduct,
   changeQty,
 }) {
-  let newTotalPrice = (price.fixedPrice * qty).toFixed(2).split(".");
-  let newPrice = price.fixedPrice.toFixed(2).split(".");
-
+  let newTotalPrice, newPrice;
+  if (price.fixedPrice) {
+    newPrice = parseFloat(price?.fixedPrice)?.toFixed(2)?.split(".");
+    newTotalPrice = (parseFloat(price?.fixedPrice) * qty)
+      ?.toFixed(2)
+      ?.split(".");
+  }
   if (price.promotionalPrice) {
-    newPrice = price.promotionalPrice.toFixed(2).split(".");
-    newTotalPrice = (price.promotionalPrice * qty).toFixed(2).split(".");
+    newPrice = parseFloat(price.promotionalPrice).toFixed(2).split(".");
+    newTotalPrice = (parseFloat(price.promotionalPrice) * qty)
+      .toFixed(2)
+      .split(".");
   }
   return (
     <>
