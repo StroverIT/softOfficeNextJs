@@ -117,7 +117,7 @@ export default async function handler(req, res) {
     }
 
     let message = `
-    <h3>Вашата поръчка беше направена успешно, благодарим ви че пазарувахте от SoftOffice !</h2>
+    <h3>Вашата поръчка беше направена успешно! Благодарим Ви, че пазарувахте от SoftOffice !</h2>
     
     `;
     if (user.role == "worker") {
