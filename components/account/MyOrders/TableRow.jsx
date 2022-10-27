@@ -113,7 +113,7 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                     <div className="relative mt-5 ">
                       <table className="w-full table-auto ">
                         <thead>
-                          <th>Катномер</th>
+                          <th>Кат. номер</th>
                           <th>Артикул</th>
                           <th>Ед. цена</th>
                           <th>Бройки</th>

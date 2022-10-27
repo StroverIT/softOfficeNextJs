@@ -240,7 +240,7 @@ export default function Index({ data, userData, isInFav }) {
           </div>
           <div className="flex items-center justify-center text-sm text-right text-gray-250">
             {console.log(product)}
-            Катномер: {product.article.items[0].katNomer}
+            Кат. номер: {product.article.items[0].katNomer}
           </div>
         </div>
         {(product?.article?.items?.length == 1 || isSelected) && (

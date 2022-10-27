@@ -60,7 +60,7 @@ export default function Product({ delivery }) {
           <h3 className="font-semibold uppercase">Продукти:</h3>
           <table className="w-full table-auto ">
             <thead>
-              <th>Катномер</th>
+              <th>Кат. номер</th>
               <th>Артикул</th>
               <th>Ед. цена</th>
               <th>Бройки</th>

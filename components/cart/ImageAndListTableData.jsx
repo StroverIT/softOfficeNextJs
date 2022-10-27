@@ -40,7 +40,7 @@ export default function ImageAndListTableData({
               );
             })}
         </ul>
-        <div className="text-xs ">Катномер: {moreInfo.katNomer}</div>
+        <div className="text-xs ">Кат. номер: {moreInfo.katNomer}</div>
       </TableData>
     </>
   );

@@ -52,7 +52,7 @@ const hraniINapitkiArt = [
     name: "qdki",
   },
   {
-    displayName: "Чаши, бъркалки, прибории, съдове",
+    displayName: "Чаши, бъркалки, прибори, съдове",
     name: "chashiBurkalkiPriboriSudove",
   },
   {

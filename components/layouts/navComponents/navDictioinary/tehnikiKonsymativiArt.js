@@ -24,7 +24,7 @@ const tehnikiKonsymativiArt = [
         name: "podvurzvashtaMashina",
       },
       {
-        displayName: "Ламинаторир и консумативи",
+        displayName: "Ламинатор и консумативи",
         name: "laminatoriIKonsymativi",
       },
       {

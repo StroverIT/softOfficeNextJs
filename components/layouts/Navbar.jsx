@@ -197,7 +197,7 @@ const Navbar = ({ cartTotalQty }) => {
               {searchTabInputs.katNomera?.length > 0 && (
                 <div className="w-full py-1 bg-white ">
                   <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-100">
-                    КатНомера
+                    Кат. номера
                   </h3>
                   <ul>
                     {searchTabInputs.katNomera.map((item) => {

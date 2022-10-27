@@ -115,8 +115,8 @@ export default function Article({ sectionName, sectionId, subsection, img }) {
               />
               <Input
                 id="katNomer"
-                text="КатНомер"
-                holder="КатНомер"
+                text="Кат. номер"
+                holder="Кат. номер"
                 value={item.katNomer}
                 handler={itemChangeHandler.bind({}, index)}
               />

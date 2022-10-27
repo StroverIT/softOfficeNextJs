@@ -116,8 +116,8 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
 
       <Input
         id="katNomer"
-        text="КатНомер"
-        holder="КатНомер"
+        text="Кат. номер"
+        holder="Кат. номер"
         value={inputSakrateno.katNomer}
         handler={(e) => changeHandler(e, index, itemIdx)}
       />

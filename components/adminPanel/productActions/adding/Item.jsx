@@ -85,7 +85,7 @@ function Item({ itemLen, articleLen, itemData }) {
 
       <Input
         type="text"
-        placeholder="КатНомер"
+        placeholder="Кат. номер"
         id="katNomer"
         value={itemData?.katNomer}
         onChange={changeHandler}
