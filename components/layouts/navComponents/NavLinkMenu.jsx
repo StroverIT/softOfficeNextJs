@@ -52,7 +52,9 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
 
   return (
     <li
-      className={`item w-full font-thin group ${!isHome ? "lg:w-64 mt-2" : ""}`}
+      className={`item w-full  font-thin group  ${
+        !isHome ? "lg:w-64 mt-2" : ""
+      }`}
     >
       {/* Menu */}
       <div
@@ -65,12 +67,13 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
         <div className={`${!isHome ? "max-lg:container" : ""}`}>{title}</div>
       </div>
       {/* Submenu */}
+      {/* Absolute */}
       <div
         className={`fixed  lg:absolute py-2 overflow-auto  ${
           mobSubmenu ? "translate-x-0" : "translate-x-full"
         } transition-transform lg:transition-none lg:translate-x-0 lg:scale-0 h-full w-full  top-0  bg-color  ${
           isHome ? "right-0" : "lg:right-[0px] xl:right-[0] pb-28"
-        } lg:hover:scale-100 text-dark peer-hover:lg:scale-100 lg:max-w-[780px]  xl:max-w-[1050px]  ${isXAnim} `}
+        } lg:hover:scale-100 text-dark peer-hover:lg:scale-100 left-[255px] pr-[255px] ${isXAnim} `}
         ref={subMenu}
       >
         <div className={` flex items-center ml-2`}>

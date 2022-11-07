@@ -15,6 +15,8 @@ import { BsCart3 } from "react-icons/bs";
 import isObjectEmpty from "../../utils/isObjectEmpty";
 // Redux cart
 import { connect } from "react-redux";
+import NavLinks from "./navComponents/NavLinks";
+import styles from "../../styles/navigation/Hamburger.module.css";
 
 const Navbar = ({ cartTotalQty }) => {
   const router = useRouter();
@@ -29,6 +31,10 @@ const Navbar = ({ cartTotalQty }) => {
   const [searchTabInputs, setSearchTabInputs] = useState({});
   const [searchInput, setSearchInput] = useState("");
   const [cartNum, setCartNum] = useState(0);
+
+  const [isOpen, menuState] = useState(false);
+  const navLinks = useRef(null);
+
   // Navbar control handler
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const controlNavbar = () => {
@@ -81,6 +87,17 @@ const Navbar = ({ cartTotalQty }) => {
     };
   }, [controlNavbar, lastScrollY]);
 
+  useEffect(() => {
+    if (isOpen) {
+      navLinks.current.classList.add(styles.menuOpen);
+      navLinks.current.style.top = `${headerRef.current.offsetHeight}px`;
+      document.body.classList.add("blury");
+    }
+    if (!isOpen) {
+      navLinks.current.classList.remove(styles.menuOpen);
+      document.body.classList.remove("blury");
+    }
+  }, [headerRef, isOpen]);
   return (
     <header
       className={`z-50 animate sticky top-0  ${show ? "animateUp" : ""}`}
@@ -95,7 +112,11 @@ const Navbar = ({ cartTotalQty }) => {
                 <span className="text-white">Office.bg</span>
               </div>
             </Link>
-            <Hamburger headRef={headerRef} />
+            <Hamburger
+              headRef={headerRef}
+              isOpen={isOpen}
+              menuState={menuState}
+            />
 
             <li
               className="flex items-center justify-center px-2 transition-colors cursor-pointer lg:hidden group hover:bg-white h-14 "
@@ -294,6 +315,17 @@ const Navbar = ({ cartTotalQty }) => {
         )}
       </div>
       {/* End search menu */}
+      {/* Hamburger menu */}
+      <div
+        className={`blury-bg  z-10 ${!isOpen ? "hidden" : ""}`}
+        onClick={() => menuState(false)}
+      ></div>
+      <div
+        className={`w-full lg:w-auto hover:lg:w-full fixed lg:absolute z-20 bg-white py-3  ${styles.navLinks}  `}
+        ref={navLinks}
+      >
+        <NavLinks />
+      </div>
     </header>
   );
 };
