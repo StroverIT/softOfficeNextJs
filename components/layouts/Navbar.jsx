@@ -316,16 +316,17 @@ const Navbar = ({ cartTotalQty }) => {
       </div>
       {/* End search menu */}
       {/* Hamburger menu */}
-      <div
-        className={`blury-bg  z-10 ${!isOpen ? "hidden" : ""}`}
-        onClick={() => menuState(false)}
-      ></div>
+
       <div
         className={`w-full lg:w-auto hover:lg:w-full fixed lg:absolute z-20 bg-white py-3  ${styles.navLinks}  `}
         ref={navLinks}
       >
         <NavLinks />
       </div>
+      <div
+        className={`blury-bg -z-10 ${!isOpen ? "hidden" : ""}`}
+        onClick={() => menuState(false)}
+      ></div>
     </header>
   );
 };
