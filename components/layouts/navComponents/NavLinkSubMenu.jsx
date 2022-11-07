@@ -20,7 +20,7 @@ function NavLinkSubMenu({ subMenuData, menu }) {
       >
         <div className="relative flex items-center justify-center">
           {menu}
-          <div className="absolute -translate-y-1/2 top-1/2 -right-5 text-primary">
+          <div className="absolute -translate-y-1/2 bottom-1/2 -right-5 text-primary">
             {isOpen ? <IoIosArrowDropdown /> : <IoIosArrowDropright />}
           </div>
         </div>

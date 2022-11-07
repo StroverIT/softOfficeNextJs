@@ -58,9 +58,9 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
     >
       {/* Menu */}
       <div
-        className={`bg-white cursor-pointer text-dark lg:hover:text-dark lg:hover:bg-color ${
-          !isHome ? "px-5 py-[0.40rem]" : "pl-4"
-        } lg:py-2 flex w-full peer group-hover:lg:bg-color group-hover:lg:text-primary font-normal font-sans text-lg leading-5`}
+        className={`bg-white cursor-pointer text-dark lg:hover:text-dark lg:hover:bg-color 
+          px-5 py-[0.40rem] 
+         lg:py-2 flex w-full peer group-hover:lg:bg-color group-hover:lg:text-primary font-normal font-sans text-lg leading-5`}
         onClick={showMenu}
         ref={menu}
       >
@@ -70,10 +70,10 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
       {/* Absolute */}
       <div
         className={`fixed  lg:absolute py-2 overflow-auto  ${
-          mobSubmenu ? "translate-x-0" : "translate-x-full"
-        } transition-transform lg:transition-none lg:translate-x-0 lg:scale-0 h-full w-full  top-0  bg-color  ${
-          isHome ? "right-0" : "lg:right-[0px] xl:right-[0] pb-28"
-        } lg:hover:scale-100 text-dark peer-hover:lg:scale-100 left-[255px] pr-[255px] ${isXAnim} `}
+          mobSubmenu
+            ? "translate-x-0 left-0"
+            : "translate-x-[150vw] left-[150vw]"
+        } transition-all lg:transition-none lg:translate-x-0 lg:scale-0 h-full w-full  top-0  bg-color   lg:hover:scale-100 text-dark peer-hover:lg:scale-100 lg:left-[255px] pr-[255px] ${isXAnim} `}
         ref={subMenu}
       >
         <div className={` flex items-center ml-2`}>
@@ -88,7 +88,7 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
         </div>
         {/* submenu list */}
         <ul
-          className={`px-5  mt-2  grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-2`}
+          className={`px-5  mt-2  md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-2`}
         >
           {articles.map((article, index) => {
             return article?.menu ? (
