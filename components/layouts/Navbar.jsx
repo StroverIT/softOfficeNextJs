@@ -18,6 +18,29 @@ import { connect } from "react-redux";
 import NavLinks from "./navComponents/NavLinks";
 import styles from "../../styles/navigation/Hamburger.module.css";
 
+import { motion, AnimatePresence } from "framer-motion";
+
+const menuVariant = {
+  initial: {
+    x: "-150vw",
+  },
+  animate: {
+    x: 0,
+    transition: {
+      type: "spring",
+      bounce: 0.19,
+      duration: 1,
+    },
+  },
+};
+const exitAnim = {
+  x: ["0vw", "10vw", "-150vw"],
+  transition: {
+    type: "spring",
+    bounce: 0.19,
+    duration: 0.5,
+  },
+};
 const Navbar = ({ cartTotalQty }) => {
   const router = useRouter();
 
@@ -89,12 +112,12 @@ const Navbar = ({ cartTotalQty }) => {
 
   useEffect(() => {
     if (isOpen) {
-      navLinks.current.classList.add(styles.menuOpen);
+      // navLinks.current.classList.add(styles.menuOpen);
       navLinks.current.style.top = `${headerRef.current.offsetHeight}px`;
       document.body.classList.add("blury");
     }
     if (!isOpen) {
-      navLinks.current.classList.remove(styles.menuOpen);
+      // navLinks.current.classList.remove(styles.menuOpen);
       document.body.classList.remove("blury");
     }
   }, [headerRef, isOpen]);
@@ -316,13 +339,20 @@ const Navbar = ({ cartTotalQty }) => {
       </div>
       {/* End search menu */}
       {/* Hamburger menu */}
-
-      <div
-        className={`w-full lg:w-auto hover:lg:w-full fixed lg:absolute z-20 bg-white py-3  ${styles.navLinks}  `}
-        ref={navLinks}
-      >
-        <NavLinks />
-      </div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            variants={menuVariant}
+            initial="initial"
+            animate="animate"
+            exit={exitAnim}
+            className={`w-full lg:w-auto hover:lg:w-full fixed lg:absolute z-20 bg-white py-3  ${styles.navLinks}  `}
+            ref={navLinks}
+          >
+            <NavLinks />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div
         className={`blury-bg -z-10 ${!isOpen ? "hidden" : ""}`}
         onClick={() => menuState(false)}
