@@ -103,7 +103,7 @@ const Navbar = ({ cartTotalQty }) => {
       className={`z-50 animate sticky top-0  ${show ? "animateUp" : ""}`}
       ref={headerRef}
     >
-      <nav className={`flex bg-[#0D6EFD] ${style.cShadow}`}>
+      <nav className={`flex relative z-20 bg-[#0D6EFD] ${style.cShadow}`}>
         <div className="container relative flex items-center justify-between ">
           <div className="flex items-center justify-center h-full">
             <Link href="/">
