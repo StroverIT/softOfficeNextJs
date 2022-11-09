@@ -14,35 +14,12 @@ import SwiperFreeMode from "../components/swiperJs/SwiperFreeMode";
 // Images
 const swiperPag = [
   {
-    src: "/carousel/hero_slides_1.png",
-    key: "Xerox Performer",
-    pageUrl: "/products/hartiq/61eb119d7815ce846f1745b3",
-  },
-  {
-    src: "/carousel/hero_slides_2.png",
-
-    key: "Symbio Copy",
-    pageUrl: "/products/hartiq/62262f3ae02d2a7dd0edc147",
-  },
-  {
     src: "/carousel/hero_slides_3.png",
 
     key: "Тонер Касета",
     pageUrl: "/products/skeneri/61f4128f031938ea821770f3",
   },
-  {
-    src: "/carousel/hero_slides_4.png",
 
-    key: "Xerox Business A4",
-    pageUrl:
-      "/products/hartiq/61eb119d7815ce846f1745bd#61eb119d7815ce846f1745be",
-  },
-  {
-    src: "/carousel/hero_slides_5.png",
-
-    key: "Navigator A4",
-    pageUrl: "/products/hartiq/61eb119d7815ce846f1745d2",
-  },
   {
     src: "/carousel/ferero.png",
 
