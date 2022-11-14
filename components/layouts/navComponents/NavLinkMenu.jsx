@@ -88,7 +88,7 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
         </div>
         {/* submenu list */}
         <ul
-          className={`px-5  mt-2  md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-2`}
+          className={`px-5  mt-2 w-screen md:w-auto md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-2`}
         >
           {articles.map((article, index) => {
             return article?.menu ? (
