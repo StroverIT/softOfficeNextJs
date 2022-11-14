@@ -339,6 +339,10 @@ const Navbar = ({ cartTotalQty }) => {
       </div>
       {/* End search menu */}
       {/* Hamburger menu */}
+      <div
+        className={`blury-bg   -z-10 ${!isOpen ? "hidden" : ""}`}
+        onClick={() => menuState(false)}
+      ></div>
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -346,17 +350,13 @@ const Navbar = ({ cartTotalQty }) => {
             initial="initial"
             animate="animate"
             exit={exitAnim}
-            className={`w-full lg:w-auto hover:lg:w-full fixed lg:absolute z-20 bg-white py-3  ${styles.navLinks}  `}
+            className={`w-full lg:w-auto hover:lg:w-full fixed  lg:absolute z-20 bg-white py-3  ${styles.navLinks}  `}
             ref={navLinks}
           >
             <NavLinks />
           </motion.div>
         )}
       </AnimatePresence>
-      <div
-        className={`blury-bg -z-10 ${!isOpen ? "hidden" : ""}`}
-        onClick={() => menuState(false)}
-      ></div>
     </header>
   );
 };
