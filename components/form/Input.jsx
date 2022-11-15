@@ -15,7 +15,7 @@ const Input = ({ type, placeholder, id, isReq, iconType, val, onChange }) => {
         placeholder={placeholder}
         required={isReq}
         name={id}
-        val={val}
+        value={val}
         onChange={onChange}
       />
       <label

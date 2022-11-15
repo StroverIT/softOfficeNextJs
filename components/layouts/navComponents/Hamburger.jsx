@@ -13,6 +13,7 @@ const Hamburger = ({ headRef, isOpen, menuState }) => {
 
   useEffect(() => {
     menuState(false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router]);
   useEffect(() => {
     if (isOpen) {
