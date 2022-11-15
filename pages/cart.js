@@ -26,7 +26,7 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
   let totalPromotion = 0;
   let subtotal = cart
     .map((item) => {
-      let cena = item.item.item.cena;
+      let cena = item.item.item.cena || 0;
 
       // Item Promo
 
