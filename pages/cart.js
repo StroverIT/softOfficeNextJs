@@ -38,9 +38,10 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
 
       return cena * item.qty;
     })
-    .reduce((a, b) => a + b, 0)
-    .toFixed(2)
-    .split(".");
+    .reduce((a, b) => a + b, 0);
+
+  subtotal = parseFloat(subtotal.toFixed(2)).split(".");
+
   return (
     <>
       <Head>

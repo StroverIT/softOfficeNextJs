@@ -14,7 +14,7 @@ export default function CartItem({ cartData, removeProduct, changeQty }) {
   }
   const name = `${cartData?.item?.section?.name} ${cartData?.item?.article?.name} `;
 
-  let cena = cartData?.item?.item?.cena;
+  let cena = parseFloat(cartData?.item?.item?.cena);
 
   const price = { fixedPrice: cena };
 
