@@ -27,7 +27,6 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
   let subtotal = cart
     .map((item) => {
       let cena = item.item.item.cena || 0;
-      console.log(cena);
       // Item Promo
 
       if (item.item.item.isOnPromotions) {

@@ -12,7 +12,7 @@ export default function LgScreenTableData({
   changeQty,
 }) {
   let newTotalPrice, newPrice;
-  if (price.fixedPrice) {
+  if (price.fixedPrice || price.fixedPrice == 0) {
     newPrice = parseFloat(price?.fixedPrice)?.toFixed(2)?.split(".");
     newTotalPrice = (parseFloat(price?.fixedPrice) * qty)
       ?.toFixed(2)
