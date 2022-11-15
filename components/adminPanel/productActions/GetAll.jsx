@@ -144,7 +144,7 @@ export default function GetAll({ product, setMenuImgData }) {
                         let img = "nqma";
                         if (subsection.img) {
                           img =
-                            subsection?.img.originalname ||
+                            subsection?.img?.originalname ||
                             subsection?.img[0]?.originalname;
                         }
                         return (
