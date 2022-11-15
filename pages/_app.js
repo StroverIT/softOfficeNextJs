@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/inline-script-id */
 import "../styles/globals.css";
 
 // import { wrapper, store } from "../redux/store";
