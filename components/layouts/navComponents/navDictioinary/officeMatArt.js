@@ -12,7 +12,7 @@ const articles = [
 
         { displayName: "Цветна хартия и картон", name: "cvetnaHartiq" },
         {
-          displayName: "Дизанерска хартия и картон",
+          displayName: "Дизайнерска хартия и картон",
           name: "dizainerskaHartiqIKarton",
         },
 
