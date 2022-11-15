@@ -16,6 +16,7 @@ const yslygi = [
     displayName: "Подвързване, ламиниране и др",
     name: "podvurzvane-laminirane-i-dr",
   },
+  { displayName: "Изработка на формуляри", name: "izrabotka-na-formulyari" },
   // { displayName: "Изработка на бланки - по поръчка", name: "" },
 ];
 
