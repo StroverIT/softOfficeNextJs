@@ -364,15 +364,14 @@ export default function Index({ data, userData, isInFav }) {
               </h3>
               <div className="container flex px-3 pb-6 ml-4 sm:ml-10">
                 <ul className="mb-1 list-disc">
-                  {product?.article?.items[0].tipove
-                    .split(";")
-                    .splice(0, 5)
-                    .map((type) => {
-                      return <li key={type}>{type}</li>;
-                    })}
-                  {product?.article?.opisanie.split(";").map((description) => {
-                    return <li key={description}>{description}</li>;
+                  {console.log(product.article.items[0].tipove)}
+                  {product?.article?.items[0].tipove.split(";").map((type) => {
+                    return <li key={type}>{type}</li>;
                   })}
+                  {product?.article?.opisanie &&
+                    product?.article?.opisanie.split(";").map((description) => {
+                      return <li key={description}>{description}</li>;
+                    })}
                 </ul>{" "}
               </div>
             </section>
