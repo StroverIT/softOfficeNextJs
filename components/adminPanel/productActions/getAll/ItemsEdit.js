@@ -44,7 +44,7 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
 
   const subsec = inputs.subsection[index];
   const item = subsec.items[itemIdx];
-  const imgUrl = subsec.img.originalname || subsec.img[0].originalname;
+  const imgUrl = subsec.img?.originalname || subsec.img[0]?.originalname;
 
   return (
     <section key={itemIdx} className="p-5 mb-2 border border-primary-500">
