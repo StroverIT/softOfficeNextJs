@@ -21,9 +21,8 @@ export default async function handler(req, res) {
       "nameToDisplay name"
     );
     let subsections = await Product.findOne({
-      "subsection.$": { $match: options },
+      "subsection.nameToDisplay": options,
     });
-    console.log(subsections);
 
     let katNomera = await Product.findOne({
       "subsection.items.katNomer": options,
@@ -37,6 +36,17 @@ export default async function handler(req, res) {
       search.sections.push(section);
     }
     if (subsections) {
+      for (let subsection of subsections.subsection) {
+        if (
+          subsection.nameToDisplay.toLowerCase().includes(input.toLowerCase())
+        ) {
+          search.subsections.push({
+            name: subsection.nameToDisplay,
+            route: `${subsections.name}/${subsection._id}`,
+            _id: subsection._id,
+          });
+        }
+      }
     }
     if (katNomera) {
       katNomeraLoop: for (let subSection of katNomera?.subsection) {
@@ -56,6 +66,9 @@ export default async function handler(req, res) {
     // search.sections = search.sections.slice(0, 10);
     // search.subsections = search.sections.slice(0, 10);
     search.katNomera = search.katNomera.slice(0, 10);
+    search.sections = search.sections.slice(0, 10);
+    search.subsections = search.subsections.slice(0, 10);
+    console.log(search);
     mongoose.connection.close();
 
     res.json(search);

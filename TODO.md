@@ -347,3 +347,5 @@ Image is not showing when is uploaded - must restart the server [FIXED]
 
 Ламинаторир
 Чаши , бъркалки и прибории
+
+Да се търси под подсекция
