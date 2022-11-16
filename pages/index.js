@@ -14,6 +14,25 @@ import SwiperFreeMode from "../components/swiperJs/SwiperFreeMode";
 // Images
 const swiperPag = [
   {
+    src: "/carousel/!Image Volume.png",
+
+    key: "image volume ",
+    pageUrl: "/products/hartiq/6374d3379f74a9b4f4eb61a2",
+  },
+  {
+    src: "/carousel/!Kasova kniga.png",
+
+    key: "Kasova kniga",
+    pageUrl:
+      "/products/formylqri/621779090125b0cc2f1484a1#621779090125b0cc2f1484a9",
+  },
+  {
+    src: "/carousel/!Papka klasior.png",
+
+    key: "Papka klasior",
+    pageUrl: "/products/klasiori/62015d6437d09b4aa956e968",
+  },
+  {
     src: "/carousel/hero_slides_3.png",
 
     key: "Тонер Касета",
