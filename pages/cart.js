@@ -40,7 +40,7 @@ function Cart({ cart, adjustQty, removeFromCart, userData }) {
     .reduce((a, b) => a + b, 0);
 
   if (subtotal) {
-    subtotal = parseFloat(subtotal.toFixed(2)).split(".");
+    subtotal = parseFloat(subtotal).toFixed(2).split(".");
   }
 
   return (
