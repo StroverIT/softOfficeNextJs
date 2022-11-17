@@ -42,11 +42,12 @@ export default function MethodOfDeliv({
   const [invoiceSelect, setInvoiceSelect] = useState({
     name: "Юридическо лице",
   });
-  const [citySelected, setCitySelected] = useState(cities[21]);
+  const [citySelected, setCitySelected] = useState(selected);
 
   const getQuarters = async () => {
     setQuartesLoading(true);
     const data = await quartersFetch(selected.cityId);
+
     setQuartesLoading(false);
     setQuartersData(data);
   };
@@ -73,7 +74,8 @@ export default function MethodOfDeliv({
   useEffect(() => {
     getQuarters();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [selected]);
+
   return (
     <section>
       <div className="flex items-center py-4 pl-3 text-lg font-semibold bg-gray-300 border-y border-gray-150">
@@ -122,6 +124,7 @@ export default function MethodOfDeliv({
                       userData={userData}
                       quartersData={quartersData}
                       quarters={quartersData}
+                      city={selected}
                     />
                   )}
                   {isQuartersLoading && (

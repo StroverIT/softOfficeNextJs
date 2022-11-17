@@ -10,7 +10,7 @@ import { InputContext } from "./Context";
 // InnerUtils
 import { DELIVERY } from "../cart/cartCostants";
 
-export default function DeliveryPanel({ userData, quarters }) {
+export default function DeliveryPanel({ userData, quarters, city }) {
   const { inputs, setInputs, quarterSelected, setQuarterSelected } =
     useContext(InputContext);
 
@@ -75,12 +75,14 @@ export default function DeliveryPanel({ userData, quarters }) {
             />
           </section>
           <section className="flex flex-col w-full mt-3 space-y-5">
-            <ListBoxSearch
-              selected={quarterSelected}
-              setSelected={setQuarterSelected}
-              data={quarters}
-              inputPlaceholder="Квартал..."
-            />
+            {city.name == "София" && (
+              <ListBoxSearch
+                selected={quarterSelected}
+                setSelected={setQuarterSelected}
+                data={quarters}
+                inputPlaceholder="Квартал..."
+              />
+            )}
             <Input
               placeholder="Адрес"
               id="address"

@@ -38,18 +38,17 @@ export default function Product({ delivery }) {
       className="relative pt-4 pl-2 mb-10 border-l-4 border-primary"
     >
       <div className="flex flex-col flex-wrap pt-4 mt-4 gap-y-5">
-        {delivery.addressInfo && (
-          <div>
-            <h3 className="font-semibold uppercase">За адреса:</h3>
-            <ul className="flex flex-col flex-wrap gap-x-2 gap-y-1">
-              <li>Град: {address.city}</li>
-              <li>Адрес за доставка: {address.address}</li>
-              <li>Име: {address.name}</li>
-              <li>Телефон: {address.telephone}</li>
-              {delivery.comment && <li>Коментар: {delivery.comment}</li>}
-            </ul>
-          </div>
-        )}
+        <div>
+          <h3 className="font-semibold uppercase">За адреса:</h3>
+          <ul className="flex flex-col flex-wrap gap-x-2 gap-y-1">
+            {address.city && <li>Град: {address.city}</li>}
+            {address.address && <li>Адрес за доставка: {address.address}</li>}
+            <li>Име: {address.name}</li>
+            <li>Телефон: {address.telephone}</li>
+            {delivery.comment && <li>Коментар: {delivery.comment}</li>}
+          </ul>
+        </div>
+
         {delivery.typeOfPayment && (
           <div>
             <h3 className="font-semibold uppercase">Начин на плащане:</h3>

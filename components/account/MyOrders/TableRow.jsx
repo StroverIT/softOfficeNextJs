@@ -80,32 +80,36 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
             <section className="absolute z-20 w-full -translate-x-1/2 -translate-y-1/2 h-2/3 md:h-1/2 md:w-3/4 top-1/2 bg-gray left-1/2">
               <div className="relative h-full">
                 <div className="flex flex-wrap mx-1 pt-7 text-primary-lighter">
-                  {fullData.addressInfo && (
-                    <section className="w-full text-left">
-                      <h3 className="text-lg font-semibold text-center uppercase">
-                        За адреса
-                      </h3>
-                      <ul>
-                        <ListAddress
-                          text="Име: "
-                          value={fullData.addressInfo.name}
-                        />
-                        <ListAddress
-                          text="Телефон:"
-                          value={fullData.addressInfo.telephone}
-                        />
+                  <section className="w-full text-left">
+                    <h3 className="text-lg font-semibold text-center uppercase">
+                      За адреса
+                    </h3>
+                    <ul>
+                      <ListAddress
+                        text="Име: "
+                        value={fullData.addressInfo.name}
+                      />
+                      <ListAddress
+                        text="Телефон:"
+                        value={fullData.addressInfo.telephone}
+                      />
 
-                        <ListAddress
-                          text="Адрес:"
-                          value={fullData.addressInfo.address}
-                        />
+                      {fullData.addressInfo.city &&
+                        fullData.addressInfo.address && (
+                          <ListAddress
+                            text="Адрес:"
+                            value={`${fullData.addressInfo.city} ${fullData.addressInfo.address}`}
+                          />
+                        )}
+                      {fullData.comment && (
                         <ListAddress
                           text="Коментар:"
                           value={fullData.comment}
                         />
-                      </ul>
-                    </section>
-                  )}
+                      )}
+                    </ul>
+                  </section>
+
                   <section className="w-full font-semibold">
                     <h3 className="text-lg font-semibold text-center uppercase">
                       За продуктите

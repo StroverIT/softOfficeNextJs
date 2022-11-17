@@ -55,7 +55,10 @@ export default async function handler(req, res) {
     }
     // Only if is delivery and is not quarter
     if (inputs.typeOfDelivery == DELIVERY) {
-      if (deliveryInfo.quarter.name === "Избери квартал") {
+      if (
+        deliveryInfo.quarter.name === "Избери квартал" &&
+        deliveryInfo.city.name == "София"
+      ) {
         throw {
           error: "Моля изберете квартал",
         };
@@ -105,17 +108,20 @@ export default async function handler(req, res) {
       typeOfPayment,
     };
 
+    const address = inputs.address;
+    data.deliveryPrice = dostavka;
+    data.addressInfo = {
+      name: address.fullName,
+      telephone: address.phoneNumber,
+    };
     if (inputs.typeOfDelivery == DELIVERY) {
-      const address = inputs.address;
-      data.deliveryPrice = dostavka;
-      data.addressInfo = {
-        name: address.fullName,
-        telephone: address.phoneNumber,
-        address: `${deliveryInfo.quarter.name} ${address.address}`,
-        city: deliveryInfo.city.name,
-      };
+      address.address = `${
+        deliveryInfo.quarter.name == "Избери квартал"
+          ? ""
+          : deliveryInfo.quarter.name
+      }`;
+      address.city = deliveryInfo.city.name;
     }
-
     let message = `
     <h3>Вашата поръчка беше направена успешно! Благодарим Ви, че пазарувахте от SoftOffice !</h2>
     
