@@ -110,7 +110,7 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
         id="cena"
         text="Цена"
         holder="цена"
-        value={inputSakrateno.cena}
+        value={inputSakrateno?.cena}
         handler={(e) => changeHandler(e, index, itemIdx)}
       />
 
@@ -118,14 +118,14 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
         id="katNomer"
         text="Кат. номер"
         holder="Кат. номер"
-        value={inputSakrateno.katNomer}
+        value={inputSakrateno?.katNomer}
         handler={(e) => changeHandler(e, index, itemIdx)}
       />
       <Input
         id="isOnPromotions"
         text="На промоция ли е "
         holder="На промоция ли е"
-        value={inputSakrateno.isOnPromotions}
+        value={inputSakrateno?.isOnPromotions}
         handler={(e) => changeHandler(e, index, itemIdx)}
       />
 
@@ -133,7 +133,7 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
       <textarea
         name="tipove"
         id="tipove"
-        value={inputSakrateno.tipove}
+        value={inputSakrateno?.tipove}
         className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
         onChange={(e) => changeHandler(e, index, itemIdx)}
       ></textarea>
