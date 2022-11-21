@@ -123,7 +123,7 @@ const articles = [
         name: "lentorezachki",
       },
       {
-        displayName: "Лепищи ленти",
+        displayName: "Лепящи ленти",
         name: "lepqshtaLenta",
       },
       {
