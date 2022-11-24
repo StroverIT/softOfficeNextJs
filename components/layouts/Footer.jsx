@@ -164,7 +164,7 @@ const Footer = () => {
       </div>
       <div className="relative flex items-center justify-center py-6 text-white bg-primary-150">
         <div className="text-sm text-center text-primary-50">
-          © 2022 <a href="/contact">SoftOffice™</a>. Всички права запазени.
+          © 2022 SoftOffice™. Всички права запазени.
         </div>
         <div className="absolute right-10">
           Изработен от{" "}
