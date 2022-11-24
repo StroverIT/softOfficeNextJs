@@ -162,9 +162,20 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-center py-6 text-white bg-primary-150 ">
+      <div className="relative flex items-center justify-center py-6 text-white bg-primary-150">
         <div className="text-sm text-center text-primary-50">
           © 2022 <a href="/contact">SoftOffice™</a>. Всички права запазени.
+        </div>
+        <div className="absolute right-10">
+          Изработен от{" "}
+          <a
+            href="https://strover.bg"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline"
+          >
+            Strover
+          </a>
         </div>
       </div>
     </footer>
