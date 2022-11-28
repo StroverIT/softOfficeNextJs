@@ -95,7 +95,7 @@ function Delivery({ cart, userData, cities }) {
       window?.localStorage?.clear();
       localStorage?.clear();
       sessionStorage?.clear();
-      window.location.href = "/account#my-orders";
+      window.location.href = "/delivery-thanks";
       toastSuccess(message.message);
     }
   };
