@@ -108,7 +108,7 @@ const articles = [
   {
     menu: "Канцеларски материали",
     subMenu: [
-      { displayName: "Бели, цветни кубчета", name: "beliICvetniCubcheta" },
+      { displayName: "Бели, цветни кубчета", name: "beliICvetniKubcheta" },
       {
         displayName: "Самозалепващи листчета",
         name: "samozalepvashiListcheta",
