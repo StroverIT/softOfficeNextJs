@@ -31,10 +31,7 @@ const higienniSredstvaArt = [
     displayName: "Тоалетни хартии",
     name: "toaletniHartii",
   },
-  // {
-  //   displayName: "Диспенсър тоалетна хартия",
-  //   name: "kalkylatori",
-  // },
+
   {
     displayName: "Кухненски ролки",
     name: "kyhnenskiRolki",
@@ -48,14 +45,11 @@ const higienniSredstvaArt = [
     displayName: "Дезинфектанти",
     name: "dezinfektanti",
   },
-  // {
-  //   displayName: "Кърпи за ръце, козметични",
-  //   name: "kalkylatori",
-  // },
-  // {
-  //   displayName: "Диспенсър за кърпи",
-  //   name: "kalkylatori",
-  // },
+  {
+    displayName: "Кърпи за ръце, козметични и диспенсъри",
+    name: "kurpi-za-ruce-kozmetichni-i-dispensuri",
+  },
+
   {
     displayName: "Знак мокър под",
     name: "znakMokurPod",

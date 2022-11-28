@@ -31,10 +31,7 @@ const tehnikiKonsymativiArt = [
         displayName: "Флуид за шредери",
         name: "fluidZaShrederi",
       },
-      // {
-      //   displayName: "Листа за шердери",
-      //   name: "",
-      // },
+
       {
         displayName: "Гребени, корици",
         name: "grebeniKorici",
