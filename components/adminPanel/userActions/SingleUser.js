@@ -57,7 +57,11 @@ const SingleUser = ({ data, products }) => {
 
     let resData = {};
     if (menuType == "promo") {
-      resData = await PersonalPromotionFetch(checkedProducts, generalPromo);
+      resData = await PersonalPromotionFetch(
+        checkedProducts,
+        generalPromo,
+        data._id
+      );
     }
     if (menuType == "boss") {
       resData = await BossFetch({ workers, bossId: data._id });

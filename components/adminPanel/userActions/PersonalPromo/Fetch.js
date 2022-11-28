@@ -3,82 +3,89 @@ function sectionExists(obj, id) {
     return el._id === id;
   });
 }
-async function Fetch(checkedProducts, generalPromo) {
+async function Fetch(checkedProducts, generalPromo, ownerId) {
   const foundItems = {
     sections: [],
     subsections: [],
     items: [],
   };
-
-  checkedProducts.forEach((section) => {
-    if (section.isSelected) {
-      foundItems.sections.push({
-        _id: item._id,
-        isWhole: true,
-        customPromo: section.customPromo,
-      });
-    } else {
-      section.subsection.forEach((sub) => {
-        if (sub.isSelected) {
-          foundItems.subsections.push({
-            _id: sub._id,
-            isWhole: true,
-            customPromo: sub.customPromo,
-          });
-          // Checker
-          const isFound = sectionExists(foundItems.sections, section._id);
-          if (!isFound)
-            foundItems.sections.push({
-              _id: section._id,
-              isWhole: false,
-              customPromo: null,
+  try {
+    checkedProducts.forEach((section) => {
+      if (section.isSelected) {
+        foundItems.sections.push({
+          _id: section._id,
+          isWhole: true,
+          customPromo: section.customPromo,
+        });
+      } else {
+        section.subsection.forEach((sub) => {
+          if (sub.isSelected) {
+            foundItems.subsections.push({
+              _id: sub._id,
+              isWhole: true,
+              customPromo: sub.customPromo,
             });
-          // End checker
-        } else {
-          sub.items.forEach((item) => {
-            if (item.isSelected) {
-              foundItems.items.push({
-                _id: item._id,
-                customPromo: item.customPromo,
+            // Checker
+            const isFound = sectionExists(foundItems.sections, section._id);
+            if (!isFound)
+              foundItems.sections.push({
+                _id: section._id,
+                isWhole: false,
+                customPromo: null,
               });
-              // Checker
-              const sectionFound = sectionExists(
-                foundItems.sections,
-                section._id
-              );
-              const subFound = sectionExists(foundItems.subsections, sub._id);
-
-              if (!sectionFound)
-                foundItems.sections.push({
-                  _id: section._id,
-                  isWhole: false,
-                  customPromo: null,
+            // End checker
+          } else {
+            sub.items.forEach((item) => {
+              if (item.isSelected) {
+                foundItems.items.push({
+                  _id: item._id,
+                  customPromo: item.customPromo,
                 });
-              if (!subFound)
-                foundItems.subsections.push({
-                  _id: sub._id,
-                  isWhole: false,
-                  customPromo: null,
-                });
-              // End checker
-            }
-          });
-        }
-      });
-    }
-  });
+                // Checker
+                const sectionFound = sectionExists(
+                  foundItems.sections,
+                  section._id
+                );
+                const subFound = sectionExists(foundItems.subsections, sub._id);
 
-  const sendObject = {
-    ...foundItems,
-    generalPromo,
-  };
-  const options = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(sendObject),
-  };
-  const res = await fetch(`/api/promotions/personal/create`, options);
+                if (!sectionFound)
+                  foundItems.sections.push({
+                    _id: section._id,
+                    isWhole: false,
+                    customPromo: null,
+                  });
+                if (!subFound)
+                  foundItems.subsections.push({
+                    _id: sub._id,
+                    isWhole: false,
+                    customPromo: null,
+                  });
+                // End checker
+              }
+            });
+          }
+        });
+      }
+    });
 
-  return res.json();
+    const sendObject = {
+      ...foundItems,
+      generalPromo,
+      ownerId,
+    };
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(sendObject),
+    };
+    console.log(sendObject);
+    const res = await fetch(`/api/promotions/personal/create`, options);
+
+    return res.json();
+  } catch (e) {
+    console.log(e);
+
+    return res.json({ error: e.error });
+  }
 }
 export default Fetch;

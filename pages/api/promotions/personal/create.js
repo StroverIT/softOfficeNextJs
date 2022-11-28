@@ -8,6 +8,8 @@ const secret = process.env.NEXTAUTH_SECRET;
 
 async function handler(req, res) {
   try {
+    // End of checkers
+
     const token = await getToken({ req, secret });
     if (!token) {
       throw {
@@ -23,18 +25,21 @@ async function handler(req, res) {
         error: "Нямате такива права",
       };
     }
+    const { ownerId } = req.body;
+
+    const userToAdd = await User.findOne({ _id: ownerId });
     const isAlreadyPromotion = await PersonalPromotion.findOne({
-      ownerId: user._id,
+      ownerId: userToAdd._id,
     });
     if (isAlreadyPromotion) {
       throw {
-        error: `${user.email} вече има промоции. Първо ги махнете!`,
+        error: `${userToAdd.email} вече има промоции. Първо ги махнете!`,
       };
     }
-    // End of checkers
+
     const data = {
       ...req.body,
-      ownerId: user._id,
+      ownerId,
     };
     await PersonalPromotion.create(data);
     res.json({ message: "Заявката беше изпълнена успешно!" });
