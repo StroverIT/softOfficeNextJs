@@ -5,6 +5,7 @@ import hraniINapitkiArt from "./hraniINapitkiArt";
 import higienniSredstvaArt from "./higienniSredstvaArt";
 import obzavejdaneZaOfisArt from "./obzavejdaneZaOfisArt";
 import yslygi from "./yslygi";
+import ychilishtnoOborydvane from "./ychilishtnoOborydvane";
 /*
 mainRoute: "Main route"
 articles: {
@@ -53,6 +54,7 @@ const dictionary = [
     articles: yslygi,
     icon: "",
   },
+  { title: "Училищно оборудване", articles: ychilishtnoOborydvane, icon: "" },
 ];
 
 export default dictionary;
