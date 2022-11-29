@@ -49,12 +49,13 @@ const dictionary = [
     articles: obzavejdaneZaOfisArt,
     icon: "",
   },
+  { title: "Училищно оборудване", articles: ychilishtnoOborydvane, icon: "" },
+
   {
     title: "Услуги",
     articles: yslygi,
     icon: "",
   },
-  { title: "Училищно оборудване", articles: ychilishtnoOborydvane, icon: "" },
 ];
 
 export default dictionary;
