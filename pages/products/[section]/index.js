@@ -95,13 +95,14 @@ export default function Section({ products, types, sectionRoute }) {
       setArticles(products.subsection);
     }
   }, [products]);
+  const notInTesting = false;
   return (
     <main className="mb-auto">
       {articles && (
         <div className="container lg:space-x-10">
           <section className="mt-10">
             {/* Filters for mobile */}
-            {products && (
+            {products && notInTesting && (
               <div className="relative z-10 grid grid-cols-2 gap-2 mb-5 lg:mb-14 lg:grid-cols-1">
                 {/* TODO: add icons */}
                 <button
