@@ -300,6 +300,7 @@ export default function Index({ data, userData, isInFav }) {
                         />
                       </div>
                     )}
+                  {/* If is on calling only */}
                   {product.section.nameToDisplay == "Обадете се" && (
                     <div className="flex flex-col items-center justify-center w-full py-4 text-xl font-bold">
                       <div className="font-normal text-[0.95rem]">
@@ -310,7 +311,7 @@ export default function Index({ data, userData, isInFav }) {
                     </div>
                   )}
                 </section>
-
+                {/* Favivourite buttons logic */}
                 <section className="flex flex-col justify-center w-full h-full px-20">
                   <div className="mb-1">
                     <label

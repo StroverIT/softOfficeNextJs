@@ -113,7 +113,6 @@ export const productByItemId = async (itemId, session) => {
   if (session) {
     const email = session.user.email;
     const user = await User.findOne({ email });
-
     if (user) {
       const promotion = await PersonalPromotion.findOne({
         ownerId: user._id,
@@ -124,39 +123,62 @@ export const productByItemId = async (itemId, session) => {
         const sectionFound = promotion.sections.find(
           (promoItem) => promoItem._id.toString() == data.section._id.toString()
         );
-
         if (sectionFound) {
+          if (sectionFound.isWhole) {
+            const prec = sectionFound.customPromo;
+            data.article.items = data.article.items.map((item) => {
+              let price = (item.cena * (100 - prec)) / 100;
+
+              if (item.isOnPromotions) {
+                price < item.promotionalPrice ? price : item.promotionalPrice;
+              }
+              item.isOnPromotions = true;
+              item.promotionalPrice = price;
+              return item;
+            });
+          }
           const subFound = promotion.subsections.find(
             (promoItem) => promoItem._id.toString() == data.article._id
           );
+
           if (subFound) {
-            if (subFound) {
+            if (subFound.isWhole) {
+              const prec = sectionFound.customPromo || subFound.customPromo;
+
               data.article.items = data.article.items.map((item) => {
-                const itemFound = promotion.items.find(
-                  (promoItem) => promoItem._id.toString() == item._id.toString()
-                );
+                let price = (item.cena * (100 - prec)) / 100;
 
-                if (itemFound) {
-                  const prec =
-                    itemFound.customPromo ||
-                    subFound.customPromo ||
-                    sectionFound.customPromo ||
-                    promotion.generalPromo;
-
-                  let price = (item.cena * (100 - prec)) / 100;
-
-                  if (item.isOnPromotions) {
-                    price < item.promotionalPrice
-                      ? price
-                      : item.promotionalPrice;
-                  }
-                  item.isOnPromotions = true;
-                  item.promotionalPrice = price;
+                if (item.isOnPromotions) {
+                  price < item.promotionalPrice ? price : item.promotionalPrice;
                 }
-
+                item.isOnPromotions = true;
+                item.promotionalPrice = price;
                 return item;
               });
             }
+            data.article.items = data.article.items.map((item) => {
+              const itemFound = promotion.items.find(
+                (promoItem) => promoItem._id.toString() == item._id.toString()
+              );
+
+              if (itemFound) {
+                const prec =
+                  itemFound.customPromo ||
+                  subFound.customPromo ||
+                  sectionFound.customPromo ||
+                  promotion.generalPromo;
+
+                let price = (item.cena * (100 - prec)) / 100;
+
+                if (item.isOnPromotions) {
+                  price < item.promotionalPrice ? price : item.promotionalPrice;
+                }
+                item.isOnPromotions = true;
+                item.promotionalPrice = price;
+              }
+
+              return item;
+            });
           }
         }
       }

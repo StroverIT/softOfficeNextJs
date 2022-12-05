@@ -6,10 +6,12 @@
 	.st0{fill:none;stroke:#000000;stroke-width:4;stroke-miterlimit:10;}
 	.st1{stroke:#000000;stroke-width:4;stroke-linejoin:round;stroke-miterlimit:10;}
 	.st2{fill:none;stroke:#000000;stroke-width:4;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:10;}
+	.st3{fill:none;stroke:#000000;stroke-width:4;stroke-linejoin:round;stroke-miterlimit:10;}
 </style>
 <circle class="st0" cx="261" cy="243.5" r="214.6"/>
 <g>
-	<path class="st1" d="M135.7,251.2l96.9,93.5L135.7,251.2z"/>
-	<path class="st2" d="M388.2,183.4L233.7,345.8L388.2,183.4z"/>
+	<path class="st1" d="M-412.9,258.7l96.9,93.5L-412.9,258.7z"/>
+	<path class="st2" d="M-160.4,190.9l-154.5,162.4L-160.4,190.9z"/>
 </g>
+<polyline class="st3" points="139.4,245.3 237.4,339.9 391.9,177.5 "/>
 </svg>
