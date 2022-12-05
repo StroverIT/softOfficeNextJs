@@ -56,7 +56,12 @@ export default function Product({ section, article, addProduct }) {
           {imgUrl && (
             <Link href={`/products/${section.route}/${article._id}`}>
               <div className="relative w-full cursor-pointer h-96 sm:h-80">
-                <Image src={`/uploads/${imgUrl}`} layout="fill" alt={imgUrl} />
+                <Image
+                  src={`/uploads/${imgUrl}`}
+                  layout="fill"
+                  alt={imgUrl}
+                  className="object-contain"
+                />
               </div>
             </Link>
           )}
