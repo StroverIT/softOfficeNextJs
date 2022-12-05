@@ -21,7 +21,7 @@ export default function CartItem({ cartData, removeProduct, changeQty }) {
   if (cartData.item.item.isOnPromotions) {
     price.promotionalPrice = cartData?.item?.item?.promotionalPrice;
   }
-  console.log(price);
+
   return (
     <tr className="border-b border-gray-[#e4e7e6] flex flex-wrap lg:table-row justify-between items-center py-10 mb-10 gap-10 ">
       {/* Image plus list */}

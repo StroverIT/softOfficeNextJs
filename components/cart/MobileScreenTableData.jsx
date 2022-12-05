@@ -4,6 +4,7 @@ import { HiX } from "react-icons/hi";
 // Components
 import Price from "../priceStyling/Pricing";
 import QunityInput from "../base/QuanityInput";
+import OldPrice from "../priceStyling/OldPrice";
 
 export default function MobileScreenTableData({
   price,
@@ -11,7 +12,7 @@ export default function MobileScreenTableData({
   removeProduct,
   changeQty,
 }) {
-  let newTotalPrice, newPrice;
+  let newPrice, newTotalPrice, promoPrice, promoPriceTotal;
 
   if (price.fixedPrice || price.fixedPrice == 0) {
     newPrice = parseFloat(price?.fixedPrice)?.toFixed(2)?.split(".");
@@ -20,8 +21,8 @@ export default function MobileScreenTableData({
       ?.split(".");
   }
   if (price.promotionalPrice) {
-    newPrice = parseFloat(price.promotionalPrice).toFixed(2).split(".");
-    newTotalPrice = (parseFloat(price.promotionalPrice) * qty)
+    promoPrice = parseFloat(price.promotionalPrice).toFixed(2).split(".");
+    promoPriceTotal = (parseFloat(price.promotionalPrice) * qty)
       .toFixed(2)
       .split(".");
   }
@@ -30,16 +31,62 @@ export default function MobileScreenTableData({
       <div className="flex items-center justify-center my-1 ">
         <div className="lg:px-3 flex flex-col sm:items-start sm:-mb-[3rem] sm:mx-auto sm:ml-2 w-full">
           <div className="text-sm text-center text-gray-250 ">Ед. цена</div>
-          <Price price={newPrice[0]} priceDec={newPrice[1]} size="2xl" />
+          {promoPrice && (
+            <>
+              <section className="text-gray-200">
+                <OldPrice
+                  price={newPrice[0]}
+                  priceDec={newPrice[1]}
+                  size="2xl"
+                  NoDDSText={true}
+                />
+              </section>
+              <Price
+                price={promoPrice[0]}
+                priceDec={promoPrice[1]}
+                size="3xl"
+              />
+            </>
+          )}
+          {!promoPrice && (
+            <>
+              <Price
+                price={newPrice[0]}
+                priceDec={newTotalPrice[1]}
+                size="3xl"
+              />
+            </>
+          )}
         </div>
 
         <div className="lg:px-3 flex flex-col sm:items-end sm:-mb-[3rem] sm:mx-auto sm:mr-2 w-full">
           <div className="text-sm text-center text-gray-250 ">Общо</div>
-          <Price
-            price={newTotalPrice[0]}
-            priceDec={newTotalPrice[1]}
-            size="2xl"
-          />
+          {promoPrice && (
+            <>
+              <section className="text-gray-200">
+                <OldPrice
+                  price={newTotalPrice[0]}
+                  priceDec={newTotalPrice[1]}
+                  size="2xl"
+                  NoDDSText={true}
+                />
+              </section>
+              <Price
+                price={promoPriceTotal[0]}
+                priceDec={promoPriceTotal[1]}
+                size="3xl"
+              />
+            </>
+          )}
+          {!promoPrice && (
+            <>
+              <Price
+                price={newTotalPrice[0]}
+                priceDec={newTotalPrice[1]}
+                size="3xl"
+              />
+            </>
+          )}
         </div>
       </div>
       <div>

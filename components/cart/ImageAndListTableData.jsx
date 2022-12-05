@@ -19,6 +19,7 @@ export default function ImageAndListTableData({
                 layout="fill"
                 src={`/uploads/${imageUrl}`}
                 alt="just for testing"
+                className="object-contain"
               />
             </div>
           </Link>
