@@ -115,12 +115,15 @@ function Delivery({ cart, userData, cities }) {
 
   useEffect(() => {
     let savedMoney = 0;
+
     let subTotal = parseFloat(
       cart
         .map((item) => {
           let cena = item.item.item.cena;
           if (item.item.item.isOnPromotions) {
-            savedMoney += item.item.item.cena - item.item.item.promotionalPrice;
+            savedMoney +=
+              (item.item.item.cena - item.item.item.promotionalPrice) *
+              item.qty;
             cena = item.item.item.promotionalPrice;
           }
 
@@ -142,15 +145,17 @@ function Delivery({ cart, userData, cities }) {
     if (state.totalPrice <= 50 && orderState && orderState != MAGAZINE) {
       state.delivery = 10;
     } else state.delivery = 0;
-
     state.totalPrice = subTotal + dds + state.delivery;
     setPriceState(() => state);
+    console.log(savedMoney);
+
     if (savedMoney > 0) {
       setSavedMoney(savedMoney);
     }
     setTypeOfOrder(null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected]);
+
   useEffect(() => {
     let savedMoney = 0;
     let subTotal = parseFloat(
@@ -158,7 +163,9 @@ function Delivery({ cart, userData, cities }) {
         .map((item) => {
           let cena = item.item.item.cena;
           if (item.item.item.isOnPromotions) {
-            savedMoney += item.item.item.cena - item.item.item.promotionalPrice;
+            savedMoney +=
+              (item.item.item.cena - item.item.item.promotionalPrice) *
+              item.qty;
             cena = item.item.item.promotionalPrice;
           }
 
