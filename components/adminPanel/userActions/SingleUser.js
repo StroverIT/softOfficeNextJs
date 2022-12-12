@@ -21,6 +21,7 @@ import {
   toastSuccess,
   toastError,
 } from "../../../components/notificataions/Toast";
+import { removePersonal } from "./PersonalPromo/RemovePersonal";
 const SingleUser = ({ data, products }) => {
   const [subMenu, setSubMenu] = useState(null);
 
@@ -36,7 +37,7 @@ const SingleUser = ({ data, products }) => {
 
   const [menuType, setMenuType] = useState(null);
   const [workers, setWorkers] = useState([]);
-  const addPromotionsHandler = async () => {
+  const addPromotionsHandler = async (type) => {
     if (menuType == "addWorkers") {
       await bossHandlerActions({
         target: {
@@ -57,16 +58,19 @@ const SingleUser = ({ data, products }) => {
 
     let resData = {};
     if (menuType == "promo") {
-      resData = await PersonalPromotionFetch(
-        checkedProducts,
-        generalPromo,
-        data._id
-      );
+      if (type == "add") {
+        resData = await PersonalPromotionFetch(
+          checkedProducts,
+          generalPromo,
+          data._id
+        );
+      } else if (type == "remove") {
+        resData = await removePersonal(data._id);
+      }
     }
     if (menuType == "boss") {
       resData = await BossFetch({ workers, bossId: data._id });
     }
-
     toastHideAll();
     if (resData?.error) toastError(resData.error);
 
@@ -130,8 +134,6 @@ const SingleUser = ({ data, products }) => {
   };
 
   const toggleBossEmailHand = () => {
-    console.log(newBossEmail);
-
     if (newBossEmail) setNewBossEmail("");
     else setNewBossEmail(" ");
   };
@@ -264,13 +266,20 @@ const SingleUser = ({ data, products }) => {
             >
               <div className="container ">
                 <div className="sticky z-50 flex mb-10 top-5">
-                  <div className="flex items-end justify-end w-full cursor-pointer">
+                  <div className="flex items-end justify-end w-full cursor-pointer gap-x-10">
                     <button
                       type="button"
                       className="flex px-10 py-1 text-lg text-white rounded-lg bg-green "
-                      onClick={addPromotionsHandler}
+                      onClick={() => addPromotionsHandler("add")}
                     >
                       Изпрати
+                    </button>
+                    <button
+                      type="button"
+                      className="flex px-10 py-1 text-lg text-white rounded-lg bg-red "
+                      onClick={() => addPromotionsHandler("remove")}
+                    >
+                      Премахни
                     </button>
                   </div>
                   <div className="w-full">
