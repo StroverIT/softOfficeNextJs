@@ -40,6 +40,9 @@ const customColors = {
   },
   grayBg: "#f0f0f0",
   transparent: "transparent",
+  red: {
+    DEFAULT: "#FF0000",
+  },
 };
 
 module.exports = {
