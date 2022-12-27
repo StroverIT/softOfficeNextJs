@@ -28,16 +28,16 @@ export default function SwiperPromo({ data, navSize }) {
   useEffect(() => {
     const existed = [];
     const newData = [];
-    data.forEach((item) => {
-      const sectionName = item.product.section.nameToDisplay;
-      const subSectionName = item.product.subsection.nameToDisplay;
+    data?.forEach((item) => {
+      const sectionName = item.product?.section.nameToDisplay;
+      const subSectionName = item.product?.subsection.nameToDisplay;
 
       const name = `${sectionName} ${subSectionName}`;
       if (existed.includes(name)) {
         const indexOfFound = newData.findIndex(
           (index) =>
-            index.product.section.nameToDisplay == sectionName &&
-            index.product.subsection.nameToDisplay == subSectionName
+            index.product?.section.nameToDisplay == sectionName &&
+            index.product?.subsection.nameToDisplay == subSectionName
         );
         if (indexOfFound != -1) newData[indexOfFound].moreThanOne = true;
 
@@ -83,11 +83,11 @@ export default function SwiperPromo({ data, navSize }) {
           {stateData.map((promo) => {
             const product = promo.product;
             const sum =
-              (product.item.promotionalPrice / product.item.cena) * 100;
+              (product?.item.promotionalPrice / product?.item.cena) * 100;
             const percentageRate = (100 - sum).toFixed(2).split(".");
-            let pageUrl = `${product.section.name}/${product.subsection._id}`;
+            let pageUrl = `${product?.section.name}/${product?.subsection._id}`;
 
-            const name = `${product.section.nameToDisplay} ${product.subsection.nameToDisplay}`;
+            const name = `${product?.section.nameToDisplay} ${product?.subsection.nameToDisplay}`;
             return (
               <SwiperSlide
                 className="relative flex flex-col my-2 bg-white shadow-lg cursor-pointer hover:shadow-xl "
@@ -102,10 +102,10 @@ export default function SwiperPromo({ data, navSize }) {
                       <div className="relative h-60 w-60 ">
                         <Image
                           src={`/uploads/${
-                            product.subsection && product?.subsection?.imgUrl
+                            product?.subsection && product?.subsection?.imgUrl
                           }`}
                           layout="fill"
-                          alt={product.subsection.imgUrl}
+                          alt={product?.subsection.imgUrl}
                           className="object-contain"
                         />
                       </div>
@@ -116,7 +116,7 @@ export default function SwiperPromo({ data, navSize }) {
                       <div className="text-xl">{name}</div>
                       {!promo.moreThanOne && (
                         <ul className="text-sm font-normal ">
-                          {product.item.tipove
+                          {product?.item.tipove
                             .split(";")
                             .splice(0, 5)
                             .map((type) => {

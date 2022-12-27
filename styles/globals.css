@@ -47,6 +47,9 @@ body {
   /* border-radius: 10px; */
 }
 
+.test-font {
+  font-family: SFProText-Regular, Helvetica, Arial, sans-serif;
+}
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #b3b3b3;

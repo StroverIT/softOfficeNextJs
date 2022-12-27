@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["static.xx.fbcdn.net"],
+    domains: ["static.xx.fbcdn.net", "platform-lookaside.fbsbx.com"],
   },
 };
 

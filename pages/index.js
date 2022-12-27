@@ -11,6 +11,9 @@ import Icons from "../components/Icons/Icons";
 import SwiperPag from "../components/swiperJs/SwiperPag";
 import SwiperFreeMode from "../components/swiperJs/SwiperFreeMode";
 
+import { connectMongo } from "../db/connectDb";
+import Review from "../db/models/Review";
+
 // Images
 const swiperPag = [
   {
@@ -57,17 +60,17 @@ const reviewData = [
   {
     image: null,
     name: "Иван Петров",
-    stars: 4,
-    paragraph:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et",
+    stars: 5,
+    comment:
+      "Отлични продукти, обслужването е на лице, доставките винаги са навреме.",
     _id: "Ivanmcho",
   },
   {
     image: null,
     name: "Кирил Методиев",
     stars: 5,
-    paragraph:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et",
+    comment:
+      "Служителите са много културни, винаги се отзовава на помощ при нужна. Доставката беше точно в часа който ми казаха.",
     _id: "Ivanmcho2",
   },
 ];
@@ -75,7 +78,7 @@ import { FaShieldAlt } from "react-icons/fa";
 import { TiStopwatch } from "react-icons/ti";
 import SwiperCoverFlow from "../components/swiperJs/SwiperCoverFlow";
 
-export default function Home({ promotions }) {
+export default function Home({ promotions, reviewDataDb }) {
   return (
     <>
       <Head>
@@ -198,11 +201,11 @@ export default function Home({ promotions }) {
               </h3>
             </section>
             <section className="flex flex-wrap items-center justify-center my-5 ">
-              <SwiperCoverFlow data={reviewData} />
+              <SwiperCoverFlow data={reviewData} reviewDataDb={reviewDataDb} />
             </section>
           </div>
           <div className="flex items-center justify-center">
-            <Link href="/review/create">
+            <Link href="/review/login">
               <a className="px-5 py-2 text-white rounded-md bg-green ">
                 Добави отзив
               </a>
@@ -270,15 +273,24 @@ export default function Home({ promotions }) {
 
 export async function getServerSideProps(context) {
   let data = [];
+  let reviewDataDb = [];
   try {
     const promotionsRes = await fetch(
       `${process.env.NEXTAUTH_URL}/api/promotions/getAll`
     );
     data = await promotionsRes.json();
+
+    await connectMongo();
+
+    const reviewRes = await Review.find({});
+    reviewDataDb = reviewRes;
   } catch (e) {
     console.log(e);
   }
   return {
-    props: { promotions: data }, // will be passed to the page component as props
+    props: {
+      promotions: data,
+      reviewDataDb: JSON.parse(JSON.stringify(reviewDataDb)),
+    }, // will be passed to the page component as props
   };
 }

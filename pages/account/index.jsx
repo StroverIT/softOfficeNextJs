@@ -222,7 +222,6 @@ export async function getServerSideProps(context) {
     }),
   });
   const data = await res.json();
-
   const deliveriesRes = await fetch(
     `${process.env.NEXTAUTH_URL}/api/account/deliveries/getAll`,
     {

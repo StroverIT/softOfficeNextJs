@@ -3,7 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-const FacebookPopup = ({ setPopup }) => {
+const CreateReview = ({ setPopup }) => {
   const [inputs, setInputs] = useState({
     email: "",
     password: "",
@@ -117,4 +117,4 @@ const FacebookPopup = ({ setPopup }) => {
   );
 };
 
-export default FacebookPopup;
+export default CreateReview;
