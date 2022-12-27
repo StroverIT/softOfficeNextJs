@@ -53,8 +53,27 @@ const swiperPag = [
   },
 ];
 
+const reviewData = [
+  {
+    image: null,
+    name: "Иван Петров",
+    stars: 4,
+    paragraph:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et",
+    _id: "Ivanmcho",
+  },
+  {
+    image: null,
+    name: "Кирил Методиев",
+    stars: 5,
+    paragraph:
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et",
+    _id: "Ivanmcho2",
+  },
+];
 import { FaShieldAlt } from "react-icons/fa";
 import { TiStopwatch } from "react-icons/ti";
+import SwiperCoverFlow from "../components/swiperJs/SwiperCoverFlow";
 
 export default function Home({ promotions }) {
   return (
@@ -149,7 +168,7 @@ export default function Home({ promotions }) {
             </section>
             <section className="items-center justify-center grid-cols-8 my-5 lg:grid">
               <div className="col-span-4 col-start-2 py-10 mt-5 text-center sm:mb-5 lg:text-left lg:my-0 lg:w-5/6">
-                <span className="text-xl font-semibold text-gray-darker">
+                <span className="text-xl ">
                   Ние от Softoffice сме убедени, че Вие трябва да се чувствате
                   свободни при избора си, затова наш приоритет е предлагане на
                   услуги и комплексни решения от ново поколение, които да дават
@@ -169,6 +188,25 @@ export default function Home({ promotions }) {
                 />
               </div>
             </section>
+          </div>
+        </section>
+        <section className="my-16 bg-color">
+          <div className="container">
+            <section className="relative z-10 text-center index-title">
+              <h3 className="inline px-4 mt-1 text-3xl font-medium bg-color">
+                Отзиви от клиенти
+              </h3>
+            </section>
+            <section className="flex flex-wrap items-center justify-center my-5 ">
+              <SwiperCoverFlow data={reviewData} />
+            </section>
+          </div>
+          <div className="flex items-center justify-center">
+            <Link href="/review/create">
+              <a className="px-5 py-2 text-white rounded-md bg-green ">
+                Добави отзив
+              </a>
+            </Link>
           </div>
         </section>
         {/* <section className="py-5 bg-color">

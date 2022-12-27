@@ -1,5 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import FacebookProvider from "next-auth/providers/facebook";
 
 import { connectMongo } from "../../../db/connectDb";
 import mongoose from "mongoose";
@@ -55,6 +56,10 @@ export default NextAuth({
           name: result.name,
         };
       },
+    }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET,
     }),
   ],
 });

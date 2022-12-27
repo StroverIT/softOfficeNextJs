@@ -231,3 +231,10 @@ input[type="range"]::-webkit-slider-thumb {
 .colros {
   background-color: hsl(190, 90%, 50%);
 }
+
+.text-clip {
+  clip-path: polygon(32% 31%, 68% 30%, 100% 0, 100% 100%, 0 100%, 0 0);
+}
+.shadow-facebook {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
+}
