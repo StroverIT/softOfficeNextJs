@@ -38,7 +38,7 @@ const articles = [
 
         { displayName: "Маркиращи клещи", name: "markirashtiKleshti" },
         { displayName: "Бели пликове", name: "plikoveBeli" },
-        { displayName: "Кафяви пликове", name: "null" },
+        { displayName: "Кафяви пликове", name: "plikoveKafqvi" },
         { displayName: "Цветни пликове", name: "cvetniPlikove" },
 
         { displayName: "Формуляри", name: "formylqri" },
