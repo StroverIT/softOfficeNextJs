@@ -20,6 +20,7 @@ interface IItems {
   imageUrl: String;
   isOnlyNumb: Boolean;
   isInStock: Boolean;
+  quantityWithPrices: [Object];
 }
 interface ISubsection {
   opisanie: String;
@@ -27,6 +28,7 @@ interface ISubsection {
   nameToDisplay: String;
   img: [IImage];
   items: [IItems];
+  isCustomQty: Boolean;
 }
 interface IProducts {
   name: String;
@@ -76,6 +78,7 @@ const itemsSchema = new Schema<IItems>({
     type: Boolean,
     default: true,
   },
+  quantityWithPrices: [{ type: Object }],
 });
 
 const subsectionSchema = new Schema<ISubsection>({
@@ -91,6 +94,7 @@ const subsectionSchema = new Schema<ISubsection>({
   },
   img: [imageSchema],
   items: [itemsSchema],
+  isCustomQty: Boolean,
 });
 const ProductsSchema = new Schema<IProducts>({
   name: { type: String, required: true },
