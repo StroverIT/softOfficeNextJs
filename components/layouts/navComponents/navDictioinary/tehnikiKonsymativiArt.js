@@ -38,7 +38,7 @@ const tehnikiKonsymativiArt = [
       },
       {
         displayName: "Батерии",
-        name: "bateri",
+        name: "baterii",
       },
       {
         displayName: "Телефони",
