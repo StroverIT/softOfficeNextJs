@@ -193,25 +193,30 @@ export default function Home({ promotions, reviewDataDb }) {
             </section>
           </div>
         </section>
-        <section className="my-16 bg-color">
-          <div className="container">
-            <section className="relative z-10 text-center index-title">
-              <h3 className="inline px-4 mt-1 text-3xl font-medium bg-color">
-                Отзиви от клиенти
-              </h3>
-            </section>
-            <section className="flex flex-wrap items-center justify-center my-5 ">
-              <SwiperCoverFlow data={reviewData} reviewDataDb={reviewDataDb} />
-            </section>
-          </div>
-          <div className="flex items-center justify-center">
-            <Link href="/review/login">
-              <a className="px-5 py-2 text-white rounded-md bg-green ">
-                Добави отзив
-              </a>
-            </Link>
-          </div>
-        </section>
+        {reviewDataDb.length > 0 && (
+          <section className="my-16 bg-color">
+            <div className="container">
+              <section className="relative z-10 text-center index-title">
+                <h3 className="inline px-4 mt-1 text-3xl font-medium bg-color">
+                  Отзиви от клиенти
+                </h3>
+              </section>
+              <section className="flex flex-wrap items-center justify-center my-5 ">
+                <SwiperCoverFlow
+                  data={reviewData}
+                  reviewDataDb={reviewDataDb}
+                />
+              </section>
+            </div>
+            <div className="flex items-center justify-center">
+              <Link href="/review/login">
+                <a className="px-5 py-2 text-white rounded-md bg-green ">
+                  Добави отзив
+                </a>
+              </Link>
+            </div>
+          </section>
+        )}
         {/* <section className="py-5 bg-color">
           <h1 className="text-center">Тука ще има нашите партньори</h1>
         </section> */}
