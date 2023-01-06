@@ -312,7 +312,7 @@ export default function Index({ data, userData, isInFav }) {
                   )}
                 </section>
                 {/* Favivourite buttons logic */}
-                <section className="flex flex-col justify-center w-full h-full px-20">
+                <section className="flex flex-col justify-center w-full h-full lg:px-20">
                   <div className="mb-1">
                     <label
                       htmlFor="qty"
