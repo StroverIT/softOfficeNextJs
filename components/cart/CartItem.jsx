@@ -17,7 +17,7 @@ export default function CartItem({ cartData, removeProduct, changeQty }) {
   let cena = parseFloat(cartData?.item?.item?.cena);
 
   const price = { fixedPrice: cena };
-
+  console.log(price);
   if (cartData.item.item.isOnPromotions) {
     price.promotionalPrice = cartData?.item?.item?.promotionalPrice;
   }
