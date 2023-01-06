@@ -151,8 +151,8 @@ export default function Section({ products, types, sectionRoute }) {
                     <Product
                       key={article._id}
                       section={{
-                        name: products.nameToDisplay,
-                        route: products.name,
+                        name: article?.nameToDisplay,
+                        route: article?.name,
                       }}
                       article={article}
                       addProduct={addProduct}

@@ -36,7 +36,11 @@ const SwiperProductSelectSwiperSlide = ({ article, item, sectionName }) => {
           />
         </div>
 
-        <ul className="flex flex-col justify-center py-4 border-y border-gray px-10 text-center">
+        <ul
+          className={`flex flex-col justify-center px-10 py-4 text-center ${
+            !article.isCustomQty ? "border-y" : "border-t"
+          } border-gray`}
+        >
           {item.tipove
             .split(";")
             .splice(0, 5)
@@ -51,13 +55,15 @@ const SwiperProductSelectSwiperSlide = ({ article, item, sectionName }) => {
       </div>
       {/* This can be potential bug!!!! */}
       <div className="py-2 -mt-10">
-        {!item.isOnPromotions && sectionName != "Обадете се" && (
-          <Pricing
-            price={parseFloat(price?.forItem)?.toFixed(2).split(".")[0]}
-            priceDec={parseFloat(price?.forItem)?.toFixed(2).split(".")[1]}
-            size="2xl"
-          />
-        )}
+        {!item.isOnPromotions &&
+          !article.isCustomQty &&
+          sectionName != "Обадете се" && (
+            <Pricing
+              price={parseFloat(price?.forItem)?.toFixed(2).split(".")[0]}
+              priceDec={parseFloat(price?.forItem)?.toFixed(2).split(".")[1]}
+              size="2xl"
+            />
+          )}
         {item.isOnPromotions && sectionName != "Обадете се" && (
           <div className="flex items-center justify-center gap-x-5">
             <div className="text-gray-200">
@@ -79,7 +85,7 @@ const SwiperProductSelectSwiperSlide = ({ article, item, sectionName }) => {
           </div>
         )}
         {sectionName == "Обадете се" && (
-          <div className="text-xl font-bold bg-gray w-full py-4 flex justify-center items-center flex-col">
+          <div className="flex flex-col items-center justify-center w-full py-4 text-xl font-bold bg-gray">
             <div className="font-normal text-[0.95rem]">
               Обадете се за цена!
             </div>

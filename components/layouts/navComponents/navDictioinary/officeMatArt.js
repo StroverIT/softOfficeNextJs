@@ -37,8 +37,8 @@ const articles = [
         { displayName: "Самозалепващи знаци", name: "zamoZalepvashtiZnaci" },
 
         { displayName: "Маркиращи клещи", name: "markirashtiKleshti" },
-        { displayName: "Бели пликове", name: "beliPlikove" },
-        { displayName: "Кафяви пликове", name: "kafqviPlikove" },
+        { displayName: "Бели пликове", name: "plikoveBeli" },
+        { displayName: "Кафяви пликове", name: "null" },
         { displayName: "Цветни пликове", name: "cvetniPlikove" },
 
         { displayName: "Формуляри", name: "formylqri" },

@@ -34,6 +34,7 @@ import Card from "../../../../components/products/Card";
 import { isFav } from "../../../../services/favouriteService";
 import { getUser } from "../../../../services/userServicejs";
 import SwiperProductSelect from "../../../../components/swiperJs/SwiperProductSelect";
+import PriceWithQuantity from "../../../../components/products/PriceWithQuantity";
 
 export default function Index({ data, userData, isInFav }) {
   const router = useRouter();
@@ -47,7 +48,9 @@ export default function Index({ data, userData, isInFav }) {
   const [price, setPrice] = useState(null);
   const [isFav, setIsFav] = useState(isInFav);
   const [isSelected, setSelected] = useState(false);
-
+  const [customQtySelected, customQtySetSelected] = useState({
+    name: "Количество",
+  });
   const dispatch = useDispatch();
   let imgUrl;
 
@@ -76,7 +79,11 @@ export default function Index({ data, userData, isInFav }) {
         route: section.name,
       },
     };
-
+    if (product.article.isCustomQty) {
+      newObj.item.cena = customQtySelected.price;
+      newObj.item.tipove += `;${customQtySelected.name}`;
+    }
+    console.log(newObj.item.cena);
     toastProduct(
       `${section.nameToDisplay} ${article.tiput} успешно беше добавен в количката`
     );
@@ -261,102 +268,128 @@ export default function Index({ data, userData, isInFav }) {
             /> */}
               </div>
               <section className="flex flex-col p-5 space-y-10">
-                <section className="flex items-center justify-between border-b border-gray-bord ">
-                  {product.section.nameToDisplay != "Обадете се" && (
-                    <div className="text-lg font-bold">Цена:</div>
-                  )}
-                  {price?.forItem &&
-                    !price.promoPrice &&
-                    product.section.nameToDisplay != "Обадете се" && (
-                      <Pricing
-                        price={
-                          parseFloat(price.forItem).toFixed(2).split(".")[0]
-                        }
-                        priceDec={
-                          parseFloat(price.forItem).toFixed(2).split(".")[1]
-                        }
-                        size="3xl"
-                      />
+                {!product.article.isCustomQty && (
+                  <section className="flex items-center justify-between border-b border-gray-bord ">
+                    {product.section.nameToDisplay != "Обадете се" && (
+                      <div className="text-lg font-bold">Цена:</div>
                     )}
-                  {price?.promoPrice &&
-                    product.section.nameToDisplay != "Обадете се" && (
-                      <div className="flex gap-x-5">
-                        <div className="text-gray-200">
-                          <OldPrice
-                            price={
-                              parseFloat(price.forItem).toFixed(2).split(".")[0]
-                            }
-                            priceDec={
-                              parseFloat(price.forItem).toFixed(2).split(".")[1]
-                            }
-                            size="3xl"
-                            NoDDSText={true}
-                          />
-                        </div>
+                    {price?.forItem &&
+                      !price.promoPrice &&
+                      product.section.nameToDisplay != "Обадете се" && (
                         <Pricing
-                          price={price.promoPrice.toFixed(2).split(".")[0]}
-                          priceDec={price.promoPrice.toFixed(2).split(".")[1]}
+                          price={
+                            parseFloat(price.forItem).toFixed(2).split(".")[0]
+                          }
+                          priceDec={
+                            parseFloat(price.forItem).toFixed(2).split(".")[1]
+                          }
                           size="3xl"
                         />
+                      )}
+                    {price?.promoPrice &&
+                      product.section.nameToDisplay != "Обадете се" && (
+                        <div className="flex gap-x-5">
+                          <div className="text-gray-200">
+                            <OldPrice
+                              price={
+                                parseFloat(price.forItem)
+                                  .toFixed(2)
+                                  .split(".")[0]
+                              }
+                              priceDec={
+                                parseFloat(price.forItem)
+                                  .toFixed(2)
+                                  .split(".")[1]
+                              }
+                              size="3xl"
+                              NoDDSText={true}
+                            />
+                          </div>
+                          <Pricing
+                            price={price.promoPrice.toFixed(2).split(".")[0]}
+                            priceDec={price.promoPrice.toFixed(2).split(".")[1]}
+                            size="3xl"
+                          />
+                        </div>
+                      )}
+                    {/* If is on calling only */}
+                    {product.section.nameToDisplay == "Обадете се" && (
+                      <div className="flex flex-col items-center justify-center w-full py-4 text-xl font-bold">
+                        <div className="font-normal text-[0.95rem]">
+                          Обадете се за цена!
+                        </div>
+
+                        <div>088 888 4687</div>
                       </div>
                     )}
-                  {/* If is on calling only */}
-                  {product.section.nameToDisplay == "Обадете се" && (
-                    <div className="flex flex-col items-center justify-center w-full py-4 text-xl font-bold">
-                      <div className="font-normal text-[0.95rem]">
-                        Обадете се за цена!
-                      </div>
-
-                      <div>088 888 4687</div>
+                  </section>
+                )}
+                {/* If is custom qty like /products/beliPlikove */}
+                {product.article.isCustomQty && (
+                  <section className="flex flex-col justify-center w-full h-full lg:px-20">
+                    <PriceWithQuantity
+                      selected={customQtySelected}
+                      setSelected={customQtySetSelected}
+                      data={product.article.items[0].quantityWithPrices}
+                    />
+                    {customQtySelected.name != "Количество" && (
+                      <button
+                        type="button"
+                        className={`w-full px-2 flex py-2  justify-center items-end font-semibold text-white  bg-primary mt-6 text-xl border border-primary hover:bg-transparent hover:text-primary transition-colors `}
+                        onClick={() => addProduct(product, itemName)}
+                      >
+                        Купи
+                      </button>
+                    )}
+                  </section>
+                )}
+                {!product.article.isCustomQty && (
+                  <section className="flex flex-col justify-center w-full h-full lg:px-20">
+                    <div className="mb-1">
+                      <label
+                        htmlFor="qty"
+                        className="font-semibold text-gray-200"
+                      >
+                        Количество:
+                      </label>
                     </div>
-                  )}
-                </section>
-                {/* Favivourite buttons logic */}
-                <section className="flex flex-col justify-center w-full h-full lg:px-20">
-                  <div className="mb-1">
-                    <label
-                      htmlFor="qty"
-                      className="font-semibold text-gray-200"
+                    <AddProductInput setQty={setQty} currQty={currQty} />
+                    <button
+                      type="button"
+                      className={`w-full px-2 flex py-2  justify-center items-end font-semibold text-white  bg-primary mt-6 text-xl border border-primary hover:bg-transparent hover:text-primary transition-colors `}
+                      onClick={() => addProduct(product, itemName)}
                     >
-                      Количество:
-                    </label>
-                  </div>
-                  <AddProductInput setQty={setQty} currQty={currQty} />
-                  <button
-                    type="button"
-                    className={`w-full px-2 flex py-2  justify-center items-end font-semibold text-white  bg-primary mt-6 text-xl border border-primary hover:bg-transparent hover:text-primary transition-colors `}
-                    onClick={() => addProduct(product, itemName)}
-                  >
-                    Купи
-                  </button>
-                  {/* Favourites div */}
-                  {userData && !isFav && (
-                    <div
-                      className="flex items-center justify-center col-span-2 mt-6 transition-transform cursor-pointer group hover:-translate-y-1"
-                      onClick={() => addFavourites(product, itemName)}
-                    >
-                      <div className="inline-flex p-2 text-xl rounded-full bg-gray group-hover:text-white group-hover:bg-primary md:ml-5 ">
-                        <AiOutlineHeart />
+                      Купи
+                    </button>
+                    {/* Favourites div */}
+                    {userData && !isFav && (
+                      <div
+                        className="flex items-center justify-center col-span-2 mt-6 transition-transform cursor-pointer group hover:-translate-y-1"
+                        onClick={() => addFavourites(product, itemName)}
+                      >
+                        <div className="inline-flex p-2 text-xl rounded-full bg-gray group-hover:text-white group-hover:bg-primary md:ml-5 ">
+                          <AiOutlineHeart />
+                        </div>
+                        <span className="ml-1 text-sm select-none group-hover:text-primary">
+                          Добави в любими
+                        </span>
                       </div>
-                      <span className="ml-1 text-sm select-none group-hover:text-primary">
-                        Добави в любими
-                      </span>
-                    </div>
-                  )}
-                  {userData && isFav && (
-                    <div
-                      className="flex items-center justify-center col-span-2 mt-6 transition-transform cursor-pointer group hover:-translate-y-1"
-                      onClick={() => removeFavourites(product._id)}
-                    >
-                      <div className="inline-flex p-2 text-xl rounded-full bg-gray group-hover:text-white group-hover:bg-secondary md:ml-5 ">
-                        <AiOutlineHeart />
+                    )}
+                    {userData && isFav && (
+                      <div
+                        className="flex items-center justify-center col-span-2 mt-6 transition-transform cursor-pointer group hover:-translate-y-1"
+                        onClick={() => removeFavourites(product._id)}
+                      >
+                        <div className="inline-flex p-2 text-xl rounded-full bg-gray group-hover:text-white group-hover:bg-secondary md:ml-5 ">
+                          <AiOutlineHeart />
+                        </div>
+                        <span className="ml-1 text-sm select-none group-hover:text-secondary">
+                          Премахни от любими
+                        </span>
                       </div>
-                      <span className="ml-1 text-sm select-none group-hover:text-secondary">
-                        Премахни от любими
-                      </span>
-                    </div>
-                  )}
-                </section>
+                    )}
+                  </section>
+                )}
               </section>
             </div>
             <section className="pt-2 mt-16 mb-5 border border-gray-150">
@@ -407,6 +440,7 @@ export default function Index({ data, userData, isInFav }) {
               articleItems={product?.article?.items}
               article={{
                 img: imgUrl,
+                isCustomQty: product?.article?.isCustomQty,
               }}
               navSize="3xl"
               onClick={selectedProductHandler}

@@ -8,6 +8,7 @@ import Link from "next/link";
 import BuyBtn from "../../base/BuyBtn";
 import OldPrice from "../../priceStyling/OldPrice";
 import Pricing from "../../priceStyling/Pricing";
+import PriceWithQuantity from "../PriceWithQuantity";
 
 export default function ListItem({ section, articleData, item, addProduct }) {
   let imgUrl = articleData?.imgUrl;
@@ -19,6 +20,9 @@ export default function ListItem({ section, articleData, item, addProduct }) {
   const types = item.tipove.split(";");
   const [price, setPrice] = useState(null);
   const [sanitizedData, setSanitizedData] = useState({});
+  const [customQtySelected, customQtySetSelected] = useState({
+    name: "Количество",
+  });
   useEffect(() => {
     let priceObjInit = { forItem: item.cena };
 
@@ -52,10 +56,14 @@ export default function ListItem({ section, articleData, item, addProduct }) {
           ...section,
         },
       };
+      if (articleData.isCustomQty) {
+        test.item.tipove += `;${customQtySelected.name}`;
+        test.item.cena = customQtySelected.price;
+      }
       setSanitizedData(test);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [price, setPrice]);
+  }, [price, setPrice, customQtySelected]);
 
   return (
     <div className="flex flex-col items-center justify-center w-full break-words bg-white border shadow-2xl sm:w-96 border-primary rounded-3xl">
@@ -111,9 +119,9 @@ export default function ListItem({ section, articleData, item, addProduct }) {
         </div>
       </section>
 
-      <div className="w-full bg-gray-300 rounded-3xl mt-auto">
+      <div className="w-full mt-auto bg-gray-300 rounded-3xl">
         {section.name == "Обадете се" && (
-          <div className="text-xl font-bold bg-gray w-full py-4 flex justify-center items-center flex-col">
+          <div className="flex flex-col items-center justify-center w-full py-4 text-xl font-bold bg-gray">
             <div className="font-normal text-[0.95rem]">
               Обадете се за цена!
             </div>
@@ -122,9 +130,21 @@ export default function ListItem({ section, articleData, item, addProduct }) {
           </div>
         )}
         <section className="container py-5">
-          <div className="mb-3">
-            <BuyBtn onClick={() => addProduct(sanitizedData)} />
-          </div>
+          {articleData.isCustomQty && (
+            <div className="mb-2">
+              <PriceWithQuantity
+                selected={customQtySelected}
+                setSelected={customQtySetSelected}
+                data={item.quantityWithPrices}
+              />
+            </div>
+          )}
+          {(customQtySelected.name != "Количество" ||
+            !articleData.isCustomQty) && (
+            <div className="mb-3">
+              <BuyBtn onClick={() => addProduct(sanitizedData)} />
+            </div>
+          )}
           <Link href={`/products/${section.route}/${articleData.route}`}>
             <button className="w-full py-1 font-semibold border rounded-full border-primary text-primary">
               Виж повече

@@ -27,6 +27,7 @@ export default function LgScreenTableData({
   }
   return (
     <>
+
       <TableData classes="lg:px-3 hidden lg:table-cell ">
         {promoPrice && (
           <>
@@ -43,7 +44,7 @@ export default function LgScreenTableData({
         )}
         {!promoPrice && (
           <>
-            <Price price={newPrice[0]} priceDec={newTotalPrice[1]} size="3xl" />
+            <Price price={newPrice[0]} priceDec={newPrice[1]} size="3xl" />
           </>
         )}
       </TableData>

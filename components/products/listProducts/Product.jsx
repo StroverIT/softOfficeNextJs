@@ -29,7 +29,9 @@ export default function Product({ section, article, addProduct }) {
     route: article._id,
     imgUrl,
   };
-
+  if (article.isCustomQty) {
+    articleData.isCustomQty = article.isCustomQty;
+  }
   const openMenu = (e) => {
     const _id = e.target.getAttribute("data");
     router.push(`#${_id}`, undefined, { shallow: true });
