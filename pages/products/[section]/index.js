@@ -147,6 +147,7 @@ export default function Section({ products, types, sectionRoute }) {
             <section className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
               {articles &&
                 articles.map((article) => {
+                  console.log(article.nameToDisplay);
                   return (
                     <Product
                       key={article._id}

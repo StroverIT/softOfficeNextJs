@@ -15,7 +15,6 @@
 # production
 /build
 /public/uploadsBackUp
-/public/uploads
 /public/imagesForUploading
 
 # misc
