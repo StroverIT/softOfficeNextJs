@@ -241,3 +241,7 @@ input[type="range"]::-webkit-slider-thumb {
 .shadow-facebook {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 8px 16px rgba(0, 0, 0, 0.1);
 }
+
+.Toastify__toast-container--top-right {
+  top: 5rem !important;
+}
