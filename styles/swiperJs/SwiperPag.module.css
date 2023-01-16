@@ -51,7 +51,7 @@
 .pagination span {
   height: var(--pag-height);
   width: var(--pag-height);
-  background-color: theme("colors.white");
+  background-color: theme("colors.white.DEFAULT");
   opacity: 1;
 }
 .paginationActive {
