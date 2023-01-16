@@ -12,11 +12,23 @@ import Input from "../../components/form/Input";
 import Checkbox from "../../components/base/Checkbox";
 
 import { signIn, getSession } from "next-auth/react";
+import { AiFillFacebook } from "react-icons/ai";
 
-const Login = ({ query }) => {
+import { toastError } from "../../components/notificataions/Toast";
+
+const Login = ({ query, session }) => {
   const router = useRouter();
   const [errMess, setErrMess] = useState(null);
   const [isLoading, setLoader] = useState(false);
+  const [facebookLoading, setFacebookLoadin] = useState(false);
+
+  const facebookHandler = async (e) => {
+    setFacebookLoadin(true);
+
+    await signIn("facebook");
+
+    setFacebookLoadin(false);
+  };
   async function submitHandler(e) {
     e.preventDefault();
     setLoader(true);
@@ -41,7 +53,16 @@ const Login = ({ query }) => {
       router.push("/account");
     }
   }
+  useEffect(() => {
+    const error = query?.error;
+    console.log(query);
 
+    if (error?.includes("error")) {
+      const message = error.split("error: ");
+      console.log("vliza2");
+      toastError(message[1]);
+    }
+  }, [query, router]);
   return (
     <>
       <Head>
@@ -51,7 +72,7 @@ const Login = ({ query }) => {
 
       <main className="container">
         <div className="justify-center w-full my-24 xl:px-96">
-          <div className="w-full bg-white rounded shadow-xl xl:p-2">
+          <div className="w-full pb-10 bg-white rounded shadow-xl xl:pt-2 xl:px-2">
             {/* States :D */}
             <div className="my-5 ml-8">
               <h3 className="text-2xl">Влезте във вашият акаунт</h3>
@@ -125,6 +146,23 @@ const Login = ({ query }) => {
                 </Link>
               </div>
             </div>
+            <section className="mx-12 mt-12 cursor-pointer">
+              <div
+                className="bg-[#4267b2]  text-white grid grid-cols-[20%65%] p-2 rounded-md"
+                onClick={facebookHandler}
+              >
+                <div className="text-3xl ">
+                  <AiFillFacebook />
+                </div>
+                <div className="flex items-center justify-center">
+                  {facebookLoading ? (
+                    <div className="loader"></div>
+                  ) : (
+                    "Вход с Facebook"
+                  )}
+                </div>
+              </div>
+            </section>
           </div>
 
           {/* Image is the something of SoftOffice */}
@@ -139,14 +177,17 @@ export default Login;
 export async function getServerSideProps(context) {
   const { query } = context;
   const session = await getSession({ req: context.req });
-
-  if (session) {
+  const isError = session?.user?.email;
+  if (session && !isError?.includes("error")) {
     return {
       redirect: {
         destination: "/account",
         permanent: false,
       },
     };
+  }
+  if (isError) {
+    query.error = isError;
   }
   return {
     props: { session, query },

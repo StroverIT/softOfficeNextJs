@@ -1,96 +1,81 @@
-import React from "react";
-import { motion } from "framer-motion";
+import * as React from "react";
 
-const firstVariants = {
+import { motion } from "framer-motion";
+const variants = {
   initial: {
-    scale: 0,
     opacity: 0,
-  },
-  animate: {
-    scale: 1,
-    opacity: 1,
-    transition: {
-      duration: 1,
-    },
-  },
-};
-const secondVariant = {
-  initial: {
     pathLength: 0,
-    opacity: 0,
+    // Light green
+    stroke: "#3FFF00",
+    // DARK GREEN
+    // stroke: "hsl(110, 67%, 30%, 0%)"
   },
+
   animate: {
-    pathLength: 1,
     opacity: 1,
+    pathLength: 1,
+    stroke: "#3FFF00",
+
+    // stroke: "hsl(110, 67%, 30%, 100%)",
     transition: {
       duration: 1,
       delay: 0.5,
     },
   },
 };
-const secondVariant2 = {
+const pathVariant = {
   initial: {
-    pathLength: 0,
     opacity: 0,
-    rotate: 180,
+    pathLength: 0,
+    stroke: "#3FFF00",
+
+    // stroke: "hsl(110, 67%, 30%, 0%)",
   },
   animate: {
-    pathLength: 1,
-
     opacity: 1,
+    pathLength: 1,
+    stroke: "#3FFF00",
+
+    // stroke: "hsl(110, 67%, 30%, 100%)",
+
     transition: {
-      duration: 1.1,
-      delay: 0.9,
+      duration: 1,
+      delay: 1.2,
     },
   },
 };
-const Check = () => {
-  return (
-    <motion.svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 500 500"
+const Check = () => (
+  <motion.svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 500 500"
+    className="stroke-green-50"
+    xmlSpace="preserve"
+    animate="animate"
+    initial="initial"
+  >
+    <motion.circle
+      variants={variants}
+      cx={261}
+      cy={243.5}
+      r={214.6}
       style={{
-        enableBackground: "new 0 0 500 500",
+        fill: "none",
+        strokeWidth: 25,
+        strokeMiterlimit: 25,
       }}
-      xmlSpace="preserve"
-      className="stroke-green"
-      animate="animate"
-      initial="initial"
-    >
-      <motion.circle
-        cx={261}
-        cy={243.5}
-        r={214.6}
-        variants={firstVariants}
-        style={{
-          fill: "none",
-          strokeWidth: 40,
-          strokeMiterlimit: 10,
-        }}
-      />
-      <motion.path
-        variants={secondVariant2}
-        d="m135.7 251.2 96.9 93.5-96.9-93.5z"
-        className=""
-        style={{
-          strokeWidth: 40,
-          strokeLinejoin: "round",
-          strokeMiterlimit: 10,
-        }}
-      />
-      <motion.path
-        variants={secondVariant}
-        style={{
-          fill: "none",
-          strokeWidth: 40,
-          strokeLinecap: "round",
-          strokeLinejoin: "round",
-          strokeMiterlimit: 10,
-        }}
-        d="M388.2 183.4 233.7 345.8"
-      />
-    </motion.svg>
-  );
-};
+    />
+
+    <motion.path
+      variants={pathVariant}
+      style={{
+        fill: "none",
+        strokeWidth: 25,
+        strokeLinejoin: "round",
+        strokeMiterlimit: 25,
+      }}
+      d="m139.4 245.3 98 94.6 154.5-162.4"
+    />
+  </motion.svg>
+);
 
 export default Check;

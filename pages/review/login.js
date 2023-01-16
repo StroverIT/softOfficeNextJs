@@ -131,23 +131,6 @@ const Login = ({ query }) => {
                 </button>
               </div>
             </form>
-            <section className="mx-12 mt-12">
-              <div
-                className="bg-[#4267b2]  text-white grid grid-cols-[20%65%] p-2 rounded-md"
-                onClick={facebookHandler}
-              >
-                <div className="text-3xl ">
-                  <AiFillFacebook />
-                </div>
-                <div className="flex items-center justify-center">
-                  {facebookLoading ? (
-                    <div className="loader"></div>
-                  ) : (
-                    "Вход с Facebook"
-                  )}
-                </div>
-              </div>
-            </section>
           </div>
 
           {/* Image is the something of SoftOffice */}

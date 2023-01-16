@@ -21,11 +21,17 @@ const customColors = {
 
     transparent: "hsl(0, 0%, 8%, 0.5)",
   },
-  white: "hsl(0, 0%, 100%)",
+  white: {
+    DEFAULT: "hsl(0, 0%, 100%)",
+    50: "hsl(0, 0%, 100%, 5%)",
+  },
   "white-lighter-trans": "hsl(0, 0%, 100%, 30%)",
   blue: "hsl(203, 76%, 48%)",
   orange: "hsl(33, 89%, 52%)",
-  green: "hsl(92, 50%, 54%)",
+  green: {
+    DEFAULT: "hsl(92, 50%, 54%)",
+    50: "#3FFF00",
+  },
   gray: {
     DEFAULT: "hsl(0, 0%, 85%)",
     100: "#fafafa",

@@ -9,6 +9,8 @@ interface IAddress {
 }
 interface IUser {
   fullName: string;
+  isSocialMedia: boolean;
+
   email: string;
   password: string;
   createdAt: Date;
@@ -31,6 +33,10 @@ const userScheme = new Schema<IUser>({
   fullName: {
     type: String,
     required: true,
+  },
+  isSocialMedia: {
+    type: Boolean,
+    default: false,
   },
   email: {
     type: String,
