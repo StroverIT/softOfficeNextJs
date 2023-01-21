@@ -71,21 +71,22 @@ export default function ContactUs() {
               </li> */}
               <li className="">
                 <span className="pr-1 font-semibold text-dark">Телефон 1:</span>{" "}
-                +359 87 667 2848
+                +359 87 998 8825
               </li>
               <li className="">
                 <span className="pr-1 font-semibold text-dark">Телефон 2:</span>{" "}
-                +359 87 998 8825
+                +359 87 667 2848
               </li>
 
               <li>
                 <span className="pr-1 font-semibold text-dark">И-мейл 1:</span>
-                softofficebulgaria@gmail.com
+                office@softofficebg.com
               </li>
               <li>
                 <span className="pr-1 font-semibold text-dark">И-мейл 2:</span>
-                office@softofficebg.com
+                softofficebulgaria@gmail.com
               </li>
+
               <li>
                 <span className="pr-1 font-semibold text-dark">Офис:</span>
                 Офис: гр. София, Ул. Обиколна Бл. 275
