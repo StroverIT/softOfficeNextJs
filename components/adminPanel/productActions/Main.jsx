@@ -5,6 +5,7 @@ import Image from "next/image";
 // Components
 import GetAll from "./GetAll";
 import Input from "../../form/AccInput";
+import { toastError, toastSuccess } from "../../notificataions/Toast";
 
 export default function Main({ products }) {
   const router = useRouter();
@@ -43,7 +44,14 @@ export default function Main({ products }) {
     };
     const res = await fetch(`/api/products/changeImage`, options);
     const data = await res.json();
-    console.log(data);
+    console.log(data.message);
+    if (
+      data.message == "Успешно променихте снимката, рестарирайте страницата!"
+    ) {
+      toastSuccess("Успешно променихте снимката!");
+    } else {
+      toastError("Нещо се обърка!");
+    }
   };
   return (
     <div className="mt-10">
