@@ -85,9 +85,9 @@ export default function Index({ data, userData, isInFav }) {
     }
     console.log(newObj.item.cena);
     toastProduct(
-      `Добавихте ${currQty} ${currQty > 1 ? "броя" : "брой"} ${
+      `Добавихте ${currQty} ${currQty > 1 ? "броя" : "брой"} "${
         section.nameToDisplay
-      } в количката си`
+      }" в количката си`
     );
     dispatch(addToCart(newObj, currQty));
   };

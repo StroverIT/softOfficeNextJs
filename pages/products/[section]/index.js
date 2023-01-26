@@ -30,10 +30,10 @@ export default function Section({ products, types, sectionRoute }) {
   const dispatch = useDispatch();
 
   const addProduct = (product) => {
-    const name = `${product.section.name} ${product.article.name}`;
-    toastProduct(name);
+    console.log(product);
+    toastProduct(`Добавихте 1 брой "${product.article.name}" в количката си`);
 
-    dispatch(addToCart(product));
+    // dispatch(addToCart(product));
   };
 
   const sortingMenu = useRef(null);
