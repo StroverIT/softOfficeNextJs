@@ -26,7 +26,7 @@ const optionsTest = {
 //   toast(<ProductNotif productName={productName} />, optionsTest);
 // };
 export const toastProduct = (productName) => {
-  toast.success(`${productName} беше добавен успешно в количката`, options);
+  toast.success(`${productName}`, options);
 };
 
 export const toastPromise = (message) => {
