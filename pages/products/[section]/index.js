@@ -33,7 +33,7 @@ export default function Section({ products, types, sectionRoute }) {
     console.log(product);
     toastProduct(`Добавихте 1 брой "${product.article.name}" в количката си`);
 
-    // dispatch(addToCart(product));
+    dispatch(addToCart(product));
   };
 
   const sortingMenu = useRef(null);
