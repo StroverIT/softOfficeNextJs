@@ -26,9 +26,10 @@ export default function Pricing({
   size,
   isDDS = false,
   NoDDSText = false,
+  padding = "py-3",
 }) {
   return (
-    <div className="flex flex-col items-center justify-center py-3">
+    <div className={`flex flex-col items-center justify-center ${padding}`}>
       <div className={`flex`}>
         <div className={`font-semibold ${sizeDictionary[size][0]}`}>
           {price}
