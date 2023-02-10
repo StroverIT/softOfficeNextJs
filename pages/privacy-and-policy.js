@@ -379,7 +379,7 @@ export default function GeneralTerms() {
             </h3>
             <div className="mb-1">Фирма Ани Н 2008 ЕООД</div>
             <div>гр.София ПК-1582</div>
-            <div>Дружба 2</div>
+            <div>ОФИС ДРУЖБА 2 ЦАРИГРАДСКИ КОМПЛЕКС БЛ.275</div>
             <div className="mb-1">Офис материали SoftOffice</div>
             <div>Тел.: +359 87 998 88253</div>
             <div>Е-mail: office@softofficebg.com</div>
