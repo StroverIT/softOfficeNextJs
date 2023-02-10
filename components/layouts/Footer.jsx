@@ -25,12 +25,6 @@ const Footer = () => {
               За клиента
             </h2>
             <ul className="text-gray-300">
-              <li className="mb-1">
-                <a href="#" className="hover:underline">
-                  Вземи от магазин
-                </a>
-              </li>
-
               {/* <li className="mb-1">
                 <a href="#" className="hover:underline">
                   Транспорт
@@ -42,9 +36,9 @@ const Footer = () => {
                 </a>
               </li> */}
               <li className="mb-1">
-                <a href="#" className="hover:underline">
+                <Link href="/how-to-return" className="hover:underline">
                   Връщане на поръчка
-                </a>
+                </Link>
               </li>
               {/* <li className="mb-1">
                 <a href="#" className="hover:underline">
@@ -65,14 +59,9 @@ const Footer = () => {
               </li> */}
 
               <li className="mb-1">
-                <a href="#" className="hover:underline">
+                <Link href="how-to-order" className="hover:underline">
                   Как да поръчвам
-                </a>
-              </li>
-              <li className="mb-1">
-                <a href="#" className="hover:underline">
-                  Как да върна продукт?
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -148,6 +137,13 @@ const Footer = () => {
                 <Link href="/privacy-and-policy">
                   <a href="#" className="hover:underline">
                     Политика за личните данни
+                  </a>
+                </Link>
+              </li>
+              <li className="mb-1">
+                <Link href="/cookie-policy">
+                  <a href="#" className="hover:underline">
+                    Политика за бисквитките
                   </a>
                 </Link>
               </li>

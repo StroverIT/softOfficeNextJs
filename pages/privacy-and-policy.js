@@ -382,7 +382,7 @@ export default function GeneralTerms() {
             <div>Дружба 2</div>
             <div className="mb-1">Офис материали SoftOffice</div>
             <div>Тел.: +359 87 998 88253</div>
-            <div>Е-mail: softoffice@gmail.com</div>
+            <div>Е-mail: office@softofficebg.com</div>
           </div>
         </div>
       </div>

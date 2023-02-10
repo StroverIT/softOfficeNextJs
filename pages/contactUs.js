@@ -82,10 +82,6 @@ export default function ContactUs() {
                 <span className="pr-1 font-semibold text-dark">И-мейл 1:</span>
                 office@softofficebg.com
               </li>
-              <li>
-                <span className="pr-1 font-semibold text-dark">И-мейл 2:</span>
-                softofficebulgaria@gmail.com
-              </li>
 
               <li>
                 <span className="pr-1 font-semibold text-dark">Офис:</span>
