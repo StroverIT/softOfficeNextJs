@@ -162,7 +162,7 @@ const Footer = () => {
         <div className="text-sm text-center text-primary-50">
           © 2022 SoftOffice™. Всички права запазени.
         </div>
-        <div className="mt-2 text-center lg:absolute right-10">
+        {/* <div className="mt-2 text-center lg:absolute right-10">
           Изработен от{" "}
           <a
             href="https://strover.bg"
@@ -172,7 +172,7 @@ const Footer = () => {
           >
             Strover
           </a>
-        </div>
+        </div> */}
       </div>
     </footer>
   );
