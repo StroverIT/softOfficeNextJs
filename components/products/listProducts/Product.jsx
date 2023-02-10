@@ -14,7 +14,7 @@ export default function Product({ section, article, addProduct }) {
   const router = useRouter();
   const routerHash = router?.asPath?.split("#");
   const itemsLen = article.items.length;
-
+  const itemData = { price: article.items[0].cena };
   const [openItemsMenu, setOpenItemsMenu] = useState(false);
   const name = `${
     section.name != "Обадете се" && section.name ? section.name : ""
@@ -72,6 +72,16 @@ export default function Product({ section, article, addProduct }) {
               <h2 className="text-xl font-semibold cursor-pointer">{name}</h2>
             </Link>
           </div>
+          {article.items.length == 1 && (
+            <div>
+              <Pricing
+                price={parseFloat(itemData.price).toFixed(2).split(".")[0]}
+                priceDec={parseFloat(itemData.price).toFixed(2).split(".")[1]}
+                padding=""
+                size="2xl"
+              />
+            </div>
+          )}
         </div>
         <div className="bg-gray-300">
           <div className="container flex flex-col justify-center py-5">
