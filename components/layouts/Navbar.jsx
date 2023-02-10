@@ -9,8 +9,13 @@ import Hamburger from "./navComponents/Hamburger";
 import style from "../../styles/navigation/Nav.module.css";
 
 // Icons and images
-import { AiOutlineUser, AiOutlineHeart, AiOutlineSearch } from "react-icons/ai";
-import { BsCart3 } from "react-icons/bs";
+import {
+  AiOutlineUser,
+  AiOutlineHeart,
+  AiOutlineSearch,
+  AiOutlinePhone,
+} from "react-icons/ai";
+import { BsCart3, BsFillTelephoneFill } from "react-icons/bs";
 // Utils
 import isObjectEmpty from "../../utils/isObjectEmpty";
 // Redux cart
@@ -126,6 +131,12 @@ const Navbar = ({ cartTotalQty }) => {
       className={`z-50 animate sticky top-0  ${show ? "animateUp" : ""}`}
       ref={headerRef}
     >
+      <div className="bg-gray-600   text-lg flex items-center justify-center py-4 shadow-inner">
+        <span className="">
+          <BsFillTelephoneFill />
+        </span>
+        <span className="pl-1 font-mono">+359 87 998 8825</span>
+      </div>
       <nav className={`flex relative z-20 bg-[#0D6EFD] ${style.cShadow}`}>
         <div className="container relative flex items-center justify-between ">
           <div className="flex items-center justify-center h-full">
