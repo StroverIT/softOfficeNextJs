@@ -16,9 +16,9 @@ export default function PrivacyPolicy() {
           content="Как да поръчам. Запознайте се как да върнете ваша поръчка. За контакти - office@softofficebg.com"
         />
       </Head>
-      <section className="px-10 text-black mt-10">
+      <section className="px-10 mt-10 text-black">
         <div>
-          <div className="text-sm mb-10 flex items-center">
+          <div className="flex items-center mb-10 text-sm">
             <div className="mr-1 text-lg">
               <BsBoxArrowInLeft />
             </div>
@@ -28,7 +28,7 @@ export default function PrivacyPolicy() {
         <section className="mt-10 mb-20">
           <p>
             За купуване на продукт може да ни пишете на и-мейл
-            <span className="font-semibold pl-1">
+            <span className="pl-1 font-semibold">
               office@softofficebg.com
             </span>{" "}
             , на един от двата ни телефона
@@ -44,7 +44,7 @@ export default function PrivacyPolicy() {
           <p>или да поръчате от сайта, като стъпките са следните:</p>
           <section className="mt-2">
             <section>
-              <h2 className="font-semibold text-lg">
+              <h2 className="text-lg font-semibold">
                 1. Натиснете каталог (хамбургера)
               </h2>
               <p>
@@ -61,11 +61,11 @@ export default function PrivacyPolicy() {
               </div>
             </section>
             <section className="mt-2">
-              <h2 className="font-semibold text-lg">
+              <h2 className="text-lg font-semibold">
                 2. Сложете мишката/натиснете върху една от секциите
               </h2>
               <p>Възможните варианта са</p>
-              <ul className="flex gap-x-3 flex-wrap">
+              <ul className="flex flex-wrap gap-x-3">
                 <li>Офис материали</li>
                 <li>Техника и консумативи</li>
                 <li>Средства за презентация</li>
@@ -85,7 +85,7 @@ export default function PrivacyPolicy() {
               </div>
             </section>
             <section className="mt-2">
-              <h2 className="font-semibold text-lg">
+              <h2 className="text-lg font-semibold">
                 3. Кликнете една от подсекциите{" "}
               </h2>
               <p>
@@ -102,7 +102,7 @@ export default function PrivacyPolicy() {
               </div>
             </section>
             <section className="mt-2">
-              <h2 className="font-semibold text-lg">
+              <h2 className="text-lg font-semibold">
                 4. Изберете вашият продукт
               </h2>
 
@@ -116,7 +116,7 @@ export default function PrivacyPolicy() {
               </div>
             </section>
             <section className="mt-2">
-              <h2 className="font-semibold text-lg">
+              <h2 className="text-lg font-semibold">
                 5. За да купите натиснете бупона &quot;Купи&quot;{" "}
               </h2>
               <p></p>
@@ -131,7 +131,7 @@ export default function PrivacyPolicy() {
             </section>
 
             <section className="mt-2">
-              <h2 className="font-semibold text-lg">
+              <h2 className="text-lg font-semibold">
                 5.1. За да видите повече за продукта натиснете бутона &quot;Виж
                 повече&quot;{" "}
               </h2>
@@ -146,7 +146,7 @@ export default function PrivacyPolicy() {
               </div>
             </section>
             <section className="mt-2">
-              <h2 className="font-semibold text-lg">
+              <h2 className="text-lg font-semibold">
                 5.2 При повече от една разновидност е възможен бутона
                 &quot;Избери повече&quot;. Като го натиснете ще Ви излезне меню
                 с всички разновидности{" "}
@@ -162,10 +162,10 @@ export default function PrivacyPolicy() {
               </div>
             </section>
             <section className="mt-2">
-              <h2 className="font-semibold text-lg">
-                6. Вече сте "купили" или по-точно сложили продуктите в количката
-                си, вече е време да видите продуктите, като натиснете върху
-                бутона "Количка"
+              <h2 className="text-lg font-semibold">
+                6. Вече сте &quot;купили&quot; или по-точно сложили продуктите в
+                количката си, вече е време да видите продуктите, като натиснете
+                върху бутона &quot;Количка&quot;
               </h2>
               <p></p>
               <div className="relative w-screen h-20">
@@ -178,7 +178,7 @@ export default function PrivacyPolicy() {
               </div>
             </section>
             <section className="mt-2">
-              <h2 className="font-semibold text-lg">7. Вече сте в количката</h2>
+              <h2 className="text-lg font-semibold">7. Вече сте в количката</h2>
               <p>
                 От тук може да контролирате количеството или да премахнете
                 вашият продукт
@@ -193,11 +193,11 @@ export default function PrivacyPolicy() {
               </div>
             </section>
             <section className="mt-2">
-              <h2 className="font-semibold text-lg">8. Към завършване</h2>
+              <h2 className="text-lg font-semibold">8. Към завършване</h2>
               <p>
                 За да завършите вашата поръчка и да отидете към попълване на
-                адреса, натиснете бутона "КЪМ ЗАВЪРШВАНЕ". Възможно е да
-                изчакате 2-10 секунди.
+                адреса, натиснете бутона &quot;КЪМ ЗАВЪРШВАНЕ&quot;. Възможно е
+                да изчакате 2-10 секунди.
               </p>
               <div className="relative w-screen h-96">
                 <Image
@@ -209,12 +209,12 @@ export default function PrivacyPolicy() {
               </div>
             </section>
             <section className="mt-2">
-              <h2 className="font-semibold text-lg">
+              <h2 className="text-lg font-semibold">
                 9. Приключване на поръчката
               </h2>
               <p>
                 За да завършите напълно вашата поръчка, попълнете всичките
-                полета и натиснете бутона "ЗАВЪРШИ ПОРЪЧКАТА"
+                полета и натиснете бутона &quot;ЗАВЪРШИ ПОРЪЧКАТА&quot;
               </p>
               <div className="relative w-screen h-96">
                 <Image
