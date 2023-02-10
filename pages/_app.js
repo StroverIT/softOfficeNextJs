@@ -16,8 +16,25 @@ import { SessionProvider } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Script from "next/script";
+import Cookie from "../components/banners/Cookie";
+import { useEffect, useState } from "react";
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  const [isCookie, setIsCookie] = useState(false);
+
+  useEffect(() => {
+    const isFound = localStorage.getItem("iknowyou");
+
+    if (!isFound) {
+      setTimeout(() => {
+        setIsCookie(true);
+      }, 5000);
+    }
+  }, []);
+  const cookieHandler = () => {
+    localStorage.setItem("iknowyou", "true");
+    setIsCookie(false);
+  };
   return (
     <>
       <Script
@@ -44,6 +61,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
         <link rel="icon" href="images/titleLogo32x32.png" type="image/png" />
         <title>Офис материали - SoftOffice</title>
       </Head>
+      <Cookie setIsCookie={cookieHandler} isCookie={isCookie} />
+
       <SessionProvider session={pageProps.session}>
         <Provider store={store}>
           <PersistGate loading={null} persistor={persistor}>
