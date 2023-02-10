@@ -68,7 +68,6 @@ export default function Product({ section, article, addProduct }) {
             </Link>
           )}
           <div className="w-full py-4 text-center border-t border-gray">
-            {console.log(name)}
             <Link href={`/products/${section.route}/${article._id}`}>
               <h2 className="text-xl font-semibold cursor-pointer">{name}</h2>
             </Link>
