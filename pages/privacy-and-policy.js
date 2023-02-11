@@ -381,7 +381,7 @@ export default function GeneralTerms() {
             <div>гр.София ПК-1582</div>
             <div>ОФИС ДРУЖБА 2 ЦАРИГРАДСКИ КОМПЛЕКС БЛ.275</div>
             <div className="mb-1">Офис материали SoftOffice</div>
-            <div>Тел.: +359 87 998 88253</div>
+            <div>Тел.: +359 87 998 8825</div>
             <div>Е-mail: office@softofficebg.com</div>
           </div>
         </div>
