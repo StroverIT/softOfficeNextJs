@@ -195,11 +195,11 @@ export default function GeneralTerms() {
               <h3 className="ml-2">
                 Remarketing с Google Analytics за онлайн реклама. Третите страни
                 доставчици, включително Google, могат да показват наши реклами
-                на сайтове в Интернет. softoffice Online и третите страни
-                доставчици, включително Google, могат да използват бисквитки на
-                първи страни (като бисквитката на Google Analytics ), за да
-                информират, оптимизират, и показват реклами въз основа на
-                предишни посещения на Потребителя в нашия сайт.
+                на сайтове в Интернет. Softoffice и третите страни доставчици,
+                включително Google, могат да използват бисквитки на първи страни
+                (като бисквитката на Google Analytics ), за да информират,
+                оптимизират, и показват реклами въз основа на предишни посещения
+                на Потребителя в нашия сайт.
               </h3>
             </div>
             <div className="flex items-start mb-2">
@@ -207,7 +207,7 @@ export default function GeneralTerms() {
                 <AiOutlineCheck />
               </span>
               <h3 className="ml-2">
-                Google Advertising Reporting. softoffice ONLINE и третите страни
+                Google Advertising Reporting. softoffice и третите страни
                 доставчици, включително Google, могат да използват бисквитки на
                 първи страни (като например бисквитките на Google Analytics), за
                 да докладват как нашите рекламни импресии, други употреби на
