@@ -207,7 +207,7 @@ export default function GeneralTerms() {
                 <AiOutlineCheck />
               </span>
               <h3 className="ml-2">
-                Google Advertising Reporting. softoffice и третите страни
+                Google Advertising Reporting. Softoffice и третите страни
                 доставчици, включително Google, могат да използват бисквитки на
                 първи страни (като например бисквитките на Google Analytics), за
                 да докладват как нашите рекламни импресии, други употреби на
@@ -237,11 +237,10 @@ export default function GeneralTerms() {
             <p className="mb-5">
               Този уеб сайт използва Google AdWords, услуга за ремаркетинг и
               поведенческо насочване предоставена от Google. С тази услуга
-              рекламната дейност на www.SoftOfficepaint.bg се свързва с
-              рекламната мрежа Adwords посредством „бисквитки“. Ани Н 2008 ЕООД
-              не идентифицира и не събира данни за потребителите посредством
-              Google AdWords. Можете да се откажете от показване на реклама чрез
-              Google AdWords тук.
+              рекламната дейност на www.softoffice.bg се свързва с рекламната
+              мрежа Adwords посредством „бисквитки“. Ани Н 2008 ЕООД не
+              идентифицира и не събира данни за потребителите посредством Google
+              AdWords.
             </p>
             <h3 className="mb-2 font-semibold">Как защитаваме Вашите данни</h3>
             <p className="mb-2">

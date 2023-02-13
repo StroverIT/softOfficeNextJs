@@ -2,7 +2,7 @@ import React from "react";
 
 import Head from "next/head";
 
-export default function abousUs() {
+export default function AbousUs() {
   return (
     <>
       <Head></Head>
@@ -30,7 +30,7 @@ export default function abousUs() {
             </p>
             <p className="">
               Работим с български производители и с европейски партньори
-              предлагащи утвъдени марки като XEROX, SAMSUNG, Hewlett Packard,
+              предлагащи утвърдени марки като XEROX, SAMSUNG, Hewlett Packard,
               Brother, Faber Castel, Big, Office point, EDDING, Schnaider,
               3MSchotch, Canon, Lexmark, Epson, Fullmark, Sony, Verbatim, Rexel,
               Herlitz и други.
@@ -60,11 +60,12 @@ export default function abousUs() {
               Дружба 2 бл.275 –партер.
             </p>
             <p className="lead">
-              Поръчките се правят от сайта,по телефон или е-mail,доставките са
-              безплатни за територията на София и страната. Срок за доставка
-              24ч-48ч. след направена заявка. Поръчките за страната се доставят
-              с водещи куриерски фирми. Всеки клиент може да върне стока, която
-              е дефектна или не отговаря на неговите очаквания в срок от 30 дни.
+              Поръчките се правят от сайта,по телефон (+359 87 9988825) или
+              е-mail (office@softofficebg.com),доставките са безплатни за
+              територията на София и страната. Срок за доставка 24ч-48ч. след
+              направена заявка. Поръчките за страната се доставят с водещи
+              куриерски фирми. Всеки клиент може да върне стока, която е
+              дефектна или не отговаря на неговите очаквания в срок от 30 дни.
               Рекламациите се извършват в срок от 7дни.
             </p>
             <p>
@@ -80,7 +81,6 @@ export default function abousUs() {
               <br />
               E-mail: office@softofficebg.com
               <br />
-              E-mail: softofficebugaria@gmail.com
             </p>
           </div>
         </div>
