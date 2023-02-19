@@ -14,9 +14,7 @@ export default function ListItem({ section, articleData, item, addProduct }) {
   let imgUrl = articleData?.imgUrl;
   if (item.imageUrl) imgUrl = item.imageUrl;
 
-  const name = `${section.name != "Обадете се" ? section.name : ""} ${
-    articleData.name
-  }`;
+  const name = `${section.name != "Обадете се" ? section.name : ""}`;
   const types = item.tipove.split(";");
   const [price, setPrice] = useState(null);
   const [sanitizedData, setSanitizedData] = useState({});
