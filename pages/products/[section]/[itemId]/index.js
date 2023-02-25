@@ -248,7 +248,6 @@ export default function Index({ data, userData, isInFav }) {
             <span className="ml-1 ">{itemName}</span>
           </div>
           <div className="flex items-center justify-center text-sm text-right text-gray-250">
-            {console.log(product)}
             Кат. номер: {product.article.items[0].katNomer}
           </div>
         </div>
