@@ -114,7 +114,7 @@ const articles = [
         name: "samozalepvashiListcheta",
       },
       {
-        displayName: "Лепящи инидекси",
+        displayName: "Лепящи индекси",
         name: "lepqshiIndeksi",
       },
       { displayName: "Лепило", name: "lepilo" },
