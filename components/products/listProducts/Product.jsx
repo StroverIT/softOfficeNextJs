@@ -88,6 +88,11 @@ export default function Product({ section, article, addProduct }) {
             {/* Create grayer color for future*/}
             <div className="mb-3">
               {article.items.length > 1 ? (
+                // <BuyBtn
+                //   text="Избери типа"
+                //   onClick={openMenu}
+                //   metaData={article._id}
+                // />
                 <div className="mb-2 text-center">
                   Продукта съдържа повече от един артикул
                 </div>
