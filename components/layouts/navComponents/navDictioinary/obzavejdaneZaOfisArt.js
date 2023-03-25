@@ -6,6 +6,50 @@ const obzavejdaneZaOfisArt = [
         displayName: "Столове",
         name: "stolove",
       },
+      {
+        displayName: "Ергономичен офис столове",
+        name: "stolove",
+      },
+      {
+        displayName: "Президентски столове",
+        name: "stolove",
+      },
+      {
+        displayName: "Президентски столове XXL",
+        name: "stolove",
+      },
+      {
+        displayName: "Геймърски столове",
+        name: "stolove",
+      },
+      {
+        displayName: "Работни столове",
+        name: "stolove",
+      },
+      {
+        displayName: "Високи работни столове",
+        name: "stolove",
+      },
+      {
+        displayName: "Посетителски столове",
+        name: "stolove",
+      },
+      {
+        displayName: "Офис кресла",
+        name: "stolove",
+      },
+      {
+        displayName: "Детски столове",
+        name: "stolove",
+      },
+      {
+        displayName: "Офис колела",
+        name: "stolove",
+      },
+      {
+        displayName: "Аксесоари и резервни части",
+        name: "stolove",
+      },
       // "Мениджърски столове",
       // "Работни столове",
       // "Посетителски столове",
