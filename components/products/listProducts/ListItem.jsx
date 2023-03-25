@@ -122,13 +122,16 @@ export default function ListItem({
         {/* ---- Types --- */}
         <div className="w-full pb-5 border-gray ">
           <ul className="grid grid-cols-2 gap-x-10">
-            {types.map((type) => {
-              return (
-                <li key={type} className="text-sm">
-                  {type}
-                </li>
-              );
-            })}
+            {types
+              .filter((e) => e.length < 25)
+              .splice(0, 5)
+              .map((type) => {
+                return (
+                  <li key={type} className="text-sm">
+                    {type}
+                  </li>
+                );
+              })}
           </ul>
         </div>
       </section>
