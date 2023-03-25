@@ -19,7 +19,7 @@ export default function Product({ section, article, addProduct }) {
   const name = `${
     section.name != "Обадете се" && section.name ? section.name : ""
   } `;
-
+  console.log(section);
   let imgUrl;
   if (article.img) {
     imgUrl = article?.img?.originalname || article?.img[0]?.originalname;
@@ -87,43 +87,32 @@ export default function Product({ section, article, addProduct }) {
           <div className="container flex flex-col justify-center py-5">
             {/* Create grayer color for future*/}
             <div className="mb-3">
-              {article.items.length > 1 ? (
-                // <BuyBtn
-                //   text="Избери типа"
-                //   onClick={openMenu}
-                //   metaData={article._id}
-                // />
-                <div className="mb-2 text-center">
-                  Продукта съдържа повече от един артикул
-                </div>
-              ) : (
-                <BuyBtn
-                  onClick={() =>
-                    addProduct({
-                      item: {
-                        itemsLen,
-                        tipove: article.items[0].tipove,
-                        katNomer: article.items[0].katNomer,
-                        route: article.items[0]._id,
-                        types: article.items[0].tipove,
-                        cena: article.items[0].cena,
-                        promotionalPrice: article.items[0].promotionalPrice,
+              <BuyBtn
+                onClick={() =>
+                  addProduct({
+                    item: {
+                      itemsLen,
+                      tipove: article.items[0].tipove,
+                      katNomer: article.items[0].katNomer,
+                      route: article.items[0]._id,
+                      types: article.items[0].tipove,
+                      cena: article.items[0].cena,
+                      promotionalPrice: article.items[0].promotionalPrice,
 
-                        isOnPromotions: article.items[0].isOnPromotions,
-                        isOnlyNumb: article.items[0].isOnlyNumb,
-                      },
+                      isOnPromotions: article.items[0].isOnPromotions,
+                      isOnlyNumb: article.items[0].isOnlyNumb,
+                    },
 
-                      article: {
-                        ...articleData,
-                      },
-                      section: {
-                        name: section.name,
-                        route: section.route,
-                      },
-                    })
-                  }
-                />
-              )}
+                    article: {
+                      ...articleData,
+                    },
+                    section: {
+                      name: section.name,
+                      route: section.route,
+                    },
+                  })
+                }
+              />
             </div>
             <Link href={`/products/${section.route}/${article._id}`}>
               <button className="py-1 font-semibold border rounded-full border-primary text-primary">

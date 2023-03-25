@@ -31,7 +31,7 @@ export default function Section({ products, types, sectionRoute }) {
 
   const addProduct = (product) => {
     console.log(product);
-    toastProduct(`Добавихте 1 брой "${product.article.name}" в количката си`);
+    toastProduct(`Добавихте "${product.article.name}" в количката си`);
 
     dispatch(addToCart(product));
   };
@@ -45,40 +45,40 @@ export default function Section({ products, types, sectionRoute }) {
   const [articles, setArticles] = useState(null);
 
   // total filters
-  // const [filters, setFilters] = useState([]);
+  const [filters, setFilters] = useState([]);
 
-  // useEffect(() => {
-  //   const newProdArt = products?.articles?.slice();
+  useEffect(() => {
+    const newProdArt = products?.articles?.slice();
 
-  //   const filteredArticles = [];
-  //   if (newProdArt) {
-  //     for (let article of newProdArt) {
-  //       const newArt = Object.assign({}, article);
+    const filteredArticles = [];
+    if (newProdArt) {
+      for (let article of newProdArt) {
+        const newArt = Object.assign({}, article);
 
-  //       let items = [];
-  //       for (let item of article.items) {
-  //         const type = item.weight;
-  //         let isFound = true;
-  //         if (filters.length == 0) {
-  //           items.push(item);
-  //         } else {
-  //           inner: for (let filter of filters) {
-  //             if (!type.includes(filter)) {
-  //               isFound = false;
-  //               break inner;
-  //             }
-  //           }
-  //           if (isFound) items.push(item);
-  //         }
-  //       }
-  //       if (items.length > 0) {
-  //         newArt.items = items;
-  //         filteredArticles.push(newArt);
-  //       }
-  //     }
-  //     setArticles(filteredArticles);
-  //   }
-  // }, [filters, products?.articles]);
+        let items = [];
+        for (let item of article.items) {
+          const type = item.weight;
+          let isFound = true;
+          if (filters.length == 0) {
+            items.push(item);
+          } else {
+            inner: for (let filter of filters) {
+              if (!type.includes(filter)) {
+                isFound = false;
+                break inner;
+              }
+            }
+            if (isFound) items.push(item);
+          }
+        }
+        if (items.length > 0) {
+          newArt.items = items;
+          filteredArticles.push(newArt);
+        }
+      }
+      // setArticles(filteredArticles);
+    }
+  }, [filters, products?.articles]);
 
   useEffect(() => {
     if (filterMenu) {
@@ -132,14 +132,14 @@ export default function Section({ products, types, sectionRoute }) {
                   } `}
                   ref={sortingMenu}
                 >
-                  {/* <div>
+                  <div>
                     <Sorting
                       title="Сортирай"
                       name="sortBy"
                       setFilters={setFilters}
                       data={sortByDictionary}
                     />
-                  </div> */}
+                  </div>
                 </div>
               </div>
             )}
@@ -147,12 +147,11 @@ export default function Section({ products, types, sectionRoute }) {
             <section className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
               {articles &&
                 articles.map((article) => {
-                  console.log(article.nameToDisplay);
                   return (
                     <Product
                       key={article._id}
                       section={{
-                        name: article?.nameToDisplay,
+                        name: `${products?.nameToDisplay} ${article?.nameToDisplay}`,
                         route: article?.name,
                       }}
                       article={article}
@@ -179,7 +178,7 @@ export async function getServerSideProps(context) {
   const session = await getSession({ req: context.req });
 
   const products = await getAllProducts(section, session);
-
+  console.log(products);
   // Must add total qty on every types how much is qty of the every filter
   // let typesObj = new Set();
   // products?.subsection?.forEach((article) => {
