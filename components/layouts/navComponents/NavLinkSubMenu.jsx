@@ -45,11 +45,11 @@ function NavLinkSubMenu({ subMenuData, menu }) {
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={`${
-          isOpen ? "text-primary-100" : ""
-        } transition-colors text-left text-[1rem] hover:text-primary pr-3`}
+          isOpen ? "text-primary-100" : "text-dark"
+        } transition-colors text-left text-[1rem] hover:text-primary pr-3 text-lg`}
       >
         <div className="relative flex items-center justify-center">
-          <div>{menu}</div>
+          <div className="pb-1 text-lg">{menu}</div>
           <motion.div
             className={` ml-1 text-primary  `}
             animate={isOpen ? "open" : "closed"}

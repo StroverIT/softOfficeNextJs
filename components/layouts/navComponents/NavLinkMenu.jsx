@@ -64,7 +64,7 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
         onClick={showMenu}
         ref={menu}
       >
-        <div className={`${!isHome ? "max-lg:container" : ""}`}>{title}</div>
+        <div className={"max-lg:container text-xl"}>{title}</div>
       </div>
       {/* Submenu */}
       {/* Absolute */}
@@ -76,7 +76,7 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
         } transition-all lg:transition-none lg:translate-x-0 lg:scale-0 h-full w-full  top-0  bg-color   lg:hover:scale-100 text-dark peer-hover:lg:scale-100 lg:left-[255px] pr-[255px] ${isXAnim} `}
         ref={subMenu}
       >
-        <div className={` flex items-center ml-2`}>
+        <div className={` flex items-center ml-2 max-md:w-screen pt-5`}>
           <div
             type="button"
             className={`${style.icon} flex py-2 px-2 lg:hidden`}
@@ -84,11 +84,13 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
           >
             <AiOutlineArrowLeft className="text-xl icon" />
           </div>
-          <div className="pl-4 font-semibold">{title}</div>
+          <div className="pb-2 pl-4 text-xl font-semibold text-dark">
+            {title}
+          </div>
         </div>
         {/* submenu list */}
         <ul
-          className={`px-5  mt-2 w-screen md:w-auto md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-2 gap-y-2`}
+          className={`px-8  mt-2 w-screen md:w-auto md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-0 gap-y-2`}
         >
           {articles.map((article, index) => {
             return article?.menu ? (

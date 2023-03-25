@@ -27,14 +27,12 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const menuVariant = {
   initial: {
-    x: "-150vw",
+    x: "-100vw",
   },
   animate: {
     x: 0,
     transition: {
-      type: "spring",
-      bounce: 0.19,
-      duration: 1,
+      duration: 0.4,
     },
   },
 };
@@ -131,7 +129,7 @@ const Navbar = ({ cartTotalQty }) => {
       className={`z-50 animate sticky top-0  ${show ? "animateUp" : ""}`}
       ref={headerRef}
     >
-      <div className="bg-gray-600   text-lg flex items-center justify-center py-4 shadow-inner">
+      <div className="flex items-center justify-center py-4 text-lg bg-gray-600 shadow-inner">
         <span className="">
           <BsFillTelephoneFill />
         </span>

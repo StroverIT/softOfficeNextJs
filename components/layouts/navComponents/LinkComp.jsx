@@ -21,7 +21,7 @@ function LinkComp({ route, name, isList, isOpen }) {
       variants={boxVariant}
       exit={{ opacity: 0, transition: { duration: 0.2 } }}
       onClick={() => router.push(`/products/${route}`)}
-      className={`hover:translate-x-1  text-[1rem]  cursor-pointer hover:text-primary  transition-transform`}
+      className={`hover:translate-x-1  text-[1rem]  cursor-pointer hover:text-primary  transition-transform pl-2 pb-1`}
     >
       {name}
     </motion.li>
