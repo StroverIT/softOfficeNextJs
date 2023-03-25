@@ -51,7 +51,6 @@ export default function Article({ sectionName, sectionId, subsection, img }) {
     };
     const res = await fetch("/api/products/addItems", options);
     const data = await res.json();
-    console.log(res, data);
   };
   return (
     <section

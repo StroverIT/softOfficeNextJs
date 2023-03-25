@@ -68,7 +68,10 @@ export default function ListItem({
   }, [price, setPrice, customQtySelected]);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full break-words transition-shadow bg-white border hover:shadow-2xl border-primary rounded-3xl">
+    <div
+      className="flex flex-col items-center justify-center w-full break-words transition-shadow bg-white border hover:shadow-2xl border-primary rounded-3xl"
+      id={item._id}
+    >
       <section className="container">
         {articleData?.imgUrl && (
           <Link href={route}>

@@ -87,7 +87,6 @@ export default function Index({ data, userData, isInFav }) {
       newObj.item.cena = customQtySelected.price;
       newObj.item.tipove += `;${customQtySelected.name}`;
     }
-    console.log(newObj.item.cena);
     toastProduct(
       `Добавихте ${currQty} ${currQty > 1 ? "броя" : "брой"} "${
         section.nameToDisplay
@@ -182,7 +181,6 @@ export default function Index({ data, userData, isInFav }) {
   }
   if (product?.article?.items?.length == 1) {
     if (product?.article?.items[0].imageUrl) {
-      console.log(product?.article?.items[0]);
       imgUrl = product?.article?.items[0].imageUrl;
     }
   }
@@ -264,8 +262,9 @@ export default function Index({ data, userData, isInFav }) {
           </div>
         </div>
 
-        <div className="grid-cols-2 lg:grid xl:grid-cols-[60%40%] ">
-          <div className="py-20 border border-gray-bord">
+        <div className={`grid-cols-2 lg:grid xl:grid-cols-[25%50%25%] `}>
+          {/* <div className={`grid-cols-2 lg:grid xl:grid-cols-[25%20%30%25%] `}> */}
+          <div className="py-5 ">
             <div className="relative w-full h-96">
               <Image
                 src={`/uploads/${imgUrl}`}
@@ -279,7 +278,15 @@ export default function Index({ data, userData, isInFav }) {
               image={product.article.img.originalname}
             /> */}
           </div>
-          <section className="flex flex-col p-5 space-y-10">
+          <section className="flex items-center justify-center w-full xl:px-10">
+            <ul className="grid w-full grid-cols-2 py-5 pl-5 mb-1 list-disc justify-content-center gap-x-10 border-y border-gray-250 ">
+              {product?.article?.items[0].tipove.split(";").map((type) => {
+                return <li key={type}>{type}</li>;
+              })}
+            </ul>
+          </section>
+          {/* <section></section> */}
+          <section className="flex flex-col justify-center p-5 space-y-10">
             {!product.article.isCustomQty && (
               <section className="flex items-center justify-between border-b border-gray-bord ">
                 {product.section.nameToDisplay != "Обадете се" && (
@@ -326,7 +333,7 @@ export default function Index({ data, userData, isInFav }) {
             )}
             {/* If is custom qty like /products/beliPlikove */}
             {product.article.isCustomQty && (
-              <section className="flex flex-col justify-center w-full h-full lg:px-20">
+              <section className="flex flex-col justify-center w-full h-full ">
                 <PriceWithQuantity
                   selected={customQtySelected}
                   setSelected={customQtySetSelected}
@@ -344,7 +351,7 @@ export default function Index({ data, userData, isInFav }) {
               </section>
             )}
             {!product.article.isCustomQty && (
-              <section className="flex flex-col justify-center w-full h-full lg:px-20">
+              <section className="flex flex-col justify-center ">
                 <div className="mb-1">
                   <label htmlFor="qty" className="font-semibold text-gray-200">
                     Количество:
@@ -390,8 +397,8 @@ export default function Index({ data, userData, isInFav }) {
           </section>
         </div>
         <section className="pt-2 mt-16 mb-5 border border-gray-150">
-          <h3 className="py-2 text-2xl font-semibold text-center text-primary">
-            Описание
+          <h3 className="py-2 ml-4 text-2xl font-semibold sm:ml-8 text-primary">
+            Пълно описание
           </h3>
           <div className="container flex px-3 pb-6 ml-4 sm:ml-10">
             <ul className="mb-1 list-disc">

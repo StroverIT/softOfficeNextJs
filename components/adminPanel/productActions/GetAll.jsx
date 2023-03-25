@@ -111,7 +111,6 @@ export default function GetAll({ product, setMenuImgData }) {
       // });
       formData.append("article", article.imageUrl);
       article.imageUrl = article.imageUrl.name;
-      console.log(article);
       return article;
     });
     formData.append("subsection", JSON.stringify(subsection));
@@ -122,7 +121,6 @@ export default function GetAll({ product, setMenuImgData }) {
     };
     const res = await fetch("/api/products/addArticles", options);
     const data = await res.json();
-    console.log(data);
   };
   return (
     <InputContext.Provider value={{ inputs, setInputs, setMenuImgData }}>

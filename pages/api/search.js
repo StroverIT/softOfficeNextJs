@@ -68,7 +68,7 @@ export default async function handler(req, res) {
     search.katNomera = search.katNomera.slice(0, 10);
     search.sections = search.sections.slice(0, 10);
     search.subsections = search.subsections.slice(0, 10);
-    console.log(search);
+
     mongoose.connection.close();
 
     res.json(search);

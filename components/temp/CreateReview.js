@@ -33,7 +33,6 @@ const CreateReview = ({ setPopup }) => {
       body: JSON.stringify(data),
     });
     const resData = await res.json();
-    console.log(resData);
     setTimeout(() => {
       setLoader(false);
       setSubmited(true);
@@ -54,7 +53,7 @@ const CreateReview = ({ setPopup }) => {
           <section className="container">
             {tries >= 1 && (
               <div className="flex items-center justify-center mt-3 mb-3">
-                <div className="relative h-16 w-16 rounded-full ">
+                <div className="relative w-16 h-16 rounded-full ">
                   <Image
                     src="/mario.jpg"
                     alt="mario"

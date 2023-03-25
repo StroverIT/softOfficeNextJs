@@ -19,7 +19,6 @@ const AccInput = ({
     if (val.replace(/\W/gi, "").length > 9) return;
     setTelephone(replaceVal(val));
     if (getOuterVal) {
-      console.log(getOuterVal);
       getOuterVal(e);
     }
   };

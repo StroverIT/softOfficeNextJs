@@ -71,7 +71,6 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
                   type="button "
                   className="w-20 px-2 py-1 mt-2 text-white border border-green bg-green hover:bg-transparent hover:text-green"
                   onClick={() => {
-                    console.log(subsec.img);
                     apiPromoHandler(
                       {
                         itemLen: subsec.items.length,

@@ -78,7 +78,6 @@ async function Fetch(checkedProducts, generalPromo, ownerId) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(sendObject),
     };
-    console.log(sendObject);
     const res = await fetch(`/api/promotions/personal/create`, options);
 
     return res.json();

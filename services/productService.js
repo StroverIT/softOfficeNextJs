@@ -79,26 +79,39 @@ export const getAll = async () => {
   const data = await res.json();
   return data;
 };
-export const productByItemId = async (itemId, session) => {
+export const productByItemId = async (articleId, session, itemId) => {
   await connectMongo();
-  let productFound = await Product.findOne({ "subsection._id": itemId }).lean();
+  let productFound = await Product.findOne({
+    "subsection._id": articleId,
+  }).lean();
 
   const filteredData = {
     foundItem: {},
+    different: [],
     alternatives: [],
   };
 
   const data = filteredData.foundItem;
 
   inner: for (let article of productFound.subsection) {
-    if (article._id == itemId) {
+    if (article._id == articleId) {
       data.article = article;
       data.section = {
         name: productFound.name,
         nameToDisplay: productFound.nameToDisplay,
         _id: productFound._id,
       };
-      break inner;
+
+      for (let item of article.items) {
+        if (item._id == itemId) {
+          data.item = item;
+          // break inner;
+        }
+        filteredData.different.push({
+          _id: item._id,
+          types: item.tipove.split(";"),
+        });
+      }
     }
   }
   for (let i = 0; i < 5; i++) {
@@ -112,7 +125,20 @@ export const productByItemId = async (itemId, session) => {
       item: item,
     });
   }
+  let isFound = [];
+  // const newDif = [];
 
+  // newDif.push(
+  //   filteredData.different.filter((diff) => {
+  //     return {
+  //       _id: diff._id,
+  //       types: diff.types.filter((type) => {
+  //         return true;
+  //       }),
+  //     };
+  //   })
+  // );
+  // console.log(newDif);
   if (session) {
     const email = session.user.email;
     const user = await User.findOne({ email });

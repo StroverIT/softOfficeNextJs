@@ -20,7 +20,6 @@ export default function Main({ products }) {
 
     if (name.includes("image")) {
       value = e.target.files[0];
-      console.log(e.target.files);
     }
     setMenuImgData((prevState) => ({
       ...prevState,
@@ -44,7 +43,6 @@ export default function Main({ products }) {
     };
     const res = await fetch(`/api/products/changeImage`, options);
     const data = await res.json();
-    console.log(data.message);
     if (
       data.message == "Успешно променихте снимката, рестарирайте страницата!"
     ) {

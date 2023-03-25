@@ -55,11 +55,9 @@ const Login = ({ query, session }) => {
   }
   useEffect(() => {
     const error = query?.error;
-    console.log(query);
 
     if (error?.includes("error")) {
       const message = error.split("error: ");
-      console.log("vliza2");
       toastError(message[1]);
     }
   }, [query, router]);

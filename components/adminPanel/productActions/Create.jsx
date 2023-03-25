@@ -44,7 +44,6 @@ export default function Create() {
         let article = value.map((article) => {
           // If image append to formData as file
           if (article.imageUrl) {
-            console.log(article.imageUrl);
             formData.append("article", article.imageUrl);
             article.imageUrl = article.imageUrl?.name;
           }
@@ -69,7 +68,6 @@ export default function Create() {
     });
     const res = await create(formData);
     const data = await res.json();
-    console.log(res, data);
     //-------
   };
 

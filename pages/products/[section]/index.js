@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { getSession } from "next-auth/react";
+import { useRouter } from "next/router";
 
 // Icons
 import { HiX } from "react-icons/hi";
@@ -27,10 +28,10 @@ import { addToCart } from "../../../redux/actions/productActions";
 import { toastProduct } from "../../../components/notificataions/Toast";
 
 export default function Section({ products, types, sectionRoute }) {
+  const router = useRouter();
   const dispatch = useDispatch();
 
   const addProduct = (product) => {
-    console.log(product);
     toastProduct(`Добавихте "${product.article.name}" в количката си`);
 
     dispatch(addToCart(product));
@@ -95,6 +96,22 @@ export default function Section({ products, types, sectionRoute }) {
       setArticles(products.subsection);
     }
   }, [products]);
+  useEffect(() => {
+    const storage = globalThis?.sessionStorage;
+
+    let prevPath = storage.getItem("prevPath");
+    if (prevPath) {
+      prevPath = prevPath.split("=")[1];
+
+      const test = document.getElementById(prevPath);
+      console.log(test);
+
+      if (test) {
+        test.scrollIntoView();
+      }
+    }
+    console.log(prevPath);
+  }, [articles, router]);
   const notInTesting = false;
   return (
     <main className="mb-auto">

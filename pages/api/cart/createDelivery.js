@@ -64,7 +64,6 @@ export default async function handler(req, res) {
         };
       }
     }
-    console.log(inputs.typeOfDelivery);
     if (
       inputs.typeOfDelivery != DELIVERY &&
       inputs.typeOfDelivery != MAGAZINE

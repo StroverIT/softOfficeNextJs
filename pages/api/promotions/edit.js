@@ -42,12 +42,10 @@ async function handler(req, res) {
       }
       return subsection;
     });
-    console.log(newData);
     const result = await Product.updateOne(
       { name: data.sectionName },
       { $set: { subsection: newData } }
     );
-    console.log(result);
     await Promotion.updateOne(
       { "product.item._id": data.itemId },
       {

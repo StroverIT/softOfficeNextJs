@@ -39,7 +39,6 @@ const PromoItem = ({ promo }) => {
     };
     const res = await fetch("/api/promotions/edit", options);
     const data = await res.json();
-    console.log(data);
   };
   const deleteItemHandler = async () => {
     const sendData = {
@@ -55,7 +54,6 @@ const PromoItem = ({ promo }) => {
     };
     const res = await fetch("/api/promotions/delete", options);
     const data = await res.json();
-    console.log(data);
     router.reload(window.location.pathname);
   };
   return (

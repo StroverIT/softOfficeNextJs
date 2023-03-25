@@ -36,7 +36,6 @@ async function handler(req, res) {
       { arrayFilters: [{ "i._id": { $eq: subsection.id } }] }
     );
 
-    console.log(subsection, res);
     res.json({ message: "Успешно променихте продукта" });
   } catch (e) {
     res.json({ error: e?.error });

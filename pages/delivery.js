@@ -147,7 +147,6 @@ function Delivery({ cart, userData, cities }) {
     } else state.delivery = 0;
     state.totalPrice = subTotal + dds + state.delivery;
     setPriceState(() => state);
-    console.log(savedMoney);
 
     if (savedMoney > 0) {
       setSavedMoney(savedMoney);

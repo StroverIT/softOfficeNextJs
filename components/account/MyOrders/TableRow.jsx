@@ -28,7 +28,6 @@ function CartItem({ data }) {
   );
 }
 export function TableRow({ id, date, total, status, isOld, fullData }) {
-  console.log(fullData);
   const [menu, setMenu] = useState(false);
   useEffect(() => {
     if (menu) {

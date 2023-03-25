@@ -44,6 +44,16 @@ const exitAnim = {
     duration: 0.5,
   },
 };
+function storePathValues() {
+  const storage = globalThis?.sessionStorage;
+  if (!storage) return;
+  // Set the previous path as the value of the current path.
+  const prevPath = storage.getItem("currentPath");
+  storage.setItem("prevPath", prevPath);
+  // Set the current path value by looking at the browser's location object.
+  storage.setItem("currentPath", globalThis.location.search);
+}
+
 const Navbar = ({ cartTotalQty }) => {
   const router = useRouter();
 
@@ -93,8 +103,14 @@ const Navbar = ({ cartTotalQty }) => {
   useEffect(() => {
     setCartNum(cartTotalQty);
   }, [cartTotalQty]);
+
   // Hide menu on router change
-  useEffect(() => setShowSearch(false), [router]);
+  useEffect(() => {
+    storePathValues();
+
+    setShowSearch(false);
+  }, [router]);
+
   useEffect(() => {
     if (showSearch) {
       document.body.style.overflowY = "hidden";
