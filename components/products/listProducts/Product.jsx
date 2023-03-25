@@ -13,11 +13,7 @@ import { HiX } from "react-icons/hi";
 export default function Product({ section, article, addProduct }) {
   const router = useRouter();
   const routerHash = router?.asPath?.split("#");
-  const itemsLen = article.items.length;
-  const itemData = { price: article.items[0].cena };
-  const name = `${
-    section.name != "Обадете се" && section.name ? section.name : ""
-  } `;
+
   let imgUrl;
   if (article.img) {
     imgUrl = article?.img?.originalname || article?.img[0]?.originalname;
@@ -40,6 +36,7 @@ export default function Product({ section, article, addProduct }) {
             item={item}
             articleData={articleData}
             section={section}
+            imgUrl={imgUrl}
             addProduct={addProduct}
           />
         );

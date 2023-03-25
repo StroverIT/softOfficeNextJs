@@ -10,10 +10,13 @@ import OldPrice from "../../priceStyling/OldPrice";
 import Pricing from "../../priceStyling/Pricing";
 import PriceWithQuantity from "../PriceWithQuantity";
 
-export default function ListItem({ section, articleData, item, addProduct }) {
-  let imgUrl = articleData?.imgUrl;
-  if (item.imageUrl) imgUrl = item.imageUrl;
-
+export default function ListItem({
+  section,
+  articleData,
+  item,
+  addProduct,
+  imgUrl,
+}) {
   const name = `${section.name != "Обадете се" ? section.name : ""}`;
   const types = item.tipove.split(";");
   const [price, setPrice] = useState(null);
