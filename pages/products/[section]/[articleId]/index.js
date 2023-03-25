@@ -280,9 +280,14 @@ export default function Index({ data, userData, isInFav }) {
           </div>
           <section className="flex items-center justify-center w-full xl:px-10">
             <ul className="grid w-full grid-cols-2 py-5 pl-5 mb-1 list-disc justify-content-center gap-x-10 border-y border-gray-250 ">
-              {product?.article?.items[0].tipove.split(";").map((type) => {
-                return <li key={type}>{type}</li>;
-              })}
+              {item.tipove
+                .split(";")
+                .filter((e) => e.length < 30)
+                .splice(0, 10)
+
+                .map((type) => {
+                  return <li key={type}>{type}</li>;
+                })}
             </ul>
           </section>
           {/* <section></section> */}
