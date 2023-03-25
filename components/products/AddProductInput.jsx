@@ -13,7 +13,7 @@ export default function AddProductInput({
 }) {
   const changeHandler = (e) => {
     if (e.target.value < 1) e.target.value = 1;
-    setQty(e.target.value);
+    setQty(parseFloat(e.target.value));
   };
   return (
     <div
