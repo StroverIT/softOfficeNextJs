@@ -7,6 +7,7 @@ import PersonalPromotion from "../db/models/PersonalPromotion";
 
 export const getAllProducts = async (route, session) => {
   await connectMongo();
+
   let data = await Product.findOne({
     name: route,
   }).lean();
@@ -15,6 +16,7 @@ export const getAllProducts = async (route, session) => {
     const email = session.user.email;
     const user = await User.findOne({ email });
 
+    // Checking if item is on promotion
     if (user) {
       const promotion = await PersonalPromotion.findOne({
         ownerId: user._id,
@@ -64,6 +66,7 @@ export const getAllProducts = async (route, session) => {
     }
   }
 
+  console.log(data.subsection);
   mongoose.connection.close();
   return data;
 };

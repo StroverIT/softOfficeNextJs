@@ -178,7 +178,6 @@ export async function getServerSideProps(context) {
   const session = await getSession({ req: context.req });
 
   const products = await getAllProducts(section, session);
-  console.log(products);
   // Must add total qty on every types how much is qty of the every filter
   // let typesObj = new Set();
   // products?.subsection?.forEach((article) => {
