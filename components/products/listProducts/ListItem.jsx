@@ -71,7 +71,7 @@ export default function ListItem({
     <div className="flex flex-col items-center justify-center w-full break-words transition-shadow bg-white border hover:shadow-2xl border-primary rounded-3xl">
       <section className="container">
         {articleData?.imgUrl && (
-          <Link href={`/products/${section.route}`}>
+          <Link href={route}>
             <div className="relative w-full h-56 my-10 cursor-pointer">
               <Image
                 src={`/uploads/${imgUrl}`}

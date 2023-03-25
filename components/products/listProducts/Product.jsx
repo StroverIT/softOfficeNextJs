@@ -30,8 +30,8 @@ export default function Product({ section, article, addProduct }) {
   return (
     <>
       {article.items.map((item) => {
+        console.log(item._id);
         const route = `${section.route}?itemId=${item._id}`;
-        console.log(route);
         return (
           <ListItem
             key={item._id}
