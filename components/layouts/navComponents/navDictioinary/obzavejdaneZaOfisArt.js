@@ -1,6 +1,6 @@
 const obzavejdaneZaOfisArt = [
   {
-    menu: "Столове за аксесоари",
+    menu: "Столове",
     subMenu: [
       {
         displayName: "Столове",
