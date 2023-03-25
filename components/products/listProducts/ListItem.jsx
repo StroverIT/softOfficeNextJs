@@ -16,6 +16,7 @@ export default function ListItem({
   item,
   addProduct,
   imgUrl,
+  route,
 }) {
   const name = `${section.name != "Обадете се" ? section.name : ""}`;
   const types = item.tipove.split(";");
@@ -67,30 +68,24 @@ export default function ListItem({
   }, [price, setPrice, customQtySelected]);
 
   return (
-    <div className="flex flex-col items-center justify-center w-full break-words bg-white border shadow-2xl sm:w-96 border-primary rounded-3xl">
+    <div className="flex flex-col items-center justify-center w-full break-words transition-shadow bg-white border hover:shadow-2xl border-primary rounded-3xl">
       <section className="container">
         {articleData?.imgUrl && (
           <Link href={`/products/${section.route}`}>
-            <div className="relative w-full cursor-pointer h-96 sm:h-80">
+            <div className="relative w-full h-56 my-10 cursor-pointer">
               <Image
                 src={`/uploads/${imgUrl}`}
                 layout="fill"
                 alt={articleData?.imgUrl}
+                className="object-contain"
               />
             </div>
           </Link>
         )}
-        <h2 className="w-full py-5 text-xl font-semibold text-center border-y border-gray">
-          {name}
-        </h2>
-        <div className="w-full py-2 border-gray ">
-          <ul>
-            {types.map((type) => {
-              return <li key={type}>{type}</li>;
-            })}
-          </ul>
-        </div>
-        <div className="flex items-center justify-center py-2">
+        {/* ---- Name --- */}
+
+        {/* --- Pricing ----*/}
+        <div className="flex items-center justify-center py-2 border-y border-gray">
           {price?.forItem &&
             !price.promoPrice &&
             section.name != "Обадете се" && (
@@ -117,6 +112,21 @@ export default function ListItem({
               />
             </div>
           )}
+        </div>
+        <h2 className="w-full py-4 text-xl font-semibold text-center ">
+          {name}
+        </h2>
+        {/* ---- Types --- */}
+        <div className="w-full pb-5 border-gray ">
+          <ul className="grid grid-cols-2 gap-x-10">
+            {types.map((type) => {
+              return (
+                <li key={type} className="text-sm">
+                  {type}
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </section>
 
@@ -146,7 +156,7 @@ export default function ListItem({
               <BuyBtn onClick={() => addProduct(sanitizedData)} />
             </div>
           )}
-          <Link href={`/products/${section.route}/${articleData.route}`}>
+          <Link href={`${route}`}>
             <button className="w-full py-1 font-semibold border rounded-full border-primary text-primary">
               Виж повече
             </button>
