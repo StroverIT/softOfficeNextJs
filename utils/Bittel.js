@@ -63,3 +63,32 @@ export const formatter = (data, route) => {
 
   return data;
 };
+
+export const formatterById = (data, id) => {
+  data = data
+    .filter((product) => product.id == id)
+    .map((product) => {
+      return {
+        item: {
+          tipove: product.features
+            .map((feature) => {
+              return `${feature.name}: ${feature.value}`;
+            })
+            .join(";"),
+          katNomer: product.id,
+          cena: product.price,
+          promotionalPrice: product.promo,
+          _id: product.id,
+        },
+        article: {
+          opisanie: product.description,
+          imgUrl: product.gallery[0],
+        },
+        section: {
+          name: product.title,
+        },
+      };
+    })[0];
+  console.log(data);
+  return data;
+};

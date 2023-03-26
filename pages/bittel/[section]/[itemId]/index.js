@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-// Mongodb
 
 // Components
 import OldPrice from "../../../../components/priceStyling/OldPrice";
@@ -14,7 +13,6 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { IoArrowUndo } from "react-icons/io5";
 // Styling
 
-import { productByItemId } from "../../../../services/productService";
 import AddProductInput from "../../../../components/products/AddProductInput";
 
 // Redux
@@ -31,16 +29,14 @@ import {
 } from "../../../../components/notificataions/Toast";
 import Card from "../../../../components/products/Card";
 // Service
-import { isFav } from "../../../../services/favouriteService";
-import { getUser } from "../../../../services/userServicejs";
-import SwiperProductSelect from "../../../../components/swiperJs/SwiperProductSelect";
 import PriceWithQuantity from "../../../../components/products/PriceWithQuantity";
+import { formatterById } from "../../../../utils/Bittel";
 
 export default function Index({ data, userData, isInFav }) {
   const router = useRouter();
   const routerHash = router?.asPath?.split("#");
 
-  const [product, setProduct] = useState(data.foundItem);
+  const [product, setProduct] = useState(data);
 
   // const alternatives = data?.alternatives;
   const item = product.item;
@@ -56,12 +52,12 @@ export default function Index({ data, userData, isInFav }) {
     name: "Количество",
   });
   const dispatch = useDispatch();
-  let imgUrl;
+  let imgUrl = product.article.imgUrl;
 
   const addProduct = (product, productName) => {
     const section = product.section;
     const article = product.article;
-    const item = article.items[0];
+    const item = product.item;
 
     const newObj = {
       item: {
@@ -75,7 +71,7 @@ export default function Index({ data, userData, isInFav }) {
       },
       article: {
         imgUrl,
-        name: article.nameToDisplay,
+        name: "",
         route: article._id,
       },
       section: {
@@ -89,7 +85,7 @@ export default function Index({ data, userData, isInFav }) {
     }
     toastProduct(
       `Добавихте ${currQty} ${currQty > 1 ? "броя" : "брой"} "${
-        section.nameToDisplay
+        section.name
       }" в количката си`
     );
     dispatch(addToCart(newObj, currQty));
@@ -164,31 +160,7 @@ export default function Index({ data, userData, isInFav }) {
     }
   };
 
-  // Future use
-  const selectedProductHandler = (data) => {
-    router.push(`#${data.item._id}`, undefined, { shallow: true });
-  };
-
-  // const imgUrl =
-  // Variables
-
-  if (product?.article?.img) {
-    imgUrl = product?.article?.img?.originalname;
-
-    if (product.article.img?.length >= 0) {
-      imgUrl = product?.article?.img[0]?.originalname;
-    }
-  }
-  if (product?.article?.items?.length == 1) {
-    if (product?.article?.items[0].imageUrl) {
-      imgUrl = product?.article?.items[0].imageUrl;
-    }
-  }
-  const itemName = `${
-    product?.section?.nameToDisplay != "Обадете се"
-      ? product?.section?.nameToDisplay
-      : ""
-  } ${product?.article?.nameToDisplay} `;
+  const itemName = `${product.section.name} `;
 
   useEffect(() => {
     if (product?.article?.items?.length == 1) {
@@ -238,23 +210,6 @@ export default function Index({ data, userData, isInFav }) {
       <div className="container">
         <div className="flex flex-col justify-between pt-5 pb-4 my-5 text-gray-500 border-b md:flex-row border-gray-bord">
           <div className="text-2xl font-semibold">
-            {isSelected && (
-              <div
-                className="flex items-center mb-5 cursor-pointer text-secondary hover:text-primary-100"
-                onClick={() =>
-                  router.push(
-                    `/products/${product.section.name}/${product.article._id}`,
-                    undefined,
-                    { shallow: true }
-                  )
-                }
-              >
-                <div>
-                  <IoArrowUndo />
-                </div>
-                <div className="mt-1 ml-1 text-sm">Назад</div>
-              </div>
-            )}
             <span className="ml-1 ">{itemName}</span>
           </div>
           <div className="flex items-center justify-center text-sm text-right text-gray-250">
@@ -267,7 +222,7 @@ export default function Index({ data, userData, isInFav }) {
           <div className="py-5 ">
             <div className="relative w-full h-96">
               <Image
-                src={`/uploads/${imgUrl}`}
+                src={`${imgUrl}`}
                 layout="fill"
                 alt="Img"
                 className="object-contain"
@@ -407,14 +362,13 @@ export default function Index({ data, userData, isInFav }) {
           </h3>
           <div className="container flex px-3 pb-6 ml-4 sm:ml-10">
             <ul className="mb-1 list-disc">
-              {product?.article?.items[0].tipove.split(";").map((type) => {
+              {product.item.tipove.split(";").map((type) => {
                 return <li key={type}>{type}</li>;
               })}
-              {product?.article?.opisanie &&
-                product?.article?.opisanie.split(";").map((description) => {
-                  return <li key={description}>{description}</li>;
-                })}
-            </ul>{" "}
+              <li>
+                {product?.article?.opisanie && product?.article?.opisanie}
+              </li>
+            </ul>
           </div>
         </section>
 
@@ -449,14 +403,16 @@ export async function getServerSideProps(context) {
   const { articleId, section, itemId } = context.query;
   const session = await getSession({ req: context.req });
 
-  const product = await productByItemId(articleId, session, itemId);
+  const res = await fetch(
+    "https://dealers.bittel.bg/bg/api/json/341092012d162fa0d19e2ebad93fc708",
+    {
+      method: "GET",
+    }
+  );
+  const data = await res.json();
 
+  const product = formatterById(data.products, itemId);
   let isInFav = false;
-
-  if (session) {
-    const user = await getUser(session.user.email);
-    isInFav = await isFav(articleId, user._id);
-  }
 
   return {
     props: {
