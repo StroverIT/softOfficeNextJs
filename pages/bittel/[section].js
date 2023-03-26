@@ -5,7 +5,7 @@ import { formatter } from "../../utils/Bittel";
 import { useDispatch } from "react-redux";
 
 import { addProduct } from "../../utils/helper";
-const Bittel = ({ products }) => {
+const Bittel = ({ products, section }) => {
   const [articles, setArticles] = useState(null);
   const dispatch = useDispatch();
   useEffect(() => {
@@ -15,10 +15,10 @@ const Bittel = ({ products }) => {
     <section className="grid gap-10 sm:grid-cols-2 md:grid-cols-3 py-10 container">
       {articles &&
         articles.map((item) => {
-          const route = "";
+          const route = `/bittel/${section}/${item.item._id}`;
           return (
             <ListItem
-              key={item.id}
+              key={item._id}
               item={item.item}
               articleData={item.article}
               route={route}
@@ -43,11 +43,13 @@ export async function getServerSideProps(context) {
       method: "GET",
     }
   );
+  console.log(section);
   const data = await res.json();
   const products = formatter(data.products, section);
   return {
     props: {
       products: JSON.parse(JSON.stringify(products)),
+      section,
       // types: typesObj,
     },
   };

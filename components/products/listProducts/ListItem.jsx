@@ -27,7 +27,6 @@ export default function ListItem({
   });
   useEffect(() => {
     let priceObjInit = { forItem: item.cena };
-    console.log(item.cena);
     if (item.isOnPromotions || item.promotionalPrice > 0) {
       priceObjInit.promoPrice = item.promotionalPrice;
     }
@@ -72,6 +71,7 @@ export default function ListItem({
       className="flex flex-col items-center justify-center w-full break-words transition-shadow bg-white border hover:shadow-2xl border-primary rounded-3xl"
       id={item._id}
     >
+      {/* {console.log(route)} */}
       <Link href={route}>
         <section className="container cursor-pointer">
           {articleData?.imgUrl && (
