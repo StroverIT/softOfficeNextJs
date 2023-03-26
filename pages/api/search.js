@@ -52,11 +52,12 @@ export default async function handler(req, res) {
       katNomeraLoop: for (let subSection of katNomera?.subsection) {
         for (let items of subSection.items) {
           if (items.katNomer.includes(input)) {
+            console.log(items);
             const object = {
               katNomer: items.katNomer,
               types: items.tipove,
               name: `${katNomera.nameToDisplay} ${subSection.nameToDisplay}`,
-              route: `${katNomera.name}/${subSection._id}`,
+              route: `${katNomera.name}/${subSection._id}?itemId=${items._id}`,
             };
             search.katNomera.push(object);
           }
