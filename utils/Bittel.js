@@ -38,6 +38,7 @@ export const formatter = (data, route) => {
   data = data
     .filter((product) => product.title.includes(route))
     .map((product) => {
+      console.log(product.id);
       return {
         item: {
           tipove: product.features
@@ -48,6 +49,7 @@ export const formatter = (data, route) => {
           katNomer: product.id,
           cena: product.price,
           promotionalPrice: product.promo,
+          _id: product.id,
         },
         article: {
           opisanie: product.description,
