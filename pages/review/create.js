@@ -17,6 +17,7 @@ import CreateReview from "../../components/temp/CreateReview";
 
 import { signIn, getSession } from "next-auth/react";
 import CreateStar from "../../lib/createProduct/CreateStar";
+import Loader from "../../components/layouts/Loader";
 
 const Create = ({ session }) => {
   console.log(session);
@@ -83,7 +84,7 @@ const Create = ({ session }) => {
                       className="bg-[#166fe5] text-white w-full py-2 rounded-md font-semibold text-2xl flex justify-center items-center"
                       onClick={() => setLoader(true)}
                     >
-                      {isLoading ? <div className="loader"></div> : "Създай"}
+                      {isLoading ? <Loader /> : "Създай"}
                     </button>
                   </div>
                 </form>

@@ -5,6 +5,7 @@ import Head from "next/head";
 // Components
 import Input from "../../components/form/Input";
 import { emailVal } from "../../utils/validationHandler";
+import Loader from "../../components/layouts/Loader";
 
 export default function ResetPassword() {
   const initialValues = {
@@ -99,7 +100,7 @@ export default function ResetPassword() {
                   className="flex items-center justify-center w-full px-4 py-2 font-bold text-white rounded shadow-md disabled:opacity-25 bg-primary hover:bg-primary focus:outline-none focus:shadow-outline"
                   type="submit"
                 >
-                  {isLoading ? <div className="loader"></div> : "Изпрати"}
+                  {isLoading ? <Loader /> : "Изпрати"}
                 </button>
               </div>
             </form>

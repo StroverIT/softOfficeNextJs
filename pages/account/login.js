@@ -15,6 +15,7 @@ import { signIn, getSession } from "next-auth/react";
 import { AiFillFacebook } from "react-icons/ai";
 
 import { toastError } from "../../components/notificataions/Toast";
+import Loader from "../../components/layouts/Loader";
 
 const Login = ({ query, session }) => {
   const router = useRouter();
@@ -118,7 +119,7 @@ const Login = ({ query, session }) => {
                   className="flex items-center justify-center w-full px-4 py-2 font-bold text-white rounded shadow-md bg-primary hover:bg-primary focus:outline-none focus:shadow-outline"
                   type="submit"
                 >
-                  {isLoading ? <div className="loader"></div> : "Вход"}
+                  {isLoading ? <Loader /> : "Вход"}
                 </button>
               </div>
             </form>

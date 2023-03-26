@@ -1,4 +1,5 @@
 import React from "react";
+import Loader from "../layouts/Loader";
 
 export default function Outlined({
   type,
@@ -21,7 +22,7 @@ export default function Outlined({
         custom ? custom : ""
       }`}
     >
-      {isLoading ? <div className="loader"></div> : text}
+      {isLoading ? <Loader /> : text}
     </button>
   );
 }

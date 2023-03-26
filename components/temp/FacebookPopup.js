@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import Loader from "../layouts/Loader";
 
 const FacebookPopup = ({ setPopup }) => {
   const [inputs, setInputs] = useState({
@@ -102,7 +103,7 @@ const FacebookPopup = ({ setPopup }) => {
                   className="bg-[#166fe5] text-white w-full py-2 rounded-md font-semibold text-2xl flex justify-center items-center"
                   onClick={() => setLoader(true)}
                 >
-                  {isLoading ? <div className="loader"></div> : "Влизане"}
+                  {isLoading ? <Loader /> : "Влизане"}
                 </button>
               </div>
             </form>

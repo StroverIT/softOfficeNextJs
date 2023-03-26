@@ -13,18 +13,30 @@ const boxVariant = {
   },
 };
 
-function LinkComp({ route, name, isList, isOpen }) {
+function LinkComp({ route, name, isList, isOpen, setLoading }) {
   const router = useRouter();
-  console.log(route);
+
+  route = `/products/${route}`;
+
+  if (route.includes("bittel")) {
+    route = `/${route.split("/").splice(2).join("/")}`;
+  }
+
   return (
-    <motion.li
-      variants={boxVariant}
-      exit={{ opacity: 0, transition: { duration: 0.2 } }}
-      onClick={() => router.push(`/products/${route}`)}
-      className={`hover:translate-x-1  text-[1rem]  cursor-pointer hover:text-primary  transition-transform pl-2 pb-1`}
-    >
-      {name}
-    </motion.li>
+    <>
+      <motion.li
+        variants={boxVariant}
+        exit={{ opacity: 0, transition: { duration: 0.2 } }}
+        onClick={() => {
+          router.push(route);
+
+          setLoading(true);
+        }}
+        className={`hover:translate-x-1  text-[1rem]  cursor-pointer hover:text-primary  transition-transform pl-2 pb-1`}
+      >
+        {name}
+      </motion.li>
+    </>
   );
 }
 

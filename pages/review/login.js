@@ -16,6 +16,7 @@ import FacebookPopup from "../../components/temp/FacebookPopup";
 import CreateReview from "../../components/temp/CreateReview";
 
 import { signIn, getSession } from "next-auth/react";
+import Loader from "../../components/layouts/Loader";
 
 const Login = ({ query }) => {
   const router = useRouter();
@@ -127,7 +128,7 @@ const Login = ({ query }) => {
                   className="flex items-center justify-center w-full px-4 py-2 font-bold text-white rounded shadow-md bg-primary hover:bg-primary focus:outline-none focus:shadow-outline"
                   type="submit"
                 >
-                  {isLoading ? <div className="loader"></div> : "Вход"}
+                  {isLoading ? <Loader /> : "Вход"}
                 </button>
               </div>
             </form>

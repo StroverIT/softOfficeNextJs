@@ -13,6 +13,7 @@ import RadioButton from "../cart/RadioButton";
 
 // Outer utils
 import quartersFetch from "../../utils/getQuarters";
+import Loader from "../layouts/Loader";
 
 export default function MagazinePanel({
   userData,
@@ -148,7 +149,7 @@ export default function MagazinePanel({
           )}
           {isQuartersLoading && (
             <div className="flex items-center justify-center py-5">
-              <div className="loader"></div>
+              <Loader />
             </div>
           )}
         </>

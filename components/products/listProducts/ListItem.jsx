@@ -19,7 +19,7 @@ export default function ListItem({
   route,
 }) {
   const name = `${section.name != "Обадете се" ? section.name : ""}`;
-  const types = item.tipove.split(";");
+  const types = item?.tipove?.split(";");
   const [price, setPrice] = useState(null);
   const [sanitizedData, setSanitizedData] = useState({});
   const [customQtySelected, customQtySetSelected] = useState({
@@ -27,8 +27,8 @@ export default function ListItem({
   });
   useEffect(() => {
     let priceObjInit = { forItem: item.cena };
-
-    if (item.isOnPromotions) {
+    console.log(item.cena);
+    if (item.isOnPromotions || item.promotionalPrice > 0) {
       priceObjInit.promoPrice = item.promotionalPrice;
     }
 
@@ -72,12 +72,12 @@ export default function ListItem({
       className="flex flex-col items-center justify-center w-full break-words transition-shadow bg-white border hover:shadow-2xl border-primary rounded-3xl"
       id={item._id}
     >
-      <section className="container">
+      <section className="container ">
         {articleData?.imgUrl && (
           <Link href={route}>
             <div className="relative w-full h-56 my-10 cursor-pointer">
               <Image
-                src={`/uploads/${imgUrl}`}
+                src={imgUrl.includes("https") ? imgUrl : `/uploads/${imgUrl}`}
                 layout="fill"
                 alt={articleData?.imgUrl}
                 className="object-contain"
@@ -120,23 +120,24 @@ export default function ListItem({
           {name}
         </h2>
         {/* ---- Types --- */}
-        <div className="w-full pb-5 border-gray ">
-          <ul className="grid grid-cols-2 gap-x-10">
-            {types
-              .filter((e) => e.length < 25)
-              .splice(0, 5)
-              .map((type) => {
-                return (
-                  <li key={type} className="text-sm">
-                    {type}
-                  </li>
-                );
-              })}
+        <div className="w-full pb-5 pt-5 border-t border-gray ">
+          <ul className="grid grid-cols-2 gap-x-10 ">
+            {types &&
+              types
+                .filter((e) => e.length < 25)
+                .splice(0, 5)
+                .map((type) => {
+                  return (
+                    <li key={type} className="text-sm">
+                      {type}
+                    </li>
+                  );
+                })}
           </ul>
         </div>
       </section>
 
-      <div className="w-full mt-auto bg-gray-300 rounded-3xl">
+      <div className="w-full mt-auto bg-gray-300 rounded-b-3xl">
         {section.name == "Обадете се" && (
           <div className="flex flex-col items-center justify-center w-full py-4 text-xl font-bold bg-gray">
             <div className="font-normal text-[0.95rem]">
@@ -158,15 +159,10 @@ export default function ListItem({
           )}
           {(customQtySelected.name != "Количество" ||
             !articleData.isCustomQty) && (
-            <div className="mb-3">
+            <div className="">
               <BuyBtn onClick={() => addProduct(sanitizedData)} />
             </div>
           )}
-          <Link href={`${route}`}>
-            <button className="w-full py-1 font-semibold border rounded-full border-primary text-primary">
-              Виж повече
-            </button>
-          </Link>
         </section>
       </div>
     </div>

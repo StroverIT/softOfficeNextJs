@@ -23,6 +23,7 @@ import quartersFetch from "../../../utils/getQuarters";
 import { InputContext } from "../Context";
 // Icons
 import { AiOutlineCar } from "react-icons/ai";
+import Loader from "../../layouts/Loader";
 
 export default function MethodOfDeliv({
   selected,
@@ -129,7 +130,7 @@ export default function MethodOfDeliv({
                   )}
                   {isQuartersLoading && (
                     <div className="flex items-center justify-center py-5">
-                      <div className="loader"></div>
+                      <Loader />
                     </div>
                   )}
                 </Tab.Panel>

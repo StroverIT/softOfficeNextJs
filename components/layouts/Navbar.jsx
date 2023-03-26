@@ -54,7 +54,7 @@ function storePathValues() {
   storage.setItem("currentPath", globalThis.location.search);
 }
 
-const Navbar = ({ cartTotalQty }) => {
+const Navbar = ({ cartTotalQty, setLoading }) => {
   const router = useRouter();
 
   const headerRef = useRef(null);
@@ -69,6 +69,7 @@ const Navbar = ({ cartTotalQty }) => {
   const [cartNum, setCartNum] = useState(0);
 
   const [isOpen, menuState] = useState(false);
+
   const navLinks = useRef(null);
 
   // Navbar control handler
@@ -359,7 +360,7 @@ const Navbar = ({ cartTotalQty }) => {
             className={`w-full lg:w-auto hover:lg:w-full fixed h-screen lg:h-auto lg:absolute z-20 bg-white py-3  ${styles.navLinks}  `}
             ref={navLinks}
           >
-            <NavLinks />
+            <NavLinks setLoading={setLoading} />
           </motion.div>
         )}
       </AnimatePresence>{" "}

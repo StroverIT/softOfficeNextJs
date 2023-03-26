@@ -34,7 +34,7 @@ const ulVariant = {
   },
 };
 
-function NavLinkSubMenu({ subMenuData, menu }) {
+function NavLinkSubMenu({ subMenuData, menu, setLoading }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const subMenu = JSON.parse(subMenuData);
@@ -71,6 +71,7 @@ function NavLinkSubMenu({ subMenuData, menu }) {
                   key={index}
                   route={item.name}
                   name={item.displayName}
+                  setLoading={setLoading}
                 />
               );
             })}

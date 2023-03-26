@@ -8,48 +8,48 @@ const obzavejdaneZaOfisArt = [
       },
       {
         displayName: "Ергономични офис столове",
-        name: "/bittel/ergonomichni-ofis-stolove",
+        name: "bittel/ergonomichni-ofis-stolove",
       },
       {
         displayName: "Президентски столове",
-        name: "stolove",
+        name: "bittel/prezidentski-stolove",
       },
-      {
-        displayName: "Президентски столове XXL",
-        name: "stolove",
-      },
+      // {
+      //   displayName: "Президентски столове XXL",
+      //   name: "bittel/prezidentski-stolove-xxl",
+      // },
       {
         displayName: "Геймърски столове",
-        name: "stolove",
+        name: "bittel/geimurski-stol",
       },
       {
         displayName: "Работни столове",
-        name: "stolove",
+        name: "bittel/rabotni-stolove",
       },
-      {
-        displayName: "Високи работни столове",
-        name: "stolove",
-      },
+      // {
+      //   displayName: "Високи работни столове",
+      //   name: "bittel/visoki-rabotni-stolove",
+      // },
       {
         displayName: "Посетителски столове",
-        name: "stolove",
+        name: "bittel/posetitelski-stolove",
       },
       {
         displayName: "Офис кресла",
-        name: "stolove",
+        name: "bittel/ofis-kresla",
       },
       {
         displayName: "Детски столове",
-        name: "stolove",
+        name: "bittel/detski-stolove",
       },
-      {
-        displayName: "Офис колела",
-        name: "stolove",
-      },
-      {
-        displayName: "Аксесоари и резервни части",
-        name: "stolove",
-      },
+      // {
+      //   displayName: "Офис колела",
+      //   name: "bittel/ofis-kolela",
+      // },
+      // {
+      //   displayName: "Аксесоари и резервни части",
+      //   name: "bittel/aksesoari-i-rezervni-chasti",
+      // },
       // "Мениджърски столове",
       // "Работни столове",
       // "Посетителски столове",

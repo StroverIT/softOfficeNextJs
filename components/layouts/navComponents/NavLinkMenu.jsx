@@ -14,7 +14,7 @@ const lg = "1024";
 import NavLinkSubMenu from "./NavLinkSubMenu";
 import LinkComp from "./LinkComp";
 
-const NavLinkMenu = ({ title, articles, isHome }) => {
+const NavLinkMenu = ({ title, articles, isHome, setLoading }) => {
   const router = useRouter();
 
   const menu = useRef(null);
@@ -98,12 +98,14 @@ const NavLinkMenu = ({ title, articles, isHome }) => {
                 subMenuData={JSON.stringify(article.subMenu)}
                 menu={article.menu}
                 key={index}
+                setLoading={setLoading}
               />
             ) : (
               <LinkComp
                 route={article.name}
                 name={article.displayName}
                 key={index}
+                setLoading={setLoading}
               />
             );
           })}

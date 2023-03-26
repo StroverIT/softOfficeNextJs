@@ -26,16 +26,11 @@ import { useDispatch } from "react-redux";
 import { addToCart } from "../../../redux/actions/productActions";
 // Notifications
 import { toastProduct } from "../../../components/notificataions/Toast";
+import { addProduct } from "../../../utils/helper";
 
 export default function Section({ products, types, sectionRoute }) {
   const router = useRouter();
   const dispatch = useDispatch();
-
-  const addProduct = (product) => {
-    toastProduct(`Добавихте "${product.article.name}" в количката си`);
-
-    dispatch(addToCart(product));
-  };
 
   const sortingMenu = useRef(null);
   const [isHidden, setHidden] = useState(true);
@@ -110,7 +105,6 @@ export default function Section({ products, types, sectionRoute }) {
         test.scrollIntoView();
       }
     }
-    console.log(prevPath);
   }, [articles, router]);
   const notInTesting = false;
   return (
@@ -173,7 +167,7 @@ export default function Section({ products, types, sectionRoute }) {
                         route,
                       }}
                       article={article}
-                      addProduct={addProduct}
+                      addProduct={addProduct.bind({}, dispatch)}
                     />
                   );
                 })}
