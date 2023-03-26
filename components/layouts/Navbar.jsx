@@ -54,7 +54,7 @@ function storePathValues() {
   storage.setItem("currentPath", globalThis.location.search);
 }
 
-const Navbar = ({ cartTotalQty, setLoading }) => {
+const Navbar = ({ cartTotalQty }) => {
   const router = useRouter();
 
   const headerRef = useRef(null);
@@ -360,7 +360,7 @@ const Navbar = ({ cartTotalQty, setLoading }) => {
             className={`w-full lg:w-auto hover:lg:w-full fixed h-screen lg:h-auto lg:absolute z-20 bg-white py-3  ${styles.navLinks}  `}
             ref={navLinks}
           >
-            <NavLinks setLoading={setLoading} />
+            <NavLinks />
           </motion.div>
         )}
       </AnimatePresence>{" "}

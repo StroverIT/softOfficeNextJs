@@ -6,7 +6,7 @@ import NavLinkMenu from "./NavLinkMenu";
 
 import dictionary from "./navDictioinary/mainDictionary";
 
-const NavLinks = ({ isHome, setLoading }) => {
+const NavLinks = ({ isHome }) => {
   return (
     <>
       <ul
@@ -22,7 +22,6 @@ const NavLinks = ({ isHome, setLoading }) => {
               articles={section.articles}
               key={section.title}
               isHome={isHome}
-              setLoading={setLoading}
             />
           );
         })}

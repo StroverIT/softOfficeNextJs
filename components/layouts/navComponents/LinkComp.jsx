@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 // import { translationToRoute } from "../../../utils/translationToRoute";
+import { GlobalLoadingContext } from "../GlobalLoadingContext";
 
 import { motion } from "framer-motion";
 
@@ -13,9 +14,9 @@ const boxVariant = {
   },
 };
 
-function LinkComp({ route, name, isList, isOpen, setLoading }) {
+function LinkComp({ route, name, isList, isOpen }) {
   const router = useRouter();
-
+  const { setLoading } = useContext(GlobalLoadingContext);
   route = `/products/${route}`;
 
   if (route.includes("bittel")) {
