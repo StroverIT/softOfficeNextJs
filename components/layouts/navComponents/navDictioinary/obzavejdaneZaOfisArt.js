@@ -7,8 +7,8 @@ const obzavejdaneZaOfisArt = [
         name: "stolove",
       },
       {
-        displayName: "Ергономичен офис столове",
-        name: "stolove",
+        displayName: "Ергономични офис столове",
+        name: "/bittel/ergonomichni-ofis-stolove",
       },
       {
         displayName: "Президентски столове",

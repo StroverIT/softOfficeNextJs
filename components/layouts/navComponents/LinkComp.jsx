@@ -15,7 +15,7 @@ const boxVariant = {
 
 function LinkComp({ route, name, isList, isOpen }) {
   const router = useRouter();
-
+  console.log(route);
   return (
     <motion.li
       variants={boxVariant}
