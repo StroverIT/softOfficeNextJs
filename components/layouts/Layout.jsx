@@ -17,11 +17,10 @@ export default function Layout({ children }) {
       {children}
       <Footer />
       {isLoading && (
-        <div className="fixed top-1/2 -translate-x-1/2 -translate-y-1/2 left-1/2 z-50 w-screen h-screen">
-          <div className="flex items-center justify-center h-screen w-screen">
-            <Loader w="w-12" h="h-12" />
+        <div className="fixed z-50 -translate-x-1/2 -translate-y-1/2 bottom-10 right-10">
+          <div className="p-3 rounded-full bg-primary-500">
+            <Loader w="w-8" h="h-8" />
           </div>
-          <div className={`blury-bg -z-10 lg:block w-screen h-screen`}></div>
         </div>
       )}
     </div>
