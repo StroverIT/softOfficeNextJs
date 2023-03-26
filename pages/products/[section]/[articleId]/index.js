@@ -171,7 +171,11 @@ export default function Index({ data, userData, isInFav }) {
 
   // const imgUrl =
   // Variables
-
+  // if (product?.article?.items?.length == 1) {
+  //   if (product?.article?.items[0].imageUrl) {
+  //     imgUrl = product?.article?.items[0].imageUrl;
+  //   }
+  // }
   if (product?.article?.img) {
     imgUrl = product?.article?.img?.originalname;
 
@@ -179,11 +183,7 @@ export default function Index({ data, userData, isInFav }) {
       imgUrl = product?.article?.img[0]?.originalname;
     }
   }
-  if (product?.article?.items?.length == 1) {
-    if (product?.article?.items[0].imageUrl) {
-      imgUrl = product?.article?.items[0].imageUrl;
-    }
-  }
+
   const itemName = `${
     product?.section?.nameToDisplay != "Обадете се"
       ? product?.section?.nameToDisplay
