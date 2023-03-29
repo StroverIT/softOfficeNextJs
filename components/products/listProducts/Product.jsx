@@ -30,11 +30,11 @@ export default function Product({ section, article, addProduct }) {
   return (
     <>
       {article.items.map((item) => {
-        const route = `${section.route}?itemId=${item._id}`;
+        const route = `${section.route}?itemId=${item?._id}`;
         return (
           <ListItem
-            key={item._id}
-            item={item}
+            key={item?._id}
+            item={item || {}}
             articleData={articleData}
             route={route}
             section={section}
