@@ -90,14 +90,7 @@ a {
 .logo {
   object-fit: contain;
 }
-.animate {
-  transform: translateY(0);
 
-  transition: transform 0.4s ease-in-out;
-}
-.animateUp {
-  transform: skewy(2deg) skewx(20deg) translateY(-140%);
-}
 .animateSearch {
   transform: perspective(600px) rotateX(-90deg);
   height: 0;
@@ -242,5 +235,25 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 .Toastify__toast-container--top-right {
-  top: 5rem !important;
+  position: absolute;
+  top: 9rem !important;
 }
+.Toastify__toast-container {
+  position: absolute !important;
+}
+/* .Toastify__toast-container--top-right {
+  top: 7.25rem !important;
+}
+@media (min-width: 475px) {
+  .Toastify__toast-container--top-right {
+    top: 9rem !important;
+  }
+} */
+/* .animate {
+  transform: translateY(0);
+
+  transition: transform 0.4s ease-in-out;
+}
+.animateUp {
+  transform: skewy(2deg) skewx(20deg) translateY(-140%);
+} */

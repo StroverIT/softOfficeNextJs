@@ -13,7 +13,6 @@ import { store, persistor } from "../redux/store";
 
 import { SessionProvider } from "next-auth/react";
 // Notificaation
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Script from "next/script";
 import Cookie from "../components/banners/Cookie";
@@ -72,7 +71,6 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
           </PersistGate>
         </Provider>
       </SessionProvider>
-      <ToastContainer />
     </>
   );
 }
