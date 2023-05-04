@@ -7,7 +7,7 @@ const securityHeaders = [
   { key: "Access-Control-Allow-Headers", value: "Content-Type, Authorization" },
 
   { key: "X-Frame-Options", value: "ALLOW-FROM https://dealers.bittel.bg" },
-  { key: "X-Frame-Options", value: "SAMEORIGIN" },
+  // { key: "X-Frame-Options", value: "SAMEORIGIN" },
   { key: "Access-Control-Allow-Credentials", value: "true" },
   {
     key: "Access-Control-Allow-Methods",
