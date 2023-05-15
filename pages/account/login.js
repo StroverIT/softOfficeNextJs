@@ -39,8 +39,8 @@ const Login = ({ query, session }) => {
     const password = formData.get("password");
     const status = await signIn("credentials", {
       redirect: false,
-      email: email,
-      password: password,
+      email,
+      password
     });
     if (status.error) {
       setErrMess(status.error);
