@@ -23,12 +23,11 @@ import { getAllProducts } from "../../../services/productService";
 import Checkbox from "../../../components/base/Checkbox";
 // Redux
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../../redux/actions/productActions";
 // Notifications
-import { toastProduct } from "../../../components/notificataions/Toast";
-import { addProduct } from "../../../utils/helper";
+import NotFound from "../../../components/products/listProducts/NotFound";
+import ListProducts from "../../../components/products/listProducts/ListProducts";
 
-export default function Section({ products, types, sectionRoute }) {
+export default function Section({ products }) {
   const router = useRouter();
   const dispatch = useDispatch();
 
@@ -44,39 +43,6 @@ export default function Section({ products, types, sectionRoute }) {
   const [filters, setFilters] = useState([]);
 
   useEffect(() => {
-    const newProdArt = products?.articles?.slice();
-
-    const filteredArticles = [];
-    if (newProdArt) {
-      for (let article of newProdArt) {
-        const newArt = Object.assign({}, article);
-
-        let items = [];
-        for (let item of article.items) {
-          const type = item.weight;
-          let isFound = true;
-          if (filters.length == 0) {
-            items.push(item);
-          } else {
-            inner: for (let filter of filters) {
-              if (!type.includes(filter)) {
-                isFound = false;
-                break inner;
-              }
-            }
-            if (isFound) items.push(item);
-          }
-        }
-        if (items.length > 0) {
-          newArt.items = items;
-          filteredArticles.push(newArt);
-        }
-      }
-      // setArticles(filteredArticles);
-    }
-  }, [filters, products?.articles]);
-
-  useEffect(() => {
     if (filterMenu) {
       document.body.style.overflow = "hidden";
     } else {
@@ -87,9 +53,24 @@ export default function Section({ products, types, sectionRoute }) {
     setFilters([]);
   };
   useEffect(() => {
-    if (products?.subsection) {
-      setArticles(products.subsection);
+    let subsections = products?.subsection?.slice();
+    let newSub = [];
+
+    if (router.query?.onlyPromo) {
+      subsections.forEach((sub) => {
+        const items = [];
+
+        sub.items.forEach((item) => {
+          if (item.isOnPromotions) {
+            items.push(item);
+          }
+        });
+        if (items.length > 0) newSub.push(sub);
+      });
     }
+
+    if (newSub.length > 0) setArticles(newSub);
+    else setArticles(subsections);
   }, [products]);
   useEffect(() => {
     const storage = globalThis?.sessionStorage;
@@ -99,7 +80,6 @@ export default function Section({ products, types, sectionRoute }) {
       prevPath = prevPath.split("=")[1];
 
       const test = document.getElementById(prevPath);
-      console.log(test);
 
       if (test) {
         test.scrollIntoView();
@@ -155,31 +135,27 @@ export default function Section({ products, types, sectionRoute }) {
               </div>
             )}
 
-            <section className="grid gap-10 sm:grid-cols-2 md:grid-cols-3">
-              {articles &&
-                articles.map((article) => {
-                  const route = `/products/${products.name}/${article._id}`;
-                  return (
-                    <Product
-                      key={article._id}
-                      section={{
-                        name: `${products?.nameToDisplay} ${article?.nameToDisplay}`,
-                        route,
-                      }}
-                      article={article}
-                      addProduct={addProduct.bind({}, dispatch)}
-                    />
-                  );
-                })}
-            </section>
+            <ListProducts
+              articles={articles}
+              products={products}
+              dispatch={dispatch}
+            />
           </section>
+          {router.query?.onlyPromo && (
+            <section className="fixed bottom-0 right-0 lg:top-56">
+              <div
+                className="p-4 text-center text-white cursor-pointer max-lg:w-screen lg:rounded-full bg-primary-500"
+                onClick={() =>
+                  router.push({ pathname: `/products/${products.name}` }, undefined, {scroll:false})
+                }
+              >
+                Покажи всички продукти
+              </div>
+            </section>
+          )}
         </div>
       )}
-      {!articles && (
-        <div className="flex justify-center items-center text-xl text-secondary  h-[40vh]">
-          Няма намерени резултати
-        </div>
-      )}
+      {!articles && <NotFound />}
     </main>
   );
 }
@@ -206,3 +182,43 @@ export async function getServerSideProps(context) {
     },
   };
 }
+
+// This is used when filters are up!!!
+
+// useEffect(() => {
+//   const newProdArt = products?.subsection?.slice();
+
+//   if(router.query?.onlyPromo){
+//     console.log(products);
+//   }
+
+//   const filteredArticles = [];
+//   if (newProdArt) {
+//     for (let article of newProdArt) {
+//       const newArt = Object.assign({}, article);
+
+//       let items = [];
+//       for (let item of article.items) {
+//         const type = item.weight;
+//         let isFound = true;
+//         if (filters.length == 0) {
+//           items.push(item);
+//         } else {
+//           inner: for (let filter of filters) {
+//             if (!type.includes(filter)) {
+//               isFound = false;
+//               break inner;
+//             }
+//           }
+//           if (isFound) items.push(item);
+//         }
+//       }
+//       if (items.length > 0) {
+//         newArt.items = items;
+//         filteredArticles.push(newArt);
+//       }
+//     }
+//     // setArticles(filteredArticles);
+//   }
+// // eslint-disable-next-line react-hooks/exhaustive-deps
+// }, [filters, products?.subsection, router]);

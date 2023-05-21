@@ -35,6 +35,8 @@ import { isFav } from "../../../../services/favouriteService";
 import { getUser } from "../../../../services/userServicejs";
 import SwiperProductSelect from "../../../../components/swiperJs/SwiperProductSelect";
 import PriceWithQuantity from "../../../../components/products/PriceWithQuantity";
+import FullDescription from "../../../../components/products/IndividualProduct/FullDescription";
+import BuyProduct from "../../../../components/products/IndividualProduct/BuyProduct";
 
 export default function Index({ data, userData, isInFav }) {
   const router = useRouter();
@@ -57,112 +59,6 @@ export default function Index({ data, userData, isInFav }) {
   });
   const dispatch = useDispatch();
   let imgUrl;
-
-  const addProduct = (product, productName) => {
-    const section = product.section;
-    const article = product.article;
-    const item = article.items[0];
-
-    const newObj = {
-      item: {
-        route: item._id,
-        tipove: item.tipove,
-        cena: item.cena,
-        promotionalPrice: item.promotionalPrice,
-        isOnPromotions: item.isOnPromotions,
-        isOnlyNumb: item.isOnlyNumb,
-        katNomer: item.katNomer,
-      },
-      article: {
-        imgUrl,
-        name: article.nameToDisplay,
-        route: article._id,
-      },
-      section: {
-        name: section.nameToDisplay,
-        route: section.name,
-      },
-    };
-    if (product.article.isCustomQty) {
-      newObj.item.cena = customQtySelected.price;
-      newObj.item.tipove += `;${customQtySelected.name}`;
-    }
-    toastProduct(
-      `Добавихте ${currQty} ${currQty > 1 ? "броя" : "брой"} "${
-        section.nameToDisplay
-      }" в количката си`
-    );
-    dispatch(addToCart(newObj, currQty));
-  };
-  const addFavourites = async (product) => {
-    toastPromise("Изпраща се...");
-    const section = product.section;
-    const article = product.article;
-    const item = article.items[0];
-    let imgUrl;
-    if (article.img) {
-      imgUrl = article?.img?.originalname || article?.img[0]?.originalname;
-    }
-    const newObj = {
-      item: {
-        route: item._id,
-        types: item.tipove,
-        cena: item.cena,
-        promoPrice: item.promotionalPrice,
-        isOnPromotions: item.isOnPromotions,
-        isOnlyNumb: item.isOnlyNumb,
-      },
-      article: {
-        imgUrl: imgUrl,
-        name: article.nameToDisplay,
-        route: article._id,
-      },
-      section: {
-        name: section.nameToDisplay,
-        route: section.name,
-      },
-    };
-
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ product: newObj }),
-    };
-    const res = await fetch("/api/account/favourites/adding", options);
-    const data = await res.json();
-
-    toastHideAll();
-
-    if (data.error) {
-      toastError(data.error);
-    }
-    if (data.message) {
-      toastSuccess(data.message);
-      setIsFav(true);
-    }
-  };
-  const removeFavourites = async (productId) => {
-    toastPromise("Изпраща се...");
-
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ productId }),
-    };
-
-    const res = await fetch("/api/account/favourites/remove", options);
-    const data = await res.json();
-
-    toastHideAll();
-
-    if (data.error) {
-      toastError(data.error);
-    }
-    if (data.message) {
-      toastSuccess(data.message);
-      setIsFav(false);
-    }
-  };
 
   // Future use
   const selectedProductHandler = (data) => {
@@ -201,37 +97,7 @@ export default function Index({ data, userData, isInFav }) {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    // if (routerHash[1]) {
-    //   const newData = JSON.parse(JSON.stringify(data.foundItem));
-    //   inner: for (let item of newData?.article?.items) {
-    //     if (item._id == routerHash[1]) {
-    //       newData.article.items = [{ ...item }];
-    //       break inner;
-    //     }
-    //   }
-    //   if (newData?.article?.items?.length >= 1) {
-    //     setProduct(newData);
-    //     const priceInit = { forItem: newData?.article?.items[0].cena };
-    //     if (newData.article.items[0].isOnPromotions) {
-    //       priceInit.promoPrice = newData?.article?.items[0].promotionalPrice;
-    //     }
-    //     setPrice(priceInit);
-    //     setSelected(true);
-    //   }
-    // } else {
-    //   setProduct({ ...data.foundItem });
-    //   setSelected(false);
-    // }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.asPath]);
 
-  const forItem = parseFloat(price.forItem * currQty)
-    .toFixed(2)
-    .split(".");
-  const promoPrice = parseFloat(price.promoPrice * currQty)
-    .toFixed(2)
-    .split(".");
 
   return (
     <main className="mb-auto">
@@ -291,132 +157,20 @@ export default function Index({ data, userData, isInFav }) {
             </ul>
           </section>
           {/* <section></section> */}
-          <section className="flex flex-col justify-center p-5 space-y-10">
-            {!product.article.isCustomQty && (
-              <section className="flex items-center justify-between border-b border-gray-bord ">
-                {product.section.nameToDisplay != "Обадете се" && (
-                  <div className="text-lg font-bold">Цена:</div>
-                )}
-                {price?.forItem &&
-                  !price.promoPrice &&
-                  product.section.nameToDisplay != "Обадете се" && (
-                    <Pricing
-                      price={forItem[0]}
-                      priceDec={forItem[1]}
-                      size="3xl"
-                    />
-                  )}
-                {price?.promoPrice &&
-                  product.section.nameToDisplay != "Обадете се" && (
-                    <div className="flex gap-x-5">
-                      <div className="text-gray-200">
-                        <OldPrice
-                          price={forItem[0]}
-                          priceDec={forItem[1]}
-                          size="3xl"
-                          NoDDSText={true}
-                        />
-                      </div>
-                      <Pricing
-                        price={promoPrice[0]}
-                        priceDec={promoPrice[1]}
-                        size="3xl"
-                      />
-                    </div>
-                  )}
-                {/* If is on calling only */}
-                {product.section.nameToDisplay == "Обадете се" && (
-                  <div className="flex flex-col items-center justify-center w-full py-4 text-xl font-bold">
-                    <div className="font-normal text-[0.95rem]">
-                      Обадете се за цена!
-                    </div>
-
-                    <div>088 888 4687</div>
-                  </div>
-                )}
-              </section>
-            )}
-            {/* If is custom qty like /products/beliPlikove */}
-            {product.article.isCustomQty && (
-              <section className="flex flex-col justify-center w-full h-full ">
-                <PriceWithQuantity
-                  selected={customQtySelected}
-                  setSelected={customQtySetSelected}
-                  data={item.quantityWithPrices}
-                />
-                {customQtySelected.name != "Количество" && (
-                  <button
-                    type="button"
-                    className={`w-full px-2 flex py-2  justify-center items-end font-semibold text-white  bg-primary mt-6 text-xl border border-primary hover:bg-transparent hover:text-primary transition-colors `}
-                    onClick={() => addProduct(product, itemName)}
-                  >
-                    Купи
-                  </button>
-                )}
-              </section>
-            )}
-            {!product.article.isCustomQty && (
-              <section className="flex flex-col justify-center ">
-                <div className="mb-1">
-                  <label htmlFor="qty" className="font-semibold text-gray-200">
-                    Количество:
-                  </label>
-                </div>
-                <AddProductInput setQty={setQty} currQty={currQty} />
-                <button
-                  type="button"
-                  className={`w-full px-2 flex py-2  justify-center items-end font-semibold text-white  bg-primary mt-6 text-xl border border-primary hover:bg-transparent hover:text-primary transition-colors `}
-                  onClick={() => addProduct(product, itemName)}
-                >
-                  Купи
-                </button>
-                {/* Favourites div */}
-                {userData && !isFav && (
-                  <div
-                    className="flex items-center justify-center col-span-2 mt-6 transition-transform cursor-pointer group hover:-translate-y-1"
-                    onClick={() => addFavourites(product, itemName)}
-                  >
-                    <div className="inline-flex p-2 text-xl rounded-full bg-gray group-hover:text-white group-hover:bg-primary md:ml-5 ">
-                      <AiOutlineHeart />
-                    </div>
-                    <span className="ml-1 text-sm select-none group-hover:text-primary">
-                      Добави в любими
-                    </span>
-                  </div>
-                )}
-                {userData && isFav && (
-                  <div
-                    className="flex items-center justify-center col-span-2 mt-6 transition-transform cursor-pointer group hover:-translate-y-1"
-                    onClick={() => removeFavourites(product._id)}
-                  >
-                    <div className="inline-flex p-2 text-xl rounded-full bg-gray group-hover:text-white group-hover:bg-secondary md:ml-5 ">
-                      <AiOutlineHeart />
-                    </div>
-                    <span className="ml-1 text-sm select-none group-hover:text-secondary">
-                      Премахни от любими
-                    </span>
-                  </div>
-                )}
-              </section>
-            )}
-          </section>
+          <BuyProduct
+            product={product}
+            price={price}
+            currQty={currQty}
+            itemName={itemName}
+            setQty={setQty}
+            userData={userData}
+            isFav={isFav}
+            setIsFav={setIsFav}
+            dispatch={dispatch}
+            imgUrl={imgUrl}
+          />
         </div>
-        <section className="pt-2 mt-16 mb-5 border border-gray-150">
-          <h3 className="py-2 ml-4 text-2xl font-semibold sm:ml-8 text-primary">
-            Пълно описание
-          </h3>
-          <div className="container flex px-3 pb-6 ml-4 sm:ml-10">
-            <ul className="mb-1 list-disc">
-              {product?.article?.items[0].tipove.split(";").map((type) => {
-                return <li key={type}>{type}</li>;
-              })}
-              {product?.article?.opisanie &&
-                product?.article?.opisanie.split(";").map((description) => {
-                  return <li key={description}>{description}</li>;
-                })}
-            </ul>{" "}
-          </div>
-        </section>
+        <FullDescription product={product} />
 
         {/* <section className="pb-10 mb-16 border-b border-x border-gray-150">
               <h3 className="pt-1 pb-2 text-2xl font-semibold text-center text-primary">

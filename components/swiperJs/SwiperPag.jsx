@@ -49,7 +49,10 @@ export default function SwiperPag({ images, navSize, imgHeight }) {
           <div className={`${style.pagination}`}></div>
         </div>
 
-        {images.map((image) => {
+        {images.map((image,index) => {
+          if(index ==0){
+            console.log(image.pageUrl);
+          }
           return (
             <SwiperSlide key={image.key}>
               <Link href={image.pageUrl ? image.pageUrl : ""}>
