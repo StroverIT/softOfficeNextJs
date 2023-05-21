@@ -2,7 +2,7 @@ import React from 'react';
 
 const FullDescription = ({product}) => {
     return (
-        <section className="pt-2 mt-16 mb-5 border border-gray-150">
+        <section className="mt-16 mb-5 shadow-2xl p-7 ">
         <h3 className="py-2 ml-4 text-2xl font-semibold sm:ml-8 text-primary">
           Пълно описание
         </h3>
