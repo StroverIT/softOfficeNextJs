@@ -6,12 +6,9 @@ import LgScreenTableData from "./LgScreenTableData";
 import MobileScreenTableData from "./MobileScreenTableData";
 
 export default function CartItem({ cartData, removeProduct, changeQty }) {
-  let route;
-  if (cartData.item.item.itemsLen == 1) {
-    route = `/products/${cartData.item.section.route}/${cartData.item.article.route}`;
-  } else {
-    route = `/products/${cartData.item.section.route}/${cartData.item.article.route}#${cartData.item.item.route}`;
-  }
+  let route = `${cartData.item.section.route}?itemId=${cartData.item.item.route}`;
+  
+  console.log(cartData);
   const name = `${cartData?.item?.section?.name} ${cartData?.item?.article?.name} `;
 
   let cena = parseFloat(cartData?.item?.item?.cena);

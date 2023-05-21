@@ -23,7 +23,7 @@ export  const addProduct = ({dispatch, product, imgUrl, currQty, customQtySelect
       },
       section: {
         name: section.nameToDisplay,
-        route: section.name,
+        route: `/products/${section.name}/${article._id}`,
       },
     };
     if (product.article.isCustomQty) {
