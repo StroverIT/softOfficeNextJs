@@ -100,7 +100,7 @@ export default function Index({ data, userData, isInFav }) {
 
 
   return (
-    <main className="mb-auto">
+    <main className="mb-24">
       <div className="container">
         <div className="flex flex-col justify-between pt-5 pb-4 my-5 text-gray-500 border-b md:flex-row border-gray-bord">
           <div className="text-2xl font-semibold">
