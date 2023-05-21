@@ -19,6 +19,7 @@ export default function ListItem({
   addProduct,
   imgUrl,
   route,
+  dispatch
 }) {
   const router = useRouter();
   const { setLoading } = useContext(GlobalLoadingContext);
@@ -168,7 +169,7 @@ export default function ListItem({
           {(customQtySelected.name != "Количество" ||
             !articleData.isCustomQty) && (
             <div className="">
-              <BuyBtn onClick={() => addProduct(sanitizedData)} />
+              <BuyBtn onClick={() => addProduct({product: sanitizedData, dispatch})} />
             </div>
           )}
         </section>

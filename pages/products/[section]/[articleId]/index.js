@@ -3,44 +3,26 @@ import React, { useEffect, useState } from "react";
 import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Image from "next/image";
-// Mongodb
-
-// Components
-import OldPrice from "../../../../components/priceStyling/OldPrice";
-import Pricing from "../../../../components/priceStyling/Pricing";
-
 // Icons
-import { AiOutlineHeart } from "react-icons/ai";
 import { IoArrowUndo } from "react-icons/io5";
 // Styling
 
-import { productByItemId } from "../../../../services/productService";
-import AddProductInput from "../../../../components/products/AddProductInput";
+import { getAllProducts, productByItemId } from "../../../../services/productService";
 
 // Redux
 import { useDispatch } from "react-redux";
-import { addToCart } from "../../../../redux/actions/productActions";
 
 // Notifications
-import {
-  toastProduct,
-  toastPromise,
-  toastSuccess,
-  toastError,
-  toastHideAll,
-} from "../../../../components/notificataions/Toast";
+
 import Card from "../../../../components/products/Card";
 // Service
 import { isFav } from "../../../../services/favouriteService";
 import { getUser } from "../../../../services/userServicejs";
-import SwiperProductSelect from "../../../../components/swiperJs/SwiperProductSelect";
-import PriceWithQuantity from "../../../../components/products/PriceWithQuantity";
 import FullDescription from "../../../../components/products/IndividualProduct/FullDescription";
 import BuyProduct from "../../../../components/products/IndividualProduct/BuyProduct";
 
-export default function Index({ data, userData, isInFav }) {
+export default function Index({ data, userData, isInFav,alternatives }) {
   const router = useRouter();
-  const routerHash = router?.asPath?.split("#");
 
   const [product, setProduct] = useState(data.foundItem);
 
@@ -61,17 +43,9 @@ export default function Index({ data, userData, isInFav }) {
   let imgUrl;
 
   // Future use
-  const selectedProductHandler = (data) => {
-    router.push(`#${data.item._id}`, undefined, { shallow: true });
-  };
+ 
 
-  // const imgUrl =
-  // Variables
-  // if (product?.article?.items?.length == 1) {
-  //   if (product?.article?.items[0].imageUrl) {
-  //     imgUrl = product?.article?.items[0].imageUrl;
-  //   }
-  // }
+ 
   if (product?.article?.img) {
     imgUrl = product?.article?.img?.originalname;
 
@@ -86,41 +60,15 @@ export default function Index({ data, userData, isInFav }) {
       : ""
   } ${product?.article?.nameToDisplay} `;
 
-  useEffect(() => {
-    if (product?.article?.items?.length == 1) {
-      let priceObjInit = { forItem: product?.article?.items[0]?.cena };
-      if (product.article.items[0].isOnPromotions) {
-        priceObjInit.promoPrice = product?.article?.items[0]?.promotionalPrice;
-      }
 
-      setPrice(priceObjInit);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
+  
 
   return (
-    <main className="mb-24">
+    <main className="mb-20">
       <div className="container">
         <div className="flex flex-col justify-between pt-5 pb-4 my-5 text-gray-500 border-b md:flex-row border-gray-bord">
           <div className="text-2xl font-semibold">
-            {isSelected && (
-              <div
-                className="flex items-center mb-5 cursor-pointer text-secondary hover:text-primary-100"
-                onClick={() =>
-                  router.push(
-                    `/products/${product.section.name}/${product.article._id}`,
-                    undefined,
-                    { shallow: true }
-                  )
-                }
-              >
-                <div>
-                  <IoArrowUndo />
-                </div>
-                <div className="mt-1 ml-1 text-sm">Назад</div>
-              </div>
-            )}
+           
             <span className="ml-1 ">{itemName}</span>
           </div>
           <div className="flex items-center justify-center text-sm text-right text-gray-250">
@@ -167,28 +115,28 @@ export default function Index({ data, userData, isInFav }) {
             isFav={isFav}
             setIsFav={setIsFav}
             dispatch={dispatch}
+            customQtySelected={customQtySelected}
+            customQtySetSelected={customQtySetSelected}
+            item={item}
             imgUrl={imgUrl}
           />
         </div>
         <FullDescription product={product} />
 
-        {/* <section className="pb-10 mb-16 border-b border-x border-gray-150">
-              <h3 className="pt-1 pb-2 text-2xl font-semibold text-center text-primary">
-                Допълнителна информация
-              </h3>
-              <div className="flex px-3 ml-4 sm:ml-10">
-                <ul className="list-disc "></ul>
-              </div>
-            </section> */}
+                
+              
         {/* <section className="flex flex-wrap justify-center my-20 gap-x-16 gap-y-10 ">
               {alternatives &&
-                alternatives.map((alt) => {
+                alternatives.items.filter(item=> item._id != router.query?.itemId).map((alt) => {
                   return (
                     <Card
                       data={alt}
-                      key={alt.item._id}
-                      sectionImage={product?.imageUrl}
-                      sectionName={product.sectionName}
+                      key={item._id}
+                      imgUrl={imgUrl}
+                      productName={`${product.section.nameToDisplay} ${product.article.nameToDisplay}`}
+                      isCustomQty={product.article.isCustomQty}
+                      sectionName={product.section.nameToDisplay}
+                      url={`/products/${product.section.name}/${product.article._id}?itemId=${alt._id}`}
                     />
                   );
                 })}
@@ -202,20 +150,22 @@ export default function Index({ data, userData, isInFav }) {
 export async function getServerSideProps(context) {
   const { articleId, section, itemId } = context.query;
   const session = await getSession({ req: context.req });
-
   const product = await productByItemId(articleId, session, itemId);
-
   let isInFav = false;
 
   if (session) {
     const user = await getUser(session.user.email);
     isInFav = await isFav(articleId, user._id);
   }
+  let alternatives = await getAllProducts(section, session);
+
+  alternatives = alternatives.subsection.find(sub => sub._id == articleId)
 
   return {
     props: {
       data: JSON.parse(JSON.stringify(product)),
       userData: JSON.parse(JSON.stringify(session)),
+      alternatives: JSON.parse(JSON.stringify(alternatives)),
       isInFav,
     },
   };

@@ -1,7 +1,7 @@
 import { addToCart } from "../../../redux/actions/productActions";
 import { toastError, toastHideAll, toastProduct, toastPromise, toastSuccess } from "../../notificataions/Toast";
 
-export  const addProduct = (dispatch, product, imgUrl, currQty) => {
+export  const addProduct = ({dispatch, product, imgUrl, currQty, customQtySelected}) => {
     const section = product.section;
     const article = product.article;
     const item = article.items[0];

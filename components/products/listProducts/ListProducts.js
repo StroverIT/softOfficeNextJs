@@ -16,7 +16,8 @@ const ListProducts = ({articles, dispatch,products}) => {
                   route,
                 }}
                 article={article}
-                addProduct={addProduct.bind({}, dispatch)}
+                addProduct={addProduct}
+                dispatch={dispatch}
               />
             );
           })}

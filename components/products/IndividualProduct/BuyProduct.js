@@ -6,6 +6,7 @@ import AddProductInput from "../AddProductInput";
 import { AiOutlineHeart } from "react-icons/ai";
 
 import { addProduct, addFavourites, removeFavourites } from "./helpers";
+import PricingWithName from "../../priceStyling/PricingWithName";
 
 const BuyProduct = ({
   product,
@@ -16,57 +17,15 @@ const BuyProduct = ({
   isFav,
   dispatch,
   setIsFav,
-  imgUrl
+  imgUrl,
+  customQtySelected,
+  customQtySetSelected,
+  item
 }) => {
-  const forItem = parseFloat(price.forItem * currQty)
-    .toFixed(2)
-    .split(".");
-  const promoPrice = parseFloat(price.promoPrice * currQty)
-    .toFixed(2)
-    .split(".");
-
+  console.log(customQtySelected);
   return (
     <section className="flex flex-col justify-center p-5 space-y-10">
-      {!product.article.isCustomQty && (
-        <section className="flex items-center justify-between border-b border-gray-bord ">
-          {product.section.nameToDisplay != "Обадете се" && (
-            <div className="text-lg font-bold">Цена:</div>
-          )}
-          {price?.forItem &&
-            !price.promoPrice &&
-            product.section.nameToDisplay != "Обадете се" && (
-              <Pricing price={forItem[0]} priceDec={forItem[1]} size="3xl" />
-            )}
-          {price?.promoPrice &&
-            product.section.nameToDisplay != "Обадете се" && (
-              <div className="flex gap-x-5">
-                <div className="text-gray-200">
-                  <OldPrice
-                    price={forItem[0]}
-                    priceDec={forItem[1]}
-                    size="3xl"
-                    NoDDSText={true}
-                  />
-                </div>
-                <Pricing
-                  price={promoPrice[0]}
-                  priceDec={promoPrice[1]}
-                  size="3xl"
-                />
-              </div>
-            )}
-          {/* If is on calling only */}
-          {product.section.nameToDisplay == "Обадете се" && (
-            <div className="flex flex-col items-center justify-center w-full py-4 text-xl font-bold">
-              <div className="font-normal text-[0.95rem]">
-                Обадете се за цена!
-              </div>
-
-              <div>088 888 4687</div>
-            </div>
-          )}
-        </section>
-      )}
+      <PricingWithName product={product} price={price} currQty={currQty}/>
       {/* If is custom qty like /products/beliPlikove */}
       {product.article.isCustomQty && (
         <section className="flex flex-col justify-center w-full h-full ">
@@ -79,7 +38,7 @@ const BuyProduct = ({
             <button
               type="button"
               className={`w-full px-2 flex py-2  justify-center items-end font-semibold text-white  bg-primary mt-6 text-xl border border-primary hover:bg-transparent hover:text-primary transition-colors `}
-              onClick={() => addProduct(dispatch, product, imgUrl,currQty)}
+              onClick={() => addProduct({dispatch, product, imgUrl,currQty:1, customQtySelected })}
             >
               Купи
             </button>
@@ -97,7 +56,7 @@ const BuyProduct = ({
           <button
             type="button"
             className={`w-full px-2 flex py-2  justify-center items-end font-semibold text-white  bg-primary mt-6 text-xl border border-primary hover:bg-transparent hover:text-primary transition-colors `}
-            onClick={() => addProduct(dispatch,product, imgUrl, currQty)}
+            onClick={() => addProduct({dispatch,product, imgUrl, currQty})}
           >
             Купи
           </button>
