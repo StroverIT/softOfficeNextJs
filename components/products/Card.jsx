@@ -11,9 +11,11 @@ import PricingPromo from "../priceStyling/PricingPromo";
 import { useState } from "react";
 import PricingWithName from "../priceStyling/PricingWithName";
 
-export default function Card({ data, imgUrl, sectionName, productName, isCustomQty,url }) {
+export default function Card({ data, imgUrl, sectionName, productName, isCustomQty,url}) {
   // const price = data.item.price.toFixed(2).split(".");
 
+  if(data.imageUrl) imgUrl = data.imageUrl
+  
   const router = useRouter();
   const [price, setPrice] = useState({
     forItem: data.cena,
