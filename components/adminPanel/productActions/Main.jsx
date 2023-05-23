@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // Next
 import { useRouter } from "next/router";
 import Image from "next/image";
@@ -10,6 +10,10 @@ import { toastError, toastSuccess } from "../../notificataions/Toast";
 export default function Main({ products }) {
   const router = useRouter();
   const [menuImgData, setMenuImgData] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
+
+  const inputRef = useRef(null)
+
   const changeTypeAction = (type) => {
     // Trigger fragment change to fetch the new data
     router.push(`/adminPanel/#prodykti#${type}`, undefined, { shallow: true });
@@ -17,10 +21,11 @@ export default function Main({ products }) {
   const changeHandler = (e) => {
     const name = e.target.name;
     let value = e.target.value;
-
+    console.log(value);
     if (name.includes("image")) {
       value = e.target.files[0];
     }
+    setPreviewImage(URL.createObjectURL(e.target.files[0]));
     setMenuImgData((prevState) => ({
       ...prevState,
       [name]: value,
@@ -47,11 +52,39 @@ export default function Main({ products }) {
       data.message == "Успешно променихте снимката, рестарирайте страницата!"
     ) {
       toastSuccess("Успешно променихте снимката!");
-      router.push(router.asPath, undefined, {scroll: false})
+      router.push(router.asPath, undefined, { scroll: false });
     } else {
       toastError("Нещо се обърка!");
     }
   };
+  useEffect(()=>{
+
+    const test = e=>{
+      if(e.clipboardData.files.length > 0){
+        const fileInput = inputRef.current
+        const fileZero = e.clipboardData.files[0]
+        
+        console.log(e.clipboardData.files);
+        const obj = {
+          target: {
+              name: fileZero.name,
+              value: fileZero.type,
+              files: e.clipboardData.files
+          }
+        } 
+        console.log(obj.target.name);
+        console.log(fileZero.name);
+
+        changeHandler(obj)
+    // setPreviewImage(URL.createObjectURL(e.clipboardData.files[0]));
+
+      }
+    }
+    window.addEventListener("paste",test)
+    return()=>{
+      window.removeEventListener("paste", test)
+    }
+  },[])
   return (
     <div className="mt-10">
       <div className="flex justify-end">
@@ -83,20 +116,24 @@ export default function Main({ products }) {
             <div className="absolute z-20 w-full h-full max-w-4xl -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 max-h-96 ">
               <div className="relative z-50 py-10 bg-white text-dark">
                 <div className="flex flex-col items-center justify-center h-full gap-y-10 ">
-                  <div className="flex flex-col">
-                    <h3 className="text-xl text-bold text-primary-100">
-                      Сегашна снимка:
-                    </h3>
-                    <div className="relative h-28 w-28">
-                      <Image
-                        src={`/uploads/${menuImgData.imgUrl}`}
-                        layout="fill"
-                        alt={menuImgData.imgUrl}
-                      />
+                  {previewImage && (
+                    <div className="flex flex-col">
+                      <h3 className="text-xl text-bold text-primary-100">
+                        Сегашна снимка:
+                      </h3>
+                    
+                      <div className="relative h-28 w-28">
+                        <Image
+                          src={previewImage}
+                          layout="fill"
+                          alt={menuImgData.imgUrl}
+                        />
+                      </div>
                     </div>
-                  </div>
+                  )}
                   <div>
                     <Input
+                    inputRef={inputRef}
                       type="file"
                       placeholder="Снимка"
                       id="imageNewData"

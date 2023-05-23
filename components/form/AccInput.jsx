@@ -12,6 +12,7 @@ const AccInput = ({
   defValue,
   value,
   onChange,
+  inputRef
 }) => {
   return (
     <div className="w-full">
@@ -24,6 +25,7 @@ const AccInput = ({
         </label>
         <div>
           <input
+          ref={inputRef}
             className="w-full px-3 py-2 leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline placeholder:text-gray-200"
             id={id}
             name={id}
