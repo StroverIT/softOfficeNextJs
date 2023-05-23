@@ -22,14 +22,18 @@ export default function ListItem({
   dispatch
 }) {
   const router = useRouter();
+
   const { setLoading } = useContext(GlobalLoadingContext);
+
   const name = `${section.name != "Обадете се" ? section.name : ""}`;
   const types = item?.tipove?.split(";");
+
   const [price, setPrice] = useState(null);
   const [sanitizedData, setSanitizedData] = useState({});
   const [customQtySelected, customQtySetSelected] = useState({
     name: "Количество",
   });
+  if(item.imageUrl) imgUrl = item.imageUrl
   useEffect(() => {
     let priceObjInit = { forItem: item.cena };
     if (item.isOnPromotions || item.promotionalPrice > 0) {

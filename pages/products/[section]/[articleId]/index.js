@@ -53,6 +53,7 @@ export default function Index({ data, userData, isInFav,alternatives }) {
       imgUrl = product?.article?.img[0]?.originalname;
     }
   }
+  if(item.imageUrl) imgUrl = item.imageUrl
 
   const itemName = `${
     product?.section?.nameToDisplay != "Обадете се"
