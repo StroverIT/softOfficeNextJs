@@ -47,6 +47,7 @@ export default function Main({ products }) {
       data.message == "Успешно променихте снимката, рестарирайте страницата!"
     ) {
       toastSuccess("Успешно променихте снимката!");
+      router.push(router.asPath, undefined, {scroll: false})
     } else {
       toastError("Нещо се обърка!");
     }
