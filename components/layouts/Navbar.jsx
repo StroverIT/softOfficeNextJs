@@ -300,7 +300,7 @@ const Navbar = ({ cartTotalQty }) => {
                   </ul>
                 </div>
               )}
-              {searchTabInputs.subsections?.length > 0 && (
+              {/* {searchTabInputs.subsections?.length > 0 && (
                 <div className="w-full bg-white ">
                   <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-100">
                     Артикули
@@ -319,7 +319,7 @@ const Navbar = ({ cartTotalQty }) => {
                     })}
                   </ul>
                 </div>
-              )}
+              )} */}
               {searchTabInputs.sections?.length > 0 && (
                 <div className="w-full bg-white">
                   <h3 className="py-2 mb-2 text-lg text-center text-white bg-primary-100">
