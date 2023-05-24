@@ -4,6 +4,8 @@ import { InputContext } from "./Context";
 import Image from "next/image"
 export default function Item({ item, articleId, sectionId, img }) {
   const { setMenuImgData } = useContext(InputContext);
+
+  if(!item) return <div className="text-red p-4">Грешка при показване на артикула </div>
   return (
     <section className="p-5 border border-green">
       <div>
@@ -26,7 +28,7 @@ export default function Item({ item, articleId, sectionId, img }) {
           </span>
         </div>
       )}
-      {item.imageUrl && <div className="relative w-20 h-20"><Image src={`/uploads/${item.imageUrl}`} alt="image brat" layout="fill"/></div>}
+      {item?.imageUrl && <div className="relative w-20 h-20"><Image src={`/uploads/${item.imageUrl}`} alt="image brat" layout="fill"/></div>}
       <div>
         <button
           onClick={() => {
