@@ -22,7 +22,7 @@ const BuyProduct = ({
   customQtySetSelected,
   item
 }) => {
-  console.log(customQtySelected);
+  console.log(price);
   return (
     <section className="flex flex-col justify-center p-5 space-y-10">
       <PricingWithName product={product} price={price} currQty={currQty}/>

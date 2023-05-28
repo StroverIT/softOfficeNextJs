@@ -43,9 +43,10 @@ export default function Index({ data, userData, isInFav, alternatives }) {
   const [currQty, setQty] = useState(1);
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [price, setPrice] = useState({
-    forItem: item?.cena,
-    promoPrice: item?.promotionalPrice,
+    forItem: data.foundItem.item.cena,
+    promoPrice: data.foundItem.item.promotionalPrice ? data.foundItem.item.promotionalPrice : null,
   });
+
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [isFav, setIsFav] = useState(isInFav);
   const [isSelected, setSelected] = useState(false);
@@ -73,8 +74,8 @@ export default function Index({ data, userData, isInFav, alternatives }) {
       : ""
   } ${product?.article?.nameToDisplay} `;
 
-  if (!product) return <div>Зарежда се...</div>;
 
+  if (!product) return <div>Зарежда се...</div>;
   return (
     <main className="mb-20">
       <div className="container">
@@ -95,7 +96,6 @@ export default function Index({ data, userData, isInFav, alternatives }) {
         />
 
         <section className="flex flex-wrap justify-center my-20 gap-x-16 gap-y-10 ">
-          {console.log(alternatives)}
           {alternatives &&
             alternatives.items
               .filter((item) => item._id != router.query?.itemId)
