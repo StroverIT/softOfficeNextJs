@@ -37,7 +37,6 @@ export const formatter = (data, route) => {
   data = data
     .filter((product) => product.title.includes(route))
     .map((product) => {
-      console.log(product.price);
       return {
         item: {
           tipove: product.features
