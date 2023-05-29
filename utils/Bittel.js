@@ -34,11 +34,10 @@ const routerTranslator = (route) => {
 
 export const formatter = (data, route) => {
   route = routerTranslator(route);
-  console.log(route);
   data = data
     .filter((product) => product.title.includes(route))
     .map((product) => {
-      console.log(product.id);
+      console.log(product.price);
       return {
         item: {
           tipove: product.features
@@ -47,8 +46,8 @@ export const formatter = (data, route) => {
             })
             .join(";"),
           katNomer: product.id,
-          cena: product.price,
-          promotionalPrice: product.promo,
+          cena: Number(product.price) - Number(product.price) * 0.20,
+          promotionalPrice: Number(product.promo) - Number(product.promo) * 0.20,
           _id: product.id,
         },
         article: {
@@ -76,8 +75,8 @@ export const formatterById = (data, id) => {
             })
             .join(";"),
           katNomer: product.id,
-          cena: product.price,
-          promotionalPrice: product.promo,
+          cena: Number(product.price) - Number(product.price) * 0.20,
+          promotionalPrice: Number(product.promo) - Number(product.promo) * 0.20,
           _id: product.id,
         },
         article: {
