@@ -12,7 +12,7 @@ const MainProduct = ({itemName, item, imgUrl,product, price, currQty, setQty, us
           <div className="flex flex-col justify-between pt-5 pb-4 my-5 text-gray-500 border-b md:flex-row border-gray-bord">
           <div className="text-2xl font-semibold">
            
-            <span className="ml-1 ">{itemName}</span>
+            <span className="ml-1 ">{!item.customName ? itemName : item.customName}</span>
           </div>
           <div className="flex items-center justify-center text-sm text-right text-gray-250">
             Кат. номер: {item.katNomer}

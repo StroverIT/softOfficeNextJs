@@ -15,6 +15,7 @@ export  const addProduct = ({dispatch, product, imgUrl, currQty, customQtySelect
         isOnPromotions: item.isOnPromotions,
         isOnlyNumb: item.isOnlyNumb,
         katNomer: item.katNomer,
+        customName: item.customName
       },
       article: {
         imgUrl,
