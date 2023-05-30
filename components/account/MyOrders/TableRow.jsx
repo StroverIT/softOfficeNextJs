@@ -126,7 +126,8 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                         <tbody>
                           {fullData.cart &&
                             fullData.cart.map((product) => {
-                              const name = `${product.item.section.name} ${product.item.article.name}`;
+                              console.log(product.item);
+                              const name = !product.item.item.customName ? `${product.item.section.name} ${product.item.article.name}` : product.item.item.customName;
 
                               let price = product.item.item.cena;
                               if (product.item.item.isOnPromotions) {
@@ -141,7 +142,7 @@ export function TableRow({ id, date, total, status, isOld, fullData }) {
                                   <td>{product.item.item.katNomer}</td>
                                   <td className="pl-2 border border-primary-100">
                                     {name}{" "}
-                                    {product.item.item.tipove
+                                    {!product.item.item.customName && product.item.item.tipove
                                       .split(";")
                                       .slice(0, 5)
                                       .map(
