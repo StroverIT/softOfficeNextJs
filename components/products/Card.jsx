@@ -14,6 +14,8 @@ import PricingWithName from "../priceStyling/PricingWithName";
 export default function Card({ data, imgUrl, sectionName, productName, isCustomQty,url}) {
   // const price = data.item.price.toFixed(2).split(".");
 
+  productName = !data.customName ? productName : data.customName
+
   if(data.imageUrl) imgUrl = data.imageUrl
   
   const router = useRouter();
