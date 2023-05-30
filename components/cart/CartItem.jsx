@@ -9,7 +9,7 @@ export default function CartItem({ cartData, removeProduct, changeQty }) {
   let route = `${cartData.item.section.route}?itemId=${cartData.item.item.route}`;
   
   console.log(cartData);
-  const name = `${cartData?.item?.section?.name} ${cartData?.item?.article?.name} `;
+  const name = `${!cartData?.item?.item?.customName ? `${cartData?.item?.section?.name} ${cartData?.item?.article?.name}`: cartData?.item?.item?.customName} `;
 
   let cena = parseFloat(cartData?.item?.item?.cena);
 

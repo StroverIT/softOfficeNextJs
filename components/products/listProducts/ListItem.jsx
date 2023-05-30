@@ -57,6 +57,7 @@ export default function ListItem({
           isOnPromotions: item.isOnPromotions,
           promotionalPrice: price.promoPrice,
           isOnlyNumb: item.isOnlyNumb,
+          customName: item.customName
         },
         article: {
           ...articleData,
