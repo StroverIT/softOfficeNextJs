@@ -12,7 +12,8 @@ const ListProducts = ({articles, dispatch,products}) => {
               <Product
                 key={article._id}
                 section={{
-                  name: `${products?.nameToDisplay} ${article?.nameToDisplay}`,
+                  name: `${products?.nameToDisplay  != "Обадете се" ? products?.nameToDisplay : ""} ${article?.nameToDisplay}`,
+                  nameToDisplay: products?.nameToDisplay,
                   route,
                 }}
                 article={article}

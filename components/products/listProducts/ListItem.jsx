@@ -25,7 +25,7 @@ export default function ListItem({
 
   const { setLoading } = useContext(GlobalLoadingContext);
 
-  const name = `${section.name != "Обадете се" ? section.name : ""}`;
+  const name = `${!item.customName  ? section.name : item.customName}`;
   const types = item?.tipove?.split(";");
 
   const [price, setPrice] = useState(null);
@@ -102,32 +102,37 @@ export default function ListItem({
 
         {/* --- Pricing ----*/}
         <div className="flex items-center justify-center py-2 border-y border-gray">
-          {price?.forItem &&
-            !price.promoPrice &&
-            section.name != "Обадете се" && (
-              <Pricing
-                price={parseFloat(price.forItem).toFixed(2).split(".")[0]}
-                priceDec={parseFloat(price.forItem).toFixed(2).split(".")[1]}
-                size="3xl"
-              />
-            )}
-          {price?.promoPrice && section.name != "Обадете се" && (
-            <div className="flex gap-x-5">
-              <div className="text-gray-200">
-                <OldPrice
-                  price={parseFloat(price.forItem).toFixed(2).split(".")[0]}
-                  priceDec={parseFloat(price.forItem).toFixed(2).split(".")[1]}
-                  size="3xl"
-                  NoDDSText={true}
-                />
-              </div>
-              <Pricing
-                price={parseFloat(price.promoPrice).toFixed(2).split(".")[0]}
-                priceDec={parseFloat(price.promoPrice).toFixed(2).split(".")[1]}
-                size="3xl"
-              />
-            </div>
-          )}
+          <>
+            {section.nameToDisplay == "Обадете се" && <div className="text-lg">Обадете се за цена!</div>}
+           {section.nameToDisplay != "Обадете се" && <>
+              {price?.forItem &&
+                !price.promoPrice &&
+                section.name != "Обадете се" && (
+                  <Pricing
+                    price={parseFloat(price.forItem).toFixed(2).split(".")[0]}
+                    priceDec={parseFloat(price.forItem).toFixed(2).split(".")[1]}
+                    size="3xl"
+                  />
+                )}
+              {price?.promoPrice && section.name != "Обадете се" && (
+                <div className="flex gap-x-5">
+                  <div className="text-gray-200">
+                    <OldPrice
+                      price={parseFloat(price.forItem).toFixed(2).split(".")[0]}
+                      priceDec={parseFloat(price.forItem).toFixed(2).split(".")[1]}
+                      size="3xl"
+                      NoDDSText={true}
+                    />
+                  </div>
+                  <Pricing
+                    price={parseFloat(price.promoPrice).toFixed(2).split(".")[0]}
+                    priceDec={parseFloat(price.promoPrice).toFixed(2).split(".")[1]}
+                    size="3xl"
+                  />
+                </div>
+              )}
+            </>}
+          </>
         </div>
         <h2 className="w-full py-4 text-xl font-semibold text-center ">
           {name}

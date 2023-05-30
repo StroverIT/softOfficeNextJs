@@ -136,6 +136,13 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
         className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
         onChange={(e) => changeHandler(e, index, itemIdx)}
       ></textarea>
+       <Input
+        id="customName"
+        text="Име на артикула"
+        holder="Хартия BLC A4"
+        value={inputSakrateno?.customName}
+        handler={(e) => changeHandler(e, index, itemIdx)}
+      />
     </section>
   );
 };

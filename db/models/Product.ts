@@ -21,6 +21,7 @@ interface IItems {
   isOnlyNumb: Boolean;
   isInStock: Boolean;
   quantityWithPrices: [Object];
+  customName: String;
 }
 interface ISubsection {
   opisanie: String;
@@ -79,6 +80,7 @@ const itemsSchema = new Schema<IItems>({
     default: true,
   },
   quantityWithPrices: [{ type: Object }],
+  customName: String,
 });
 
 const subsectionSchema = new Schema<ISubsection>({
