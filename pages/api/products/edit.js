@@ -28,8 +28,8 @@ async function handler(req, res) {
 
     const { data, productId } = req.body;
 
-    data.subsection.forEach((subSec) => {
-      subSec.items.forEach(async (item) => {
+    data?.subsection.forEach((subSec) => {
+      subSec?.items.forEach(async (item) => {
         if (item.isOnPromotions === true) {
           const promo = await Promotion.findOne({
             "product.item._id": item._id,
@@ -43,6 +43,9 @@ async function handler(req, res) {
         }
       });
     });
+    // Only if email is mine, then do the faking update to strover
+    
+    console.log(data);
     await Product.updateOne({ _id: productId }, { $set: data });
     res.json({ message: "Успешно променихте продукта" });
   } catch (e) {
