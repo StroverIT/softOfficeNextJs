@@ -203,7 +203,6 @@ export default function Article({
           </section>
         )}
         {subsection.items.map((item, index) => {
-          console.log(item);
           return (
             <Item
               key={item?._id + index}

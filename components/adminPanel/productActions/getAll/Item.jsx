@@ -9,7 +9,7 @@ export default function Item({ item, articleId, sectionId, img,inputs,setInputs,
   const { setMenuImgData } = useContext(InputContext);
   const [isForm, setIsForm] = useState(false);
 
-  const changeHandlerItem = (e, subLen, itemLen, oldInput, text) => {
+  const changeHandlerItem = (e, subLen, itemLen, oldInput, text, custom) => {
     // console.log( "currItem", item);
     const name = e.target.name;
     let value = e.target.value;
@@ -56,7 +56,15 @@ export default function Item({ item, articleId, sectionId, img,inputs,setInputs,
         // If is found the current array
         if (subLen == index) {
           subsection.items = subsection.items.map((item, itemIdx) => {
+           
             if (itemIdx == itemLen) {
+              if(custom){
+                 return{...item, [custom.type]: {
+                  ...item[custom.type], [custom.index]:{
+                    ...item[custom.type][custom.index], [e.target.name]: Number(e.target.value)
+                  }
+                }}
+              }
               return { ...item, [name]: value };
             }
             return item;
@@ -69,7 +77,7 @@ export default function Item({ item, articleId, sectionId, img,inputs,setInputs,
   if(!item) return <div className="p-4 text-red">Грешка при показване на артикула </div>
   return (
     <section className="p-5 border border-green">
-      { <>
+      {!isForm &&  <>
         <div>
           Цена:
           <span className="pl-1">{item?.cena && item.cena}</span>

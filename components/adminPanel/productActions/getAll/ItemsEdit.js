@@ -146,14 +146,14 @@ const ItemsEdit = ({ inputs, subIndex, itemIdx, changeHandler, currItem }) => {
         text="Количество "
         holder="Количество"
         value={inputSakrateno?.quantityWithPrices[index].quantity}
-        handler={(e) => changeHandler(e, subIndex, itemIdx,data.quantity, "Количество - на бройка")}
+        handler={(e) => changeHandler(e, subIndex, itemIdx,data.quantity, "Количество - на бройка", {type: "quantityWithPrices", index })}
       />
          <Input
         id="price"
         text="Цена "
         holder="Цена"
         value={inputSakrateno?.quantityWithPrices[index].price}
-        handler={(e) => changeHandler(e, subIndex, itemIdx,data.price, "Цена - на бройка")}
+        handler={(e) => changeHandler(e, subIndex, itemIdx,data.price, "Цена - на бройка", {type: "quantityWithPrices", index })}
       />
       </div>
       })}
