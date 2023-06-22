@@ -61,7 +61,7 @@ export default function Item({ item, articleId, sectionId, img,inputs,setInputs,
               if(custom){
                  return{...item, [custom.type]: {
                   ...item[custom.type], [custom.index]:{
-                    ...item[custom.type][custom.index], [e.target.name]: Number(e.target.value)
+                    ...item[custom.type][custom.index], [e.target.name]: parseFloat(e.target.value)
                   }
                 }}
               }
