@@ -5,7 +5,7 @@ import Image from "next/image"
 import ItemsEdit from "./ItemsEdit";
 import Edit from "./Edit";
 export default function Item({ item, articleId, sectionId, img,inputs,setInputs, itemIdx, subIndex, sectionDisplay,subDisplay, stroverInputs, setStroverInputs }) {
-  
+
   const { setMenuImgData } = useContext(InputContext);
   const [isForm, setIsForm] = useState(false);
 
@@ -68,7 +68,7 @@ export default function Item({ item, articleId, sectionId, img,inputs,setInputs,
   if(!item) return <div className="p-4 text-red">Грешка при показване на артикула </div>
   return (
     <section className="p-5 border border-green">
-      {!isForm && <>
+      { <>
         <div>
           Цена:
           <span className="pl-1">{item?.cena && item.cena}</span>
@@ -81,6 +81,18 @@ export default function Item({ item, articleId, sectionId, img,inputs,setInputs,
           Типове:
           <span className="pl-1">{item?.tipove && item.tipove}</span>
         </div>
+        {item.quantityWithPrices.map((data,index) =>{
+        return <div className="grid grid-cols-2" key={index}>
+         <div
+      >
+        Количество: {data.quantity}
+        </div>
+        <div
+      >
+        Цена: {data.price}
+        </div>
+      </div>
+      })}
         {item?.promotionalPrice && (
           <div>
             Промоционална цена:

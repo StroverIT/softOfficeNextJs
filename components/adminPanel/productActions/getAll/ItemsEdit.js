@@ -139,6 +139,24 @@ const ItemsEdit = ({ inputs, subIndex, itemIdx, changeHandler, currItem }) => {
         className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
         onChange={(e) => changeHandler(e, subIndex, itemIdx,currItem.tipove, "Кат. tipove")}
       ></textarea>
+      {currItem.quantityWithPrices.map((data,index) =>{
+        return <div className="grid grid-cols-2" key={index}>
+         <Input
+        id="quantity"
+        text="Количество "
+        holder="Количество"
+        value={inputSakrateno?.quantityWithPrices[index].quantity}
+        handler={(e) => changeHandler(e, subIndex, itemIdx,data.quantity, "Количество - на бройка")}
+      />
+         <Input
+        id="price"
+        text="Цена "
+        holder="Цена"
+        value={inputSakrateno?.quantityWithPrices[index].price}
+        handler={(e) => changeHandler(e, subIndex, itemIdx,data.price, "Цена - на бройка")}
+      />
+      </div>
+      })}
        <Input
         id="customName"
         text="Име на артикула"
