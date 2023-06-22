@@ -59,11 +59,12 @@ export default function Item({ item, articleId, sectionId, img,inputs,setInputs,
            
             if (itemIdx == itemLen) {
               if(custom){
-                 return{...item, [custom.type]: {
-                  ...item[custom.type], [custom.index]:{
-                    ...item[custom.type][custom.index], [e.target.name]: parseFloat(e.target.value)
-                  }
-                }}
+              return {...item, [custom.type]: item[custom.type].map((customItem, customItemIdx)=>{
+                if(customItemIdx == custom.index){
+                  return {...customItem, [e.target.name]: Number(e.target.value)}
+                }
+                return customItem
+              })}
               }
               return { ...item, [name]: value };
             }
