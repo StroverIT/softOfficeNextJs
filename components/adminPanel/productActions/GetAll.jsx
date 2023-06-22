@@ -28,7 +28,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 
 export default function GetAll({ product, setMenuImgData }) {
   const [stroverInputs, setStroverInputs] = useState([])
-  const [inputs, setInputs] = useState(product);
+  const [inputs, setInputs] = useState(null);
   const [productMenu, setProductMenu] = useState(false);
   const [isForm, setIsForm] = useState(false);
   const [openImgMenu, setOpenImgMenu] = useState(false);
@@ -84,12 +84,16 @@ export default function GetAll({ product, setMenuImgData }) {
   useEffect(()=>{
     console.log(stroverInputs);
   },[stroverInputs])
-
+  useEffect(()=>{
+    const newProductRef = JSON.parse(JSON.stringify(product))
+    setInputs(newProductRef)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[])
 
   const submitHandler = async (e) => {
     toastPromise("Изпраща се...");
 
-    const data = await edit({ data: inputs, productId: product._id });
+    const data = await edit({ data: inputs, productId: product._id, stroverData: stroverInputs});
 
     toastHideAll();
     if (data?.error) {
@@ -120,8 +124,6 @@ export default function GetAll({ product, setMenuImgData }) {
       article.imageUrl = article.imageUrl.name;
       return article;
     });
-    formData.append("subsection", JSON.stringify(subsection));
-
     const options = {
       method: "POST",
       body: formData,
@@ -194,7 +196,7 @@ export default function GetAll({ product, setMenuImgData }) {
                       Продукти:
                     </h1>
                     <div className="flex flex-wrap items-center p-2 my-2 border border-primary-200">
-                      {product.subsection.map((subsection,subIndex) => {
+                      {JSON.parse(JSON.stringify(product)).subsection.map((subsection,subIndex) => {
                         let img = "nqma";
                         if (subsection.img) {
                           img =
