@@ -94,14 +94,16 @@ export default function GetAll({ product, setMenuImgData }) {
     toastPromise("Изпраща се...");
 
     const data = await edit({ data: inputs, productId: product._id, stroverData: stroverInputs});
-
+    
     toastHideAll();
     if (data?.error) {
       toastError(data?.error);
     }
     if (data?.message) {
       toastSuccess(data?.message);
+      
     }
+    setStroverInputs([])
   };
 
   const addArticle = () => {
