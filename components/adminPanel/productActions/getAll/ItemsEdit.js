@@ -2,10 +2,10 @@ import React, { useState } from "react";
 
 import Input from "./Input";
 
-const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
-  const inputSakrateno = inputs.subsection[index].items[itemIdx];
+const ItemsEdit = ({ inputs, subIndex, itemIdx, changeHandler, currItem }) => {
+  const inputSakrateno = inputs.subsection[subIndex].items[itemIdx];
 
-  const subsec = inputs.subsection[index];
+  const subsec = inputs.subsection[subIndex];
   const item = subsec.items[itemIdx];
 
   const [isPromo, setIsPromo] = useState(false);
@@ -20,7 +20,7 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
           value: !isPromo,
         },
       },
-      index,
+      subIndex,
       itemIdx
     );
 
@@ -31,7 +31,7 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
           value: "",
         },
       },
-      index,
+      subIndex,
       itemIdx
     );
   };
@@ -68,7 +68,7 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
                   text="Нова цена"
                   holder="Нова цена"
                   value={inputSakrateno.promotionalPrice}
-                  handler={(e) => changeHandler(e, index, itemIdx, )}
+                  handler={(e) => changeHandler(e, subIndex, itemIdx, )}
                 />
                 <button
                   type="button "
@@ -97,7 +97,7 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
                           isOnlyNumb: item.isOnlyNumb,
                         },
                       },
-                      { subsecIdx: index, itemIdx }
+                      { subsecIdx: subIndex, itemIdx }
                     );
                   }}
                 >
@@ -113,7 +113,7 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
         text="Цена"
         holder="цена"
         value={inputSakrateno?.cena}
-        handler={(e) => changeHandler(e, index, itemIdx, item.cena, "Цена")}
+        handler={(e) => changeHandler(e, subIndex, itemIdx, currItem.cena, "Цена")}
       />
 
       <Input
@@ -121,14 +121,14 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
         text="Кат. номер"
         holder="Кат. номер"
         value={inputSakrateno?.katNomer}
-        handler={(e) => changeHandler(e, index, itemIdx, item.katNomer, "Кат. номер")}
+        handler={(e) => changeHandler(e, subIndex, itemIdx, currItem.katNomer, "Кат. номер")}
       />
       <Input
         id="isOnPromotions"
         text="На промоция ли е "
         holder="На промоция ли е"
         value={inputSakrateno?.isOnPromotions}
-        handler={(e) => changeHandler(e, index, itemIdx,item.isOnPromotions, "На промоция ли е")}
+        handler={(e) => changeHandler(e, subIndex, itemIdx,currItem.isOnPromotions, "На промоция ли е")}
       />
 
       <label htmlFor="types">Типове</label>
@@ -137,14 +137,14 @@ const ItemsEdit = ({ inputs, index, itemIdx, changeHandler }) => {
         id="tipove"
         value={inputSakrateno?.tipove}
         className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
-        onChange={(e) => changeHandler(e, index, itemIdx,item.tipove, "Кат. tipove")}
+        onChange={(e) => changeHandler(e, subIndex, itemIdx,currItem.tipove, "Кат. tipove")}
       ></textarea>
        <Input
         id="customName"
         text="Име на артикула"
         holder="Хартия BLC A4"
         value={inputSakrateno?.customName}
-        handler={(e) => changeHandler(e, index, itemIdx,item.customName, "Име на артикула")}
+        handler={(e) => changeHandler(e, subIndex, itemIdx,currItem.customName, "Име на артикула")}
       />
     </section>
   );
