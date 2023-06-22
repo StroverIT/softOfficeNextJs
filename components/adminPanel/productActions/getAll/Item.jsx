@@ -21,6 +21,7 @@ export default function Item({ item, articleId, sectionId, img,inputs,setInputs,
       newArticle: {
         section: sectionDisplay,
         subsection: subDisplay,
+        katNomer: item.katNomer,
         name,
         value 
       }
