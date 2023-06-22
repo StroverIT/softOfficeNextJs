@@ -4,11 +4,13 @@ import { InputContext } from "./Context";
 import Image from "next/image"
 import ItemsEdit from "./ItemsEdit";
 import Edit from "./Edit";
-export default function Item({ item, articleId, sectionId, img,inputs,setInputs, itemIdx, sectionDisplay,subDisplay, stroverInputs, setStroverInputs }) {
+export default function Item({ item, articleId, sectionId, img,inputs,setInputs, itemIdx, subIndex, sectionDisplay,subDisplay, stroverInputs, setStroverInputs }) {
+  
   const { setMenuImgData } = useContext(InputContext);
   const [isForm, setIsForm] = useState(false);
 
   const changeHandlerItem = (e, subLen, itemLen, oldInput, text) => {
+    // console.log( "currItem", item);
     const name = e.target.name;
     let value = e.target.value;
     const addInputData ={
@@ -29,7 +31,9 @@ export default function Item({ item, articleId, sectionId, img,inputs,setInputs,
       const isLargeNumber = (element) => element.oldArticle.oldInput == oldInput;
       const foundIndex = stroverInputs.findIndex(isLargeNumber)
       if(foundIndex == -1){
+
         setStroverInputs(prevState=>[...prevState,addInputData])
+
       }else{
         setStroverInputs(stroverInputs.map((input, inputIdx)=>{
           if(inputIdx == foundIndex){
@@ -112,8 +116,9 @@ export default function Item({ item, articleId, sectionId, img,inputs,setInputs,
                         <ItemsEdit
                           key={itemIdx}
                           inputs={inputs}
+                          subIndex={subIndex}
                           itemIdx={itemIdx}
-                          index={itemIdx}
+                          currItem={item}
                           changeHandler={changeHandlerItem}
                         />
                       
