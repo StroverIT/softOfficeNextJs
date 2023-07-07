@@ -20,7 +20,7 @@ const PricePromo = ({ price, promoPrice }) => {
             <OldPrice
               price={oldPrice[0]}
               priceDec={oldPrice[1]}
-              size="xl"
+              size="2xl"
               textColor="text-white"
               NoDDSText={true}
             />
@@ -29,7 +29,7 @@ const PricePromo = ({ price, promoPrice }) => {
             <Pricing
               price={promoPriceDec[0]}
               priceDec={promoPriceDec[1]}
-              size="2xl"
+              size="3xl"
               textColor="text-white"
               NoDDSText={true}
             />

@@ -51,7 +51,7 @@ export default function SwiperPromo({ data, navSize }) {
   console.log(stateData);
   return (
     <>
-      <div className="flex flex-row items-stretch swipebody">
+      <div className="flex flex-row items-stretch ">
         <Swiper
           slidesPerView={3}
           spaceBetween={10}
@@ -75,11 +75,11 @@ export default function SwiperPromo({ data, navSize }) {
             },
             // when window width is >= 768px
             768: {
-              slidesPerView: 2,
+              slidesPerView: 3,
             },
           }}
           modules={[FreeMode, Pagination, Navigation]}
-          className={`mySwiper relative freeModeSwiper w-full `}
+          className={`mySwiper  freeModeSwiper w-full !overflow-visible `}
         >
           {stateData.map((promo) => {
           return <SwiperSlide  className="relative flex flex-col my-2 bg-white shadow-lg cursor-pointer hover:shadow-xl "
@@ -88,7 +88,7 @@ export default function SwiperPromo({ data, navSize }) {
           {/* Nav */}
           <SwiperNav size={navSize} />
           <div
-            className={`${style.pagination} z-10 flex justify-center gap-2 mt-5`}
+            className={`${style.pagination} z-10 flex justify-center gap-2 mt-10`}
           ></div>
         </Swiper>
       </div>

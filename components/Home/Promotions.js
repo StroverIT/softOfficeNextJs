@@ -14,7 +14,7 @@ const Promotions = ({promotions}) => {
           </div>
         </section>
 
-        <section className="container mt-10 mb-10">
+        <section className="container pb-10 mt-10 ">
           <SwiperFreeMode data={promotions} navSize="3xl" />
         </section>
         </>
