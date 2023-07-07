@@ -24,7 +24,7 @@ const BuyProduct = ({
 }) => {
   console.log(price);
   return (
-    <section className="flex flex-col justify-center p-5 space-y-10">
+    <section className="flex flex-col justify-center p-5 ">
       <PricingWithName product={product} price={price} currQty={currQty}/>
       {/* If is custom qty like /products/beliPlikove */}
       {product.article.isCustomQty && (
@@ -43,8 +43,13 @@ const BuyProduct = ({
               Купи
             </button>
           )}
+          
         </section>
+        
       )}
+       <div className="flex items-center justify-center mt-2 mb-10 font-semibold text-right">
+            Кат. номер: {item.katNomer}
+          </div>
       {!product.article.isCustomQty && (
         <section className="flex flex-col justify-center ">
           <div className="mb-1">
