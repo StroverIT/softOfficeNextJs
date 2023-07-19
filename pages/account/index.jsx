@@ -61,18 +61,18 @@ export default function Index({ userData, deliveriesData, favData }) {
     );
   }, [router, userData]);
   useEffect(() => {
-    const isFound = localStorage.getItem("iknowyou");
+    const isFound = localStorage.getItem("messagePopup");
 
     if (!isFound) {
       setIsShowed(true);
-      localStorage.setItem("iknowyou", "true");
+      localStorage.setItem("messagePopup", "true");
     }
   }, []);
   function signOutFn() {
-    const isFound = localStorage.getItem("iknowyou");
+    const isFound = localStorage.getItem("messagePopup");
 
     if (isFound) {
-      localStorage.removeItem("iknowyou", "false");
+      localStorage.removeItem("messagePopup", "false");
     }
     signOut();
   }
