@@ -72,7 +72,7 @@ export default function Index({ userData, deliveriesData, favData }) {
     const isFound = localStorage.getItem("messagePopup");
 
     if (isFound) {
-      localStorage.removeItem("messagePopup", "false");
+      // localStorage.removeItem("messagePopup", "false");
     }
     signOut();
   }

@@ -146,12 +146,12 @@ const Navbar = ({ cartTotalQty }) => {
       className={`z-50 animate sticky top-0  ${show ? "animateUp" : ""}`}
       ref={headerRef}
     >
-      <div className="flex items-center justify-center py-4 text-lg bg-gray-600 shadow-inner">
+      {/* <div className="flex items-center justify-center py-4 text-lg bg-gray-600 shadow-inner">
         <span className="">
           <BsFillTelephoneFill />
         </span>
         <span className="pl-1 font-mono">+359 87 998 8825</span>
-      </div>
+      </div> */}
       <nav className={`flex relative z-20 bg-[#0D6EFD] ${style.cShadow}`}>
         <div className="container relative flex items-center justify-between ">
           <div className="flex items-center justify-center h-full">
