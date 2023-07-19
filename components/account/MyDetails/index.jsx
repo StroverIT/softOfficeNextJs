@@ -119,7 +119,8 @@ export default function MyDetails({ userData }) {
         break;
     }
     if(url == urlFetch.email){
-      if(resData == "И-мейла ви беше сменен успешно") signOut()
+      console.log(resData);
+      if(resData.message == "И-мейла ви беше сменен успешно") signOut()
     }
   }
   return (
