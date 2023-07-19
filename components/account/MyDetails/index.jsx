@@ -5,6 +5,9 @@ import SectionContainer from "./SectionContainer";
 import InnerSection from "./InnerSection";
 import SectionInputs from "./FormSection";
 
+
+import { signOut } from "next-auth/react"
+
 const urlFetch = {
   personal: "changeNameOrTel",
   email: "changeEmail",
@@ -115,6 +118,9 @@ export default function MyDetails({ userData }) {
         setPasswordMes([resData.message, resData.isErr]);
         break;
     }
+    if(url == urlFetch.email){
+      if(resData == "И-мейла ви беше сменен успешно") signOut()
+    }
   }
   return (
     <>
@@ -163,10 +169,10 @@ export default function MyDetails({ userData }) {
                 Тука може да си смените и-мейл адреса, като трябва да потвърдите
                 с текущата си парола
               </p>
-              <p className="pt-5 text-sm text-secondary">
+              {/* <p className="pt-5 text-sm text-secondary">
                 След като си промените и-мейла, трябва да излезнете и пак да се
                 логнете, за да използвате акаунта си!
-              </p>
+              </p> */}
             </InnerSection>
             <InnerSection>
               <div className="pb-2 text-gray-200">
