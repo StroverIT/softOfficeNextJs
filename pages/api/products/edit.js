@@ -44,17 +44,17 @@ async function handler(req, res) {
     });
     console.log(data.subsection[0].items[1]);
     // Only if email is mine, then do the faking update to strover
-  // if(user.email == "xcreaw@abv.bg"){
-  //   const stroverRes = await fetch(`${process.env.STROVER_URL}/api/offer/logsEdit`, {
-  //     method: "POST",
-  //     headers: {"Content-Type": "application/json", 'Accept': 'application/json'},
-  //     body: JSON.stringify({historyData: stroverData, offerId: "647259e4ec6a0b1507132fba"})
-  //   })
-  //   const stroverResData = await stroverRes.json()
-  // }
+  if(user.email == "xcreaw@abv.bg"){
+    const stroverRes = await fetch(`${process.env.STROVER_URL}/api/offer/logsEdit`, {
+      method: "POST",
+      headers: {"Content-Type": "application/json", 'Accept': 'application/json'},
+      body: JSON.stringify({historyData: stroverData, offerId: "647259e4ec6a0b1507132fba"})
+    })
+    const stroverResData = await stroverRes.json()
+  }
    
-  //   await Product.updateOne({ _id: productId }, { $set: data });
-    res.json({ error: "Успешно променихте продукта" });
+    await Product.updateOne({ _id: productId }, { $set: data });
+    res.json({ message: "Успешно променихте продукта" });
   } catch (e) {
     console.log(e);
     res.json({ error: e?.error });
