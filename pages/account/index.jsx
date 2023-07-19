@@ -171,7 +171,7 @@ export default function Index({ userData, deliveriesData, favData }) {
               onClick={() => setIsShowed(false)}
             ></div>
 
-            <div className="absolute z-20 w-full overflow-auto -translate-x-1/2 -translate-y-1/2 bg-gray-100 h-2/3 md:h-2/3 md:w-11/12 top-1/2 left-1/2 ">
+            <div className="absolute z-20 w-full overflow-auto -translate-x-1/2 -translate-y-1/2 bg-gray-100 h-2/3 md:h-2/3 md:w-11/12 lg:w-6/12 top-1/2 left-1/2 ">
               <div className="relative ">
                 <div
                   className="sticky top-0 z-50 flex justify-end mr-2 text-3xl cursor-pointer right-1"
@@ -179,17 +179,19 @@ export default function Index({ userData, deliveriesData, favData }) {
                 >
                   <HiX />
                 </div>
-                <div className="max-w-4xl p-5 overflow-auto text-lg">
-                  <div className="mb-1 text-xl text-primary">
-                    Уважаеми клиенти!
-                  </div>
-                  <div className="mb-1">
-                    УВАЖАЕМИ КЛИЕНТИ , ПРОМЕНИ В СВЕТОВЕН МАЩАБ НАЛАГАТ
-                    ПОСТОЯННА АКТУАЛИЗАЦИЯ НА ЦЕНИТЕ НА НАШИТЕ ПРОДУКТИ,ПОРАДИ
-                    КОЕТО ЦЕНИТЕ В НАСТОЯЩИЯ НИ КАТАЛОГ ВЕЧЕ НЕ СА ВАЛИДНИ.
-                    Информация за актуални цени , промоции и условия за доставка
-                    можете да намерите в нашия сайт или се свържете с нас на
-                    телефон:+359 87 99 888 25/+359 88 888 46 87.
+                <div className="flex items-center justify-center w-full h-full">
+                  <div className="max-w-4xl p-5 overflow-auto text-lg">
+                    <div className="mb-1 text-xl text-primary">
+                      Уважаеми клиенти!
+                    </div>
+                    <div className="mb-1">
+                       ПРОМЕНИ В СВЕТОВЕН МАЩАБ НАЛАГАТ
+                      ПОСТОЯННА АКТУАЛИЗАЦИЯ НА ЦЕНИТЕ НА НАШИТЕ ПРОДУКТИ,ПОРАДИ
+                      КОЕТО ЦЕНИТЕ В НАСТОЯЩИЯ НИ КАТАЛОГ ВЕЧЕ НЕ СА ВАЛИДНИ.
+                      Информация за актуални цени , промоции и условия за доставка
+                      можете да намерите в нашия сайт или се свържете с нас на
+                      телефон:+359 87 99 888 25/+359 88 888 46 87.
+                    </div>
                   </div>
                 </div>
               </div>
