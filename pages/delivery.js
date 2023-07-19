@@ -92,9 +92,10 @@ function Delivery({ cart, userData, cities }) {
       toastError(message.error);
     }
     if (message.message) {
-      window?.localStorage?.clear();
-      localStorage?.clear();
-      sessionStorage?.clear();
+      window?.localStorage?.removeItem("persist:root");
+      localStorage.removeItem("persist:root")
+      // localStorage?.clear();
+      // sessionStorage?.clear();
       window.location.href = "/delivery-thanks";
       toastSuccess(message.message);
     }
