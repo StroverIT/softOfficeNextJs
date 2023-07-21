@@ -108,62 +108,62 @@ const ItemsEdit = ({ inputs, subIndex, itemIdx, changeHandler, currItem }) => {
           </div>
         </div>
       </div>
-      <Input
-        id="cena"
-        text="Цена"
-        holder="цена"
-        value={inputSakrateno?.cena}
-        handler={(e) => changeHandler(e, subIndex, itemIdx, currItem.cena, "Цена")}
-      />
-
-      <Input
-        id="katNomer"
-        text="Кат. номер"
-        holder="Кат. номер"
-        value={inputSakrateno?.katNomer}
-        handler={(e) => changeHandler(e, subIndex, itemIdx, currItem.katNomer, "Кат. номер")}
-      />
-      <Input
-        id="isOnPromotions"
-        text="На промоция ли е "
-        holder="На промоция ли е"
-        value={inputSakrateno?.isOnPromotions}
-        handler={(e) => changeHandler(e, subIndex, itemIdx,currItem.isOnPromotions, "На промоция ли е")}
-      />
-
-      <label htmlFor="types">Типове</label>
-      <textarea
-        name="tipove"
-        id="tipove"
-        value={inputSakrateno?.tipove}
-        className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
-        onChange={(e) => changeHandler(e, subIndex, itemIdx,currItem.tipove, "Кат. tipove")}
-      ></textarea>
-      {currItem.quantityWithPrices.map((data,index) =>{
-        return <div className="grid grid-cols-2" key={index}>
+      <div className="flex flex-col gap-y-5"> 
+        <Input
+          id="cena"
+          text="Цена"
+          holder="цена"
+          value={inputSakrateno?.cena}
+          handler={(e) => changeHandler(e, subIndex, itemIdx, currItem.cena, "Цена")}
+        />
+        <Input
+          id="katNomer"
+          text="Кат. номер"
+          holder="Кат. номер"
+          value={inputSakrateno?.katNomer}
+          handler={(e) => changeHandler(e, subIndex, itemIdx, currItem.katNomer, "Кат. номер")}
+        />
+        <Input
+          id="isOnPromotions"
+          text="На промоция ли е "
+          holder="На промоция ли е"
+          value={inputSakrateno?.isOnPromotions}
+          handler={(e) => changeHandler(e, subIndex, itemIdx,currItem.isOnPromotions, "На промоция ли е")}
+        />
+        <label htmlFor="types">Типове</label>
+        <textarea
+          name="tipove"
+          id="tipove"
+          value={inputSakrateno?.tipove}
+          className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
+          onChange={(e) => changeHandler(e, subIndex, itemIdx,currItem.tipove, "Кат. tipove")}
+        ></textarea>
+        {currItem.quantityWithPrices.map((data,index) =>{
+          return <div className="grid grid-cols-2" key={index}>
+           <Input
+          id="quantity"
+          text="Количество "
+          holder="Количество"
+          value={inputSakrateno?.quantityWithPrices[index].quantity}
+          handler={(e) => changeHandler(e, subIndex, itemIdx,data.quantity, "Количество - на бройка", {type: "quantityWithPrices", index })}
+        />
+           <Input
+          id="price"
+          text="Цена "
+          holder="Цена"
+          value={inputSakrateno?.quantityWithPrices[index].price}
+          handler={(e) => changeHandler(e, subIndex, itemIdx,data.price, "Цена - на бройка", {type: "quantityWithPrices", index })}
+        />
+        </div>
+        })}
          <Input
-        id="quantity"
-        text="Количество "
-        holder="Количество"
-        value={inputSakrateno?.quantityWithPrices[index].quantity}
-        handler={(e) => changeHandler(e, subIndex, itemIdx,data.quantity, "Количество - на бройка", {type: "quantityWithPrices", index })}
-      />
-         <Input
-        id="price"
-        text="Цена "
-        holder="Цена"
-        value={inputSakrateno?.quantityWithPrices[index].price}
-        handler={(e) => changeHandler(e, subIndex, itemIdx,data.price, "Цена - на бройка", {type: "quantityWithPrices", index })}
-      />
+          id="customName"
+          text="Име на артикула"
+          holder="Хартия BLC A4"
+          value={inputSakrateno?.customName}
+          handler={(e) => changeHandler(e, subIndex, itemIdx,currItem.customName, "Име на артикула")}
+        />
       </div>
-      })}
-       <Input
-        id="customName"
-        text="Име на артикула"
-        holder="Хартия BLC A4"
-        value={inputSakrateno?.customName}
-        handler={(e) => changeHandler(e, subIndex, itemIdx,currItem.customName, "Име на артикула")}
-      />
     </section>
   );
 };

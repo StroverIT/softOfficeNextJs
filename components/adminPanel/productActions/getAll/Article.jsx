@@ -119,7 +119,7 @@ export default function Article({
   };
   return (
     <section
-      className="w-full p-5 my-2 border border-primary-300"
+      className="w-full p-5 my-4 shadow-2xl rounded-xl"
       key={subsection._id}
     >
       <div className="flex items-center">
@@ -138,7 +138,7 @@ export default function Article({
           className="px-5 py-1 ml-auto mr-5 text-sm text-white border cursor-pointer bg-primary-100 hover:bg-transparent hover:text-primary-100 border-primary-100"
         >
           Редактирай/Сложи
-          <span className="pl-1 font-bold uppercase">снимка</span>
+          <span className="pl-1 font-bold uppercase">снимка na под секцията</span>
         </button>
         <Edit
           clickHandler={() => setIsForm(!isForm)}
@@ -146,9 +146,9 @@ export default function Article({
           text={!isForm ? "Редактирай Под секцията" : "Откажи Редакцията"}
         />
       </div>
-      <div>
+      <div className="flex flex-col">
         {!isForm && (
-          <>
+          < >
             <div>Типът: {subsection.tiput}</div>
             <div>Името което се показва: {subsection.nameToDisplay}</div>
             <div>Описание: {subsection.opisanie}</div>
@@ -156,7 +156,7 @@ export default function Article({
         )}
 
         {isForm && (
-          <section className="p-5 mb-10 border border-orange">
+          <section className="p-10 mb-10 border border-orange flex flex-col gap-y-5 mt-5">
             <Input
               id="nameToDisplay"
               text="Името което се показва"
@@ -190,7 +190,7 @@ export default function Article({
               name="opisanie"
               id="opisanie"
               value={inputs?.subsection[subIndex].opisanie}
-              className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark"
+              className="w-full p-2 pl-5 text-lg font-semibold min-h-20 bg-primary-0 text-dark "
               onChange={(e) =>
                 changeHandlerSubSection(
                   e,

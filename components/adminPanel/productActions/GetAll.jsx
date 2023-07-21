@@ -135,7 +135,7 @@ export default function GetAll({ product, setMenuImgData }) {
   };
   return (
     <InputContext.Provider value={{ inputs, setInputs, setMenuImgData }}>
-      <section className="p-2 mb-10 border border-primary md:p-5">
+      <section className="p-2 mb-10 shadow-xl rounded-md md:p-5">
         <section className="relative mb-5">
           {!isForm && (
             <>
@@ -147,16 +147,16 @@ export default function GetAll({ product, setMenuImgData }) {
         </>
           )}
       
-        {productMenu && stroverInputs.length > 0 &&   <div className="sticky flex items-center justify-center top-24">
+        {productMenu && stroverInputs.length > 0 &&   <div className="sticky flex items-center justify-center top-24 z-20 ">
                 <button
-                  className="py-1 text-lg font-semibold text-white border bg-primary hover:text-primary hover:bg-transparent border-primary px-14"
+                  className="py-1 text-lg font-semibold text-white border bg-green hover:text-green hover:bg-transparent border-green px-14 shadow-2xl rounded-md transition-all"
                   onClick={submitHandler}
                 >
                   Изпрати
                 </button>
               </div>}
           {isForm && (
-            <div className="relative">
+            <div className="relative flex  flex-col gap-y-5">
              
               <Input
                 id="name"
@@ -176,28 +176,29 @@ export default function GetAll({ product, setMenuImgData }) {
              
             </div>
           )}
-          <div className="absolute top-0 right-0 flex flex-col items-end justify-end space-y-2">
-          <div>
-              {productMenu && <Edit
-                clickHandler={() => setIsForm(!isForm)}
-                theme={!isForm ? "blueLight" : "red"}
-                text={!isForm ? "Редактирай Секцията" : "Откажи Редакцията"}
-              />}
-            </div>
-            <div>
+          <div className="absolute top-0 right-0 flex flex-col items-end justify-end space-y-2 z-30">Ф
+          <div >
               <Edit
                 clickHandler={() => setProductMenu(!productMenu)}
                 theme={!productMenu ? "green" : "red"}
                 text={!productMenu ? "Покажи продуктите" : "Скрий продуктите"}
               />
             </div>
+          <div> 
+              {productMenu && <Edit
+                clickHandler={() => setIsForm(!isForm)}
+                theme={!isForm ? "blueLight" : "red"}
+                text={!isForm ? "Редактирай Секцията" : "Откажи Редакцията"}
+              />}
+            </div>
+           
           </div>
           {productMenu && (
-                  <div className="p-5 mt-10 mb-2 border border-primary-50">
+                  <div className="p-5 mt-14 mb-4 ">
                     <h1 className="text-lg font-bold text-center text-primary-500">
                       Продукти:
                     </h1>
-                    <div className="flex flex-wrap items-center p-2 my-2 border border-primary-200">
+                    <div className="flex flex-wrap items-center p-2 my-2 ">
                       {JSON.parse(JSON.stringify(product)).subsection.map((subsection,subIndex) => {
                         let img = "nqma";
                         if (subsection.img) {

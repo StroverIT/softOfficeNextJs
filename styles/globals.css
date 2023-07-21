@@ -20,7 +20,10 @@
   --pag-height: 8px;
   --pag-height-active: calc(var(--pag-height) - 4px);
 }
-
+#inputGoogle:focus ~ .input-text,
+#inputGoogle:not(:placeholder-shown) ~ .input-text{
+  @apply transform scale-75 -translate-x-2 -translate-y-6 ;
+}
 html,
 body {
   padding: 0;

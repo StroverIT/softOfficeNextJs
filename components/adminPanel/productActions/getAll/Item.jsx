@@ -77,7 +77,7 @@ export default function Item({ item, articleId, sectionId, img,inputs,setInputs,
   };
   if(!item) return <div className="p-4 text-red">Грешка при показване на артикула </div>
   return (
-    <section className="p-5 border border-green">
+    <section className="p-5 border border-green mb-10 mt-10">
       {!isForm &&  <>
         <div>
           Цена:
@@ -113,7 +113,7 @@ export default function Item({ item, articleId, sectionId, img,inputs,setInputs,
         )}
       </>}
       {item?.imageUrl && <div className="relative w-20 h-20"><Image src={`/uploads/${item.imageUrl}`} alt="image brat" layout="fill"/></div>}
-      <div>
+      <div className="flex gap-x-5">
         <button
           onClick={() => {
             setMenuImgData({
@@ -125,8 +125,8 @@ export default function Item({ item, articleId, sectionId, img,inputs,setInputs,
           }}
           className="px-5 py-1 ml-auto text-sm text-white border cursor-pointer bg-primary-100 hover:bg-transparent hover:text-primary-100 border-primary-100"
         >
-          Редактирай/Сложи
-          <span className="pl-1 font-bold uppercase">снимка</span>
+          Редактирай/Сложи 
+          <span className="pl-1 font-bold uppercase">снимка на артикула</span>
         </button>
         <Edit
                 clickHandler={() => setIsForm(!isForm)}
