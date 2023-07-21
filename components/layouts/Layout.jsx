@@ -39,7 +39,7 @@ export default function Layout({ children }) {
           </div>
         )}
       </div>
-      <div className="max-lg:hidden fixed bottom-0 left-24 container">
+      <div className="max-lg:hidden fixed bottom-0 left-24 container z-30">
         <div className="bg-primary-100 h-44 w-[3px] relative">
       
           <div className="absolute top-0 left-1/2 -translate-x-1/2 border-[2px] border-primary-100 rounded-full">
