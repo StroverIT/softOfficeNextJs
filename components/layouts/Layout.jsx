@@ -6,6 +6,7 @@ import Navbar from "./Navbar";
 import Loader from "./Loader";
 
 import { GlobalLoadingContext } from "./GlobalLoadingContext";
+import { BsFillTelephoneFill } from "react-icons/bs";
 
 export default function Layout({ children }) {
   const router = useRouter();
@@ -27,6 +28,21 @@ export default function Layout({ children }) {
             </div>
           </div>
         )}
+      </div>
+      <div className="fixed bottom-0 left-24 container">
+        <div className="bg-primary-100 h-44 w-[3px] relative">
+      
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 border-[2px] border-primary-100 rounded-full">
+          <a href="tel:+359879988825" className="text-primary-100 cursor-pointer">
+            <div className="pulse flex items-center justify-center text-3xl bg-white px-4 py-3 rounded-full">
+            
+                <BsFillTelephoneFill />
+            </div>
+          </a>
+
+          </div>
+
+        </div>
       </div>
     </GlobalLoadingContext.Provider>
   );
