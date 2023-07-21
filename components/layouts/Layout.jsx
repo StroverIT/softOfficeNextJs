@@ -75,7 +75,7 @@ export default function Layout({ children }) {
                 y: "100vw",
               },
             }}
-            className="fixed bottom-0 w-full bg-[#0D6EFD] lg:hidden "
+            className="fixed bottom-0 w-full bg-[#0D6EFD] lg:hidden z-20"
           >
             <div className="flex items-center justify-between py-4 text-2xl max-sm:px-10 text-blue-250 container text-white">
               <div>
