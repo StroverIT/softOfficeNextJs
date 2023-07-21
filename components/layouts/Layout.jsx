@@ -6,7 +6,17 @@ import Navbar from "./Navbar";
 import Loader from "./Loader";
 
 import { GlobalLoadingContext } from "./GlobalLoadingContext";
+
 import { BsFillTelephoneFill } from "react-icons/bs";
+import { FiPhoneCall } from "react-icons/fi";
+import { HiOutlineMail,  } from "react-icons/hi";
+import {
+ 
+  FaViber,
+} from "react-icons/fa";
+import { AnimatePresence, motion } from "framer-motion";
+
+
 
 export default function Layout({ children }) {
   const router = useRouter();
@@ -29,7 +39,7 @@ export default function Layout({ children }) {
           </div>
         )}
       </div>
-      <div className="fixed bottom-0 left-24 container">
+      <div className="max-lg:hidden fixed bottom-0 left-24 container">
         <div className="bg-primary-100 h-44 w-[3px] relative">
       
           <div className="absolute top-0 left-1/2 -translate-x-1/2 border-[2px] border-primary-100 rounded-full">
@@ -44,6 +54,57 @@ export default function Layout({ children }) {
 
         </div>
       </div>
+        
+          <motion.section
+            key="subsectionMenuTel"
+            initial="initialState"
+            animate="animateState"
+            exit="exitState"
+            transition={{
+              duration: 0.9,
+            }}
+            variants={{
+              initialState: {
+                y: "100vw",
+              },
+              animateState: {
+                opacity: 1,
+                y: 0,
+              },
+              exitState: {
+                y: "100vw",
+              },
+            }}
+            className="fixed bottom-0 w-full bg-[#0D6EFD] lg:hidden "
+          >
+            <div className="flex items-center justify-between py-4 text-2xl max-sm:px-10 text-blue-250 container text-white">
+              <div>
+                <a
+                  href="tel:+359879988825"
+                  aria-label="Button for calling on telehone"
+                >
+                  <FiPhoneCall />
+                </a>
+              </div>
+
+              <div>
+                <a
+                  href="mailto:office@softofficebg.com"
+                  aria-label="Button for writting on email"
+                >
+                  <HiOutlineMail />
+                </a>
+              </div>
+              <div>
+                <a
+                  href="viber://chat?number=+359879988825"
+                  aria-label="Button for calling on viber"
+                >
+                  <FaViber />
+                </a>
+              </div>
+            </div>
+          </motion.section>
     </GlobalLoadingContext.Provider>
   );
 }
