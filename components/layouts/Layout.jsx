@@ -39,12 +39,12 @@ export default function Layout({ children }) {
           </div>
         )}
       </div>
-      <div className="max-lg:hidden fixed bottom-0 left-24 container z-30">
-        <div className="bg-primary-100 h-44 w-[3px] relative">
+      <div className="container fixed bottom-0 z-30 max-lg:hidden left-24">
+        <div className="bg-primary-100 h-36 w-[3px] relative">
       
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 border-[2px] border-primary-100 rounded-full">
-          <a href="tel:+359879988825" className="text-primary-100 cursor-pointer">
-            <div className="pulse flex items-center justify-center text-3xl bg-white px-4 py-3 rounded-full">
+          <div className="absolute -top-14 left-1/2 -translate-x-1/2 border-[2px] border-primary-100 rounded-full">
+          <a href="tel:+359879988825" className="cursor-pointer text-primary-100">
+            <div className="flex items-center justify-center px-4 py-3 text-3xl rounded-full pulse">
             
                 <BsFillTelephoneFill />
             </div>
@@ -77,7 +77,7 @@ export default function Layout({ children }) {
             }}
             className="fixed bottom-0 w-full bg-[#0D6EFD] lg:hidden z-20"
           >
-            <div className="flex items-center justify-between py-4 text-2xl max-sm:px-10 text-blue-250 container text-white">
+            <div className="container flex items-center justify-between py-4 text-2xl text-white max-sm:px-10 text-blue-250">
               <div>
                 <a
                   href="tel:+359879988825"
