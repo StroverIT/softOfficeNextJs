@@ -90,7 +90,7 @@ export default function ListItem({
         onClick={changeRouteHandler}
       >
         {articleData?.imgUrl && (
-          <div className="relative w-full h-56 my-10 cursor-pointer">
+          <div className="relative w-full my-10 cursor-pointer h-36 lg:h-56">
             <Image
               src={imgUrl.includes("https") ? imgUrl : `/uploads/${imgUrl}`}
               layout="fill"
@@ -102,7 +102,7 @@ export default function ListItem({
         {/* ---- Name --- */}
 
         {/* --- Pricing ----*/}
-        <div className="flex items-center justify-center py-2 border-y border-gray">
+        <div className="flex items-center justify-center py-2 border-b border-gray">
           <>
             {section.nameToDisplay == "Обадете се" && <div className="text-lg">Обадете се за цена!</div>}
            {section.nameToDisplay != "Обадете се" && <>
@@ -135,7 +135,7 @@ export default function ListItem({
             </>}
           </>
         </div>
-        <h2 className="w-full py-4 text-xl font-semibold text-center ">
+        <h2 className="w-full py-4 text-lg font-semibold text-center lg:text-xl ">
           {name}
         </h2>
         {/* ---- Types --- */}

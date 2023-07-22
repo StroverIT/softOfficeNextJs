@@ -27,7 +27,7 @@ export default function MobileScreenTableData({
       .split(".");
   }
   return (
-    <td className="flex flex-col justify-center w-full mt-5 lg:hidden">
+    <td className="flex flex-col justify-center w-full lg:hidden">
       <div className="flex items-center justify-center my-1 ">
         <div className="lg:px-3 flex flex-col sm:items-start sm:-mb-[3rem] sm:mx-auto sm:ml-2 w-full">
           <div className="text-sm text-center text-gray-250 ">Ед. цена</div>
@@ -52,7 +52,7 @@ export default function MobileScreenTableData({
             <>
               <Price
                 price={newPrice[0]}
-                priceDec={newTotalPrice[1]}
+                priceDec={newPrice[1]}
                 size="3xl"
               />
             </>
@@ -98,7 +98,7 @@ export default function MobileScreenTableData({
         <div className="flex items-center justify-center mt-2 ">
           <div
             type="button"
-            className="flex items-center justify-center cursor-pointer text-gray-darker"
+            className="flex items-center justify-center cursor-pointer text-red"
           >
             <div className="mt-[0.25px]">
               <HiX />

@@ -24,11 +24,11 @@ const BuyProduct = ({
 }) => {
   console.log(price);
   return (
-    <section className="flex flex-col justify-center p-5 ">
+    <section className="flex flex-col self-start justify-center p-5 ">
       <PricingWithName product={product} price={price} currQty={currQty}/>
       {/* If is custom qty like /products/beliPlikove */}
       {product.article.isCustomQty && (
-        <section className="flex flex-col justify-center w-full h-full ">
+        <section className="sticky top-0 flex flex-col self-start justify-center w-full h-full">
           <PriceWithQuantity
             selected={customQtySelected}
             setSelected={customQtySetSelected}
@@ -51,7 +51,7 @@ const BuyProduct = ({
             Кат. номер: {item.katNomer}
           </div>
       {!product.article.isCustomQty && (
-        <section className="flex flex-col justify-center ">
+        <section className="sticky top-0 flex flex-col self-start justify-center">
           <div className="mb-1">
             <label htmlFor="qty" className="font-semibold text-gray-200">
               Количество:

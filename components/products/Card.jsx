@@ -28,7 +28,7 @@ export default function Card({ data, imgUrl, sectionName, productName, isCustomQ
   data.section = {nameToDisplay: sectionName}
 
   return (
-    <section className="flex flex-col transition-transform bg-white shadow-lg cursor-pointer hover:shadow-xl hover:-translate-y-2">
+    <section className="flex flex-col transition-transform bg-white rounded-lg shadow-lg cursor-pointer hover:shadow-xl hover:-translate-y-2">
       <div
         onClick={() =>
           router.push(
@@ -38,7 +38,7 @@ export default function Card({ data, imgUrl, sectionName, productName, isCustomQ
         className="flex flex-col justify-between h-full"
       >
         <div>
-        <div className="relative w-full h-96">
+        <div className="relative w-full h-64 lg:h-96">
               <Image
                 src={`/uploads/${imgUrl}`}
                 layout="fill"
@@ -57,7 +57,7 @@ export default function Card({ data, imgUrl, sectionName, productName, isCustomQ
           </div>
         </div>
         <section className="flex items-center justify-center w-full xl:px-10">
-          <ul className="grid w-full grid-cols-2 py-5 pl-5 mb-1 list-disc border-t justify-content-center gap-x-10 border-gray ">
+          <ul className="grid w-full grid-cols-2 py-5 mb-1 list-disc border-t pl-9 justify-content-center gap-x-10 border-gray ">
             {data.tipove
               .split(";")
               .filter((e) => e.length < 30 && e)

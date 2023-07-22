@@ -57,7 +57,7 @@ export default function LgScreenTableData({
         <div className="flex items-center justify-center mt-2">
           <div
             type="button"
-            className="flex items-center justify-center cursor-pointer text-gray-darker"
+            className="flex items-center justify-center cursor-pointer text-red"
           >
             <div className="mt-[0.25px]">
               <HiX />

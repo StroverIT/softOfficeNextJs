@@ -14,7 +14,7 @@ export default function ImageAndListTableData({
       <TableData>
         <div className="flex items-center justify-center lg:justify-start">
           <Link href={route}>
-            <div className="relative w-full cursor-pointer h-60 sm:w-2/3 sm:h-60 lg:h-32 lg:w-40 ">
+            <div className="relative w-full cursor-pointer h-28 sm:w-2/3 lg:h-32 lg:w-40 ">
               <Image
                 layout="fill"
                 src={
@@ -29,9 +29,9 @@ export default function ImageAndListTableData({
       </TableData>
       <TableData classes="mt-3 text-center lg:text-left xl:pl-2">
         <Link href={route}>
-          <h3 className="cursor-pointer">{cartName} </h3>
+          <h3 className="text-xl font-semibold cursor-pointer max-lg:mb-2">{cartName} </h3>
         </Link>
-        <ul>
+        <ul className="text-left max-lg:grid max-lg:grid-cols-2 gap-x-2 gap-y-2">
           {moreInfo?.tipove
             ?.split(";")
             .splice(0, 5)
@@ -43,7 +43,7 @@ export default function ImageAndListTableData({
               );
             })}
         </ul>
-        <div className="text-xs ">Кат. номер: {moreInfo.katNomer}</div>
+        <div className="mt-1 text-xs text-left">Кат. номер: {moreInfo.katNomer}</div>
       </TableData>
     </>
   );

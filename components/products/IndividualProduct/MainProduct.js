@@ -17,10 +17,10 @@ const MainProduct = ({itemName, item, imgUrl,product, price, currQty, setQty, us
          
         </div>
 
-        <div className={`grid-cols-2 lg:grid xl:grid-cols-[25%50%25%] `}>
+        <div className={`grid-cols-2 lg:grid xl:grid-cols-[25%50%25%] self-start `}>
           {/* <div className={`grid-cols-2 lg:grid xl:grid-cols-[25%20%30%25%] `}> */}
           <div className="py-5 ">
-            <div className="relative w-full h-96">
+            <div className="relative w-full h-64 lg:h-96">
               <Image
                 src={`/uploads/${imgUrl}`}
                 layout="fill"
@@ -34,7 +34,7 @@ const MainProduct = ({itemName, item, imgUrl,product, price, currQty, setQty, us
             /> */}
           </div>
           <section className="flex items-center justify-center w-full xl:px-10">
-            <ul className="grid w-full grid-cols-2 py-5 pl-5 mb-1 list-disc justify-content-center gap-x-10 border-y border-gray-250 ">
+            <ul className="grid w-full grid-cols-2 py-5 mb-1 list-disc pl-7 justify-content-center gap-x-10 border-y border-gray-250 ">
               {item.tipove
                 .split(";")
                 .filter((e) => e.length < 30)
