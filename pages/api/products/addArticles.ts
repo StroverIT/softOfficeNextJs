@@ -75,8 +75,6 @@ const handler = async (
     // Articles set image
 
     let formatedFields = articlesFormater(fields, articleImg);
-    console.log(formatedFields);
-
     await Product.updateOne(
       { _id: formatedFields.sectionId },
       { $push: { subsection: { $each: formatedFields.subsection } } }
