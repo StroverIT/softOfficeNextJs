@@ -19,13 +19,13 @@ export default function ListItem({
   addProduct,
   imgUrl,
   route,
-  dispatch
+  dispatch,
 }) {
   const router = useRouter();
 
   const { setLoading } = useContext(GlobalLoadingContext);
 
-  const name = `${!item.customName  ? section.name : item.customName}`;
+  const name = `${!item.customName ? section.name : item.customName}`;
   const types = item?.tipove?.split(";");
 
   const [price, setPrice] = useState(null);
@@ -33,7 +33,7 @@ export default function ListItem({
   const [customQtySelected, customQtySetSelected] = useState({
     name: "Количество",
   });
-  if(item.imageUrl) imgUrl = item.imageUrl
+  if (item.imageUrl) imgUrl = item.imageUrl;
   useEffect(() => {
     let priceObjInit = { forItem: item.cena };
     if (item.isOnPromotions || item.promotionalPrice > 0) {
@@ -57,7 +57,7 @@ export default function ListItem({
           isOnPromotions: item.isOnPromotions,
           promotionalPrice: price.promoPrice,
           isOnlyNumb: item.isOnlyNumb,
-          customName: item.customName
+          customName: item.customName,
         },
         article: {
           ...articleData,
@@ -104,35 +104,49 @@ export default function ListItem({
         {/* --- Pricing ----*/}
         <div className="flex items-center justify-center py-2 border-b border-gray">
           <>
-            {section.nameToDisplay == "Обадете се" && <div className="text-lg">Обадете се за цена!</div>}
-           {section.nameToDisplay != "Обадете се" && <>
-              {price?.forItem &&
-                !price.promoPrice &&
-                section.name != "Обадете се" && (
-                  <Pricing
-                    price={parseFloat(price.forItem).toFixed(2).split(".")[0]}
-                    priceDec={parseFloat(price.forItem).toFixed(2).split(".")[1]}
-                    size="3xl"
-                  />
-                )}
-              {price?.promoPrice && section.name != "Обадете се" && (
-                <div className="flex gap-x-5">
-                  <div className="text-gray-200">
-                    <OldPrice
+            {section.nameToDisplay == "Обадете се" && (
+              <div className="text-lg">Обадете се за цена!</div>
+            )}
+            {section.nameToDisplay != "Обадете се" && (
+              <>
+                {price?.forItem &&
+                  !price.promoPrice &&
+                  section.name != "Обадете се" && (
+                    <Pricing
                       price={parseFloat(price.forItem).toFixed(2).split(".")[0]}
-                      priceDec={parseFloat(price.forItem).toFixed(2).split(".")[1]}
+                      priceDec={
+                        parseFloat(price.forItem).toFixed(2).split(".")[1]
+                      }
                       size="3xl"
-                      NoDDSText={true}
+                    />
+                  )}
+                {price?.promoPrice && section.name != "Обадете се" && (
+                  <div className="flex gap-x-5">
+                    <div className="text-gray-200">
+                      <OldPrice
+                        price={
+                          parseFloat(price.forItem).toFixed(2).split(".")[0]
+                        }
+                        priceDec={
+                          parseFloat(price.forItem).toFixed(2).split(".")[1]
+                        }
+                        size="3xl"
+                        NoDDSText={true}
+                      />
+                    </div>
+                    <Pricing
+                      price={
+                        parseFloat(price.promoPrice).toFixed(2).split(".")[0]
+                      }
+                      priceDec={
+                        parseFloat(price.promoPrice).toFixed(2).split(".")[1]
+                      }
+                      size="3xl"
                     />
                   </div>
-                  <Pricing
-                    price={parseFloat(price.promoPrice).toFixed(2).split(".")[0]}
-                    priceDec={parseFloat(price.promoPrice).toFixed(2).split(".")[1]}
-                    size="3xl"
-                  />
-                </div>
-              )}
-            </>}
+                )}
+              </>
+            )}
           </>
         </div>
         <h2 className="w-full py-4 text-lg font-semibold text-center lg:text-xl ">
@@ -140,10 +154,10 @@ export default function ListItem({
         </h2>
         {/* ---- Types --- */}
         <div className="w-full pt-5 pb-5 border-t border-gray ">
-          <ul className="grid grid-cols-2 gap-x-10 ">
+          <ul className="grid gap-x-10 ">
             {types &&
               types
-                .filter((e) => e.length < 25)
+                .filter((e) => e.length < 55)
                 .splice(0, 5)
                 .map((type) => {
                   return (
@@ -179,7 +193,9 @@ export default function ListItem({
           {(customQtySelected.name != "Количество" ||
             !articleData.isCustomQty) && (
             <div className="">
-              <BuyBtn onClick={() => addProduct({product: sanitizedData, dispatch})} />
+              <BuyBtn
+                onClick={() => addProduct({ product: sanitizedData, dispatch })}
+              />
             </div>
           )}
         </section>
