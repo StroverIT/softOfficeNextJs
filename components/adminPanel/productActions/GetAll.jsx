@@ -81,7 +81,6 @@ export default function GetAll({ product, setMenuImgData }) {
     }));
   };
 
- 
   useEffect(()=>{
     const newProductRef = JSON.parse(JSON.stringify(product))
     setInputs(newProductRef)
@@ -111,7 +110,9 @@ export default function GetAll({ product, setMenuImgData }) {
     ]);
   };
   const submitArticleHandler = async (e) => {
-    e.preventDefault();
+   e.preventDefault();
+   toastPromise("Изпраща се...");
+
     const formData = new FormData();
     formData.append("sectionId", product._id);
     // formData.append("subsection", JSON.stringify(articles));
@@ -121,15 +122,26 @@ export default function GetAll({ product, setMenuImgData }) {
       //   console.log(onlyArt);
       // });
       formData.append("article", article.imageUrl);
-      article.imageUrl = article.imageUrl.name;
+      article.imageUrl = article?.imageUrl?.name;
       return article;
     });
+    formData.append("subsection", JSON.stringify(subsection));
     const options = {
       method: "POST",
       body: formData,
     };
     const res = await fetch("/api/products/addArticles", options);
     const data = await res.json();
+
+    toastHideAll();
+    if (data?.error) {
+      toastError(data?.error);
+    }
+    if (data?.message) {
+      toastSuccess(data?.message);
+      
+    }
+    
   };
   return (
     <InputContext.Provider value={{ inputs, setInputs, setMenuImgData }}>
