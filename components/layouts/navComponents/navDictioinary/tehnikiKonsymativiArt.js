@@ -112,5 +112,9 @@ const tehnikiKonsymativiArt = [
       },
     ],
   },
+  {
+    displayName: "Принтери",
+    name: "printeri",
+  }
 ];
 export default tehnikiKonsymativiArt;
