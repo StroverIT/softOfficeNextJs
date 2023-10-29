@@ -81,9 +81,7 @@ export default function GetAll({ product, setMenuImgData }) {
     }));
   };
 
-  useEffect(()=>{
-    console.log(stroverInputs);
-  },[stroverInputs])
+ 
   useEffect(()=>{
     const newProductRef = JSON.parse(JSON.stringify(product))
     setInputs(newProductRef)
@@ -135,7 +133,7 @@ export default function GetAll({ product, setMenuImgData }) {
   };
   return (
     <InputContext.Provider value={{ inputs, setInputs, setMenuImgData }}>
-      <section className="p-2 mb-10 shadow-xl rounded-md md:p-5">
+      <section className="p-2 mb-10 rounded-md shadow-xl md:p-5">
         <section className="relative mb-5">
           {!isForm && (
             <>
@@ -147,16 +145,16 @@ export default function GetAll({ product, setMenuImgData }) {
         </>
           )}
       
-        {productMenu && stroverInputs.length > 0 &&   <div className="sticky flex items-center justify-center top-24 z-20 ">
+        {productMenu && stroverInputs.length > 0 &&   <div className="sticky z-20 flex items-center justify-center top-24 ">
                 <button
-                  className="py-1 text-lg font-semibold text-white border bg-green hover:text-green hover:bg-transparent border-green px-14 shadow-2xl rounded-md transition-all"
+                  className="py-1 text-lg font-semibold text-white transition-all border rounded-md shadow-2xl bg-green hover:text-green hover:bg-transparent border-green px-14"
                   onClick={submitHandler}
                 >
                   Изпрати
                 </button>
               </div>}
           {isForm && (
-            <div className="relative flex  flex-col gap-y-5">
+            <div className="relative flex flex-col gap-y-5">
              
               <Input
                 id="name"
@@ -176,7 +174,7 @@ export default function GetAll({ product, setMenuImgData }) {
              
             </div>
           )}
-          <div className="absolute top-0 right-0 flex flex-col items-end justify-end space-y-2 z-30">Ф
+          <div className="absolute top-0 right-0 z-30 flex flex-col items-end justify-end space-y-2">Ф
           <div >
               <Edit
                 clickHandler={() => setProductMenu(!productMenu)}
@@ -194,7 +192,7 @@ export default function GetAll({ product, setMenuImgData }) {
            
           </div>
           {productMenu && (
-                  <div className="p-5 mt-14 mb-4 ">
+                  <div className="p-5 mb-4 mt-14 ">
                     <h1 className="text-lg font-bold text-center text-primary-500">
                       Продукти:
                     </h1>
